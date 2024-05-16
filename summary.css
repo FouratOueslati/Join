@@ -2,33 +2,39 @@ body {
     margin: 0;
     font-family: "Inter", sans-serif;
     display: flex;
+    box-sizing: border-box;
 }
 
 
 .tools-container {
-    width: 15vw;
+    width: 20vw;
     height: 100vh;
     background-color: #2A3647;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 40px;
     font-size: 16px;
     font-weight: 400;
     color: white;
+    box-sizing: border-box;
 }
 
 
 .join-icon {
     width: 65px;
     height: 80px;
+    margin-bottom: 100px;
 }
 
 
 .menu-tool-container {
-    height: 46px;
+    width: 50%;
+    height: 50px;
     display: flex;
+    align-items: center;
     gap: 15px;
-    
+    white-space: nowrap;
 }
 
 
@@ -38,16 +44,95 @@ body {
 }
 
 
+.policy-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgba(168, 168, 168, 1);
+    font-weight: 400;
+    font-size: 16px;
+    padding-top: 180px;
+}
+
+
+a:hover {
+    color: #29ABE2;
+    font-size: 18px;
+}
+
 .header-container {
-    width: 85vw;
-    height: 10vh;
+    width: 80vw;
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 110px;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+
+.help-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-right: 40px;
+}
+
+
+.user-initials-container {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #2C2C2C;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #29ABE2;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 
 .tasks-container {
     background-color: #F6F7F8;
-    height: 89vh ;
+    height: 85vh;
+}
+
+
+.summary-headline {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    width: 630px;
+    height: 75px;
+    font-size: 27px;
+    position: absolute;
+    top: 200px;
+    left: 320px;
+}
+
+
+.join-360 {
+    font-weight: 700;
+    font-size: 60px;
+}
+
+
+.vertical-seperator {
+    height: 60px;
+    width: 0px;
+    border: 2px solid #29ABE2;
+    border-radius: 8px;
+}
+
+
+.todos-container {
+    width: 500px;
+    height: 560px;
 }

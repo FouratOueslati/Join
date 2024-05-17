@@ -5,39 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="summary.css">
+    <script src="templates/include.js"></script>
     <title>summary</title>
 </head>
 
-<body>
-    <div class="tools-container">
-        <img class="join-icon" src="./img/Capa 3.png">
-        <div class="menu-tool-container">
-            <img class="menu-img" src="./img/Vector.png">
-            <div>Summary</div>
-        </div>
-        <div class="menu-tool-container">
-            <img class="menu-img" src="./img/edit_square.png">
-            <div>Add Task</div>
-        </div>
-        <div class="menu-tool-container">
-            <img class="menu-img" src="./img/board.png">
-            <div>Board</div>
-        </div>
-        <div class="menu-tool-container">
-            <img class="menu-img" src="./img/perm_contact_calendar.png">
-            <div>Contacts</div>
-        </div>
-        <div class="policy-container">
-           <a style=" line-height: 20px;">Privacy policy</a> 
-            <a style=" line-height: 20px;">Legal notice</a>
-        </div>
-
-    </div>
+<body onload="includeHTML()">
+    <div style="width: 20vw;" w3-include-html="templates/bluebar.html"></div>
     <div>
         <div class="header-container">
             Kanban Project Management Tool
             <div class="help-container">
-                <img src="./img/help.png">
+                <img class="help-icon" src="./img/help.png">
                 <div class="user-initials-container">FO</div>
             </div>
         </div>
@@ -55,5 +33,4 @@
         </div>
     </div>
 </body>
-
 </html>

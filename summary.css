@@ -55,15 +55,15 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    padding-left: 50px;
     gap: 12px;
-    margin-top: 20px;
     margin-bottom: 20px;
     color: rgba(168, 168, 168, 1);
     font-weight: 400;
     font-size: 16px;
-    margin-top: 180px;
-    min-width: 100%;
+    margin-top: 250px;
+    width: 100%;
 }
 
 
@@ -92,9 +92,9 @@ a:hover {
 
 
 .help-icon:hover {
-width: 38px;
-height: 38px;
-cursor: pointer;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
 }
 
 
@@ -140,7 +140,7 @@ cursor: pointer;
     height: 75px;
     font-size: 27px;
     position: absolute;
-    top: 200px;
+    top: 120px;
     left: 320px;
 }
 
@@ -160,6 +160,138 @@ cursor: pointer;
 
 
 .todos-container {
-    width: 500px;
-    height: 560px;
+    min-width: 500px;
+    min-height: 500px;
+    position: absolute;
+    top: 200px;
+    left: 330px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    box-sizing: border-box;
+}
+
+
+.todo {
+    width: 240px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    gap: 34px;
+    font-size: 20px;
+    background-color: #FFFFFF;
+}
+
+.todos-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    width: 540px;
+    min-width: 100%;
+}
+
+.todo:hover {
+    background-color: #2A3647;
+    color: white;
+}
+
+
+
+.todos-number-container {
+    font-weight: 600;
+    font-size: 64px;
+}
+
+
+.urgent-todo-container {
+    background-color: #FFFFFF;
+    width: 550px;
+    height: 140px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.urgent-todo-container:hover {
+    background-color: #2A3647;
+    color: white;
+}
+
+
+.urgent-box {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.grey-seperator {
+    border: 2px solid #D1D1D1;
+    width: 0px;
+    height: 100px;
+}
+
+
+.deadline-reminder-container {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+
+.date-container {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+.undone-tados-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.todo-in-progress {
+    padding: 8px;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    gap: 34px;
+    font-size: 20px;
+    background-color: #FFFFFF;
+}
+
+
+.todo-in-progress:hover {
+    background-color: #2A3647;
+    color: white;
+}
+
+
+.greeting-container {
+    position: absolute;
+    top: 430px;
+    left: 960px;
+}
+
+
+.greeting {
+    font-size: 47px;
+    font-weight: 500;
+}
+
+
+.user-name {
+    font-size: 64px;
+    font-weight: 700;
+    color: #29ABE2;
 }

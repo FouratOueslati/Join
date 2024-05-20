@@ -6,7 +6,7 @@ body {
 
 .intro-img {
     animation: moveUp ease-in-out 1500ms;
-    animation-fill-mode: forwards; 
+    animation-fill-mode: forwards;
     width: 100px;
     height: 130px;
     position: absolute;
@@ -17,7 +17,7 @@ body {
 
 .background-animation {
     animation: backgroundAnimation ease-in-out 2000ms;
-    animation-fill-mode: forwards; 
+    animation-fill-mode: forwards;
     background-color: #F6F7F8;
     height: 100vh;
 }
@@ -301,4 +301,62 @@ body {
     color: rgba(168, 168, 168, 1);
     font-weight: 400;
     font-size: 16px;
+    padding-left: 110px;
+}
+
+
+.help {
+    font-size: 61px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.headline {
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+
+h4 {
+    margin: 0;
+}
+
+
+.text-help {
+    font-size: 16px;
+    font-weight: 400px;
+    margin-bottom: 24px;
+}
+
+
+.text-help-guide {
+    margin-bottom: 16px;
+}
+
+
+li {
+    margin-bottom: 16px;
+}
+
+
+li::marker {
+    font-size: 27px;
+    font-weight: 700;
+}
+
+
+.join {
+    color: #29ABE2;
+}
+
+
+.help-bottom {
+    font-size: 27px;
+    font-weight: 700;
+    padding: 32px 0 24px 0;
 }

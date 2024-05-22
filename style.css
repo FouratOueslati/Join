@@ -52,12 +52,14 @@ body {
     position: absolute;
     top: 0;
     right: 50px;
-    height: 150px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 35px;
-    width: 100%
+    width: 100%;
+    height: 150px;
+
+
 }
 
 
@@ -316,7 +318,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 
@@ -360,7 +362,6 @@ body {
 
 a {
     text-align: left;
-    min-width: 50%;
 }
 
 
@@ -381,6 +382,7 @@ a:hover {
         position: unset;
         justify-content: center;
         height: 100px;
+        gap: 35px;
     }
 
     .main-container {
@@ -391,6 +393,7 @@ a:hover {
 
     .legal-container {
         gap: 24px;
+        margin-bottom: 24px;
     }
 
     .login-buttons-container {

@@ -1,80 +1,52 @@
 body {
     margin: 0;
     font-family: "Inter", sans-serif;
-    display: flex;
     box-sizing: border-box;
-}
-
-
-.header-container {
-    width: 80vw;
-    height: 15vh;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 110px;
-    font-weight: 400;
-    font-size: 20px;
 }
 
 
-.help-icon:hover {
-    width: 38px;
-    height: 38px;
-    cursor: pointer;
-}
-
-
-.help-container {
+.content-container {
+    box-sizing: border-box;
     display: flex;
-    align-items: center;
-    gap: 20px;
-    padding-right: 40px;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
 }
 
 
-.user-initials-container {
-    width: 50px;
-    height: 50px;
-    border: 3px solid #2C2C2C;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #29ABE2;
-    font-size: 20px;
-    font-weight: 700;
-}
-
-
-.user-initials-container:hover {
-    background-color: #E2E6EC;
-    cursor: pointer;
-}
-
-
-.tasks-container {
+.parent-container {
     background-color: #F6F7F8;
-    height: 85vh;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 
 .summary-headline {
+    box-sizing: border-box;
     display: flex;
-    gap: 30px;
     align-items: center;
-    width: 630px;
-    height: 75px;
+    justify-content: flex-start;
+    padding-left: 220px;
+    gap: 30px;
+    width: 100%;
+    height: 100px;
     font-size: 27px;
-    position: absolute;
-    top: 120px;
-    left: 320px;
 }
 
 
 .join-360 {
     font-weight: 700;
     font-size: 60px;
+}
+
+
+.seperator-and-text-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 
@@ -86,14 +58,18 @@ body {
 }
 
 
+.greeting-and-todos-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
 .todos-container {
-    min-width: 500px;
-    min-height: 500px;
-    position: absolute;
-    top: 200px;
-    left: 330px;
+    width: 60%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 28px;
     box-sizing: border-box;
@@ -115,16 +91,13 @@ body {
 .todos-box {
     display: flex;
     justify-content: space-between;
-    gap: 32px;
     width: 540px;
-    min-width: 100%;
 }
 
 .todo:hover {
     background-color: #2A3647;
     color: white;
 }
-
 
 
 .todos-number-container {
@@ -134,13 +107,15 @@ body {
 
 
 .urgent-todo-container {
+    box-sizing: border-box;
     background-color: #FFFFFF;
-    width: 550px;
+    width: 540px;
     height: 140px;
     border-radius: 30px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 32px;
 }
 
 
@@ -167,7 +142,7 @@ body {
 .deadline-reminder-container {
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 12px;
 }
 
 
@@ -177,8 +152,8 @@ body {
 }
 
 
-.undone-tados-container {
-    width: 100%;
+.undone-todos-container {
+    width: 540px;
     display: flex;
     justify-content: space-between;
 }
@@ -205,9 +180,10 @@ body {
 
 
 .greeting-container {
-    position: absolute;
-    top: 370px;
-    left: 960px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 

@@ -1,0 +1,128 @@
+@media (max-width: 1150px) {
+    .summary-headline {
+        padding-left: 100px;
+    }
+
+    .todos-container {
+        width: 75%;
+    }
+
+    .greeting-container {
+        width: 25%;
+    }
+
+    .greeting {
+        font-size: 28px;
+    }
+
+    .user-name {
+        font-size: 38px;
+    }
+}
+
+
+@media (max-width: 900px) {
+    body {
+        flex-direction: column-reverse;
+    }
+
+    .content-container {
+        height: 85vh;
+        width: 100vw;
+    }
+
+    .parent-container {
+        width: 100vw;
+        height: 90%;
+    }
+
+    .summary-headline {
+        padding-left: unset;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        padding-left: 10px;
+        height: 20%;
+        font-size: 18px;
+        gap: 8px;
+    }
+
+    .greeting-and-todos-container {
+        height: 80%;
+        align-items: flex-start;
+    }
+
+    .greeting-container {
+        display: none;
+    }
+
+    .seperator-and-text-container {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .d-none {
+        display: none;
+    }
+
+    .join-360 {
+        font-size: 38px;
+    }
+
+    .vertical-seperator {
+        width: 60px;
+        height: 0;
+    }
+
+    .todos-container {
+        width: 100%;
+        gap: 12px;
+    }
+
+    .todo {
+        height: 120px;
+        width: 200px;
+    }
+
+    .urgent-todo-container {
+        height: 120px;
+    }
+
+    .todo-in-progress {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+
+@media (max-width: 550px) {
+    .todos-box {
+        width: 310px;
+        gap: 8px;
+    }
+
+    .urgent-todo-container {
+        width: 310px;
+        padding: 24px;
+    }
+
+    .undone-todos-container {
+        width: 310px;
+        gap: 8px;
+    }
+
+    .todo-in-progress {
+        font-size: 16px;
+    }
+
+    .small-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .todos-number-container {
+        font-size: 38px;
+    }
+
+}

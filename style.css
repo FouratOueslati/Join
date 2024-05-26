@@ -15,6 +15,18 @@ body {
 }
 
 
+.intro-img-responsive {
+    animation: moveUpResponsiveWhite ease-in-out 1500ms;
+    animation-fill-mode: forwards;
+    width: 100px;
+    height: 130px;
+    position: absolute;
+    top: 40%;
+    left: 47%;
+    z-index: -999;
+}
+
+
 .join-icon-signup {
     width: 65px;
     height: 80px;
@@ -58,8 +70,6 @@ body {
     gap: 35px;
     width: 100%;
     height: 150px;
-
-
 }
 
 
@@ -291,87 +301,6 @@ body {
     font-size: 16px;
 }
 
-/*ab hier Style für Join blue bar seitlich*/
-.tools-container {
-    width: 20vw;
-    height: 100vh;
-    background-color: #2A3647;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 40px;
-    font-size: 16px;
-    font-weight: 400;
-    color: white;
-    box-sizing: border-box;
-}
-
-
-.join-icon {
-    width: 65px;
-    height: 80px;
-    margin-bottom: 100px;
-}
-
-
-.menu-tools-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-
-}
-
-
-.menu-tool {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    padding-left: 50px;
-    height: 50px;
-}
-
-
-.menu-tool:hover {
-    background-color: #2A3D59;
-    cursor: pointer;
-}
-
-
-.menu-img {
-    width: 25px;
-    height: 25px;
-}
-
-
-.policy-container {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding-left: 50px;
-    padding-bottom: 50px;
-    gap: 12px;
-    color: rgba(168, 168, 168, 1);
-    font-weight: 400;
-    font-size: 16px;
-    width: 100%;
-    flex: 1;
-}
-
-
-a {
-    text-align: left;
-}
-
-
-a:hover {
-    color: #29ABE2;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-/* hier endet Style für Join blue bar seitlich*/
 
 @media (max-width:900px) {
     .background {
@@ -406,20 +335,72 @@ a:hover {
     .login-button {
         width: 140px;
     }
+}
 
-    @keyframes moveUp {
-        100% {
-            display: unset;
-            position: absolute;
-            width: 35px;
-            height: 50px;
-            top: 20px;
-            left: 20px;
-        }
+
+@media (max-width: 690px) {
+    .main-container {
+        width: 300px;
+        height: 450px;
+        margin-top: 50px;
+    }
+
+    .login-headline {
+        font-size: 41px;
+    }
+
+    .data-container {
+        align-items: center;
+    }
+
+    .name-input {
+        width: 230px;
+        background-position: 230px;
+    }
+
+    .email-input {
+        width: 230px;
+        background-position: 230px;
+    }
+
+    .password-input {
+        width: 230px;
+        background-position: 230px;
+    }
+
+    .remember-container {
+        padding-left: unset;
+    }
+
+    .intro-img {
+        animation: moveUpResponsiveBlue ease-in-out 1500ms;
+        animation-fill-mode: forwards;
+    }
+
+    .intro-img-responsive {
+        z-index: 1;
+        animation: moveUpResponsiveWhite ease-in-out 1500ms;
+        animation-fill-mode: forwards;
+    }
+
+    .background-animation {
+        animation: backgroundAnimationResponsive ease-in-out 2000ms;
+        animation-fill-mode: forwards;
+        background-color: #2A3647;
+        height: 100vh;
+    }
+
+    .main-container-signup {
+        width: 320px;
+    }
+
+    .arrow-left-line {
+        right: 140px;
     }
 }
 
 
+/* Keyframes start here */
 @keyframes moveUp {
 
     100% {
@@ -434,6 +415,40 @@ a:hover {
 
 
 @keyframes backgroundAnimation {
+
+    100% {
+        background-color: transparent;
+        display: none;
+    }
+}
+
+
+@keyframes moveUpResponsiveBlue {
+    100% {
+        display: unset;
+        position: absolute;
+        width: 65px;
+        height: 80px;
+        top: 20px;
+        left: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes moveUpResponsiveWhite {
+    100% {
+        display: unset;
+        position: absolute;
+        width: 65px;
+        height: 80px;
+        top: 20px;
+        left: 20px;
+        opacity: 0;
+    }
+}
+
+
+@keyframes backgroundAnimationResponsive {
 
     100% {
         background-color: transparent;

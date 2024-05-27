@@ -15,6 +15,12 @@ body {
 }
 
 
+.join-icon {
+    width: 65px;
+    height: 80px;
+}
+
+
 .background-animation {
     animation: backgroundAnimation ease-in-out 2000ms;
     animation-fill-mode: forwards;
@@ -23,29 +29,8 @@ body {
 }
 
 
-@keyframes moveUp {
-
-    100% {
-        display: unset;
-        position: absolute;
-        width: 65px;
-        height: 80px;
-        top: 60px;
-        left: 60px;
-    }
-}
-
-
-@keyframes backgroundAnimation {
-
-    100% {
-        background-color: transparent;
-        display: none;
-    }
-}
-
-
 .background {
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -60,22 +45,16 @@ body {
 }
 
 
-.join-icon {
-    position: absolute;
-    top: 60px;
-    left: 60px;
-    width: 65px;
-    height: 80px;
-}
-
-
 .not-user-container {
     position: absolute;
-    top: 70px;
-    left: 1200px;
+    top: 0;
+    right: 50px;
+    height: 150px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 35px;
+    width: 100%
 }
 
 
@@ -100,6 +79,7 @@ body {
 
 
 .main-container {
+    margin-bottom: 48px;
     background-color: white;
     width: 550px;
     height: 400px;
@@ -113,6 +93,7 @@ body {
 
 
 .main-container-signup {
+    margin-bottom: 48px;
     background-color: white;
     width: 500px;
     height: 500px;
@@ -220,9 +201,12 @@ body {
 
 .remember-container {
     display: flex;
+    align-items: center;
     gap: 8px;
     padding-left: 40px;
     margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 
@@ -263,6 +247,7 @@ body {
 
 
 .login-buttons-container {
+    width: 100%;
     display: flex;
     gap: 35px;
     padding-left: 48px;
@@ -293,14 +278,13 @@ body {
 
 
 .legal-container {
-    position: absolute;
-    bottom: 40px;
-    left: 650px;
     display: flex;
+    justify-content: center;
     gap: 35px;
     color: rgba(168, 168, 168, 1);
     font-weight: 400;
     font-size: 16px;
+<<<<<<< HEAD
     padding-left: 110px;
 }
 
@@ -359,4 +343,69 @@ li::marker {
     font-size: 27px;
     font-weight: 700;
     padding: 32px 0 24px 0;
+=======
+}
+
+
+@media (max-width:900px) {
+    .background {
+        padding-top: 40px;
+    }
+    .not-user-container {
+        position: unset;
+        justify-content: center;
+        height: 100px;
+    }
+
+    .main-container {
+        width: 420px;
+        height: 500px;
+        margin-bottom: unset;
+    }
+
+    .legal-container {
+        gap: 24px;
+    }
+    .login-buttons-container {
+        flex-direction: column;
+        align-items: center;
+        padding-left: unset;
+        gap: 20px;
+    }
+    .login-button {
+        width: 140px;
+    }
+    @keyframes moveUp {
+        100% {
+            display: unset;
+            position: absolute;
+            width: 35px;
+            height: 50px;
+            top: 20px;
+            left: 20px;
+        }
+    }
+}
+
+
+@keyframes moveUp {
+
+    100% {
+        display: unset;
+        position: absolute;
+        width: 65px;
+        height: 80px;
+        top: 60px;
+        left: 60px;
+    }
+}
+
+
+@keyframes backgroundAnimation {
+
+    100% {
+        background-color: transparent;
+        display: none;
+    }
+>>>>>>> 9bf57da45996d3223fad6338c3e27e1b68022a87
 }

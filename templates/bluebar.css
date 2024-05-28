@@ -1,0 +1,131 @@
+.tools-container {
+    width: 15%;
+    background-color: #2A3647;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    box-sizing: border-box;
+}
+
+
+.join-icon {
+    width: 65px;
+    height: 80px;
+    margin-bottom: 100px;
+}
+
+
+.menu-tools-container {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.menu-tool {
+    box-sizing: border-box;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding-left: 50px;
+    height: 50px;
+}
+
+
+.menu-tool:hover {
+    background-color: #2A3D59;
+    cursor: pointer;
+}
+
+
+.menu-img {
+    width: 25px;
+    height: 25px;
+}
+
+
+.policy-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    gap: 12px;
+    color: rgba(168, 168, 168, 1);
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    flex: 1;
+}
+
+
+a {
+    text-align: left;
+}
+
+
+a:hover {
+    color: #29ABE2;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+@media (max-width: 1150px) {
+    .menu-tool {
+        padding-left: 10px;
+    }
+
+    .policy-container {
+        padding-left: 10px;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .greeting-container {
+        display: none;
+    }
+
+    .join-icon {
+        display: none;
+    }
+
+    .tools-container {
+        padding-top: unset;
+        justify-content: center;
+        width: 100vw;
+        height: 15vh;
+    }
+
+    .menu-tools-container {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .menu-tool {
+        flex-direction: column;
+        border-radius: 10px;
+        justify-content: center;
+        gap: 8px;
+        width: 100px;
+        height: 100%;
+        padding: 12px;
+    }
+
+    .menu-tool:hover {
+        background-color: #091931;
+    }
+
+    .policy-container {
+        display: none;
+    }
+}

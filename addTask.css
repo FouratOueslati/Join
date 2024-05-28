@@ -1,0 +1,239 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(246,247,249);
+    height: 100vh;
+}
+
+.main-container-center-task {
+    display: flex;
+    justify-content: center;
+}
+
+.main-container-task {
+    max-width: 800px;
+}
+
+.aot-task {
+    font-weight: 700;
+    margin-left: 32px;
+}
+
+.add-task-set-up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-task-set-up-one {
+    display: flex;
+    flex-direction: column;
+    margin: 32px;
+}
+
+.seperate-add-task {
+    width: 1px;
+    height: 344px;
+    margin-top: 24px;
+    background-color: rgb(209,209,209);
+}
+
+.add-task-set-up-two {
+    display: flex;
+    flex-direction: column;
+    margin: 32px;
+}
+
+span {
+    font-weight: 400;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.task-input-field {
+    padding: 12px 24px;;
+    width: 256px;
+    border-radius: 10px;
+    border: 1px solid  rgb(209,209,209);
+}
+
+.prioButtonSetup {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+}
+
+.buttonPrio{
+    background-color: white;
+    padding: 12px 20px;
+    border: 1px solid  rgb(209,209,209);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.button-txt-img {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.prio-photos {
+    width: 16px;
+}
+
+.button-end-proces {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 32px;
+}
+
+.color-blue-button {
+    background-color: rgb(42,54,71);
+    color: white;
+    border: 1px solid  rgb(209,209,209);
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    
+}
+
+.color-white-button {
+    background-color: white;
+    color: black;
+    border: 1px solid  rgb(209,209,209);
+    padding: 12px 20px;;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.check-svg {
+    width: 16px;
+}
+
+.close-svg {
+    width: 12px;
+}
+
+/* Subtask */
+.input-with-img {
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid  rgb(209,209,209);
+    display: flex;
+    align-items: center;
+}
+
+.task-input-with-img {
+    width: 256px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border-width: 0px 0px 0px 0px;
+}
+
+.input-field-svg {
+    position: absolute;
+    margin-left: 8px;
+    margin-left: 280px;
+}
+
+/*DropDown*/
+.drop-down {
+    position: relative;
+}
+
+.drop-down * {
+    box-sizing: border-box;
+}
+
+.select {
+    background-color: rgb(255, 255, 255);
+    width: 304px;
+    padding: 4px 16px;;
+    border-radius: 10px;
+    border: 1px solid rgb(209,209,209);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.caret {
+    width: 0;
+    height: 0px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid rgb(0, 0, 0);
+}
+
+.createRotate {
+    transform: rotate(180deg);
+}
+
+.menu {
+    list-style: none;
+    padding: 0.2em 0.5em;
+    border: 1px solid rgb(209,209,209);
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 1.7em;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    display: none;
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.selectClicked {
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2)
+}
+
+.menu li {
+    cursor: pointer;
+}
+
+.menu li:hover {
+    background-color: rgba(0, 0, 0, 0.021);
+}
+
+.active {
+    background: rgba(235, 234, 234, 0.87);
+}
+
+.menuOpen {
+    display: block;
+    opacity: 1;
+}
+
+@media(max-width: 700px) {
+    .seperate-add-task {
+        display: none;
+    }
+    .add-task-set-up {
+        display: flex;
+        flex-direction: column;
+        margin: 32px;
+    }
+    .color-white-button {
+        display: none;
+    }
+    .add-task-set-up-one {
+        margin: 0px;
+    }
+    .add-task-set-up-two {
+        margin: 0px;
+    }
+    .button-end-proces {
+        padding-top: 32px;
+        position: fixed;
+        bottom: 0px;
+        background-color: rgb(246,247,249); 
+        width: 310px; 
+    }
+    .padding-for-smaller-screens {
+        padding-top: 92px;
+    }
+    
+}
+

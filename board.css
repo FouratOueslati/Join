@@ -1,0 +1,115 @@
+body {
+    margin: 0px;
+    background-color: rgb(246,247,249);
+}
+
+.aot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1044px;
+}
+
+.find-task-button-and-input {
+    display: flex;
+    gap: 8px;
+}
+
+.input-with-img {
+    width: 296px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    display: flex;
+    border: 1px solid  rgb(209,209,209);
+}
+
+.input-svg {
+  width: 24px;
+  margin-left: 20px;
+}
+.seperate-line {
+    width: 1px;
+    height: 33px;
+    margin-top: 8px;
+    margin-left: 3px;
+    background-color: rgb(209,209,209);
+}
+
+
+.find-task-input {
+    border-radius: 10px;
+    width: 180px;
+    padding: 12px 24px;
+    border-width: 0px 0px 0px 0px;
+}
+
+.add-task-button {
+    background-color: rgb(42,54,71);
+    color: white;
+    border: 1px solid  rgb(209,209,209);
+    padding: 16px 20px;
+    cursor: pointer;
+    border-radius: 10px; 
+}
+
+.txt-svg-centering-add-task {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.svg-size {
+    width: 14px;
+}
+
+.board-position-lower {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    width: 1000px;
+}
+
+.txt-svg-cetering {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-width {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-background {
+    background-color: white;
+    padding: 14px;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 10px;
+}
+
+/* Drag area */
+.drag-area {
+    width: 192px;
+    height: 32px;
+    margin-top: 16px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px dashed black;
+    margin-bottom: 50px;
+}
+
+.drag-area-highlight {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.todo {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 200px;
+    height: 200px;
+}
+

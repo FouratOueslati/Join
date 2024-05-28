@@ -1,0 +1,104 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(246, 247, 249);
+    min-height: 100vh;
+}
+
+.contacts-bar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 272px;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollbox-inner {
+    margin-top: 80px;
+}
+
+.add-contacts-placement {
+    width: 268px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    height: 96px;
+    position: fixed;
+    top: 0px;
+}
+
+.add-contacts-style-button {
+    position: fixed;
+    background-color: rgb(42, 54, 71);
+    border: 1px solid  rgb(209,209,209);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 10px;
+    margin-top: 24px;
+}
+
+.img-contact-add {
+    width: 24px;
+}
+
+.button-add-contact-centering {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.scroll-box {
+    overflow: auto;
+}
+
+
+::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(168, 168, 168);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: (168, 168, 168);
+    border-radius: 4px;
+}
+
+.aot {
+    display: flex;
+    margin-left: 320px;
+    gap: 32px;
+    margin-top: 32px;
+}
+
+.seperate-line {
+    width: 2px;
+    background-color: rgb(143, 209, 237);
+}
+
+.h1-txt-contacts {
+    font-weight: 700px;
+}
+
+.span-contacts {
+    font-weight: 400px;
+    display: flex;
+    align-items: center;
+}
+
+@media(max-width: 900px) {
+
+}

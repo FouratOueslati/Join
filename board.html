@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+
+    <link rel="stylesheet" href="board.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="./templates/bluebar.css">
+    <link rel="stylesheet" href="./templates/topbar.css">
+    <script src="include.js"></script>
+    <script src="board.js"></script>
+</head>
+
+<body onload="updateHTML();includeHTML()">
+    
+    <div>     
+        <div class="header-container" w3-include-html="templates/topbar.html"></div>
+        <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
+
+        <div class="aot">
+            <h1>Board</h1>
+
+            <div class="find-task-button-and-input">
+                <div class="input-with-img">
+                    <input class="find-task-input" placeholder="Find Task">
+                    <div class="seperate-line"></div>
+                    <img src="./boardImg/search.svg" class="input-svg">
+                </div>
+
+                <button class="add-task-button">
+                    <div class="txt-svg-centering-add-task">Add task<img class="svg-size" src="./boardImg/plus.svg">
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="board-position-lower">
+            <div class="task-width">
+                <div>
+                    <span class="txt-svg-cetering">To do <img class="txt-svg-centering" src="./boardImg/add.svg"></span>
+                    <div>
+                        <div class="drag-area" id="open" ondrop="moveTo('open')" ondragleave="removeHighlight('open')"
+                            ondragover="allowDrop(event); highlight('open')"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-width">
+                <div>
+                    <span class="txt-svg-cetering">In progres <img class="txt-svg-centering"
+                            src="./boardImg/add.svg"></span>
+                    <div>
+                        <div class="drag-area" id="inprogress" ondrop="moveTo('inprogress')"
+                            ondragleave="removeHighlight('inprogress')"
+                            ondragover="allowDrop(event); highlight('inprogress')"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-width">
+                <div>
+                    <span class="txt-svg-cetering">Await feedback <img class="txt-svg-centering"
+                            src="./boardImg/add.svg"></span>
+                    <div>
+                        <div class="drag-area" id="awaitfeedback" ondrop="moveTo('awaitfeedback')"
+                            ondragleave="removeHighlight('awaitfeedback')"
+                            ondragover="allowDrop(event); highlight('awaitfeedback')"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-width">
+                <div>
+                    <span class="txt-svg-cetering">Done</span>
+                    <div>
+                        <div class="drag-area" id="closed" ondrop="moveTo('closed')"
+                            ondragleave="removeHighlight('closed')" ondragover="allowDrop(event); highlight('closed')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

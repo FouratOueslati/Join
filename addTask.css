@@ -2,16 +2,27 @@ body {
     margin: 0px;
     padding: 0px;
     background-color: rgb(246,247,249);
+    display: flex;
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+}
+
+.parent-container {
+    background-color: #F6F7F8;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 85%;
     height: 100vh;
 }
 
-.main-container-center-task {
-
-}
-
-.test {
-   
-}
 
 .main-container-task {
     max-width: 800px;
@@ -228,7 +239,7 @@ span {
         margin: 0px;
     }
     .button-end-proces {
-        padding-top: 32px;
+        padding: 8px;
         position: fixed;
         bottom: 0px;
         background-color: rgb(246,247,249); 

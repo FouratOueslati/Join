@@ -6,7 +6,7 @@ body {
 }
 
 .contacts-bar {
-    position: fixed;
+    position: absolute;
     top: 0px;
     left: 0px;
     width: 272px;

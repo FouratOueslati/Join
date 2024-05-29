@@ -15,74 +15,76 @@
 </head>
 
 <body onload="includeHTML()">
-    <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
-    <div class="content-container">
-        <div class="header-container" w3-include-html="templates/topbar.html"></div>
-        <div class="parent-container">
-            <div class="summary-headline">
-                <div class="join-360">Join 360</div>
-                <div class="seperator-and-text-container">
-                    <div class="vertical-seperator"></div>
-                    <div>Key Metrics at a Glance</div>
+    <div class="main-content">
+        <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
+        <div class="content-container">
+            <div class="header-container" w3-include-html="templates/topbar.html"></div>
+            <div class="parent-container">
+                <div class="summary-headline">
+                    <div class="join-360">Join 360</div>
+                    <div class="seperator-and-text-container">
+                        <div class="vertical-seperator"></div>
+                        <div>Key Metrics at a Glance</div>
+                    </div>
                 </div>
-            </div>
-            <div class="greeting-and-todos-container">
-                <div class="todos-container">
-                    <div class="todos-box">
-                        <div class="todo">
-                            <img class="small-icon" src="./img/pencil.png">
-                            <div style="text-align: center;">
-                                <div class="todos-number-container">1</div>
-                                To-do
+                <div class="greeting-and-todos-container">
+                    <div class="todos-container">
+                        <div class="todos-box">
+                            <div class="todo">
+                                <img class="small-icon" src="./img/pencil.png">
+                                <div style="text-align: center;">
+                                    <div class="todos-number-container">1</div>
+                                    <div class="todos-text-container">To-do</div>
+                                </div>
+                            </div>
+                            <div class="todo">
+                                <img class="small-icon" src="./img/pencil.png">
+                                <div style="text-align: center;">
+                                    <div class="todos-number-container">1</div>
+                                    <div class="todos-text-container">Done</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="todo">
-                            <img class="small-icon" src="./img/pencil.png">
-                            <div style="text-align: center;">
-                                <div class="todos-number-container">1</div>
-                                Done
+                        <div class="urgent-todo-container">
+                            <div class="urgent-box">
+                                <img class="small-icon" src="./img/urgent.png">
+                                <div style="text-align: center;">
+                                    <div class="todos-number-container">1</div>
+                                    <div class="todos-text-container">Urgent</div>
+                                </div>
+                            </div>
+                            <div class="grey-seperator"></div>
+                            <div class="deadline-reminder-container">
+                                <div class="date-container">October 16, 2022</div>
+                                <div class="todos-text-container">Upcoming Deadline</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="urgent-todo-container">
-                        <div class="urgent-box">
-                            <img class="small-icon" src="./img/urgent.png">
-                            <div style="text-align: center;">
-                                <div class="todos-number-container">1</div>
-                                Urgent
+                        <div class="undone-todos-container">
+                            <div class="todo-in-progress">
+                                <div style="text-align: center;">
+                                    <div class="todos-number-container">5</div>
+                                    <div>Tasks in <br>Board</div>
+                                </div>
+                            </div>
+                            <div class="todo-in-progress">
+                                <div style="text-align: center;">
+                                    <div class="todos-number-container">2</div>
+                                    Tasks in Progress
+                                </div>
+                            </div>
+                            <div class="todo-in-progress">
+                                <div style="text-align: center;">
+                                    <div class="todos-number-container">2</div>
+                                    <div>Awaiting Feedback</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="grey-seperator"></div>
-                        <div class="deadline-reminder-container">
-                            <div class="date-container">October 16, 2022</div>
-                            Upcoming Deadline
-                        </div>
-                    </div>
-                    <div class="undone-todos-container">
-                        <div class="todo-in-progress">
-                            <div style="text-align: center;">
-                                <div class="todos-number-container">5</div>
-                                <div>Tasks in <br>Board</div>
-                            </div>
-                        </div>
-                        <div class="todo-in-progress">
-                            <div style="text-align: center;">
-                                <div class="todos-number-container">2</div>
-                                Tasks in Progress
-                            </div>
-                        </div>
-                        <div class="todo-in-progress">
-                            <div style="text-align: center;">
-                                <div class="todos-number-container">2</div>
-                                <div>Awaiting Feedback</div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-                <div class="greeting-container">
-                    <div class="greeting">Good morning,</div>
-                    <div class="user-name">Fourat Oueslati</div>
+                    </div>
+                    <div class="greeting-container">
+                        <div class="greeting">Good morning,</div>
+                        <div class="user-name">Fourat Oueslati</div>
+                    </div>
                 </div>
             </div>
         </div>

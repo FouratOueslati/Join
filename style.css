@@ -15,27 +15,6 @@ body {
 }
 
 
-.intro-img-responsive {
-    animation: moveUpResponsiveWhite ease-in-out 1500ms;
-    animation-fill-mode: forwards;
-    width: 100px;
-    height: 130px;
-    position: absolute;
-    top: 40%;
-    left: 47%;
-    z-index: -999;
-}
-
-
-.join-icon-signup {
-    width: 65px;
-    height: 80px;
-    position: absolute;
-    top: 60px;
-    left: 60px;
-}
-
-
 .background-animation {
     animation: backgroundAnimation ease-in-out 2000ms;
     animation-fill-mode: forwards;
@@ -44,8 +23,29 @@ body {
 }
 
 
+@keyframes moveUp {
+
+    100% {
+        display: unset;
+        position: absolute;
+        width: 65px;
+        height: 80px;
+        top: 60px;
+        left: 60px;
+    }
+}
+
+
+@keyframes backgroundAnimation {
+
+    100% {
+        background-color: transparent;
+        display: none;
+    }
+}
+
+
 .background {
-    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -62,14 +62,11 @@ body {
 
 .not-user-container {
     position: absolute;
-    top: 0;
-    right: 50px;
+    top: 70px;
+    left: 1200px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     gap: 35px;
-    width: 100%;
-    height: 150px;
 }
 
 
@@ -94,7 +91,6 @@ body {
 
 
 .main-container {
-    margin-bottom: 48px;
     background-color: white;
     width: 550px;
     height: 400px;
@@ -108,7 +104,6 @@ body {
 
 
 .main-container-signup {
-    margin-bottom: 48px;
     background-color: white;
     width: 500px;
     height: 500px;
@@ -216,12 +211,9 @@ body {
 
 .remember-container {
     display: flex;
-    align-items: center;
     gap: 8px;
     padding-left: 40px;
     margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: 400;
 }
 
 
@@ -238,7 +230,6 @@ body {
     font-weight: 400;
     color: rgba(168, 168, 168, 1);
 }
-
 
 .rectangle {
     width: 16px;
@@ -263,7 +254,6 @@ body {
 
 
 .login-buttons-container {
-    width: 100%;
     display: flex;
     gap: 35px;
     padding-left: 48px;
@@ -293,9 +283,13 @@ body {
 }
 
 
+/* CSS Style Nicole //////////////////////////////////////////////////////////////// */
+
 .legal-container {
+    position: absolute;
+    bottom: 40px;
+    left: 650px;
     display: flex;
-    justify-content: center;
     gap: 35px;
     color: rgba(168, 168, 168, 1);
     font-weight: 400;
@@ -304,13 +298,29 @@ body {
 }
 
 
-.help {
-    font-size: 61px;
-    font-weight: 700;
-    margin-bottom: 32px;
+.help_legal_privacy {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    padding-left: 96px;
+    height: 85%;
+}
+
+
+.help-headline img {
+    height: 32px;
+
+}
+
+
+.help_legal_privacy-headline {
+    box-sizing: border-box;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+    height: 100px;
+    padding: 0 32px 32px 0;
 }
 
 
@@ -321,8 +331,33 @@ body {
 }
 
 
-h4 {
-    margin: 0;
+.guide-container {
+    width: 80%;
+}
+
+
+.guide {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+
+.guide-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 35px;
+}
+
+
+.guide-headline {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+.guide-text {
+    font-size: 16px;
+    font-weight: 400;
 }
 
 
@@ -330,6 +365,7 @@ h4 {
     font-size: 16px;
     font-weight: 400px;
     margin-bottom: 24px;
+    width: 80%;
 }
 
 
@@ -338,127 +374,44 @@ h4 {
 }
 
 
-li {
-    margin-bottom: 16px;
-}
-
-
-li::marker {
-    font-size: 27px;
-    font-weight: 700;
-}
-
-
 .join {
-    color: #29ABE2;
+    color: #29ABE2
 }
 
+
+.scroll {
+    overflow-y: scroll;
+}
+
+
+.scroll::-webkit-scrollbar {
+    width: 24px;
+}
+
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #A8A8A8;
+  border-radius: 24px;
+  border: solid 8px #F6F7F8;
+}
+
+
+.scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #29ABE2;
+}
+
+
+ul {
+    margin: 0 0 24px 0;  
+}
+
+h4 {
+    margin: 0;
+}
+/* //////////////////////////////////////////////////////////// */
 
 .help-bottom {
     font-size: 27px;
     font-weight: 700;
     padding: 32px 0 24px 0;
-}
-
-
-@media (max-width:900px) {
-    .background {
-        padding-top: 40px;
-    }
-
-    .not-user-container {
-        position: unset;
-        justify-content: center;
-        height: 100px;
-        gap: 35px;
-    }
-
-    .main-container {
-        width: 420px;
-        height: 500px;
-        margin-bottom: unset;
-    }
-
-    .legal-container {
-        gap: 24px;
-        margin-bottom: 24px;
-    }
-
-    .login-buttons-container {
-        flex-direction: column;
-        align-items: center;
-        padding-left: unset;
-        gap: 20px;
-    }
-
-    .login-button {
-        width: 140px;
-    }
-}
-
-
-@media (max-width: 690px) {
-    .join-icon-signup {
-        top: 20px;
-        left: 20px;
-    }
-    .main-container {
-        width: 300px;
-        height: 440px;
-        margin-top: 50px;
-    }
-
-    .login-headline {
-        font-size: 41px;
-    }
-
-    .data-container {
-        align-items: center;
-    }
-
-    .name-input {
-        width: 230px;
-        background-position: 230px;
-    }
-
-    .email-input {
-        width: 230px;
-        background-position: 230px;
-    }
-
-    .password-input {
-        width: 230px;
-        background-position: 230px;
-    }
-
-    .remember-container {
-        padding-left: unset;
-    }
-
-    .intro-img {
-        animation: moveUpResponsiveBlue ease-in-out 1500ms;
-        animation-fill-mode: forwards;
-    }
-
-    .intro-img-responsive {
-        z-index: 1;
-        animation: moveUpResponsiveWhite ease-in-out 1500ms;
-        animation-fill-mode: forwards;
-    }
-
-    .background-animation {
-        animation: backgroundAnimationResponsive ease-in-out 2000ms;
-        animation-fill-mode: forwards;
-        background-color: #2A3647;
-        height: 100vh;
-    }
-
-    .main-container-signup {
-        width: 320px;
-        height: 480px;
-    }
-
-    .arrow-left-line {
-        right: 140px;
-    }
 }

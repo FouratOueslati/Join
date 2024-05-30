@@ -33,11 +33,13 @@
 
     .content-container {
         height: 90%;
+        height: 90%;
         width: 100vw;
     }
 
     .parent-container {
         width: 100vw;
+        height: 80%;
         height: 80%;
     }
 
@@ -153,11 +155,13 @@
     .todos-box {
         width: 310px;
         gap: 24px;
+        gap: 24px;
     }
 
     .urgent-todo-container {
         width: 310px;
         padding: 24px;
+        gap: 20px;
         gap: 20px;
     }
 
@@ -173,6 +177,8 @@
     .small-icon {
         width: 40px;
         height: 40px;
+        width: 40px;
+        height: 40px;
     }
 
     .todos-number-container {
@@ -185,7 +191,28 @@
 
     .date-container {
         font-size: 16px;
+        font-size: 47px;
     }
+
+    .todos-text-container {
+        font-size: 14px;
+    }
+
+    .date-container {
+        font-size: 16px;
+    }
+
+    /* CSS Nicole //////////////////// */
+
+    .guide-container {
+        width: 100%;
+    }
+
+    .text-help {
+        width: 100%;
+    }
+
+    /* ////////////////////////////// */
 
     /* CSS Nicole //////////////////// */
 

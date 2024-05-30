@@ -45,6 +45,28 @@ body {
 }
 
 
+@keyframes moveUp {
+
+    100% {
+        display: unset;
+        position: absolute;
+        width: 65px;
+        height: 80px;
+        top: 60px;
+        left: 60px;
+    }
+}
+
+
+@keyframes backgroundAnimation {
+
+    100% {
+        background-color: transparent;
+        display: none;
+    }
+}
+
+
 .background {
     position: fixed;
     top: 0;
@@ -62,6 +84,8 @@ body {
 
 .not-user-container {
     position: absolute;
+    top: 70px;
+    left: 1200px;
     top: 70px;
     left: 1200px;
     display: flex;
@@ -285,7 +309,12 @@ body {
 
 /* CSS Style Nicole //////////////////////////////////////////////////////////////// */
 
+/* CSS Style Nicole //////////////////////////////////////////////////////////////// */
+
 .legal-container {
+    position: absolute;
+    bottom: 40px;
+    left: 650px;
     position: absolute;
     bottom: 40px;
     left: 650px;

@@ -23,9 +23,17 @@ body {
     height: 100vh;
 }
 
+.main-container-center-task {
+    display: flex;
+    justify-content: center;
+    height: 90%;
+
+}
+
 
 .main-container-task {
     max-width: 800px;
+    
 }
 
 .aot-task {
@@ -99,7 +107,7 @@ span {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 32px;
+    margin: 56px 32px 32px 32px;
 }
 
 .color-blue-button {
@@ -191,7 +199,7 @@ span {
     border-radius: 10px;
     color: rgb(0, 0, 0);
     position: absolute;
-    top: 1.7em;
+    top: 2.7em;
     width: 100%;
     background-color: rgb(255, 255, 255);
     display: none;
@@ -221,6 +229,13 @@ span {
 }
 
 @media(max-width: 700px) {
+    .main-container-center-task {
+        position: absolute;
+        bottom: 15%;
+        top: 15%;
+        left: 0;
+        right: 0;
+    }
     .seperate-add-task {
         display: none;
     }
@@ -228,6 +243,7 @@ span {
         display: flex;
         flex-direction: column;
         margin: 32px;
+        margin-top: 8px;
     }
     .color-white-button {
         display: none;
@@ -239,15 +255,23 @@ span {
         margin: 0px;
     }
     .button-end-proces {
-        padding: 8px;
         position: fixed;
+        margin: 0px;
         bottom: 0px;
         background-color: rgb(246,247,249); 
-        width: 310px; 
+        width: 305px; 
+        padding-bottom: 32px;
+        padding-top: 8px
     }
     .padding-for-smaller-screens {
-        padding-top: 92px;
+        padding-top: 256px;
     }
-    
+    .tools-container {
+        z-index: 2;
+    }
 }
+
+
+
+
 

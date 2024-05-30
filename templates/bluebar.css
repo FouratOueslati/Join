@@ -99,11 +99,27 @@ a:hover {
         display: none;
     }
 
+    .header-container {
+        height: 10%;
+    }
+
+    .content-container {
+        height: 100vh;
+    }
+
+    .summary-headline {
+        padding-left: 16px;
+    }
+
     .tools-container {
         padding-top: unset;
         justify-content: center;
         width: 100vw;
-        height: 15vh;
+        height: 10%;
+        position: fixed;
+        bottom: 0;
+        font-size: 11px;
+        text-align: center;
     }
 
     .menu-tools-container {
@@ -123,6 +139,17 @@ a:hover {
 
     .menu-tool:hover {
         background-color: #091931;
+    }
+
+    .menu-img {
+        height: 24px;
+        width: 24px;
+    }
+
+    .todo {
+        height: 110px;
+        width: 186px;
+        gap: 10px;
     }
 
     .policy-container {

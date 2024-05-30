@@ -18,6 +18,11 @@
     .user-name {
         font-size: 38px;
     }
+
+    .fat-Contacts-headline {
+        font-size: 28px;
+    }
+
 }
 
 
@@ -27,13 +32,13 @@
     }
 
     .content-container {
-        height: 85vh;
+        height: 90%;
         width: 100vw;
     }
 
     .parent-container {
         width: 100vw;
-        height: 90%;
+        height: 80%;
     }
 
     .summary-headline {
@@ -93,18 +98,67 @@
         width: 120px;
         height: 120px;
     }
+
+    .contact-headline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    /* CSS Nicole ////////////////////////// */
+    .help_legal_privacy {
+        padding-left: 16px;
+    }
+
+    .help_legal_privacy-headline {
+        margin: 48px 0 32px 0;
+    }
+
+    /* //////////////////////////////////// */
 }
 
+@media (max-width: 600px) {
+    .contact-headline {
+        display: none;
+    }
+
+    .add-contact-box {
+        width: 100vw;
+    }
+
+    .scroll {
+        width: 100vw;
+    }
+
+    .contact-data {
+        padding-left: 25%;
+        gap: 18px;
+    }
+
+    .contacts-name {
+        font-size: 16px;
+    }
+
+    .contact-email {
+        font-size: 12px;
+    }
+
+    .shorts-name {
+        height: 32px;
+        width: 32px;
+    }
+}
 
 @media (max-width: 550px) {
     .todos-box {
         width: 310px;
-        gap: 8px;
+        gap: 24px;
     }
 
     .urgent-todo-container {
         width: 310px;
         padding: 24px;
+        gap: 20px;
     }
 
     .undone-todos-container {
@@ -117,12 +171,32 @@
     }
 
     .small-icon {
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
     }
 
     .todos-number-container {
-        font-size: 38px;
+        font-size: 47px;
     }
+
+    .todos-text-container {
+        font-size: 14px;
+    }
+
+    .date-container {
+        font-size: 16px;
+    }
+
+    /* CSS Nicole //////////////////// */
+
+    .guide-container {
+        width: 100%;
+    }
+
+    .text-help {
+        width: 100%;
+    }
+
+    /* ////////////////////////////// */
 
 }

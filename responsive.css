@@ -99,6 +99,10 @@
         padding-left: 16px;
     }
 
+    .help_legal_privacy-headline {
+        margin: 48px 0 32px 0;
+    }
+
 /* //////////////////////////////////// */
 }
 
@@ -145,10 +149,6 @@
 
     .guide-container {
         width: 100%;
-    }
-
-    .help_legal_privacy-headline {
-        padding: 0 0 32px 0;
     }
 
     .text-help {

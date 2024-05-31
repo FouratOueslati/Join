@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="board.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="./responsive.css">
     <link rel="stylesheet" href="./templates/bluebar.css">
     <link rel="stylesheet" href="./templates/topbar.css">
     <script src="include.js"></script>
@@ -18,29 +19,29 @@
 
 <body onload="updateHTML();includeHTML()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
-
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
         <div class="parent-container">
-            <div class="x">
             <div class="aot">
-
                 <h1>Board</h1>
-
                 <div class="find-task-button-and-input">
                     <div class="input-with-img">
                         <input class="find-task-input" placeholder="Find Task">
                         <div class="seperate-line"></div>
                         <img src="./boardImg/search.svg" class="input-svg">
                     </div>
-
                     <button class="add-task-button">
-                        <div class="txt-svg-centering-add-task">Add task<img class="svg-size" src="./boardImg/plus.svg">
+                        <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
+                                class="svg-size" src="./boardImg/plus.svg">
                         </div>
                     </button>
                 </div>
             </div>
-
+            <div class="input-with-img-smal-scren">
+                <input class="find-task-input" placeholder="Find Task">
+                <div class="seperate-line"></div>
+                <img src="./boardImg/search.svg" class="input-svg">
+            </div>
             <div class="board-position-lower">
                 <div class="task-width">
                     <div>
@@ -53,7 +54,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">In progres <img class="txt-svg-centering"
@@ -65,7 +65,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">Await feedback <img class="txt-svg-centering"
@@ -77,7 +76,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">Done</span>
@@ -92,12 +90,7 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
 </div>
-
-
 </body>
 
 </html>

@@ -9,13 +9,14 @@ async function postUser(path = "", data = {}) {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
     let confirmedPassword = document.getElementById('confirmedPassword');
+   
     data = {
         name: name.value,
         email: email.value,
         password: password.value,
         confirmedPassword: confirmedPassword.value,
     };
-    if (password.value === confirmedPassword.value) {
+    if (password.value === confirmedPassword.value ) {
         let response = await fetch(BASE_URL_SIGNUP + path + ".json", {
             method: "POST",
             header: {
@@ -24,6 +25,7 @@ async function postUser(path = "", data = {}) {
             body: JSON.stringify(data)
         });
         return responseToJson = await response.json();
+        window.open("login.html");
     } else {
         alert("passwords don't match")
     }

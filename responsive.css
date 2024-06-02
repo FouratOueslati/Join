@@ -69,7 +69,7 @@
         gap: 12px;
     }
 
-    .d-none {
+    .help-icon {
         display: none;
     }
 
@@ -148,6 +148,24 @@
     .shorts-name {
         height: 32px;
         width: 32px;
+    }
+
+    .intro-img {
+        animation: moveUpResponsiveBlue ease-in-out 1500ms;
+        animation-fill-mode: forwards;
+    }
+
+    .intro-img-responsive {
+        animation: moveUpResponsiveWhite ease-in-out 1500ms;
+        animation-fill-mode: forwards;
+        display: unset;
+    }
+
+    .background-animation {
+        animation: backgroundAnimationResponsive ease-in-out 2000ms;
+        animation-fill-mode: forwards;
+        background-color: #2A3647;
+        height: 100vh;
     }
 }
 

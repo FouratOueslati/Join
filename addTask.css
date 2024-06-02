@@ -126,12 +126,18 @@ h1 {
     display: flex;
     align-items: center;
     gap: 3px;
+    font-size: 20px;
 }
 
 .button-end-proces {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.color-blue-button:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .color-white-button {
@@ -150,6 +156,11 @@ h1 {
     padding: 12px 20px;
     cursor: pointer;
     border-radius: 10px; 
+}
+
+.color-white-button:hover {
+    border-color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .check-svg {

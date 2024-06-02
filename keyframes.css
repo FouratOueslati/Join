@@ -34,7 +34,6 @@
 
 @keyframes moveUpResponsiveWhite {
     100% {
-        display: unset;
         position: absolute;
         width: 65px;
         height: 80px;

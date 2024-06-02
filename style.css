@@ -4,6 +4,11 @@ body {
 }
 
 
+.d-none {
+    display: none;
+}
+
+
 .intro-img {
     animation: moveUp ease-in-out 1500ms;
     animation-fill-mode: forwards;
@@ -14,56 +19,22 @@ body {
     left: 47%;
 }
 
+.intro-img-responsive {
+    display: none;
+    animation: moveUp ease-in-out 1500ms;
+    animation-fill-mode: forwards;
+    width: 100px;
+    height: 130px;
+    position: absolute;
+    top: 40%;
+    left: 47%;
+}
 
 .background-animation {
     animation: backgroundAnimation ease-in-out 2000ms;
     animation-fill-mode: forwards;
     background-color: #F6F7F8;
     height: 100vh;
-}
-
-
-@keyframes moveUp {
-
-    100% {
-        display: unset;
-        position: absolute;
-        width: 65px;
-        height: 80px;
-        top: 60px;
-        left: 60px;
-    }
-}
-
-
-@keyframes backgroundAnimation {
-
-    100% {
-        background-color: transparent;
-        display: none;
-    }
-}
-
-
-@keyframes moveUp {
-
-    100% {
-        display: unset;
-        position: absolute;
-        width: 65px;
-        height: 80px;
-        top: 60px;
-        left: 60px;
-    }
-}
-
-
-@keyframes backgroundAnimation {
-
-    100% {
-        background-color: transparent;
-        display: none;
-    }
 }
 
 
@@ -227,6 +198,21 @@ body {
     font-size: 20px;
 }
 
+.phone-input {
+    height: 16px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 10px;
+    outline: unset;
+    Padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 21px;
+    padding-right: 21px;
+    background: url('./img/call.png');
+    background-repeat: no-repeat;
+    background-position: 350px;
+    font-weight: 400;
+    font-size: 20px;
+}
 
 ::placeholder {
     color: #D1D1D1;
@@ -312,18 +298,13 @@ body {
 /* CSS Style Nicole //////////////////////////////////////////////////////////////// */
 
 .legal-container {
-    position: absolute;
-    bottom: 40px;
-    left: 650px;
-    position: absolute;
-    bottom: 40px;
-    left: 650px;
+    margin-top: 35px;
     display: flex;
+    justify-content: center;
     gap: 35px;
     color: rgba(168, 168, 168, 1);
     font-weight: 400;
     font-size: 16px;
-    padding-left: 110px;
 }
 
 
@@ -420,9 +401,9 @@ body {
 
 
 .scroll::-webkit-scrollbar-thumb {
-  background-color: #A8A8A8;
-  border-radius: 24px;
-  border: solid 8px #F6F7F8;
+    background-color: #A8A8A8;
+    border-radius: 24px;
+    border: solid 8px #F6F7F8;
 }
 
 
@@ -432,12 +413,13 @@ body {
 
 
 ul {
-    margin: 0 0 24px 0;  
+    margin: 0 0 24px 0;
 }
 
 h4 {
     margin: 0;
 }
+
 /* //////////////////////////////////////////////////////////// */
 
 .help-bottom {

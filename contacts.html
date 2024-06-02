@@ -16,6 +16,47 @@
 
 <body onload="includeHTML(), checkExistingInitials(), displayInitialsFilter()">
     <div class="main-content">
+
+        <div id="dialogNewContact" class="dialog-new-contact d-none" onclick="closeDialog()">
+            <div class="add-new-contact">
+                <div class="add-contact-left">
+                    <div>
+                        <img src="./img/Capa 3.png">
+    
+                        <div class="add-new-contact-headline">Add contact</div>
+                        <div class="text-contact">Tasks are better width a team!</div>
+                        <div class="blue-seperator-contact"></div>
+                    </div>
+                </div>
+                <div class="add-contact-right">
+                    <div class="close-add-contact">
+                        <img src="./img/close.png">
+                    </div>
+                    <div class="contact-box-right">
+                        <img src="./img/Group 13.png" class="contact-img">
+                        <div>
+                            <div class="add-contact-data">
+                                <input placeholder="Name" type="text" required class="name-input">
+                                <input placeholder="Email" type="email" required class="email-input">
+                                <input placeholder="Phone" type="text" required class="phone-input">
+                            </div>
+                            <div class="close-create-button">
+                                <button class="color-white-button">
+                                    <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
+                                    </div>
+                                </button>
+                                <button class="color-blue-button">
+                                    <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
+                                            class="check-svg">
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
         <div class="content-container">
             <div class="header-container" w3-include-html="templates/topbar.html"></div>
@@ -23,7 +64,7 @@
                 <div class="contact-box">
                     <div class="contacts-container">
                         <div class="add-contact-box">
-                            <button class="button-add-contacts">Add New Contact
+                            <button onclick="addNewContact()" class="button-add-contacts">Add New Contact
                                 <img class="img-contact-add" src="./contactsImg/person_add.svg">
                             </button>
                         </div>
@@ -39,6 +80,9 @@
                                 <div class="vertical-seperator"></div>
                                 <div>Better with a team</div>
                             </div>
+                        </div>
+                        <div id="test" class="test">
+                            <div id="contactInfos" class="contact-infos"></div>
                         </div>
                     </div>
                 </div>

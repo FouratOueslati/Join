@@ -38,14 +38,20 @@ function displayInitialsAndContacts() {
             let surname = contacts[i]["surname"];
             let email = contacts[i]["email"];
             let phonenumber = contacts[i]["number"];
+            let color = contacts[i]["backgroundcolor"];
             let firstLetterOfName = name.charAt(0);
             let firstLetterOfSurname = surname.charAt(0);
             if (contactInitial.innerHTML === firstLetterOfName) {
                 contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfSurname, name, surname, email, phonenumber);
-            addColorToNewContact(i)
+                showColorForContact(i, color);
             }
         }
     }
+}
+
+function showColorForContact(i, color) {
+    let contactInitial = document.getElementById(`contactsInitials${i}`);
+    contactInitial.style.backgroundColor = color;
 }
 
 
@@ -62,18 +68,16 @@ function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfSurname, na
 }
 
 function openContact(i) {
-
     let contactData = document.getElementById(`contactData${i}`);
     let firstLetterOfName = contactData.querySelector('.shorts-name').textContent.charAt(0);
     let firstLetterOfSurname = contactData.querySelector('.shorts-name').textContent.charAt(1);
     let name = contactData.querySelector('.contact-name').textContent;
     let email = contactData.querySelector('.contact-email').textContent;
     let phonenumber = contacts[i]["number"];
-    
+    let color = contacts[i]["backgroundcolor"];
     let contactInfos = document.getElementById('contactInfos');
     contactInfos.innerHTML = '';
     contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, phonenumber, i);
-    addColorToNewContact(i);
 }
 
 

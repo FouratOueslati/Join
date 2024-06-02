@@ -122,13 +122,13 @@
 
 .edit-delete-contact {
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
 .full-name {
     font-size: 47px;
     font-weight: 500;
+    padding-left: 54px;
 }
 
 .edit-delete-box {
@@ -230,6 +230,7 @@
 }
 
 .add-contact-data {
+    width: 400px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -297,16 +298,6 @@
     color: white;
 }
 
-.edit-delete-contact {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.full-name {
-    font-size: 47px;
-    font-weight: 500;
-}
 
 .edit-delete-box {
     display: flex;
@@ -346,4 +337,32 @@
 
 .email-phone-headline {
     padding-bottom: 15px;
+}
+
+.color-blue-button:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.color-white-button {
+    background-color: white;
+    color: black;
+    border: 1px solid  rgb(209,209,209);
+    padding: 12px 20px;;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.color-blue-button {
+    background-color: rgb(42,54,71);
+    color: white;
+    border: 1px solid  rgb(209,209,209);
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px; 
+}
+
+.color-white-button:hover {
+    border-color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }

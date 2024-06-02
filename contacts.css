@@ -268,6 +268,13 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
+.button-txt-img {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 20px;
+}
+
 .close-add-contact {
     height: 32px;
     display: flex;

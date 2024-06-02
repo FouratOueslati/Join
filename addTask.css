@@ -126,6 +126,7 @@ h1 {
     display: flex;
     align-items: center;
     gap: 3px;
+    font-size: 20px;
 }
 
 .button-end-proces {

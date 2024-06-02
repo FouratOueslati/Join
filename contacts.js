@@ -62,6 +62,7 @@ function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfSurname, na
 }
 
 function openContact(i) {
+
     let contactData = document.getElementById(`contactData${i}`);
     let firstLetterOfName = contactData.querySelector('.shorts-name').textContent.charAt(0);
     let firstLetterOfSurname = contactData.querySelector('.shorts-name').textContent.charAt(1);
@@ -71,7 +72,7 @@ function openContact(i) {
     
     let contactInfos = document.getElementById('contactInfos');
     contactInfos.innerHTML = '';
-    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, phonenumber);
+    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, phonenumber, i);
     addColorToNewContact(i);
 }
 

@@ -4,6 +4,11 @@ body {
 }
 
 
+.d-none {
+    display: none;
+}
+
+
 .intro-img {
     animation: moveUp ease-in-out 1500ms;
     animation-fill-mode: forwards;
@@ -227,6 +232,21 @@ body {
     font-size: 20px;
 }
 
+.phone-input {
+    height: 16px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 10px;
+    outline: unset;
+    Padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 21px;
+    padding-right: 21px;
+    background: url('./img/call.png');
+    background-repeat: no-repeat;
+    background-position: 350px;
+    font-weight: 400;
+    font-size: 20px;
+}
 
 ::placeholder {
     color: #D1D1D1;

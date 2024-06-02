@@ -7,14 +7,6 @@ body {
     box-sizing: border-box;
 }
 
-.parent-container {
-    background-color: #F6F7F8;
-    height: 85%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .content-container {
     box-sizing: border-box;
     display: flex;
@@ -23,74 +15,111 @@ body {
     height: 100vh;
 }
 
-.main-container-center-task {
+.parent-container {
+    background-color: #F6F7F8;
+    height: 85%;
     display: flex;
+    align-items: center;
     justify-content: center;
-    height: 90%;
-
 }
-
 
 .main-container-task {
-    max-width: 800px;
-    
+    width: 75%;
+    height: 80%;
 }
 
-.aot-task {
-    font-weight: 700;
-    margin-left: 32px;
+.aot-task-container {
+    width: 100%;
+    height: 15%;
 }
 
-.add-task-set-up {
+.main-container-task-one-two {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-end-proces-container {
+    width: 100%;
+    height: 10%;
+}
+
+.add-task-set-up-one-container {
+    height: 100%;
+    width: 55%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.seperate-container {
+    height: 100%;
+    width: 3%;
+}
+
+.add-task-set-up-two-container{
+    height: 100%;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin: 0px;
+    font-size: 48px;
+}
+
 .add-task-set-up-one {
+    width: 90%;
     display: flex;
     flex-direction: column;
-    margin: 32px;
+}
+
+.task-input-field {
+    width: 90%;
+    padding: 12px 8px 8px 12px;
+    border-radius: 10px;
+    border: 1px solid  rgb(209,209,209);
 }
 
 .seperate-add-task {
     width: 1px;
-    height: 344px;
-    margin-top: 24px;
+    height: 100%;
+    display: flex;
+    margin-left: 50%;
     background-color: rgb(209,209,209);
 }
 
 .add-task-set-up-two {
+    width: 90%;
     display: flex;
     flex-direction: column;
-    margin: 32px;
 }
 
-span {
-    font-weight: 400;
-    margin-bottom: 8px;
-    margin-top: 8px;
+.button-prio-width {
+    width: 100%;
 }
 
-.task-input-field {
-    padding: 12px 24px;;
-    width: 256px;
-    border-radius: 10px;
-    border: 1px solid  rgb(209,209,209);
-}
-
-.prioButtonSetup {
-    display: flex;
-    justify-content: center;
-    gap: 3px;
-}
-
-.buttonPrio{
+.button-prio {
     background-color: white;
-    padding: 12px 20px;
+    padding: 10px 15px 10px 15px;
+    width: 31%;
     border: 1px solid  rgb(209,209,209);
     border-radius: 10px;
     cursor: pointer;
+}
+
+.prio-photos {
+    width: 16px;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button-txt-img {
@@ -99,25 +128,10 @@ span {
     gap: 3px;
 }
 
-.prio-photos {
-    width: 16px;
-}
-
 .button-end-proces {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 56px 32px 32px 32px;
-}
-
-.color-blue-button {
-    background-color: rgb(42,54,71);
-    color: white;
-    border: 1px solid  rgb(209,209,209);
-    padding: 12px 20px;
-    cursor: pointer;
-    border-radius: 10px;
-    
 }
 
 .color-white-button {
@@ -129,6 +143,15 @@ span {
     border-radius: 10px;
 }
 
+.color-blue-button {
+    background-color: rgb(42,54,71);
+    color: white;
+    border: 1px solid  rgb(209,209,209);
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px; 
+}
+
 .check-svg {
     width: 16px;
 }
@@ -137,26 +160,8 @@ span {
     width: 12px;
 }
 
-/* Subtask */
-.input-with-img {
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid  rgb(209,209,209);
-    display: flex;
-    align-items: center;
-}
-
-.task-input-with-img {
-    width: 256px;
-    padding: 12px 24px;
-    border-radius: 10px;
-    border-width: 0px 0px 0px 0px;
-}
-
-.input-field-svg {
-    position: absolute;
-    margin-left: 8px;
-    margin-left: 280px;
+.span-margin {
+    margin: 8px 0px 8px 0px;
 }
 
 /*DropDown*/
@@ -170,8 +175,8 @@ span {
 
 .select {
     background-color: rgb(255, 255, 255);
-    width: 304px;
-    padding: 4px 16px;;
+    width: 95%;
+    padding: 10px 8px 8px 10px;
     border-radius: 10px;
     border: 1px solid rgb(209,209,209);
     display: flex;
@@ -199,8 +204,8 @@ span {
     border-radius: 10px;
     color: rgb(0, 0, 0);
     position: absolute;
-    top: 2.7em;
-    width: 100%;
+    top: 2.43em;
+    width: 95%;
     background-color: rgb(255, 255, 255);
     display: none;
     transition: 0.5s;
@@ -228,13 +233,58 @@ span {
     opacity: 1;
 }
 
+/* Subtask */
+.input-with-img {
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid  rgb(209,209,209);
+    display: flex;
+    align-items: center;
+    width: 95%;
+}
+
+.task-input-with-img {
+    width: 95%;
+    padding: 10px 8px 8px 10px;
+    border-radius: 10px;
+    border-width: 0px 0px 0px 0px;
+}
+
+.input-field-svg {
+    position: absolute;
+    margin-left: 24%;
+}
+
+@media(max-width: 900px) {
+    .input-field-svg {
+        margin-left: 28%;
+    }
+}
+
 @media(max-width: 700px) {
-    .main-container-center-task {
-        position: absolute;
-        bottom: 15%;
-        top: 15%;
-        left: 0;
-        right: 0;
+    .content-container  {
+        height: 200%;
+    }
+    .main-container-task {
+        height: 100%;
+    }
+    .aot-task-container {
+        height: 10%;
+    }
+    .main-container-task-one-two {
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+    }
+    .add-task-set-up-one-container {
+        width: 90%;
+    }
+    .seperate-container {
+        height: 0%;
+        width: 0%;
+    }
+    .add-task-set-up-two-container {
+        width: 90%;
     }
     .seperate-add-task {
         display: none;
@@ -242,36 +292,27 @@ span {
     .add-task-set-up {
         display: flex;
         flex-direction: column;
-        margin: 32px;
-        margin-top: 8px;
+    }
+    .input-field-svg {
+        margin-left: 53%;
+    }
+    .span-margin {
+        margin: 4px 0px 4px 0px;
+    }
+    .button-end-proces {
+        background-color: rgb(246,247,249);
+        position: fixed;
+        width: 90%;
+        flex-direction: column;
+        padding-bottom: 4px;
+        margin-bottom: 18px;
+    }
+    .button-end-proces-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .color-white-button {
         display: none;
     }
-    .add-task-set-up-one {
-        margin: 0px;
-    }
-    .add-task-set-up-two {
-        margin: 0px;
-    }
-    .button-end-proces {
-        position: fixed;
-        margin: 0px;
-        bottom: 0px;
-        background-color: rgb(246,247,249); 
-        width: 305px; 
-        padding-bottom: 32px;
-        padding-top: 8px
-    }
-    .padding-for-smaller-screens {
-        padding-top: 256px;
-    }
-    .tools-container {
-        z-index: 2;
-    }
 }
-
-
-
-
-

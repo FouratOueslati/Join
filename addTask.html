@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="./templates/topbar.css">
     <script src="include.js"></script>
     <script src="addTask.js"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const dropDowns = document.querySelectorAll('.drop-down');
@@ -48,35 +47,24 @@
         });
     </script>
 
-</head>
-
 <body onload="includeHTML()">
-
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
-
-
-
         <div class="parent-container">
-            <div class="main-container-center-task">
-
-                <div class="main-container-task">
-
-               <div class="aot-backround-small-screen">
+            <div class="main-container-task">
+                <div class="aot-task-container">
                     <h1 class="aot-task">Add Task</h1>
-                </div> 
-
-                    <form class="add-task-set-up">
+                </div>
+                <div class="main-container-task-one-two">
+                    <div class="add-task-set-up-one-container">
                         <div class="add-task-set-up-one">
-                            <span>Title</span>
+                            <span class="span-margin">Title</span>
                             <input required placeholder="Enter a title..." minlength="4" class="task-input-field">
-
-                            <span>Description</span>
+                            <span class="span-margin">Description</span>
                             <textarea required placeholder="Enter a Description..." minlength="4"
                                 class="task-input-field"></textarea>
-
-                            <span>Assigned to</span>
+                            <span class="span-margin">Assigned to</span>
                             <div class="drop-down">
                                 <div class="select">
                                     <span class="selected">Search Contact</span>
@@ -89,32 +77,33 @@
                                 </ul>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="seperate-container">
                         <div class="seperate-add-task"></div>
-
-                        <div class="add-task-set-up-two ">
-                            <span>Due date</span>
+                    </div>
+                    <div class="add-task-set-up-two-container">
+                        <div class="add-task-set-up-two">
+                            <span class="span-margin">Due date</span>
                             <input type="date" class="task-input-field">
-
-                            <span>Prio</span>
-                            <div>
-                                <button type="button" class="buttonPrio">
-                                    <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg"
-                                            class="prio-photos">
-                                    </div>
+                            <span class="span-margin">Prio</span>
+                            <div class="button-prio-width">
+                                <button type="button" class="button-prio">
+                                <div class="center">
+                                    <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
+                                </div>
                                 </button>
-                                <button type="button" class="buttonPrio">
-                                    <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg"
-                                            class="prio-photos">
-                                    </div>
+                                <button type="button" class="button-prio">
+                                <div class="center">
+                                    <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
+                                </div>
                                 </button>
-                                <button type="button" class="buttonPrio">
-                                    <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos">
-                                    </div>
+                                <button type="button" class="button-prio">
+                                <div class="center">
+                                    <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
+                                </div>
                                 </button>
                             </div>
-
-                            <span>Category</span>
+                            <span class="span-margin">Category</span>
                             <div class="drop-down">
                                 <div class="select">
                                     <span class="selected">Select task category</span>
@@ -125,37 +114,32 @@
                                     <li>User Story</li>
                                 </ul>
                             </div>
-
-                            <span>Subtask</span>
+                            <span class="span-margin">Subtask</span>
                             <div class="input-with-img">
                                 <input required placeholder="Add new subtask" class="task-input-with-img">
                                 <img src="./addTaskImg/plus.svg" class="input-field-svg">
                             </div>
                         </div>
-                    </form>
-
-
-                    <div class="padding-for-smaller-screens"> 
-                        <div class="button-end-proces">
-                            <span>This field is required</span>
-                            <div>
-                                <button class="color-white-button">
-                                    <div class="button-txt-img">Close <img src="./addTaskImg/close.svg"
-                                            class="close-svg">
-                                    </div>
-                                </button>
-                                <button class="color-blue-button">
-                                    <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
-                                            class="check-svg">
-                                    </div>
-                                </button>
-                            </div>
+                    </div>
+                </div>
+                <div class="button-end-proces-container">
+                    <div class="button-end-proces">
+                        <span class="span-margin">This field is required</span>
+                        <div>
+                            <button class="color-white-button">
+                                <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
+                                </div>
+                            </button>
+                            <button class="color-blue-button">
+                                <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
+                                        class="check-svg">
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

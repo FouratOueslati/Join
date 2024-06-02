@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href=" font.css">
     <link rel="stylesheet" href="responsive.css">
+    <script src="signup.js"></script>
     <title>Sign up</title>
 </head>
 
@@ -16,17 +17,18 @@
             <a href="login.html"><img class="arrow-left-line" src="./img/arrow-left-line.png"></a>
             <img class="join-icon-signup" src="./img/Capa 2.png">
         </div>
-        <form class="main-container-signup">
+        <form onsubmit="postUser(); return false;" class="main-container-signup">
             <div class="signup-headline">Sign up</div>
             <div class="blue-seperator"></div>
             <div class="data-container">
-                <input placeholder="Name" type="text" required class="name-input">
-                <input placeholder="Email" type="email" required class="email-input">
-                <input placeholder="Password" type="password" required class="password-input">
-                <input placeholder="Confirm Password" type="password" required class="password-input">
+                <input id="name" placeholder="Name" type="text" required class="name-input">
+                <input id="email" placeholder="Email" type="email" required class="email-input">
+                <input id="password" placeholder="Password" type="password" required class="password-input">
+                <input id="confirmedPassword" placeholder="Confirm Password" type="password" required
+                    class="password-input">
             </div>
             <div class="accept-policy-container">
-                <input class="rectangle" type="checkbox">
+                <input class="rectangle" type="checkbox" required>
                 <div>
                     <div class="accept-text">I accept the<a href="#" class="policy-link"> Privacy policy</a></div>
                 </div>

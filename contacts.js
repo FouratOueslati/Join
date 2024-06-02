@@ -49,13 +49,47 @@ function displayInitialsAndContacts() {
 
 function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfSurname, name, surname, email) {
     return `
-    <div class="contact-data">
+    <div onclick="showContact()" id="contactData${i}" class="contact-data">
         <div id="contactsInitials${i}" class="shorts-name">${firstLetterOfName}${firstLetterOfSurname}</div>
         <div>
             <div id="contact-name${i}" class="contact-name">${name} ${surname}</div>
             <div id="contact-email${i}" class="contact-email">${email}</div>
         </div>
     </div>
+    `;
+}
+
+
+function showContact() {
+    debugger
+    let openedContact = document.getElementById('openedContact');
+    openedContact.innerHTML = '';
+    openedContact.innerHTML = `
+    <div class="shorts-and-name-container">
+                                <div class="big-shorts-name">FO</div>
+                                <div class="name-edit-delete">
+                                    <div class="fat-name">Fourat Oueslati</div>
+                                    <div>
+                                        <div class="edit-and-delete-container">
+                                            <div class="edit">
+                                                <img src="./img/edit.png">
+                                                <div>Edit</div>
+                                            </div>
+                                            <div class="delete">
+                                                <img src="./img/delete.png">
+                                                <div>Delete</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>Contact Information</div>
+                            <div class="mail-phone-container">
+                                <div class="email">Email</div>
+                                <div  style="color: #5CAAF2;">wefqsa@gmx.de</div>
+                                <div class="phone">Phone</div>
+                                <div>99696256</div>
+                            </div>
     `;
 }
 

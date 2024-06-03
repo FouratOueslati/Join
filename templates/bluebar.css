@@ -132,6 +132,7 @@ a:hover {
         bottom: 0;
         font-size: 11px;
         text-align: center;
+        align-items: stretch;
     }
 
     .menu-tools-container {

@@ -20,7 +20,7 @@ body {
 
 .parent-container {
     background-color: #F6F7F8;
-    height: 85%;
+    height: calc(100% - 96px);
     display: flex;
     flex-direction: column;
 }

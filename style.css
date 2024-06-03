@@ -392,6 +392,8 @@ body {
 .scroll {
     overflow-y: scroll;
     height: 90%;
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -403,7 +405,7 @@ body {
 .scroll::-webkit-scrollbar-thumb {
     background-color: #A8A8A8;
     border-radius: 24px;
-    border: solid 8px #F6F7F8;
+    border: solid 8px white;
 }
 
 

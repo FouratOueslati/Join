@@ -1,8 +1,4 @@
 @media (max-width: 1150px) {
-    .summary-headline {
-        padding-left: 100px;
-    }
-
     .todos-container {
         width: 75%;
     }
@@ -12,15 +8,17 @@
     }
 
     .greeting {
-        font-size: 28px;
+        font-size: 36px;
+        font-weight: 400;
     }
 
     .user-name {
-        font-size: 38px;
+        font-size: 47px;
+        font-weight: 700;
     }
 
     .fat-Contacts-headline {
-        font-size: 28px;
+        font-size: 47px;
     }
 
 }
@@ -105,6 +103,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
+        font-size: 20px;
     }
 
     /* CSS Nicole ////////////////////////// */

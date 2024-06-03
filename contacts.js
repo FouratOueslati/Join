@@ -78,6 +78,13 @@ function openContact(i) {
     let contactInfos = document.getElementById('contactInfos');
     contactInfos.innerHTML = '';
     contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, phonenumber, i);
+    showColorForBigContact(i, color);
+}
+
+
+function showColorForBigContact(i, color) {
+    let contactInitialBig = document.getElementById(`contactsInitialsBig${i}`);
+    contactInitialBig.style.backgroundColor = color;
 }
 
 
@@ -130,6 +137,11 @@ function addColorToNewContact(i) {
 
 function addNewContact() {
     document.getElementById('dialogNewContact').classList.remove('d-none');
+    let addNewContact = document.getElementById('addNewContact');
+    addNewContact.style.transform = "translateX(113%)"
+    setTimeout(() => {
+        addNewContact.style.transform = "translateX(0)";
+    }, 50);
 }
 
 

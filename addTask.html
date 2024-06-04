@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="addTask.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
-    <link rel="stylesheet" href="responsive.css">
+
     <link rel="stylesheet" href="./templates/bluebar.css">
     <link rel="stylesheet" href="./templates/topbar.css">
     <script src="include.js"></script>
@@ -46,6 +46,7 @@
             });
         });
     </script>
+</head>
 
 <body onload="includeHTML()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
@@ -60,14 +61,13 @@
                     <div class="add-task-set-up-one-container">
                         <div class="add-task-set-up-one">
                             <span class="span-margin">Title</span>
-                            <input required placeholder="Enter a title..." minlength="4" class="task-input-field">
+                            <input required placeholder="Enter a title..." minlength="4" class="task-input-field" id="title">
                             <span class="span-margin">Description</span>
-                            <textarea required placeholder="Enter a Description..." minlength="4"
-                                class="task-input-field"></textarea>
+                            <textarea required placeholder="Enter a Description..." minlength="4" class="task-input-field" id="description"></textarea>
                             <span class="span-margin">Assigned to</span>
                             <div class="drop-down">
                                 <div class="select">
-                                    <span class="selected">Search Contact</span>
+                                    <span class="selected" id="selectContact">Search Contact</span>
                                     <div class="caret"></div>
                                 </div>
                                 <ul class="menu">
@@ -84,39 +84,39 @@
                     <div class="add-task-set-up-two-container">
                         <div class="add-task-set-up-two">
                             <span class="span-margin">Due date</span>
-                            <input type="date" class="task-input-field">
+                            <input type="date" class="task-input-field date" id="date">
                             <span class="span-margin">Prio</span>
                             <div class="button-prio-width">
                                 <button type="button" class="button-prio">
-                                <div class="center">
-                                    <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
-                                </div>
+                                    <div class="center">
+                                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos" id="urgentButton"></div>
+                                    </div>
                                 </button>
                                 <button type="button" class="button-prio">
-                                <div class="center">
-                                    <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
-                                </div>
+                                    <div class="center">
+                                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos" id="mediumButton"></div>
+                                    </div>
                                 </button>
                                 <button type="button" class="button-prio">
-                                <div class="center">
-                                    <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
-                                </div>
+                                    <div class="center">
+                                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos" id="lowButton"></div>
+                                    </div>
                                 </button>
                             </div>
                             <span class="span-margin">Category</span>
                             <div class="drop-down">
                                 <div class="select">
-                                    <span class="selected">Select task category</span>
+                                    <span class="selected" id="selectCategory">Select task category</span>
                                     <div class="caret"></div>
                                 </div>
                                 <ul class="menu">
-                                    <li>Tehnical Task</li>
+                                    <li>Technical Task</li>
                                     <li>User Story</li>
                                 </ul>
                             </div>
                             <span class="span-margin">Subtask</span>
                             <div class="input-with-img">
-                                <input required placeholder="Add new subtask" class="task-input-with-img">
+                                <input required placeholder="Add new subtask" class="task-input-with-img" id="subtask">
                                 <img src="./addTaskImg/plus.svg" class="input-field-svg">
                             </div>
                         </div>
@@ -126,20 +126,18 @@
                     <div class="button-end-proces">
                         <span class="span-margin">This field is required</span>
                         <div>
-                            <button class="color-white-button">
-                                <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
-                                </div>
+                            <button type="button" class="color-white-button" onclick="removeAllInput()">
+                                <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg"></div>
                             </button>
-                            <button class="color-blue-button">
-                                <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
-                                        class="check-svg">
-                                </div>
+                            <button type="button" class="color-blue-button" onclick="addTaskToBoard()">
+                                <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg" class="check-svg"></div>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>

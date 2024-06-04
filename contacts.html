@@ -14,11 +14,11 @@
     <title>Contacts</title>
 </head>
 
-<body onload="includeHTML(), checkExistingInitials(), displayInitialsFilter()">
+<body onload="init()">
     <div class="main-content">
 
-        <div id="dialogNewContact" class="dialog-new-contact d-none" onclick="closeDialog()">
-            <div class="add-new-contact">
+        <div id="dialogNewContact" class="dialog-new-contact d-none" onclick="closeDialog(event)">
+            <div id="addNewContact" class="add-new-contact">
                 <div class="add-contact-left">
                     <div>
                         <img src="./img/Capa 3.png">
@@ -41,12 +41,12 @@
                                 <input placeholder="Phone" type="text" required class="phone-input">
                             </div>
                             <div class="close-create-button">
-                                <button class="color-white-button">
+                                <button onclick="closeDialog()" class="color-white-button">
                                     <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
                                     </div>
                                 </button>
                                 <button class="color-blue-button">
-                                    <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
+                                    <div class="button-txt-img">Create Contact <img src="./addTaskImg/check.svg"
                                             class="check-svg">
                                     </div>
                                 </button>

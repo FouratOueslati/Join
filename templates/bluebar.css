@@ -20,6 +20,12 @@
 }
 
 
+.tools-box {
+    display: flex;
+    justify-content: center;
+}
+
+
 .menu-tools-container {
     box-sizing: border-box;
     width: 100%;
@@ -34,7 +40,6 @@
     display: flex;
     gap: 15px;
     align-items: center;
-    padding-left: 50px;
     height: 50px;
 }
 
@@ -55,9 +60,8 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-end;
-    padding-left: 50px;
     padding-bottom: 50px;
     gap: 12px;
     color: rgba(168, 168, 168, 1);
@@ -65,6 +69,14 @@
     font-size: 16px;
     width: 100%;
     flex: 1;
+}
+
+
+.policy-box {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-right: 20px;
 }
 
 
@@ -121,6 +133,7 @@ a:hover {
         bottom: 0;
         font-size: 11px;
         text-align: center;
+        align-items: stretch;
     }
 
     .menu-tools-container {

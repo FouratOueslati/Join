@@ -85,6 +85,8 @@ function openContact(i) {
 function showColorForBigContact(i, color) {
     let contactInitialBig = document.getElementById(`contactsInitialsBig${i}`);
     contactInitialBig.style.backgroundColor = color;
+    let contactData = document.getElementById(`contactData${i}`);
+    contactData.classList.add('selected-contact-data');
 }
 
 

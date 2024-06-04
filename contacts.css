@@ -61,7 +61,8 @@
     gap: 34px;
     font-size: 20px;
     background-color: #FFFFFF;
-    /* padding-left: 62px; */
+    padding-left: 20px;
+    border-radius: 10px;
 }
 
 .contact-data:hover {

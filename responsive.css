@@ -21,12 +21,77 @@
         font-size: 47px;
     }
 
+    .not-user-container {
+        position: unset;
+    }
+
 }
 
 
 @media (max-width: 900px) {
     body {
         flex-direction: column-reverse;
+    }
+
+    .login-headline {
+        height: 60px;
+        font-size: 48px;
+    }
+
+    .blue-seperator {
+        width: 80px;
+    }
+
+    .main-container {
+        width: 310px;
+        margin-top: 100px;
+    }
+
+    .data-container {
+        width: 310px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .email-input {
+        width: 250px;
+        background-position: 250px;
+    }
+
+    .password-input {
+        width: 250px;
+        background-position: 250px;
+    }
+
+    .remember-container {
+        padding-left: unset;
+        margin-bottom: unset;
+        padding-right: 130px;
+    }
+
+    .login-buttons-container {
+        flex-direction: column;
+        gap: 21px;
+        padding-left: unset;
+    }
+
+    .login-button {
+        width: 140px;
+    }
+
+    .main-container-signup {
+        width: 310px;
+    }
+
+    .arrow-left-line {
+        right: 130px;
+        top: 120px;
+    }
+
+    .signup-headline {
+        height: 60px;
+        font-size: 48px;
     }
 
     .content-container {
@@ -119,6 +184,16 @@
 }
 
 @media (max-width: 600px) {
+    .main-container-signup {
+        margin-top: 80px;
+    }
+
+    .arrow-left-line {
+        right: 130px;
+        top: 210px;
+    }
+
+
     .contact-headline {
         display: none;
     }
@@ -169,6 +244,11 @@
 }
 
 @media (max-width: 550px) {
+    .main-container {
+        margin-top: 100px;
+    }
+
+
     .todos-box {
         width: 310px;
         gap: 24px;

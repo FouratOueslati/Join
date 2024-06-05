@@ -12,13 +12,17 @@
     <link rel="stylesheet" href="./templates/bluebar.css">
     <link rel="stylesheet" href="./templates/topbar.css">
     <title>Contacts</title>
+    <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
+    <script src="include.js"></script>
+    <script src="contacts.js"></script>
+    <script src="joinContactsFirebas/contactsFirebase.js"></script>
 </head>
 
 <body onload="init()">
     <div class="main-content">
 
-        <div id="dialogNewContact" class="dialog-new-contact d-none" onclick="closeDialog(event)">
-            <div id="addNewContact" class="add-new-contact">
+        <div id="dialogNewContact" class="dialog-new-contact d-none" onclick="closeDialog()">
+            <div onclick="doNotClose(event)" id="addNewContact" class="add-new-contact">
                 <div class="add-contact-left">
                     <div>
                         <img src="./img/Capa 3.png">
@@ -30,32 +34,34 @@
                 </div>
                 <div class="add-contact-right">
                     <div class="close-add-contact">
-                        <img src="./img/close.png">
+                        <img src="./img/close.png" onclick="closeDialog()">
                     </div>
                     <div class="contact-box-right">
                         <img src="./img/Group 13.png" class="contact-img">
                         <div>
                             <div class="add-contact-data">
-                                <input placeholder="Name" type="text" required class="name-input">
-                                <input placeholder="Email" type="email" required class="email-input">
-                                <input placeholder="Phone" type="text" required class="phone-input">
+                                <input id="name" placeholder="Name" type="text" required class="name-input">
+                                <input id="email" placeholder="Email" type="email" required class="email-input">
+                                <input id="phone" placeholder="Phone" type="text" required class="phone-input">
                             </div>
                             <div class="close-create-button">
-                                <button onclick="closeDialog()" class="color-white-button">
-                                    <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
-                                    </div>
+                                <button class="color-white-button" onclick="closeDialog(event)">
+                                    <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg"></div>
                                 </button>
                                 <button class="color-blue-button">
-                                    <div class="button-txt-img">Create Contact <img src="./addTaskImg/check.svg"
+                                    <div onclick="createNewContact()" class="button-txt-img">Create Contact <img src="./addTaskImg/check.svg"
                                             class="check-svg">
                                     </div>
                                 </button>
+                                <div id="newColor" class="shorts-name"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        
 
         <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
         <div class="content-container">
@@ -64,7 +70,8 @@
                 <div class="contact-box">
                     <div class="contacts-container">
                         <div class="add-contact-box">
-                            <button onclick="addNewContact()" class="button-add-contacts">Add New Contact
+                            <button onclick="openAddNewContact()" class="button-add-contacts">
+                                <div class="button-txt">Add New Contact</div>
                                 <img class="img-contact-add" src="./contactsImg/person_add.svg">
                             </button>
                         </div>
@@ -73,7 +80,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="contact-big-container">
                         <div class="contact-headline">
                             <div class="fat-Contacts-headline">Contacts</div>
                             <div class="seperator-and-text-container">
@@ -89,9 +96,7 @@
             </div>
         </div>
     </div>
-    <script src="include.js"></script>
-    <script src="contacts.js"></script>
-    <script src="joinContactsFirebas/contactsFirebase.js"></script>
+
 </body>
 
 </html>

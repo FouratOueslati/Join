@@ -134,7 +134,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
             <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
             <div class="full-name">${name}
                 <div class="edit-delete-box">
-                    <img src="./img/edit_contacts.png">
+                    <img onclick="openEditContact()" src="./img/edit_contacts.png">
                     <img src="./img/delete_contact.png">
                 </div>
             </div>
@@ -151,46 +151,104 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
 }
 
 
-function getRandomPastelColor() {
-    var r = Math.floor(Math.random() * 256); // Rote Komponente
-    var g = Math.floor(Math.random() * 256); // Grüne Komponente
-    var b = Math.floor(Math.random() * 256); // Blaue Komponente
-
-
-    // // Umwandlung in Pastellfarben durch Hinzufügen von Weiß
-    // r = Math.floor((r + 255) / 2);
-    // g = Math.floor((g + 255) / 2);
-    // b = Math.floor((b + 255) / 2);
-
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
-}
-
-
-function addColorToNewContact(i) {
-    let newShort = document.getElementById(`contactsInitials${i}`);
-    if (!newShort.style.backgroundColor) { // Überprüfen, ob noch keine Hintergrundfarbe zugewiesen wurde
-        newShort.style.backgroundColor = getRandomPastelColor();
+function getRandomColor() {
+    let newColor = document.getElementById('newColor');
+    let symbols,color;
+    symbols = "0123456789ABCDEF";
+    color = "#";
+    for (let i = 0; i < 6; i++) {
+        color = color + symbols[Math.floor(Math.random() * 16)];
     }
+    newColor.style.backgroundColor = color;
+    return color;
 }
 
+// function addColorToNewContact(i) {
+//     let newShort = document.getElementById(`contactsInitials${i}`);
+//     if (!newShort.style.backgroundColor) { // Überprüfen, ob noch keine Hintergrundfarbe zugewiesen wurde
+//         newShort.style.backgroundColor = getRandomPastelColor();
+//     }
+// }
 
-function addNewContact() {
-    let addNewContact = document.getElementById('addNewContact');
+
+function openAddNewContact() {
     document.getElementById('dialogNewContact').classList.remove('d-none');
-    addNewContact.style.transform = "translateX(113%)"
+    let addNewContact = document.getElementById('addNewContact');
+    addNewContact.style.transform = "translateX(113%)";
     setTimeout(() => {
         addNewContact.style.transform = "translateX(0)";
     }, 50);
+    openContact();
+    getRandomColor();
 }
 
 
 function closeDialog() {
     document.getElementById('dialogNewContact').classList.add('d-none');
     document.getElementById('contactInfos').classList.add('d-none');
+    document.getElementById('dialogEditContact').classList.add('d-none');
 }
 
 
-async function postUser(path = "", data = {}) {
+function doNotClose(event) {
+    event.stopPropagation();
+}
+
+
+function openEditContact() {
+    document.getElementById('dialogEditContact').classList.remove('d-none');
+    let editContact = document.getElementById('editNewContact');
+    editContact.style.transform = "translateX(113%)";
+    setTimeout(() => {
+        editContact.style.transform = "translateX(0)";
+    }, 50);
+    getEditContactHtml();
+}
+
+
+function getEditContactHtml() {
+    return `
+    <div id="dialogEditContact" class="dialog-new-contact d-none" onclick="closeDialog()">
+    <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
+        <div class="add-contact-left">
+            <div>
+                <img src="./img/Capa 3.png">
+                <div class="add-new-contact-headline">Edit contact</div>
+                <div class="blue-seperator-contact"></div>
+            </div>
+        </div>
+        <div class="add-contact-right">
+            <div class="close-add-contact">
+                <img src="./img/close.png" onclick="closeDialog()">
+            </div>
+            <div class="contact-box-right">
+                <img src="./img/Group 13.png" class="contact-img">
+                <div>
+                    <div class="add-contact-data">
+                        <input id="editName" placeholder="Name" type="text" required class="name-input">
+                        <input id="editEmail" placeholder="Email" type="email" required class="email-input">
+                        <input id="editPhone" placeholder="Phone" type="text" required class="phone-input">
+                    </div>
+                    <div class="close-create-button">
+                        <button class="color-white-button" onclick="closeDialog(event)">
+                            <div class="button-txt-img">Delete</div>
+                        </button>
+                        <button class="color-blue-button">
+                            <div onclick="" class="button-txt-img">Save<img src="./addTaskImg/check.svg"
+                                    class="check-svg">
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    `;
+}
+
+
+async function postUser(path = "contacts", data = {}) {
     let name = document.getElementById('name');
     let email = document.getElementById('email');
     let password = document.getElementById('password');
@@ -214,4 +272,63 @@ async function postUser(path = "", data = {}) {
     } else {
         alert("passwords don't match")
     }
+}
+
+
+async function createNewContact(path = "contacts", data = {}) {
+    let name = document.getElementById('name');
+    let email = document.getElementById('email');
+    let number = document.getElementById('phone');
+    let color = getRandomColor();
+
+    data = {
+        name: name.value,
+        email: email.value,
+        number: number.value,
+        backgroundcolor: color,
+
+    }
+    console.log(data);
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "POST",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    loadUserData();
+    closeDialog();
+    return responseToJson = await response.json();
+}
+
+
+async function editContacts(path = "contacts", data = {}) {
+    let name = document.getElementById('name');
+    let email = document.getElementById('email');
+    let number = document.getElementById('phone');
+
+    data = {
+        name: name.value,
+        email: email.value,
+        number: number.value,
+    }
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    loadUserData();
+    closeDialog();
+    return responseToJson = await response.json();
+}
+
+
+async function deleteContact(path = "contacts", data = {}) {
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "DELETE",
+
+    });
+    return responseToJson = await response.json();
 }

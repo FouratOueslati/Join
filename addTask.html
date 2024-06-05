@@ -48,7 +48,7 @@
     </script>
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(); onloadFunction()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
@@ -70,11 +70,7 @@
                                     <span class="selected" id="selectContact">Search Contact</span>
                                     <div class="caret"></div>
                                 </div>
-                                <ul class="menu">
-                                    <li>Contact 1</li>
-                                    <li>Contact 2</li>
-                                    <li>Contact 3</li>
-                                </ul>
+                                <ul class="menu" id="contactList"></ul>
                             </div>
                         </div>
                     </div>

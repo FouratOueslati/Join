@@ -1,20 +1,43 @@
-function getElements() {
-    const title = document.getElementById("title").value;
-    const description = document.getElementById("description").value;
-    const selectContact = document.getElementById("selectContact").innerText;
-    const date = document.getElementById("date").value;
-    const selectCategory = document.getElementById("selectCategory").innerText;
+const BASE_URL_USER_DATA = "https://joincontacts-default-rtdb.europe-west1.firebasedatabase.app/";
 
-    return {
-        title,
-        description,
-        selectContact,
-        date,
-        selectCategory
-    };
+let namesOfUsers = [];
+
+function onloadFunction() {
+    displayName();
 }
 
-function addTaskToBoard() {
-    const elements = getElements();
-    console.log(elements);
+async function loadUserData(path = "") {
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json");
+    return await response.json(); 
 }
+
+async function displayName() {
+    let data = await loadUserData("contacts");
+    let contacts = Object.values(data);
+    for (let i = 0; i < contacts.length; i++) {
+        let name = contacts[i]["name"];
+        let color = contacts[i]["backgroundcolor"];
+        namesOfUsers.push(name);
+    }
+    renderContact();
+}
+
+async function renderContact() {
+    let containerContact = document.getElementById("contactList");
+    for (let i = 0; i < namesOfUsers.length; i++) { 
+        containerContact.innerHTML += generateContactToChose(namesOfUsers[i]); 
+    }
+}
+
+function generateContactToChose(name) {
+    return /*html*/ `
+    <div class="contact-boarder">
+        <div class="name-inicial">
+        	<div class="circle-inicial"></div>
+            <li id="${name}">${name}</li>
+        </div>
+        <div class="chek-box"></div>
+    </div>
+    `;
+}
+

@@ -222,6 +222,8 @@ h1 {
     display: none;
     transition: 0.5s;
     z-index: 1;
+    overflow-y: auto;
+    max-height: 80px; 
 }
 
 .selectClicked {
@@ -245,6 +247,26 @@ h1 {
     opacity: 1;
 }
 
+::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(168, 168, 168);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: (168, 168, 168);
+    border-radius: 4px;
+}
+
 /* Subtask */
 .input-with-img {
     border-radius: 10px;
@@ -265,6 +287,21 @@ h1 {
 .input-field-svg {
     position: absolute;
     margin-left: 24%;
+}
+
+/*JavaScript*/
+.name-inicial {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.circle-inicial {
+    background-color: black;
+    width: 24px;
+    height: 24px;
+    border-radius: 16px;
 }
 
 @media(max-width: 900px) {

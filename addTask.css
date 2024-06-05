@@ -42,12 +42,14 @@ body {
 }
 
 .button-end-proces-container {
-    width: 100%;
+    width: 92.5%;
     height: 10%;
+    margin-top: 40px;
+    margin-left: 32px;
+    margin-right: 32px;
 }
 
 .add-task-set-up-one-container {
-    height: 100%;
     width: 55%;
     display: flex;
     justify-content: center;
@@ -60,7 +62,6 @@ body {
 }
 
 .add-task-set-up-two-container{
-    height: 100%;
     width: 55%;
     display: flex;
     justify-content: center;
@@ -144,7 +145,7 @@ h1 {
     background-color: white;
     color: black;
     border: 1px solid  rgb(209,209,209);
-    padding: 12px 20px;;
+    padding: 8px 8px 8px 8px;
     cursor: pointer;
     border-radius: 10px;
 }
@@ -153,7 +154,7 @@ h1 {
     background-color: rgb(42,54,71);
     color: white;
     border: 1px solid  rgb(209,209,209);
-    padding: 12px 20px;
+    padding: 8px 8px 8px 8px;
     cursor: pointer;
     border-radius: 10px; 
 }
@@ -221,6 +222,8 @@ h1 {
     display: none;
     transition: 0.5s;
     z-index: 1;
+    overflow-y: auto;
+    max-height: 80px; 
 }
 
 .selectClicked {
@@ -242,6 +245,26 @@ h1 {
 .menuOpen {
     display: block;
     opacity: 1;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(168, 168, 168);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: (168, 168, 168);
+    border-radius: 4px;
 }
 
 /* Subtask */
@@ -266,9 +289,27 @@ h1 {
     margin-left: 24%;
 }
 
+/*JavaScript*/
+.name-inicial {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.circle-inicial {
+    background-color: black;
+    width: 24px;
+    height: 24px;
+    border-radius: 16px;
+}
+
 @media(max-width: 900px) {
     .input-field-svg {
         margin-left: 28%;
+    }
+    .button-txt-img {
+        font-size: 10px;
     }
 }
 
@@ -298,7 +339,7 @@ h1 {
         width: 90%;
     }
     .seperate-add-task {
-        display: none;
+        display: hidden;
     }
     .add-task-set-up {
         display: flex;
@@ -326,4 +367,235 @@ h1 {
     .color-white-button {
         display: none;
     }
+}
+
+
+/* responsive */
+@media (max-width: 1150px) {
+    .summary-headline {
+        padding-left: 100px;
+    }
+
+    .todos-container {
+        width: 75%;
+    }
+
+    .greeting-container {
+        width: 25%;
+    }
+
+    .greeting {
+        font-size: 28px;
+    }
+
+    .user-name {
+        font-size: 38px;
+    }
+
+    .fat-Contacts-headline {
+        font-size: 28px;
+    }
+
+}
+
+
+@media (max-width: 900px) {
+    body {
+        flex-direction: column-reverse;
+    }
+
+    .content-container {
+        height: 180vh;
+        width: 100vw;
+    }
+
+    .parent-container {
+        width: 100vw;
+        height: 100%;
+        height: 100%;
+    }
+
+    .summary-headline {
+        padding-left: unset;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        padding-left: 10px;
+        height: 20%;
+        font-size: 18px;
+        gap: 8px;
+    }
+
+    .greeting-and-todos-container {
+        height: 80%;
+        align-items: flex-start;
+    }
+
+    .greeting-container {
+        display: none;
+    }
+
+    .seperator-and-text-container {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .help-icon {
+        display: none;
+    }
+
+    .join-360 {
+        font-size: 38px;
+    }
+
+    .vertical-seperator {
+        width: 60px;
+        height: 0;
+    }
+
+    .todos-container {
+        width: 100%;
+        gap: 12px;
+    }
+
+    .todo {
+        height: 120px;
+        width: 200px;
+    }
+
+    .urgent-todo-container {
+        height: 120px;
+    }
+
+    .todo-in-progress {
+        width: 120px;
+        height: 120px;
+    }
+
+    .contact-headline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    /* CSS Nicole ////////////////////////// */
+    .help_legal_privacy {
+        padding-left: 16px;
+    }
+
+    .help_legal_privacy-headline {
+        margin: 48px 0 32px 0;
+    }
+
+    /* //////////////////////////////////// */
+}
+
+@media (max-width: 600px) {
+    .contact-headline {
+        display: none;
+    }
+
+    .add-contact-box {
+        width: 100vw;
+    }
+
+    .scroll {
+        width: 100vw;
+    }
+
+    .contact-data {
+        padding-left: 25%;
+        gap: 18px;
+    }
+
+    .contacts-name {
+        font-size: 16px;
+    }
+
+    .contact-email {
+        font-size: 12px;
+    }
+
+    .shorts-name {
+        height: 32px;
+        width: 32px;
+    }
+}
+
+@media (max-width: 550px) {
+    .todos-box {
+        width: 310px;
+        gap: 24px;
+        gap: 24px;
+    }
+
+    .urgent-todo-container {
+        width: 310px;
+        padding: 24px;
+        gap: 20px;
+        gap: 20px;
+    }
+
+    .undone-todos-container {
+        width: 310px;
+        gap: 8px;
+    }
+
+    .todo-in-progress {
+        font-size: 16px;
+    }
+
+    .small-icon {
+        width: 40px;
+        height: 40px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .todos-number-container {
+        font-size: 47px;
+    }
+
+    .todos-text-container {
+        font-size: 14px;
+    }
+
+    .date-container {
+        font-size: 16px;
+        font-size: 47px;
+    }
+
+    .todos-text-container {
+        font-size: 14px;
+    }
+
+    .date-container {
+        font-size: 16px;
+    }
+
+    /* CSS Nicole //////////////////// */
+
+    .guide-container {
+        width: 100%;
+    }
+
+    .text-help {
+        width: 100%;
+    }
+
+    /* ////////////////////////////// */
+
+    /* CSS Nicole //////////////////// */
+
+    .guide-container {
+        width: 100%;
+    }
+
+    .text-help {
+        width: 100%;
+    }
+
+    /* ////////////////////////////// */
+
 }

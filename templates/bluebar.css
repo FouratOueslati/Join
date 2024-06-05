@@ -9,6 +9,7 @@
     font-weight: 400;
     color: white;
     box-sizing: border-box;
+    z-index: 2;
 }
 
 

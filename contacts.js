@@ -153,7 +153,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
 
 function getRandomColor() {
     let newColor = document.getElementById('newColor');
-    let symbols,color;
+    let symbols, color;
     symbols = "0123456789ABCDEF";
     color = "#";
     for (let i = 0; i < 6; i++) {
@@ -248,18 +248,27 @@ function getEditContactHtml() {
 }
 
 
-async function postUser(path = "contacts", data = {}) {
+async function postUser(path = "users", data = {}) {
     let name = document.getElementById('name');
     let email = document.getElementById('email');
     let password = document.getElementById('password');
     let confirmedPassword = document.getElementById('confirmedPassword');
-
     data = {
         name: name.value,
         email: email.value,
-        phone: password.value,
-        confirmedPassword: confirmedPassword.value,
+        password: password.value,
+        urgentTasks: [],
+        mediaumTasks: [],
+        lowTasks: [],
+        contacts: [],
     };
+    console.log(data)
+    document.getElementById('successfull-container').classList.remove('d-none');
+    document.getElementById('succesfull-signup').classList.add('transform');
+    setTimeout(() => {
+        window.location.href = "login.html"; 
+    }, 1500);
+
     if (password.value === confirmedPassword.value) {
         let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
             method: "POST",
@@ -274,6 +283,20 @@ async function postUser(path = "contacts", data = {}) {
     }
 }
 
+
+async function login() {
+    let email = document.getElementById('loginEmail');
+    let password = document.getElementById('loginPassword');
+    let data = await loadUserData("users");
+    let users = Object.values(data);
+    let foundUser = users.find(u => u.email == email.value && u.password == password.value);
+    console.log(foundUser);
+    if (foundUser) {
+        window.location.href = "summary.html";
+    } else {
+        alert('user not found');
+    }
+}
 
 async function createNewContact(path = "contacts", data = {}) {
     let name = document.getElementById('name');

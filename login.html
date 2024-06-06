@@ -18,12 +18,12 @@
     <img class="intro-img" src="./img/Capa 2.png">
     <img class="intro-img-responsive" src="./img/Capa2White.png">
     <div class="background">
-        <form class="main-container">
+        <form onsubmit="login(); return false" class="main-container">
             <div class="login-headline">Log in</div>
             <div class="blue-seperator"></div>
             <div class="data-container">
-                <input placeholder="Email" required class="email-input" type="email">
-                <input placeholder="Password" required class="password-input" type="password">
+                <input id="loginEmail" placeholder="Email" required class="email-input" type="email">
+                <input id="loginPassword" placeholder="Password" required class="password-input" type="password">
                 <div class=" remember-container">
                     <input type="checkbox" class="rectangle">
                     <div class="remember-text">Remember me</div>
@@ -44,6 +44,7 @@
         </div>
 
     </div>
+    <script src="contacts.js"></script>
 </body>
 
 </html>

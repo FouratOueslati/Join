@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="./templates/bluebar.css">
     <link rel="stylesheet" href="./templates/topbar.css">
+    <script src="storage.js"></script>
     <script src="include.js"></script>
     <script src="addTask.js"></script>
     <script>
@@ -49,7 +50,7 @@
     </script>
 </head>
 
-<body onload="includeHTML(); onloadFunction()">
+<body onload="includeHTML()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
@@ -62,9 +63,11 @@
                     <div class="add-task-set-up-one-container">
                         <div class="add-task-set-up-one">
                             <span class="span-margin">Title</span>
-                            <input required placeholder="Enter a title..." minlength="4" class="task-input-field" id="title">
+                            <input id="taskTitle" required placeholder="Enter a title..." minlength="4"
+                                class="task-input-field" id="title">
                             <span class="span-margin">Description</span>
-                            <textarea required placeholder="Enter a Description..." minlength="4" class="task-input-field" id="description"></textarea>
+                            <textarea id="taskDescription" required placeholder="Enter a Description..." minlength="4"
+                                class="task-input-field" id="description"></textarea>
                             <span class="span-margin">Assigned to</span>
                             <div class="drop-down">
                                 <div class="select">
@@ -81,32 +84,35 @@
                     <div class="add-task-set-up-two-container">
                         <div class="add-task-set-up-two">
                             <span class="span-margin">Due date</span>
-                            <input type="date" class="task-input-field date" id="date">
+                            <input id="date" type="date" class="task-input-field date">
                             <span class="span-margin">Prio</span>
                             <div class="button-prio-width">
-                                <button type="button" class="button-prio">
+                                <button id="urgentButton" type="button" class="button-prio">
                                     <div class="center">
-                                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos" id="urgentButton"></div>
+                                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg"
+                                                class="prio-photos"></div>
                                     </div>
                                 </button>
-                                <button type="button" class="button-prio">
+                                <button id="mediumButton" type="button" class="button-prio">
                                     <div class="center">
-                                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos" id="mediumButton"></div>
+                                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg"
+                                                class="prio-photos"></div>
                                     </div>
                                 </button>
-                                <button type="button" class="button-prio">
+                                <button id="lowButton" type="button" class="button-prio">
                                     <div class="center">
-                                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos" id="lowButton"></div>
+                                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg"
+                                                class="prio-photos"></div>
                                     </div>
                                 </button>
                             </div>
                             <span class="span-margin">Category</span>
                             <div class="drop-down">
-                                <div class="select">
+                                <div class="select" id="selectCategoryContainer">
                                     <span class="selected" id="selectCategory">Select task category</span>
                                     <div class="caret"></div>
                                 </div>
-                                <ul class="menu">
+                                <ul class="menu" id="categoryMenu">
                                     <li>Technical Task</li>
                                     <li>User Story</li>
                                 </ul>
@@ -124,10 +130,12 @@
                         <span class="span-margin">This field is required</span>
                         <div>
                             <button type="button" class="color-white-button" onclick="removeAllInput()">
-                                <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg"></div>
+                                <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
+                                </div>
                             </button>
-                            <button type="button" class="color-blue-button" onclick="addTaskToBoard()">
-                                <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg" class="check-svg"></div>
+                            <button id="createButton" type="button" class="color-blue-button" onclick="addTask()">
+                                <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
+                                        class="check-svg"></div>
                             </button>
                         </div>
                     </div>

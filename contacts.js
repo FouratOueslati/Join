@@ -1,6 +1,3 @@
-const BASE_URL_USER_DATA = "https://joincontacts-default-rtdb.europe-west1.firebasedatabase.app/";
-
-
 let letters = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -17,12 +14,6 @@ async function init() {
     loadUserData();
     checkExistingInitials();
     displayInitialsFilter();
-}
-
-
-async function loadUserData(path = "") {
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json");
-    return responseToJson = await response.json();
 }
 
 
@@ -248,68 +239,16 @@ function getEditContactHtml() {
 }
 
 
-async function postUser(path = "users", data = {}) {
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let password = document.getElementById('password');
-    let confirmedPassword = document.getElementById('confirmedPassword');
-    data = {
-        name: name.value,
-        email: email.value,
-        password: password.value,
-        urgentTasks: [],
-        mediaumTasks: [],
-        lowTasks: [],
-        contacts: [],
-    };
-    console.log(data)
-    document.getElementById('successfull-container').classList.remove('d-none');
-    document.getElementById('succesfull-signup').classList.add('transform');
-    setTimeout(() => {
-        window.location.href = "login.html"; 
-    }, 1500);
-
-    if (password.value === confirmedPassword.value) {
-        let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-            method: "POST",
-            header: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        });
-        return responseToJson = await response.json();
-    } else {
-        alert("passwords don't match")
-    }
-}
-
-
-async function login() {
-    let email = document.getElementById('loginEmail');
-    let password = document.getElementById('loginPassword');
-    let data = await loadUserData("users");
-    let users = Object.values(data);
-    let foundUser = users.find(u => u.email == email.value && u.password == password.value);
-    console.log(foundUser);
-    if (foundUser) {
-        window.location.href = "summary.html";
-    } else {
-        alert('user not found');
-    }
-}
-
 async function createNewContact(path = "contacts", data = {}) {
     let name = document.getElementById('name');
     let email = document.getElementById('email');
     let number = document.getElementById('phone');
     let color = getRandomColor();
-
     data = {
         name: name.value,
         email: email.value,
         number: number.value,
         backgroundcolor: color,
-
     }
     console.log(data);
     let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
@@ -355,3 +294,83 @@ async function deleteContact(path = "contacts", data = {}) {
     });
     return responseToJson = await response.json();
 }
+
+// ACHTUNG DARAN ARBEITET DER FOURAT NOCH DAHER DIE FUNKTION AUSGEBLENDET
+/*function addTask() {
+    // Event listener for category selection
+    document.querySelectorAll('#categoryMenu li').forEach(category => {
+        category.addEventListener('click', () => {
+            localStorage.setItem('selectedCategory', category.textContent.trim());
+        });
+    });
+
+    // Event listener for priority buttons
+    document.getElementById('urgentButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'urgentButton');
+    });
+
+    document.getElementById('mediumButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'mediumButton');
+    });
+
+    document.getElementById('lowButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'lowButton');
+    });
+
+    // Event listener for the "Create Task" button
+    document.getElementById('createButton').addEventListener('click', async () => {
+        let taskTitle = document.getElementById('taskTitle');
+        let taskDescription = document.getElementById('taskDescription');
+        let date = document.getElementById('date');
+
+        // Retrieve the last clicked button (priority) and selected category from localStorage
+        let lastClickedButton = localStorage.getItem('lastClickedButton');
+        let selectedCategory = localStorage.getItem('selectedCategory');
+
+        // Check if both priority and category are selected
+        if (lastClickedButton && selectedCategory) {
+            // Determine the appropriate array based on the selected category
+            let dataArray;
+            if (selectedCategory === 'Technical Task') {
+                // If the selected category is "Technical Task"
+                if (lastClickedButton === 'urgentButton') {
+                    // If the last clicked button is "Urgent"
+                    dataArray = userData.urgentTasks; // Use urgentTechnicalTasks array
+                } else if (lastClickedButton === 'mediumButton') {
+                    // If the last clicked button is "Medium"
+                    dataArray = userData.mediumTasks; // Use mediumTechnicalTasks array
+                } else if (lastClickedButton === 'lowButton') {
+                    // If the last clicked button is "Low"
+                    dataArray = userData.lowTasks; // Use lowTechnicalTasks array
+                }
+            } else if (selectedCategory === 'User Story') {
+                // If the selected category is "User Story"
+                if (lastClickedButton === 'urgentButton') {
+                    // If the last clicked button is "Urgent"
+                    dataArray = userData.urgentTasks; // Use urgentUserStories array
+                } else if (lastClickedButton === 'mediumButton') {
+                    // If the last clicked button is "Medium"
+                    dataArray = userData.mediumTasks; // Use mediumUserStories array
+                } else if (lastClickedButton === 'lowButton') {
+                    // If the last clicked button is "Low"
+                    dataArray = userData.lowTasks; // Use lowUserStories array
+                }
+            }
+
+            // Check if dataArray is defined
+            if (dataArray) {
+                // Add the task to the appropriate array
+                dataArray.push({ name: taskTitle.value, description: taskDescription.value, date: date.value });
+
+                // Update the user data in the database
+                await updateUserData(uid, userData);
+
+                console.log('Task added successfully');
+            } else {
+                console.error('Invalid combination of priority and category');
+            }
+        } else {
+            console.error('Both priority and category must be selected');
+        }
+    });
+}*/

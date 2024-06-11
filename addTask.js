@@ -1,5 +1,3 @@
-let namesOfUsers = [];
-
 function onloadFunction() {
     displayName();
 }

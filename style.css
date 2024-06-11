@@ -4,6 +4,39 @@ body {
 }
 
 
+.signup-successful-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(168, 168, 168, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.succesfull-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    background-color: rgba(42, 54, 71, 1);
+    border-radius: 20px;
+    height: 70px;
+    width: 300px;
+    transform: translateY(700%);
+    transition: transform 1s ease-in-out;
+}
+
+
+.transform {
+    transform: translateY(0%);
+}
+
+
 .d-none {
     display: none;
 }
@@ -27,8 +60,9 @@ body {
     height: 130px;
     position: absolute;
     top: 40%;
-    left: 47%;  width: 100px;
-  
+    left: 47%;
+    width: 100px;
+
 }
 
 
@@ -409,13 +443,11 @@ body {
     width: 24px;
 }
 
-
 .scroll::-webkit-scrollbar-thumb {
     background-color: #A8A8A8;
     border-radius: 24px;
     border: solid 8px white;
 }
-
 
 .scroll::-webkit-scrollbar-thumb:hover {
     background-color: #29ABE2;

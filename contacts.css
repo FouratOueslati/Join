@@ -369,3 +369,43 @@
         font-weight: 700;
     }
 }
+
+@media (max-width: 900px) {
+    .contact-big-container {
+        display: none;
+    }
+
+    .contacts-container {
+        width: 100%;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+    }
+
+    .button-txt {
+        display: none;
+    }
+
+    .button-add-contacts {
+        width: 56px;
+        border-radius: 56px;
+    }
+
+    .img-contact-add {
+        width: 32px;
+    }
+
+    .add-contact-box {
+        position: absolute;
+        margin: 0 16px 22px 0;
+        height: unset;
+    }
+
+    .button-add-contacts {
+        margin: unset;
+    }
+
+    #filteredContactsContainer {
+        width: -webkit-fill-available;
+        margin-left: 24px;
+    }
+}

@@ -198,16 +198,11 @@
         display: none;
     }
 
-    .add-contact-box {
-        width: 100vw;
-    }
-
     .scroll {
-        width: 100vw;
+        width: -webkit-fill-available;
     }
 
     .contact-data {
-        padding-left: 25%;
         gap: 18px;
     }
 
@@ -220,8 +215,8 @@
     }
 
     .shorts-name {
-        height: 32px;
-        width: 32px;
+        height: 42px;
+        width: 42px;
     }
 
     .intro-img {

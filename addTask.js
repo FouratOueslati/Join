@@ -1,12 +1,11 @@
+<<<<<<< HEAD
 const BASE_URL_USER_DATA = "https://joincontacts-default-rtdb.europe-west1.firebasedatabase.app/";
+=======
+let namesOfUsers = [];
+>>>>>>> d453275e2c39c4fb54f72c4b032e7981f07d4be6
 
 function onloadFunction() {
     displayName();
-}
-
-async function loadUserData(path = "") {
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json");
-    return await response.json(); 
 }
 
 async function displayName() {

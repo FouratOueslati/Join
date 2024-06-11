@@ -1,6 +1,3 @@
-const BASE_URL_USER_DATA = "https://joincontacts-default-rtdb.europe-west1.firebasedatabase.app/";
-
-
 let letters = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -17,12 +14,6 @@ async function init() {
     loadUserData();
     checkExistingInitials();
     displayInitialsFilter();
-}
-
-
-async function loadUserData(path = "") {
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json");
-    return responseToJson = await response.json();
 }
 
 
@@ -134,7 +125,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
             <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
             <div class="full-name">${name}
                 <div class="edit-delete-box">
-                    <img src="./img/edit_contacts.png">
+                    <img onclick="openEditContact()" src="./img/edit_contacts.png">
                     <img src="./img/delete_contact.png">
                 </div>
             </div>
@@ -151,67 +142,235 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
 }
 
 
-function getRandomPastelColor() {
-    var r = Math.floor(Math.random() * 256); // Rote Komponente
-    var g = Math.floor(Math.random() * 256); // Grüne Komponente
-    var b = Math.floor(Math.random() * 256); // Blaue Komponente
-
-
-    // // Umwandlung in Pastellfarben durch Hinzufügen von Weiß
-    // r = Math.floor((r + 255) / 2);
-    // g = Math.floor((g + 255) / 2);
-    // b = Math.floor((b + 255) / 2);
-
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
-}
-
-
-function addColorToNewContact(i) {
-    let newShort = document.getElementById(`contactsInitials${i}`);
-    if (!newShort.style.backgroundColor) { // Überprüfen, ob noch keine Hintergrundfarbe zugewiesen wurde
-        newShort.style.backgroundColor = getRandomPastelColor();
+function getRandomColor() {
+    let newColor = document.getElementById('newColor');
+    let symbols, color;
+    symbols = "0123456789ABCDEF";
+    color = "#";
+    for (let i = 0; i < 6; i++) {
+        color = color + symbols[Math.floor(Math.random() * 16)];
     }
+    newColor.style.backgroundColor = color;
+    return color;
 }
 
+// function addColorToNewContact(i) {
+//     let newShort = document.getElementById(`contactsInitials${i}`);
+//     if (!newShort.style.backgroundColor) { // Überprüfen, ob noch keine Hintergrundfarbe zugewiesen wurde
+//         newShort.style.backgroundColor = getRandomPastelColor();
+//     }
+// }
 
-function addNewContact() {
-    let addNewContact = document.getElementById('addNewContact');
+
+function openAddNewContact() {
     document.getElementById('dialogNewContact').classList.remove('d-none');
-    addNewContact.style.transform = "translateX(113%)"
+    let addNewContact = document.getElementById('addNewContact');
+    addNewContact.style.transform = "translateX(113%)";
     setTimeout(() => {
         addNewContact.style.transform = "translateX(0)";
     }, 50);
+    openContact();
+    getRandomColor();
 }
 
 
 function closeDialog() {
     document.getElementById('dialogNewContact').classList.add('d-none');
     document.getElementById('contactInfos').classList.add('d-none');
+    document.getElementById('dialogEditContact').classList.add('d-none');
 }
 
 
-async function postUser(path = "", data = {}) {
+function doNotClose(event) {
+    event.stopPropagation();
+}
+
+
+function openEditContact() {
+    document.getElementById('dialogEditContact').classList.remove('d-none');
+    let editContact = document.getElementById('editNewContact');
+    editContact.style.transform = "translateX(113%)";
+    setTimeout(() => {
+        editContact.style.transform = "translateX(0)";
+    }, 50);
+    getEditContactHtml();
+}
+
+
+function getEditContactHtml() {
+    return `
+    <div id="dialogEditContact" class="dialog-new-contact d-none" onclick="closeDialog()">
+    <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
+        <div class="add-contact-left">
+            <div>
+                <img src="./img/Capa 3.png">
+                <div class="add-new-contact-headline">Edit contact</div>
+                <div class="blue-seperator-contact"></div>
+            </div>
+        </div>
+        <div class="add-contact-right">
+            <div class="close-add-contact">
+                <img src="./img/close.png" onclick="closeDialog()">
+            </div>
+            <div class="contact-box-right">
+                <img src="./img/Group 13.png" class="contact-img">
+                <div>
+                    <div class="add-contact-data">
+                        <input id="editName" placeholder="Name" type="text" required class="name-input">
+                        <input id="editEmail" placeholder="Email" type="email" required class="email-input">
+                        <input id="editPhone" placeholder="Phone" type="text" required class="phone-input">
+                    </div>
+                    <div class="close-create-button">
+                        <button class="color-white-button" onclick="closeDialog(event)">
+                            <div class="button-txt-img">Delete</div>
+                        </button>
+                        <button class="color-blue-button">
+                            <div onclick="" class="button-txt-img">Save<img src="./addTaskImg/check.svg"
+                                    class="check-svg">
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    `;
+}
+
+
+async function createNewContact(path = "contacts", data = {}) {
     let name = document.getElementById('name');
     let email = document.getElementById('email');
-    let password = document.getElementById('password');
-    let confirmedPassword = document.getElementById('confirmedPassword');
+    let number = document.getElementById('phone');
+    let color = getRandomColor();
+    data = {
+        name: name.value,
+        email: email.value,
+        number: number.value,
+        backgroundcolor: color,
+    }
+    console.log(data);
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "POST",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    loadUserData();
+    closeDialog();
+    return responseToJson = await response.json();
+}
+
+
+async function editContacts(path = "contacts", data = {}) {
+    let name = document.getElementById('name');
+    let email = document.getElementById('email');
+    let number = document.getElementById('phone');
 
     data = {
         name: name.value,
         email: email.value,
-        phone: password.value,
-        confirmedPassword: confirmedPassword.value,
-    };
-    if (password.value === confirmedPassword.value) {
-        let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-            method: "POST",
-            header: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        });
-        return responseToJson = await response.json();
-    } else {
-        alert("passwords don't match")
+        number: number.value,
     }
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    loadUserData();
+    closeDialog();
+    return responseToJson = await response.json();
 }
+
+
+async function deleteContact(path = "contacts", data = {}) {
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "DELETE",
+
+    });
+    return responseToJson = await response.json();
+}
+
+// ACHTUNG DARAN ARBEITET DER FOURAT NOCH DAHER DIE FUNKTION AUSGEBLENDET
+/*function addTask() {
+    // Event listener for category selection
+    document.querySelectorAll('#categoryMenu li').forEach(category => {
+        category.addEventListener('click', () => {
+            localStorage.setItem('selectedCategory', category.textContent.trim());
+        });
+    });
+
+    // Event listener for priority buttons
+    document.getElementById('urgentButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'urgentButton');
+    });
+
+    document.getElementById('mediumButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'mediumButton');
+    });
+
+    document.getElementById('lowButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'lowButton');
+    });
+
+    // Event listener for the "Create Task" button
+    document.getElementById('createButton').addEventListener('click', async () => {
+        let taskTitle = document.getElementById('taskTitle');
+        let taskDescription = document.getElementById('taskDescription');
+        let date = document.getElementById('date');
+
+        // Retrieve the last clicked button (priority) and selected category from localStorage
+        let lastClickedButton = localStorage.getItem('lastClickedButton');
+        let selectedCategory = localStorage.getItem('selectedCategory');
+
+        // Check if both priority and category are selected
+        if (lastClickedButton && selectedCategory) {
+            // Determine the appropriate array based on the selected category
+            let dataArray;
+            if (selectedCategory === 'Technical Task') {
+                // If the selected category is "Technical Task"
+                if (lastClickedButton === 'urgentButton') {
+                    // If the last clicked button is "Urgent"
+                    dataArray = userData.urgentTasks; // Use urgentTechnicalTasks array
+                } else if (lastClickedButton === 'mediumButton') {
+                    // If the last clicked button is "Medium"
+                    dataArray = userData.mediumTasks; // Use mediumTechnicalTasks array
+                } else if (lastClickedButton === 'lowButton') {
+                    // If the last clicked button is "Low"
+                    dataArray = userData.lowTasks; // Use lowTechnicalTasks array
+                }
+            } else if (selectedCategory === 'User Story') {
+                // If the selected category is "User Story"
+                if (lastClickedButton === 'urgentButton') {
+                    // If the last clicked button is "Urgent"
+                    dataArray = userData.urgentTasks; // Use urgentUserStories array
+                } else if (lastClickedButton === 'mediumButton') {
+                    // If the last clicked button is "Medium"
+                    dataArray = userData.mediumTasks; // Use mediumUserStories array
+                } else if (lastClickedButton === 'lowButton') {
+                    // If the last clicked button is "Low"
+                    dataArray = userData.lowTasks; // Use lowUserStories array
+                }
+            }
+
+            // Check if dataArray is defined
+            if (dataArray) {
+                // Add the task to the appropriate array
+                dataArray.push({ name: taskTitle.value, description: taskDescription.value, date: date.value });
+
+                // Update the user data in the database
+                await updateUserData(uid, userData);
+
+                console.log('Task added successfully');
+            } else {
+                console.error('Invalid combination of priority and category');
+            }
+        } else {
+            console.error('Both priority and category must be selected');
+        }
+    });
+}*/

@@ -37,7 +37,6 @@ async function loadSpecificUserDataFromLocalStorage() {
         },
     });
     const userData = await response.json();
-    console.log(userData);
     return userData;
 }
 

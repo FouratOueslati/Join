@@ -50,7 +50,7 @@
     </script>
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), onloadFunction()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
@@ -76,6 +76,9 @@
                                 </div>
                                 <ul class="menu" id="contactList"></ul>
                             </div>
+                            <div class="bubble-setup">
+                                <div id="contactsDisplayBuble"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="seperate-container">
@@ -87,19 +90,22 @@
                             <input id="date" type="date" class="task-input-field date">
                             <span class="span-margin">Prio</span>
                             <div class="button-prio-width">
-                                <button id="urgentButton" type="button" class="button-prio">
+                                <button onclick="addPrioEventListeners()" id="urgentButton" type="button"
+                                    class="button-prio">
                                     <div class="center">
                                         <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg"
                                                 class="prio-photos"></div>
                                     </div>
                                 </button>
-                                <button id="mediumButton" type="button" class="button-prio">
+                                <button onclick="addPrioEventListeners()" id="mediumButton" type="button"
+                                    class="button-prio">
                                     <div class="center">
                                         <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg"
                                                 class="prio-photos"></div>
                                     </div>
                                 </button>
-                                <button id="lowButton" type="button" class="button-prio">
+                                <button onclick="addPrioEventListeners()" id="lowButton" type="button"
+                                    class="button-prio">
                                     <div class="center">
                                         <div class="button-txt-img">Low <img src="./addTaskImg/low.svg"
                                                 class="prio-photos"></div>
@@ -112,7 +118,7 @@
                                     <span class="selected" id="selectCategory">Select task category</span>
                                     <div class="caret"></div>
                                 </div>
-                                <ul class="menu" id="categoryMenu">
+                                <ul onclick="addCategoryEventListener()" class="menu" id="categoryMenu">
                                     <li>Technical Task</li>
                                     <li>User Story</li>
                                 </ul>
@@ -120,8 +126,9 @@
                             <span class="span-margin">Subtask</span>
                             <div class="input-with-img">
                                 <input required placeholder="Add new subtask" class="task-input-with-img" id="subtask">
-                                <img src="./addTaskImg/plus.svg" class="input-field-svg">
+                                <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
                             </div>
+                            <div class="subtask-container" id="subtaskContainer">Test</div>
                         </div>
                     </div>
                 </div>
@@ -133,7 +140,7 @@
                                 <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
                                 </div>
                             </button>
-                            <button id="createButton" type="button" class="color-blue-button" onclick="addTask()">
+                            <button  onclick="addTask()" id="createButton" type="button" class="color-blue-button">
                                 <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
                                         class="check-svg"></div>
                             </button>

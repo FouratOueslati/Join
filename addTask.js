@@ -1,11 +1,10 @@
-<<<<<<< HEAD
-const BASE_URL_USER_DATA = "https://joincontacts-default-rtdb.europe-west1.firebasedatabase.app/";
-=======
-let namesOfUsers = [];
->>>>>>> d453275e2c39c4fb54f72c4b032e7981f07d4be6
-
 function onloadFunction() {
     displayName();
+}
+
+async function loadUserData(path = "") {
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json");
+    return await response.json(); 
 }
 
 async function displayName() {
@@ -55,7 +54,6 @@ function displayContactForAssignment() {
         let checkbox = checkboxes[i];
         if (checkbox.checked) {
             let contactElement = checkbox.closest('.contact-boarder');
-            let nameElement = contactElement.querySelector('li');
             let initialsElement = contactElement.querySelector('.circle-inicial .inicial-style');
             let circleElement = contactElement.querySelector('.circle-inicial');
             let initials = initialsElement.innerText;
@@ -73,7 +71,26 @@ function generateBubbleInitials(i, initials, color) {
     `;
 }
 
+function onInputChange() {
+    let subtaskImg = document.getElementById('plusImg'); 
+    let subtaskButtons = document.getElementById('closeOrAccept');
+    let inputField = document.getElementById('inputFieldSubtask');
+
+    if (inputField.value.length > 0) {
+        subtaskImg.style.display = 'none';
+        subtaskButtons.style.display = 'block';
+    } else {
+        subtaskImg.style.display = 'block';
+        subtaskButtons.style.display = 'none';
+    } 
+}
+
+function deleteNote() {
+    let inpultField = document.getElementById('inputFieldSubtask');
+    inpultField = '';
+    onInputChange();
+}
+
 function addSubtask() {
-    subtaskInput = document.getElementById('subtask');  
     container = document.getElementById('subtaskContainer'); 
 }

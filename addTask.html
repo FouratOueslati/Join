@@ -125,15 +125,15 @@
                                 <input required placeholder="Add new subtask" class="task-input-with-img"oninput="onInputChange()" id="inputFieldSubtask">
                                 <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
                                 <div class="check-cross-position" id="closeOrAccept">
-                                    <button class="button-transparacy" onclick="deleteNote()">
-                                        <img src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                                    <button class="button-transparacy" >
+                                        <img onclick="deleteNote()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
                                     </button>
                                     <button class="button-transparacy">
-                                        <img src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
+                                        <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
                                     </button>
                                 </div>
                             </div>
-                            <div class="subtask-container" id="subtaskContainer">Test</div>
+                            <div class="subtask-container" id="subtaskContainer"></div>
                         </div>
                     </div>
                 </div>

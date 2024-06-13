@@ -1,3 +1,5 @@
+let subtaskCounter = 0;
+
 function onloadFunction() {
     displayName();
 }
@@ -87,10 +89,20 @@ function onInputChange() {
 
 function deleteNote() {
     let inpultField = document.getElementById('inputFieldSubtask');
-    inpultField = '';
+    inpultField.value = '';
     onInputChange();
 }
 
 function addSubtask() {
-    container = document.getElementById('subtaskContainer'); 
+    let container = document.getElementById('subtaskContainer');
+    let text = document.getElementById('inputFieldSubtask').value;   
+    if (text.trim() !== '') {  
+        subtaskCounter++;
+        let subtaskHTML = `<div class="subtask" id="subtask-${subtaskCounter}">${text}</div>`;
+        container.innerHTML += subtaskHTML;
+        document.getElementById('inputFieldSubtask').value = ''; 
+        onInputChange(); 
+    } else {
+        alert('Subtask text must not be empty.');
+    }
 }

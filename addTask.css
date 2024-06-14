@@ -296,6 +296,24 @@ h1 {
     margin-left: 24%;
 }
 
+.check-cross-position {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 21%;
+    display: none;
+}
+
+.subtaskButtons {
+    cursor: pointer;
+}
+
+.button-transparacy {
+    background-color: transparent;
+    border: transparent;
+}
+
 /*JavaScript*/
 .name-inicial {
     display: flex;

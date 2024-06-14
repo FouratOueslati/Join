@@ -50,7 +50,7 @@
     </script>
 </head>
 
-<body onload="includeHTML(), onloadFunction()">
+<body onload="includeHTML(); onloadFunction()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
@@ -125,8 +125,16 @@
                             </div>
                             <span class="span-margin">Subtask</span>
                             <div class="input-with-img">
-                                <input required placeholder="Add new subtask" class="task-input-with-img" id="subtask">
+                                <input required placeholder="Add new subtask" class="task-input-with-img"oninput="onInputChange()" id="inputFieldSubtask">
                                 <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+                                <div class="check-cross-position" id="closeOrAccept">
+                                    <button class="button-transparacy" >
+                                        <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                                    </button>
+                                    <button class="button-transparacy">
+                                        <img src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
+                                    </button>
+                                </div>
                             </div>
                             <div class="subtask-container" id="subtaskContainer">Test</div>
                         </div>

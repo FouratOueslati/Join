@@ -2,6 +2,11 @@ function onloadFunction() {
     displayName();
 }
 
+async function loadUserData(path = "") {
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json");
+    return await response.json();
+}
+
 async function displayName() {
     let containerContact = document.getElementById("contactList");
     let data = await loadUserData("contacts");
@@ -49,7 +54,6 @@ function displayContactForAssignment() {
         let checkbox = checkboxes[i];
         if (checkbox.checked) {
             let contactElement = checkbox.closest('.contact-boarder');
-            let nameElement = contactElement.querySelector('li');
             let initialsElement = contactElement.querySelector('.circle-inicial .inicial-style');
             let circleElement = contactElement.querySelector('.circle-inicial');
             let initials = initialsElement.innerText;
@@ -67,8 +71,32 @@ function generateBubbleInitials(i, initials, color) {
     `;
 }
 
+function onInputChange() {
+    let subtaskImg = document.getElementById('plusImg');
+    let subtaskButtons = document.getElementById('closeOrAccept');
+    let inputField = document.getElementById('inputFieldSubtask');
+
+    if (inputField.value.length > 0) {
+        subtaskImg.style.display = 'none';
+        subtaskButtons.style.display = 'block';
+    } else {
+        subtaskImg.style.display = 'block';
+        subtaskButtons.style.display = 'none';
+    }
+}
+
+
 function addSubtask() {
-    subtaskInput = document.getElementById('subtask');
+
+}
+
+function clearSubtaskInput() {
+    let inpultField = document.getElementById('inputFieldSubtask');
+    inpultField.value = '';
+    onInputChange();
+}
+
+function addSubtask() {
     container = document.getElementById('subtaskContainer');
 }
 
@@ -106,33 +134,33 @@ function addCategoryEventListener() {
 
 // ACHTUNG DARAN ARBEITET DER FOURAT NOCH DAHER DIE FUNKTION AUSGEBLENDET
 async function addTask() {
-    try {
-        let userData = await loadSpecificUserDataFromLocalStorage();
+    let userData = await loadSpecificUserDataFromLocalStorage();
 
-        let taskTitle = document.getElementById('taskTitle').value;
-        let taskDescription = document.getElementById('taskDescription').value;
-        let date = document.getElementById('date').value;
-        let lastClickedButton = localStorage.getItem('lastClickedButton');
-        let selectedCategory = localStorage.getItem('selectedCategory');
-        let uid = localStorage.getItem('uid')
+    let taskTitle = document.getElementById('taskTitle').value;
+    let taskDescription = document.getElementById('taskDescription').value;
+    let date = document.getElementById('date').value;
+    let lastClickedButton = localStorage.getItem('lastClickedButton');
+    let selectedCategory = localStorage.getItem('selectedCategory');
+    let uid = localStorage.getItem('uid')
 
-        let task = { name: taskTitle, description: taskDescription, date: date, category: selectedCategory};
+    let task = { name: taskTitle, description: taskDescription, date: date, category: selectedCategory };
 
-        if (lastClickedButton === 'urgentButton') {
-            userData.urgentTasks = userData.urgentTasks || [];
-            userData.urgentTasks.push(task);
-        } else if (lastClickedButton === 'mediumButton') {
-            userData.mediumTasks = userData.mediumTasks || [];
-            userData.mediumTasks.push(task);
-        } else if (lastClickedButton === 'lowButton') {
-            userData.lowTasks = userData.lowTasks || [];
-            userData.lowTasks.push(task);
-        }
-
-        await updateUserData(uid, userData);
-
-        console.log('Task added successfully:', task);
-    } catch (error) {
-        console.error('Error adding task:', error);
+    if (lastClickedButton === 'urgentButton') {
+        userData.urgentTasks = userData.urgentTasks || [];
+        userData.urgentTasks.push(task);
+    } else if (lastClickedButton === 'mediumButton') {
+        userData.mediumTasks = userData.mediumTasks || [];
+        userData.mediumTasks.push(task);
+    } else if (lastClickedButton === 'lowButton') {
+        userData.lowTasks = userData.lowTasks || [];
+        userData.lowTasks.push(task);
     }
+
+    await updateUserData(uid, userData);
+
+}
+
+
+function subtaskDelete() {
+
 }

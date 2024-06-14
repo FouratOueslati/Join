@@ -1,3 +1,5 @@
+let subtaskCounter = 0;
+
 function onloadFunction() {
     displayName();
 }
@@ -97,70 +99,15 @@ function clearSubtaskInput() {
 }
 
 function addSubtask() {
-    container = document.getElementById('subtaskContainer');
-}
-
-
-// das hier lädt den EventListener für die Prio und Categories buttons
-document.addEventListener('DOMContentLoaded', (event) => {
-    addPrioEventListeners();
-    addCategoryEventListener();
-});
-
-
-function addPrioEventListeners() {
-    document.getElementById('urgentButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'urgentButton');
-    });
-
-    document.getElementById('mediumButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'mediumButton');
-    });
-
-    document.getElementById('lowButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'lowButton');
-    });
-}
-
-
-function addCategoryEventListener() {
-    document.querySelectorAll('#categoryMenu li').forEach(category => {
-        category.addEventListener('click', () => {
-            localStorage.setItem('selectedCategory', category.textContent.trim());
-        });
-    });
-}
-
-
-// ACHTUNG DARAN ARBEITET DER FOURAT NOCH DAHER DIE FUNKTION AUSGEBLENDET
-async function addTask() {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-
-    let taskTitle = document.getElementById('taskTitle').value;
-    let taskDescription = document.getElementById('taskDescription').value;
-    let date = document.getElementById('date').value;
-    let lastClickedButton = localStorage.getItem('lastClickedButton');
-    let selectedCategory = localStorage.getItem('selectedCategory');
-    let uid = localStorage.getItem('uid')
-
-    let task = { name: taskTitle, description: taskDescription, date: date, category: selectedCategory };
-
-    if (lastClickedButton === 'urgentButton') {
-        userData.urgentTasks = userData.urgentTasks || [];
-        userData.urgentTasks.push(task);
-    } else if (lastClickedButton === 'mediumButton') {
-        userData.mediumTasks = userData.mediumTasks || [];
-        userData.mediumTasks.push(task);
-    } else if (lastClickedButton === 'lowButton') {
-        userData.lowTasks = userData.lowTasks || [];
-        userData.lowTasks.push(task);
+    let container = document.getElementById('subtaskContainer');
+    let text = document.getElementById('inputFieldSubtask').value;   
+    if (text.trim() !== '') {  
+        subtaskCounter++;
+        let subtaskHTML = `<div class="subtask" id="subtask-${subtaskCounter}">${text}</div>`;
+        container.innerHTML += subtaskHTML;
+        document.getElementById('inputFieldSubtask').value = ''; 
+        onInputChange(); 
+    } else {
+        alert('Subtask text must not be empty.');
     }
-
-    await updateUserData(uid, userData);
-
-}
-
-
-function subtaskDelete() {
-
 }

@@ -37,12 +37,11 @@ async function loadSpecificUserDataFromLocalStorage() {
         },
     });
     const userData = await response.json();
-    console.log(userData);
     return userData;
 }
 
 
-// dient zum updaten der User Data
+// dient zum updaten der userData
 async function updateUserData(uid, userData) {
     const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
         method: 'PUT',
@@ -51,6 +50,15 @@ async function updateUserData(uid, userData) {
         },
         body: JSON.stringify(userData)
     });
+}
+
+
+// dient zum löschen der userData
+async function deleteUserData(uid) {
+    let response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
+        method: 'DELETE',
+    });
+    return responseToJson = await response.json();
 }
 /*
 ICH WEIß NICHT OB WIR DIESE FUNKTION BENÖTIGEN, KANN ICH ERST SPÄTER HERAUSFINDEN
@@ -64,4 +72,3 @@ async function loadSpecificUserData(uid = "") {
 function clearLoggedInUser() {
     localStorage.removeItem('uid');
 }
-

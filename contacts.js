@@ -14,12 +14,13 @@ async function init() {
     loadUserData();
     checkExistingInitials();
     displayInitialsFilter();
+    displayInitialsAndContacts();
 }
 
 
 async function checkExistingInitials() {
-    let data = await loadUserData("contacts");
-    let contacts = Object.values(data);
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts;
     for (let i = 0; i < letters.length; i++) {
         for (let j = 0; j < contacts.length; j++) {
             let letter = letters[i];
@@ -29,12 +30,11 @@ async function checkExistingInitials() {
             }
         }
     }
-    console.log('Angezeigte Buchstaben:', displayedLetters);
 }
 
 
 async function displayInitialsFilter() {
-    let data = await loadUserData("contacts");
+    await loadSpecificUserDataFromLocalStorage();
     let filteredContactContainer = document.getElementById('filteredContactsContainer');
     filteredContactContainer.innerHTML = '';
     for (let i = 0; i < displayedLetters.length; i++) {
@@ -48,27 +48,26 @@ async function displayInitialsFilter() {
         </div>
         `;
     }
-    displayInitialsAndContacts();
 }
 
 
 async function displayInitialsAndContacts() {
-    let data = await loadUserData("contacts");
-    let contacts = Object.values(data);
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts;
     for (let j = 0; j < displayedLetters.length; j++) {
         let contactInitial = document.getElementById(`initialLetter${j}`);
         let contactsContainer = document.getElementById(`contactsContainer${j}`);
         for (let i = 0; i < contacts.length; i++) {
             let name = contacts[i]["name"];
             let email = contacts[i]["email"];
-            let phonenumber = contacts[i]["number"];
             let color = contacts[i]["backgroundcolor"];
             let spaceIndex = name.indexOf(' ');
+            let firstName = name.split(' ')[0];
+            let lastName = name.split(' ')[1];
             let firstLetterOfName = name.charAt(0);
             let firstLetterOfLastName = name.charAt(spaceIndex + 1);
-            let lastName = name.charAt(spaceIndex + contacts.length - 1);
             if (contactInitial.innerHTML === firstLetterOfName) {
-                contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, name, lastName, email, phonenumber);
+                contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
                 showColorForContact(i, color);
             }
         }
@@ -81,12 +80,12 @@ function showColorForContact(i, color) {
 }
 
 
-function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, name, lastName, email) {
+function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email) {
     return `
     <div id="contactData${i}" class="contact-data" onclick="openContact(${i})">
         <div id="contactsInitials${i}" class="shorts-name">${firstLetterOfName}${firstLetterOfLastName}</div>
         <div>
-            <div id="contact-name${i}" class="contact-name">${name} ${lastName}</div>
+            <div id="contact-name${i}" class="contact-name">${firstName} ${lastName}</div>
             <div id="contact-email${i}" class="contact-email">${email}</div>
         </div>
     </div>
@@ -94,8 +93,8 @@ function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, n
 }
 
 async function openContact(i) {
-    let data = await loadUserData("contacts");
-    let contacts = Object.values(data);
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts;
     let contactData = document.getElementById(`contactData${i}`);
     let firstLetterOfName = contactData.querySelector('.shorts-name').textContent.charAt(0);
     let firstLetterOfSurname = contactData.querySelector('.shorts-name').textContent.charAt(1);
@@ -126,7 +125,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
             <div class="full-name">${name}
                 <div class="edit-delete-box">
                     <img onclick="openEditContact()" src="./img/edit_contacts.png">
-                    <img src="./img/delete_contact.png">
+                    <img onclick="deleteContact(${i})" src="./img/delete_contact.png">
                 </div>
             </div>
         </div>
@@ -147,19 +146,13 @@ function getRandomColor() {
     let symbols, color;
     symbols = "0123456789ABCDEF";
     color = "#";
+    let limitedSymbols = symbols.slice(0, 12);
     for (let i = 0; i < 6; i++) {
-        color = color + symbols[Math.floor(Math.random() * 16)];
+        color += limitedSymbols[Math.floor(Math.random() * limitedSymbols.length)];
     }
     newColor.style.backgroundColor = color;
     return color;
 }
-
-// function addColorToNewContact(i) {
-//     let newShort = document.getElementById(`contactsInitials${i}`);
-//     if (!newShort.style.backgroundColor) { // Überprüfen, ob noch keine Hintergrundfarbe zugewiesen wurde
-//         newShort.style.backgroundColor = getRandomPastelColor();
-//     }
-// }
 
 
 function openAddNewContact() {
@@ -239,30 +232,21 @@ function getEditContactHtml() {
 }
 
 
-async function createNewContact(path = "contacts", data = {}) {
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let number = document.getElementById('phone');
+async function createNewContact() {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let uid = localStorage.getItem('uid');
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let number = document.getElementById('phone').value;
     let color = getRandomColor();
-    data = {
-        name: name.value,
-        email: email.value,
-        number: number.value,
-        backgroundcolor: color,
-    }
-    console.log(data);
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-        method: "POST",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    loadUserData();
-    closeDialog();
-    return responseToJson = await response.json();
+    let contact = { name: name, email: email, number: number, backgroundcolor: color };
+    userData.contacts = userData.contacts || [];
+    userData.contacts.push(contact);
+    await updateUserData(uid, userData);
+    checkExistingInitials();
+    displayInitialsFilter();
+    displayInitialsAndContacts();
 }
-
 
 async function editContacts(path = "contacts", data = {}) {
     let name = document.getElementById('name');
@@ -287,90 +271,11 @@ async function editContacts(path = "contacts", data = {}) {
 }
 
 
-async function deleteContact(path = "contacts", data = {}) {
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-        method: "DELETE",
-
-    });
-    return responseToJson = await response.json();
+async function deleteContact(uid, i) {
+        let userData = await loadSpecificUserDataFromLocalStorage();
+        userData.contacts.splice(i, 1);
+        await deleteUserData(uid);
+        checkExistingInitials();
+        displayInitialsFilter();
+        displayInitialsAndContacts();
 }
-
-// ACHTUNG DARAN ARBEITET DER FOURAT NOCH DAHER DIE FUNKTION AUSGEBLENDET
-/*function addTask() {
-    // Event listener for category selection
-    document.querySelectorAll('#categoryMenu li').forEach(category => {
-        category.addEventListener('click', () => {
-            localStorage.setItem('selectedCategory', category.textContent.trim());
-        });
-    });
-
-    // Event listener for priority buttons
-    document.getElementById('urgentButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'urgentButton');
-    });
-
-    document.getElementById('mediumButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'mediumButton');
-    });
-
-    document.getElementById('lowButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'lowButton');
-    });
-
-    // Event listener for the "Create Task" button
-    document.getElementById('createButton').addEventListener('click', async () => {
-        let taskTitle = document.getElementById('taskTitle');
-        let taskDescription = document.getElementById('taskDescription');
-        let date = document.getElementById('date');
-
-        // Retrieve the last clicked button (priority) and selected category from localStorage
-        let lastClickedButton = localStorage.getItem('lastClickedButton');
-        let selectedCategory = localStorage.getItem('selectedCategory');
-
-        // Check if both priority and category are selected
-        if (lastClickedButton && selectedCategory) {
-            // Determine the appropriate array based on the selected category
-            let dataArray;
-            if (selectedCategory === 'Technical Task') {
-                // If the selected category is "Technical Task"
-                if (lastClickedButton === 'urgentButton') {
-                    // If the last clicked button is "Urgent"
-                    dataArray = userData.urgentTasks; // Use urgentTechnicalTasks array
-                } else if (lastClickedButton === 'mediumButton') {
-                    // If the last clicked button is "Medium"
-                    dataArray = userData.mediumTasks; // Use mediumTechnicalTasks array
-                } else if (lastClickedButton === 'lowButton') {
-                    // If the last clicked button is "Low"
-                    dataArray = userData.lowTasks; // Use lowTechnicalTasks array
-                }
-            } else if (selectedCategory === 'User Story') {
-                // If the selected category is "User Story"
-                if (lastClickedButton === 'urgentButton') {
-                    // If the last clicked button is "Urgent"
-                    dataArray = userData.urgentTasks; // Use urgentUserStories array
-                } else if (lastClickedButton === 'mediumButton') {
-                    // If the last clicked button is "Medium"
-                    dataArray = userData.mediumTasks; // Use mediumUserStories array
-                } else if (lastClickedButton === 'lowButton') {
-                    // If the last clicked button is "Low"
-                    dataArray = userData.lowTasks; // Use lowUserStories array
-                }
-            }
-
-            // Check if dataArray is defined
-            if (dataArray) {
-                // Add the task to the appropriate array
-                dataArray.push({ name: taskTitle.value, description: taskDescription.value, date: date.value });
-
-                // Update the user data in the database
-                await updateUserData(uid, userData);
-
-                console.log('Task added successfully');
-            } else {
-                console.error('Invalid combination of priority and category');
-            }
-        } else {
-            console.error('Both priority and category must be selected');
-        }
-    });
-}*/

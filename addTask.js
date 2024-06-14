@@ -6,27 +6,27 @@ function onloadFunction() {
 
 async function loadUserData(path = "") {
     let response = await fetch(BASE_URL_USER_DATA + path + ".json");
-    return await response.json(); 
+    return await response.json();
 }
 
 async function displayName() {
     let containerContact = document.getElementById("contactList");
     let data = await loadUserData("contacts");
     let contacts = Object.values(data);
-    for (let i = 0; i < contacts.length; i++) { 
+    for (let i = 0; i < contacts.length; i++) {
         let name = contacts[i].name;
         let color = contacts[i].backgroundcolor;
         let initials = getInitials(name);
-        containerContact.innerHTML += generateContactToChose(name, color, initials, i); 
+        containerContact.innerHTML += generateContactToChose(name, color, initials, i);
     }
 }
 
 function getInitials(name) {
     let upperChars = "";
-    let words = name.split(" ");  
+    let words = name.split(" ");
     for (let word of words) {
         if (word.length > 0) {
-            upperChars += word[0].toUpperCase();  
+            upperChars += word[0].toUpperCase();
         }
     }
     return upperChars;
@@ -59,7 +59,7 @@ function displayContactForAssignment() {
             let initialsElement = contactElement.querySelector('.circle-inicial .inicial-style');
             let circleElement = contactElement.querySelector('.circle-inicial');
             let initials = initialsElement.innerText;
-            let color = circleElement.style.background; 
+            let color = circleElement.style.background;
             containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, color);
         }
     }
@@ -74,7 +74,7 @@ function generateBubbleInitials(i, initials, color) {
 }
 
 function onInputChange() {
-    let subtaskImg = document.getElementById('plusImg'); 
+    let subtaskImg = document.getElementById('plusImg');
     let subtaskButtons = document.getElementById('closeOrAccept');
     let inputField = document.getElementById('inputFieldSubtask');
 
@@ -84,10 +84,15 @@ function onInputChange() {
     } else {
         subtaskImg.style.display = 'block';
         subtaskButtons.style.display = 'none';
-    } 
+    }
 }
 
-function deleteNote() {
+
+function addSubtask() {
+
+}
+
+function clearSubtaskInput() {
     let inpultField = document.getElementById('inputFieldSubtask');
     inpultField.value = '';
     onInputChange();

@@ -94,15 +94,68 @@ function deleteNote() {
 }
 
 function addSubtask() {
-    let container = document.getElementById('subtaskContainer');
+    let container = document.getElementById('subtaskContainer');   
     let text = document.getElementById('inputFieldSubtask').value;   
     if (text.trim() !== '') {  
         subtaskCounter++;
-        let subtaskHTML = `<div class="subtask" id="subtask-${subtaskCounter}">${text}</div>`;
+
+        let subtaskHTML = /*html*/`
+        <div class="subtask-Txt" id="subtask-Txt-${subtaskCounter}">
+            <div id="subtask${subtaskCounter}">${text}</div>
+            <div class="delete-edit">
+                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${subtaskCounter})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${subtaskCounter})">
+            </div>
+        </div>`;
+
         container.innerHTML += subtaskHTML;
         document.getElementById('inputFieldSubtask').value = ''; 
         onInputChange(); 
     } else {
         alert('Subtask text must not be empty.');
     }
+}
+
+function editSubtask(id) {
+    let subtaskDiv = document.getElementById('subtask' + id);
+    let text = subtaskDiv.textContent;
+    document.getElementById('inputFieldSubtask').value = text;
+    let subtaskContainer = document.getElementById('subtask-Txt-' + id);
+    subtaskContainer.remove();
+    onInputChange();
+}
+
+function deleteSubtask(id) {
+    let subtaskContainer = document.getElementById('subtask-Txt-' + id);
+    subtaskContainer.remove();
+}
+
+function deactivateAllButtons() {
+    document.getElementById('urgentButton').classList.remove('active');
+    document.getElementById('urgentButton').classList.add('inactive');
+    document.getElementById('mediumButton').classList.remove('active');
+    document.getElementById('mediumButton').classList.add('inactive');
+    document.getElementById('lowButton').classList.remove('active');
+    document.getElementById('lowButton').classList.add('inactive');
+}
+
+function buttonClickedUrgent() {
+    deactivateAllButtons();
+    document.getElementById('urgentButton').classList.remove('inactive');
+    document.getElementById('urgentButton').classList.add('active');
+    console.log('Urgent');
+}
+
+function buttonClickedMedium() {
+    deactivateAllButtons();
+    document.getElementById('mediumButton').classList.remove('inactive');
+    document.getElementById('mediumButton').classList.add('active');
+    console.log('Medium');
+}
+
+function buttonClickedLow() {
+    deactivateAllButtons();
+    document.getElementById('lowButton').classList.remove('inactive');
+    document.getElementById('lowButton').classList.add('active');
+    console.log('Low');
 }

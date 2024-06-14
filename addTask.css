@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 85%;
-    height: 100vh;
+    height: 120vh;
 }
 
 .parent-container {
@@ -351,6 +351,16 @@ h1 {
 
 .check-box-style {
     background-color: white;
+}
+
+.subtask-Txt {
+    cursor: pointer;
+    width: 95%;
+    margin: 2px;
+}
+
+.subtask-Txt:hover {
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 .chek-box-custom {

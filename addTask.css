@@ -7,13 +7,13 @@ body {
     box-sizing: border-box;
 }
 
-.content-container {
+/* .content-container {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     width: 85%;
     height: 100vh;
-}
+} */
 
 .parent-container {
     background-color: #F6F7F8;

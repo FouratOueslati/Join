@@ -124,7 +124,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
             <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
             <div class="full-name">${name}
                 <div class="edit-delete-box">
-                    <img onclick="openEditContact()" src="./img/edit_contacts.png">
+                    <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
                     <img onclick="deleteContact(${i})" src="./img/delete_contact.png">
                 </div>
             </div>

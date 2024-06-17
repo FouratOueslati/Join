@@ -7,7 +7,7 @@ body {
     box-sizing: border-box;
 }
 
-/* .content-container {
+.content-container {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -361,10 +361,6 @@ h1 {
 
 .subtask-Txt:hover {
     background-color: rgba(0, 0, 0, 0.04);
-}
-
-.chek-box-custom {
-
 }
 
 .bubble-initial {

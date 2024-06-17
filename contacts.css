@@ -292,10 +292,6 @@
     border-radius: 32px;
 }
 
-.contact-infos {
-    margin: 32px 0 0 65px;
-}
-
 .edit-delete-box {
     display: flex;
     font-size: 16px;
@@ -483,5 +479,10 @@
     #filteredContactsContainer {
         width: -webkit-fill-available;
         margin-left: 24px;
+    }
+
+    .shorts-name-big {
+        width: 80px;
+        height: 80px;
     }
 }

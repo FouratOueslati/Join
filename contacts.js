@@ -152,7 +152,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
             <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
             <div class="full-name">${name}
                 <div class="edit-delete-box">
-                    <img onclick="openEditContact()" src="./img/edit_contacts.png">
+                    <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
                     <img onclick="deleteContact(${i})" src="./img/delete_contact.png">
                 </div>
             </div>
@@ -255,14 +255,14 @@ function doNotClose(event) {
 async function openEditContact(i, color) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    let name = document.getElementById('edit-name');
-    let email = document.getElementById('edit-email');
-    let number = document.getElementById('edit-phone');
-    console.log(contacts);
-    name = contacts['name'];
-    email = contacts['email'];
-    number = contacts['number'];
+    let name = document.getElementById('name');
+    let email = document.getElementById('email');
+    let number = document.getElementById('phone');
+    name.value = contacts['name']
+    email.value = contacts['email']
+    number.value = contacts['number']
 
+    console.log(contacts);
     let dialogEditContact = document.getElementById('dialogNewEditContact');
     dialogEditContact.innerHTML = getEditContactHtml();
     document.getElementById('dialogNewEditContact').classList.remove('d-none');

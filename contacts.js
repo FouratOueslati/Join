@@ -18,6 +18,7 @@ async function init() {
 }
 
 
+
 async function checkExistingInitials() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
@@ -156,7 +157,9 @@ function getRandomColor() {
 
 
 function openAddNewContact() {
-    document.getElementById('dialogNewContact').classList.remove('d-none');
+    let test = document.getElementById('dialogNewEditContact');
+    test.innerHTML = getAddNewContactHtml();
+    document.getElementById('dialogNewEditContact').classList.remove('d-none');
     let addNewContact = document.getElementById('addNewContact');
     addNewContact.style.transform = "translateX(113%)";
     setTimeout(() => {
@@ -167,8 +170,51 @@ function openAddNewContact() {
 }
 
 
+function getAddNewContactHtml() {
+    return `
+    <div onclick="doNotClose(event)" id="addNewContact" class="add-new-contact">
+                <div class="add-contact-left">
+                    <div>
+                        <img src="./img/Capa 3.png">
+    
+                        <div class="add-new-contact-headline">Add contact</div>
+                        <div class="text-contact">Tasks are better width a team!</div>
+                        <div class="blue-seperator-contact"></div>
+                    </div>
+                </div>
+                <div class="add-contact-right">
+                    <div class="close-add-contact">
+                        <img src="./img/close.png" onclick="closeDialog()">
+                    </div>
+                    <div class="contact-box-right">
+                        <img src="./img/Group 13.png" class="contact-img">
+                        <div>
+                            <div class="add-contact-data">
+                                <input id="name" placeholder="Name" type="text" required class="name-input">
+                                <input id="email" placeholder="Email" type="email" required class="email-input">
+                                <input id="phone" placeholder="Phone" type="text" required class="phone-input">
+                            </div>
+                            <div class="close-create-button">
+                                <button class="color-white-button" onclick="closeDialog(event)">
+                                    <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg"></div>
+                                </button>
+                                <button class="color-blue-button">
+                                    <div onclick="createNewContact()" class="button-txt-img">Create Contact <img src="./addTaskImg/check.svg"
+                                            class="check-svg">
+                                    </div>
+                                </button>
+                                <div id="newColor" class="shorts-name d-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    `;
+}
+
+
 function closeDialog() {
-    document.getElementById('dialogNewContact').classList.add('d-none');
+    document.getElementById('dialogNewEditContact').classList.add('d-none');
     document.getElementById('contactInfos').classList.add('d-none');
     document.getElementById('dialogEditContact').classList.add('d-none');
 }
@@ -179,56 +225,77 @@ function doNotClose(event) {
 }
 
 
-function openEditContact() {
-    document.getElementById('dialogEditContact').classList.remove('d-none');
+// async function openEditContact() {
+//     let test = document.getElementById('dialogNewEditContact');
+//     test.innerHTML = getEditContactHtml();
+//     document.getElementById('dialogNewEditContact').classList.remove('d-none');
+//     let editContact = document.getElementById('editNewContact');
+//     editContact.style.transform = "translateX(113%)";
+//     setTimeout(() => {
+//         editContact.style.transform = "translateX(0)";
+//     }, 50);
+//     showColorForBigContact(i, color);
+// }
+
+async function openEditContact(i) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts;
+    localStorage.setItem("contacts", contacts)
+    console.log(userData);
+    console.log(contacts);
+    let name = document.getElementById('name');
+    let email = document.getElementById('email');
+    let number = document.getElementById('phone');
+    name.value = contacts[0]['name']
+    email.value = contacts['email']
+    number.value = contacts['number']
+
+    let dialogEditContact = document.getElementById('dialogNewEditContact');
+    document.getElementById('dialogNewEditContact').classList.remove('d-none');
     let editContact = document.getElementById('editNewContact');
     editContact.style.transform = "translateX(113%)";
     setTimeout(() => {
         editContact.style.transform = "translateX(0)";
     }, 50);
-    getEditContactHtml();
+    showColorForBigContact(i, backgroundcolor);
 }
 
 
 function getEditContactHtml() {
     return `
-    <div id="dialogEditContact" class="dialog-new-contact d-none" onclick="closeDialog()">
-    <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
-        <div class="add-contact-left">
-            <div>
-                <img src="./img/Capa 3.png">
-                <div class="add-new-contact-headline">Edit contact</div>
-                <div class="blue-seperator-contact"></div>
-            </div>
-        </div>
-        <div class="add-contact-right">
-            <div class="close-add-contact">
-                <img src="./img/close.png" onclick="closeDialog()">
-            </div>
-            <div class="contact-box-right">
-                <img src="./img/Group 13.png" class="contact-img">
+        <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
+            <div class="add-contact-left">
                 <div>
-                    <div class="add-contact-data">
-                        <input id="editName" placeholder="Name" type="text" required class="name-input">
-                        <input id="editEmail" placeholder="Email" type="email" required class="email-input">
-                        <input id="editPhone" placeholder="Phone" type="text" required class="phone-input">
-                    </div>
-                    <div class="close-create-button">
-                        <button class="color-white-button" onclick="closeDialog(event)">
-                            <div class="button-txt-img">Delete</div>
-                        </button>
-                        <button class="color-blue-button">
-                            <div onclick="" class="button-txt-img">Save<img src="./addTaskImg/check.svg"
-                                    class="check-svg">
-                            </div>
-                        </button>
+                    <img src="./img/Capa 3.png">
+                    <div class="add-new-contact-headline">Edit contact</div>
+                    <div class="blue-seperator-contact"></div>
+                </div>
+            </div>
+            <div class="add-contact-right">
+                <div class="close-add-contact">
+                    <img src="./img/close.png" onclick="closeDialog()">
+                </div>
+                <div class="contact-box-right">
+                    <img src="./img/Group 13.png" class="contact-img">
+                    <div>
+                        <div class="add-contact-data">
+                            <input id="name" placeholder="Name" type="text" required class="name-input">
+                                <input id="email" placeholder="Email" type="email" required class="email-input">
+                                <input id="phone" placeholder="Phone" type="text" required class="phone-input">
+                        </div>
+                        <div class="close-create-button">
+                            <button class="color-white-button" onclick="closeDialog(event)">
+                                <div class="button-txt-img">Delete</div>
+                            </button>
+                            <button class="color-blue-button">
+                                <div onclick="" class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg">
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-    `;
+        </div>`;
 }
 
 

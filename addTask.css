@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 85%;
-    height: 120vh;
+    height: 100vh;
 }
 
 .parent-container {
@@ -361,10 +361,6 @@ h1 {
 
 .subtask-Txt:hover {
     background-color: rgba(0, 0, 0, 0.04);
-}
-
-.chek-box-custom {
-
 }
 
 .bubble-initial {

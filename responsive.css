@@ -1,8 +1,4 @@
 @media (max-width: 1150px) {
-    .todos-container {
-        width: 75%;
-    }
-
     .greeting-container {
         width: 25%;
     }

@@ -1,18 +1,22 @@
 let subtaskCounter = 0;
+// dieses Array wird benötigt um die Contacts zu den Tasks hinzufügen zu können
+let assignedContacts = [];
+// dieses Array wird benötigt um die subtasks zu den Tasks hinzufügen zu können
+let subtasks = [];
+
 
 function onloadFunction() {
+    includeHTML();
+    loadSubtasksFromLocalStorage();
     displayName();
 }
 
-async function loadUserData(path = "") {
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json");
-    return await response.json();
-}
-
+// displays contacts names die man wählen kann
 async function displayName() {
     let containerContact = document.getElementById("contactList");
-    let data = await loadUserData("contacts");
-    let contacts = Object.values(data);
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts;
+    containerContact.innerHTML = '';  // Clear existing content
     for (let i = 0; i < contacts.length; i++) {
         let name = contacts[i].name;
         let color = contacts[i].backgroundcolor;
@@ -21,6 +25,7 @@ async function displayName() {
     }
 }
 
+// displays contacts initials
 function getInitials(name) {
     let upperChars = "";
     let words = name.split(" ");
@@ -32,22 +37,24 @@ function getInitials(name) {
     return upperChars;
 }
 
+// generates HTML für die Funktion displayName()
 function generateContactToChose(name, color, initials, i) {
-    return /*html*/ `
+    return `
     <div class="contact-boarder">
         <div class="name-inicial">
             <div class="circle-inicial" style="background: ${color}">
                 <div class="inicial-style">${initials}</div>
             </div>
-            <li id="${name}">${name}</li>
+            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
         </div>
-        <div class="chek-box-custom">
-            <input type="checkbox" class="check-box-style" onclick="displayContactForAssignment()">
+        <div class="check-box-custom">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
         </div>
     </div>
     `;
 }
 
+// displays contacts names die man gewählt hat
 function displayContactForAssignment() {
     let containerBubbleInitials = document.getElementById('contactsDisplayBuble');
     containerBubbleInitials.innerHTML = '';
@@ -65,6 +72,7 @@ function displayContactForAssignment() {
     }
 }
 
+// generates HTML für die Funktion DisplayContactsForAssignment()
 function generateBubbleInitials(i, initials, color) {
     return /* html */ `
     <div id="bubble-${i}" class="bubble-initial" style="background: ${color}">
@@ -73,11 +81,11 @@ function generateBubbleInitials(i, initials, color) {
     `;
 }
 
+// updates Inputfield des subtasks
 function onInputChange() {
     let subtaskImg = document.getElementById('plusImg');
     let subtaskButtons = document.getElementById('closeOrAccept');
     let inputField = document.getElementById('inputFieldSubtask');
-
     if (inputField.value.length > 0) {
         subtaskImg.style.display = 'none';
         subtaskButtons.style.display = 'block';
@@ -88,9 +96,70 @@ function onInputChange() {
 }
 
 
+// fügt Subtaks hinzu
 function addSubtask() {
-
+    let container = document.getElementById('subtasksContainer');
+    let subtask = document.getElementById('inputFieldSubtask').value;
+    if (subtask.trim() !== '') {
+        subtaskCounter++;
+        subtasks.push(subtask);
+        localStorage.setItem('subtasks', JSON.stringify(subtasks));
+        let subtaskHTML = /*html*/`
+        <div class="subtask-Txt" id="subtask-Txt-${subtaskCounter}">
+            <div id="subtask${subtaskCounter}">${subtask}</div>
+            <div class="delete-edit">
+                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${subtaskCounter})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${subtaskCounter})">
+            </div>
+        </div>`;
+        container.innerHTML += subtaskHTML;
+        document.getElementById('inputFieldSubtask').value = '';
+    }
 }
+
+// loads subtask vom localStorage dass sie nicht verloren onload
+function loadSubtasksFromLocalStorage() {
+    let savedSubtasks = localStorage.getItem('subtasks');
+    if (savedSubtasks) {
+        subtasks = JSON.parse(savedSubtasks);
+        subtaskCounter = subtasks.length ? subtasks[subtasks.length - 1].id : 0;
+        displaySubtasks();
+    }
+}
+
+// displays die subtasks vom localStorage
+function displaySubtasks() {
+    const container = document.getElementById('subtasksContainer');
+    container.innerHTML = '';
+    subtasks.forEach((subtask, index) => {
+        let subtaskHTML = /*html*/`
+        <div class="subtask-Txt" id="subtask-Txt-${index}">
+            <div id="subtask${index}">${subtask}</div>
+            <div class="delete-edit">
+                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${index})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${index})">
+            </div>
+        </div>`;
+        container.innerHTML += subtaskHTML;
+    });
+}
+
+// Function to delete a subtask
+function deleteSubtask(index) {
+    subtasks.splice(index, 1);
+    localStorage.setItem('subtasks', JSON.stringify(subtasks));
+    displaySubtasks();
+}
+
+// um subtasks zu editieren
+function editSubtask(index) {
+    let subtaskDiv = document.getElementById(`subtask${index}`);
+    let text = subtaskDiv.innerHTML;
+    document.getElementById('inputFieldSubtask').value = text;
+    deleteSubtask(index)
+    onInputChange();
+}
+
 
 function clearSubtaskInput() {
     let inpultField = document.getElementById('inputFieldSubtask');
@@ -98,40 +167,73 @@ function clearSubtaskInput() {
     onInputChange();
 }
 
-function addSubtask() {
-    let container = document.getElementById('subtaskContainer');   
-    let text = document.getElementById('inputFieldSubtask').value;   
-    if (text.trim() !== '') {  
-        subtaskCounter++;
+// AB HIER EVENTLISTENER FÜR DIE PRIO!!!!
+document.addEventListener('DOMContentLoaded', (event) => {
+    addPrioEventListeners();
+    addCategoryEventListener();
+});
 
-        let subtaskHTML = /*html*/`
-        <div class="subtask-Txt" id="subtask-Txt-${subtaskCounter}">
-            <div id="subtask${subtaskCounter}">${text}</div>
-            <div class="delete-edit">
-                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${subtaskCounter})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${subtaskCounter})">
-            </div>
-        </div>`;
 
-        container.innerHTML += subtaskHTML;
-        document.getElementById('inputFieldSubtask').value = ''; 
-        onInputChange(); 
+function addPrioEventListeners() {
+    document.getElementById('urgentButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'urgentButton');
+    });
+
+    document.getElementById('mediumButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'mediumButton');
+    });
+
+    document.getElementById('lowButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'lowButton');
+    });
+}
+
+
+function addCategoryEventListener() {
+    document.querySelectorAll('#categoryMenu li').forEach(category => {
+        category.addEventListener('click', () => {
+            localStorage.setItem('selectedCategory', category.textContent.trim());
+        });
+    });
+}
+
+// Kontakte wählen und im localStorage speichern
+function choseContactForAssignment(event) {
+    const checkbox = event.target;
+    const contactName = checkbox.getAttribute('data-name');
+    if (checkbox.checked) {
+        if (!assignedContacts.includes(contactName)) {
+            assignedContacts.push(contactName);
+        }
     } else {
-        alert('Subtask text must not be empty.');
+        assignedContacts = assignedContacts.filter(name => name !== contactName);
     }
+    localStorage.setItem('contacts', assignedContacts)
 }
 
-function editSubtask(id) {
-    let subtaskDiv = document.getElementById('subtask' + id);
-    let text = subtaskDiv.textContent;
-    document.getElementById('inputFieldSubtask').value = text;
-    let subtaskContainer = document.getElementById('subtask-Txt-' + id);
-    subtaskContainer.remove();
-    onInputChange();
-}
+// task adden
+async function addTask() {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let taskTitle = document.getElementById('taskTitle').value;
+    let taskDescription = document.getElementById('taskDescription').value;
+    let date = document.getElementById('date').value;
+    let lastClickedButton = localStorage.getItem('lastClickedButton');
+    let selectedCategory = localStorage.getItem('selectedCategory');
+    let contacts = localStorage.getItem('contacts');
+    let subtasks = localStorage.getItem('subtasks');
+    let uid = localStorage.getItem('uid')
 
-function deleteSubtask(id) {
-    let subtaskContainer = document.getElementById('subtask-Txt-' + id);
-    subtaskContainer.remove();
-}
+    let task = { name: taskTitle, description: taskDescription, date: date, category: selectedCategory, contacts: contacts, subtasks: subtasks };
 
+    if (lastClickedButton === 'urgentButton') {
+        userData.urgentTasks = userData.urgentTasks || [];
+        userData.urgentTasks.push(task);
+    } else if (lastClickedButton === 'mediumButton') {
+        userData.mediumTasks = userData.mediumTasks || [];
+        userData.mediumTasks.push(task);
+    } else if (lastClickedButton === 'lowButton') {
+        userData.lowTasks = userData.lowTasks || [];
+        userData.lowTasks.push(task);
+    }
+    await updateUserData(uid, userData);
+}

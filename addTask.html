@@ -50,7 +50,7 @@
     </script>
 </head>
 
-<body onload="includeHTML(); onloadFunction()">
+<body onload="onloadFunction()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
@@ -126,14 +126,14 @@
                                 <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
                                 <div class="check-cross-position" id="closeOrAccept">
                                     <button class="button-transparacy" >
-                                        <img onclick="deleteNote()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                                        <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
                                     </button>
                                     <button class="button-transparacy">
                                         <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
                                     </button>
                                 </div>
                             </div>
-                            <div class="subtask-container" id="subtaskContainer"></div>
+                            <div class="subtask-container" id="subtasksContainer"></div>
                         </div>
                     </div>
                 </div>

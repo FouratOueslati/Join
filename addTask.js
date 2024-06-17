@@ -135,32 +135,3 @@ function deleteSubtask(id) {
     subtaskContainer.remove();
 }
 
-function deactivateAllButtons() {
-    document.getElementById('urgentButton').classList.remove('active');
-    document.getElementById('urgentButton').classList.add('inactive');
-    document.getElementById('mediumButton').classList.remove('active');
-    document.getElementById('mediumButton').classList.add('inactive');
-    document.getElementById('lowButton').classList.remove('active');
-    document.getElementById('lowButton').classList.add('inactive');
-}
-
-function buttonClickedUrgent() {
-    deactivateAllButtons();
-    document.getElementById('urgentButton').classList.remove('inactive');
-    document.getElementById('urgentButton').classList.add('active');
-    console.log('Urgent');
-}
-
-function buttonClickedMedium() {
-    deactivateAllButtons();
-    document.getElementById('mediumButton').classList.remove('inactive');
-    document.getElementById('mediumButton').classList.add('active');
-    console.log('Medium');
-}
-
-function buttonClickedLow() {
-    deactivateAllButtons();
-    document.getElementById('lowButton').classList.remove('inactive');
-    document.getElementById('lowButton').classList.add('active');
-    console.log('Low');
-}

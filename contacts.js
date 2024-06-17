@@ -52,25 +52,52 @@ async function displayInitialsFilter() {
 }
 
 
+// async function displayInitialsAndContacts() {
+//     let userData = await loadSpecificUserDataFromLocalStorage();
+//     let contacts = userData.contacts;
+//     for (let j = 0; j < displayedLetters.length; j++) {
+//         let contactInitial = document.getElementById(`initialLetter${j}`);
+//         let contactsContainer = document.getElementById(`contactsContainer${j}`);
+//         for (let i = 0; i < contacts.length; i++) {
+//             let name = contacts[i]["name"];
+//             let email = contacts[i]["email"];
+//             let color = contacts[i]["backgroundcolor"];
+//             let spaceIndex = name.indexOf(' ');
+//             let firstName = name.split(' ')[0];
+//             let lastName = name.split(' ')[1];
+//             let firstLetterOfName = name.charAt(0);
+//             let firstLetterOfLastName = name.charAt(spaceIndex + 1);
+//             if (contactInitial.innerHTML === firstLetterOfName) {
+//                 contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
+//                 showColorForContact(i, color);
+//             }
+//         }
+//     }
+// }
+
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
     for (let j = 0; j < displayedLetters.length; j++) {
         let contactInitial = document.getElementById(`initialLetter${j}`);
         let contactsContainer = document.getElementById(`contactsContainer${j}`);
-        for (let i = 0; i < contacts.length; i++) {
-            let name = contacts[i]["name"];
-            let email = contacts[i]["email"];
-            let color = contacts[i]["backgroundcolor"];
-            let spaceIndex = name.indexOf(' ');
-            let firstName = name.split(' ')[0];
-            let lastName = name.split(' ')[1];
-            let firstLetterOfName = name.charAt(0);
-            let firstLetterOfLastName = name.charAt(spaceIndex + 1);
-            if (contactInitial.innerHTML === firstLetterOfName) {
-                contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
-                showColorForContact(i, color);
-            }
+        displayContactsByInitial(contacts, contactInitial, contactsContainer);
+    }
+}
+
+function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
+    for (let i = 0; i < contacts.length; i++) {
+        let name = contacts[i]["name"];
+        let email = contacts[i]["email"];
+        let color = contacts[i]["backgroundcolor"];
+        let spaceIndex = name.indexOf(' ');
+        let firstName = name.split(' ')[0];
+        let lastName = name.split(' ')[1];
+        let firstLetterOfName = name.charAt(0);
+        let firstLetterOfLastName = name.charAt(spaceIndex + 1);
+        if (contactInitial.innerHTML === firstLetterOfName) {
+            contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
+            showColorForContact(i, color);
         }
     }
 }
@@ -225,41 +252,32 @@ function doNotClose(event) {
 }
 
 
-// async function openEditContact() {
-//     let test = document.getElementById('dialogNewEditContact');
-//     test.innerHTML = getEditContactHtml();
-//     document.getElementById('dialogNewEditContact').classList.remove('d-none');
-//     let editContact = document.getElementById('editNewContact');
-//     editContact.style.transform = "translateX(113%)";
-//     setTimeout(() => {
-//         editContact.style.transform = "translateX(0)";
-//     }, 50);
-//     showColorForBigContact(i, color);
-// }
-
-async function openEditContact(i) {
+async function openEditContact(i, color) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let number = document.getElementById('phone');
-    name.value = contacts['name']
-    email.value = contacts['email']
-    number.value = contacts['number']
-
+    let name = document.getElementById('edit-name');
+    let email = document.getElementById('edit-email');
+    let number = document.getElementById('edit-phone');
     console.log(contacts);
+    name = contacts['name'];
+    email = contacts['email'];
+    number = contacts['number'];
+
     let dialogEditContact = document.getElementById('dialogNewEditContact');
+    dialogEditContact.innerHTML = getEditContactHtml();
     document.getElementById('dialogNewEditContact').classList.remove('d-none');
     let editContact = document.getElementById('editNewContact');
     editContact.style.transform = "translateX(113%)";
     setTimeout(() => {
         editContact.style.transform = "translateX(0)";
     }, 50);
-    showColorForBigContact(i, backgroundcolor);
+    showColorForBigContact(i, color);
 }
 
 
-function getEditContactHtml() {
+
+
+function getEditContactHtml(name) {
     return `
         <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
             <div class="add-contact-left">
@@ -277,9 +295,9 @@ function getEditContactHtml() {
                     <img src="./img/Group 13.png" class="contact-img">
                     <div>
                         <div class="add-contact-data">
-                            <input id="name" placeholder="Name" type="text" required class="name-input">
-                                <input id="email" placeholder="Email" type="email" required class="email-input">
-                                <input id="phone" placeholder="Phone" type="text" required class="phone-input">
+                            <input id="edit-name" placeholder="Name" type="text" required class="name-input" value="${name}">
+                                <input id="edit-email" placeholder="Email" type="email" required class="email-input">
+                                <input id="edit-phone" placeholder="Phone" type="text" required class="phone-input">
                         </div>
                         <div class="close-create-button">
                             <button class="color-white-button" onclick="closeDialog(event)">
@@ -311,6 +329,7 @@ async function createNewContact() {
     checkExistingInitials();
     displayInitialsFilter();
     displayInitialsAndContacts();
+    closeDialog();
 }
 
 async function editContacts(path = "contacts", data = {}) {

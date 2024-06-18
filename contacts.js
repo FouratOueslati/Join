@@ -18,8 +18,25 @@ async function init() {
     checkExistingInitials();
     displayInitialsFilter();
     displayInitialsAndContacts();
+    loadContacts();
 }
 
+
+async function loadContacts() {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contactsData = userData.contacts;
+    for (const key in contactsData) {
+        const SINGLE_CONTACT = contactsData[key];
+        let contact = {
+            "id": key,
+            "name": SINGLE_CONTACT.name,
+            "email": SINGLE_CONTACT.email,
+            "number": SINGLE_CONTACT.number,
+            "backgroundcolor": SINGLE_CONTACT.backgroundcolor
+        };
+        contacts.push(contact);
+    }
+}
 
 
 async function checkExistingInitials() {
@@ -131,11 +148,11 @@ async function openContact(i) {
     let firstLetterOfSurname = contactData.querySelector('.shorts-name').textContent.charAt(1);
     let name = contactData.querySelector('.contact-name').textContent;
     let email = contactData.querySelector('.contact-email').textContent;
-    let phonenumber = contacts[i]["number"];
+    let number = contacts[i]["number"];
     let color = contacts[i]["backgroundcolor"];
     let contactInfos = document.getElementById('contactInfos');
     contactInfos.innerHTML = '';
-    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, phonenumber, i);
+    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i);
     showColorForBigContact(i, color);
 }
 
@@ -148,14 +165,14 @@ function showColorForBigContact(i, color) {
 }
 
 
-function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surname, phonenumber, i) {
+function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surname, number, i) {
     return `
     <div>
         <div class="edit-delete-contact">
             <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
             <div class="full-name">${name}
                 <div class="edit-delete-box">
-                    <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
+                    <img onclick="getEditContact(${i})" src="./img/edit_contacts.png">
                     <img onclick="deleteContact(${i})" src="./img/delete_contact.png">
                 </div>
             </div>
@@ -165,7 +182,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
             <div class="email-phone-headline">Email</div>
             <div class="email-phone join">${surname}</div>
             <div class="email-phone-headline">Phone</div>
-            <div class="email-phone">${phonenumber}</div>
+            <div class="email-phone">${number}</div>
         </div>
     </div>
     `;
@@ -280,12 +297,12 @@ function doNotClose(event) {
 async function openEditContact(i) {
     await loadUserData();
     let contact = contacts[i];
-    let { name, email, phone, backgroundcolor } = contacts[i] || {};
+    let { name, email, number, backgroundcolor } = contacts[i] || {};
     let dialogEditContact = document.getElementById('dialogNewEditContact');
     let spaceIndex = name.indexOf(' ');
     let firstLetterOfName = name.charAt(0);
     let firstLetterOfLastName = name.charAt(spaceIndex + 1);
-    dialogEditContact.innerHTML = getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, phone, backgroundcolor, i);
+    dialogEditContact.innerHTML = getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, i);
     document.getElementById('dialogNewEditContact').classList.remove('d-none');
     let editContact = document.getElementById('editNewContact');
     let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${i}`);
@@ -297,7 +314,7 @@ async function openEditContact(i) {
 }
 
 
-function getEditContactHtml(name) {
+function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, i) {
     return `
         <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
             <div class="add-contact-left">
@@ -312,19 +329,19 @@ function getEditContactHtml(name) {
                     <img src="./img/close.png" onclick="closeDialog()">
                 </div>
                 <div class="contact-box-right">
-                    <img src="./img/Group 13.png" class="contact-img">
+                    <div id="edit-contactsInitialsBig${i}" class="shorts-name-big edit">${firstLetterOfName}${firstLetterOfLastName}</div>
                     <div>
                         <div class="add-contact-data">
                             <input id="edit-name${i}" placeholder="Name" type="text" required class="name-input" value="${name}">
-                                <input id="edit-email${i}" placeholder="Email" type="email" required class="email-input">
-                                <input id="edit-phone${i}" placeholder="Phone" type="text" required class="phone-input">
+                                <input id="edit-email${i}" placeholder="Email" type="email" required class="email-input" value="${email}">
+                                <input id="edit-phone${i}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
                         </div>
                         <div class="close-create-button">
                             <button class="color-white-button" onclick="closeDialog(event)">
                                 <div class="button-txt-img">Delete</div>
                             </button>
                             <button class="color-blue-button">
-                                <div onclick="" class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg">
+                                <div onclick="getEditContact(${i})" class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg">
                                 </div>
                             </button>
                         </div>
@@ -371,21 +388,21 @@ function getEditContact(i) {
     let id = currentContact.id;
     let name = currentContact.name;
     let email = currentContact.email;
-    let phone = currentContact.phone;
+    let number = currentContact.number;
     let backgroundcolor = currentContact.backgroundcolor;
-    onloadFunc(i, id, name, email, phone, backgroundcolor, i);
+    onloadFunc(i, id, name, email, number, backgroundcolor, i);
 }
 
-async function onloadFunc(i, id, name, email, phone, backgroundcolor, i) {
+async function onloadFunc(i, id, name, email, number, backgroundcolor, i) {
     let editname = document.getElementById(`edit-name${i}`).value;
     let editemail = document.getElementById(`edit-email${i}`).value;
-    let editphone = document.getElementById(`edit-phone${i}`).value;
+    let editnumber = document.getElementById(`edit-phone${i}`).value;
     contacts.fill(
         {
             id: id,
             name: editname,
             email: editemail,
-            phone: editphone,
+            number: editnumber,
             backgroundcolor: backgroundcolor
         }
     )

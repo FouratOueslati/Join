@@ -1,3 +1,9 @@
+@media (max-width: 1300) {
+    .fat-Contacts-headline {
+        font-size: 47px;
+    }
+}
+
 @media (max-width: 1150px) {
     .greeting-container {
         width: 25%;
@@ -11,10 +17,6 @@
     .user-name {
         font-size: 47px;
         font-weight: 700;
-    }
-
-    .fat-Contacts-headline {
-        font-size: 47px;
     }
 
     .not-user-container {

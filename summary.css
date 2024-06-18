@@ -194,4 +194,8 @@ body {
     .greeting-container {
         display: none;
     }
+
+    .fat-Contacts-headline {
+        font-size: 47px;
+    }
 }

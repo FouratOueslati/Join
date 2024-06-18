@@ -9,6 +9,9 @@ let letters = [
 let displayedLetters = [];
 
 
+let contacts = [];
+
+
 async function init() {
     includeHTML();
     loadUserData();
@@ -252,29 +255,46 @@ function doNotClose(event) {
 }
 
 
-async function openEditContact(i, color) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let contacts = userData.contacts;
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let number = document.getElementById('phone');
-    name.value = contacts['name']
-    email.value = contacts['email']
-    number.value = contacts['number']
+// async function openEditContact(i, color) {
+//     let userData = await loadSpecificUserDataFromLocalStorage();
+//     let contacts = userData.contacts;
+//     let name = document.getElementById('name');
+//     let email = document.getElementById('email');
+//     let number = document.getElementById('phone');
+//     name.value = contacts['name']
+//     email.value = contacts['email']
+//     number.value = contacts['number']
 
-    console.log(contacts);
+//     console.log(contacts);
+//     let dialogEditContact = document.getElementById('dialogNewEditContact');
+//     dialogEditContact.innerHTML = getEditContactHtml();
+//     document.getElementById('dialogNewEditContact').classList.remove('d-none');
+//     let editContact = document.getElementById('editNewContact');
+//     editContact.style.transform = "translateX(113%)";
+//     setTimeout(() => {
+//         editContact.style.transform = "translateX(0)";
+//     }, 50);
+//     showColorForBigContact(i, color);
+// }
+
+async function openEditContact(i) {
+    await loadUserData();
+    let contact = contacts[i];
+    let { name, email, phone, backgroundcolor } = contacts[i] || {};
     let dialogEditContact = document.getElementById('dialogNewEditContact');
-    dialogEditContact.innerHTML = getEditContactHtml();
+    let spaceIndex = name.indexOf(' ');
+    let firstLetterOfName = name.charAt(0);
+    let firstLetterOfLastName = name.charAt(spaceIndex + 1);
+    dialogEditContact.innerHTML = getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, phone, backgroundcolor, i);
     document.getElementById('dialogNewEditContact').classList.remove('d-none');
     let editContact = document.getElementById('editNewContact');
+    let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${i}`);
+    contactInitialBig.style.backgroundColor = backgroundcolor;
     editContact.style.transform = "translateX(113%)";
     setTimeout(() => {
         editContact.style.transform = "translateX(0)";
     }, 50);
-    showColorForBigContact(i, color);
 }
-
-
 
 
 function getEditContactHtml(name) {
@@ -295,9 +315,9 @@ function getEditContactHtml(name) {
                     <img src="./img/Group 13.png" class="contact-img">
                     <div>
                         <div class="add-contact-data">
-                            <input id="edit-name" placeholder="Name" type="text" required class="name-input" value="${name}">
-                                <input id="edit-email" placeholder="Email" type="email" required class="email-input">
-                                <input id="edit-phone" placeholder="Phone" type="text" required class="phone-input">
+                            <input id="edit-name${i}" placeholder="Name" type="text" required class="name-input" value="${name}">
+                                <input id="edit-email${i}" placeholder="Email" type="email" required class="email-input">
+                                <input id="edit-phone${i}" placeholder="Phone" type="text" required class="phone-input">
                         </div>
                         <div class="close-create-button">
                             <button class="color-white-button" onclick="closeDialog(event)">
@@ -332,28 +352,6 @@ async function createNewContact() {
     closeDialog();
 }
 
-async function editContacts(path = "contacts", data = {}) {
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let number = document.getElementById('phone');
-
-    data = {
-        name: name.value,
-        email: email.value,
-        number: number.value,
-    }
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-        method: "PUT",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    loadUserData();
-    closeDialog();
-    return responseToJson = await response.json();
-}
-
 
 async function deleteContact(uid, i) {
         let userData = await loadSpecificUserDataFromLocalStorage();
@@ -362,4 +360,75 @@ async function deleteContact(uid, i) {
         checkExistingInitials();
         displayInitialsFilter();
         displayInitialsAndContacts();
+}
+
+
+// edit //////////////////////////////////////////////////////
+
+
+function getEditContact(i) {
+    let currentContact = contacts[i];
+    let id = currentContact.id;
+    let name = currentContact.name;
+    let email = currentContact.email;
+    let phone = currentContact.phone;
+    let backgroundcolor = currentContact.backgroundcolor;
+    onloadFunc(i, id, name, email, phone, backgroundcolor, i);
+}
+
+async function onloadFunc(i, id, name, email, phone, backgroundcolor, i) {
+    let editname = document.getElementById(`edit-name${i}`).value;
+    let editemail = document.getElementById(`edit-email${i}`).value;
+    let editphone = document.getElementById(`edit-phone${i}`).value;
+    contacts.fill(
+        {
+            id: id,
+            name: editname,
+            email: editemail,
+            phone: editphone,
+            backgroundcolor: backgroundcolor
+        }
+    )
+    addEditSingleUser(contacts[i].id, contacts)
+    console.log(contacts);
+}
+
+
+async function putData(path = "", data = {}) {
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    return responseToJson = await response.json();
+}
+
+async function addEditSingleUser(id, contacts) {
+    putData(`contacts/${id}`, contacts);
+    console.log(contacts);
+}
+
+
+// delete //////////////////////////////////////////////////////////
+
+
+function getEditContactToDelete(i) {
+    let currentContact = contacts[i];
+    let id = currentContact.id;
+    addDeleteSingleUser(contacts[i], id);
+}
+
+async function addDeleteSingleUser(id) {
+    deleteContact(id);
+    console.log(contacts);
+}
+
+async function deleteContact(path = "", data = {}) {
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "DELETE",
+
+    });
+    return responseToJson = await response.json();
 }

@@ -52,7 +52,6 @@ async function updateUserData(uid, userData) {
     });
 }
 
-
 // dient zum löschen der userData
 async function deleteUserData(uid) {
     let response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
@@ -60,13 +59,6 @@ async function deleteUserData(uid) {
     });
     return responseToJson = await response.json();
 }
-/*
-ICH WEIß NICHT OB WIR DIESE FUNKTION BENÖTIGEN, KANN ICH ERST SPÄTER HERAUSFINDEN
-async function loadSpecificUserData(uid = "") {
-    let response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`);
-    return await response.json();
-}*/
-
 
 // die Funktion wird erst beim ausloggen benötigt, um die UID des ausgeloggten User aus dem local Storage zu löschen
 function clearLoggedInUser() {

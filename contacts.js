@@ -225,39 +225,24 @@ function doNotClose(event) {
 }
 
 
-// async function openEditContact() {
-//     let test = document.getElementById('dialogNewEditContact');
-//     test.innerHTML = getEditContactHtml();
-//     document.getElementById('dialogNewEditContact').classList.remove('d-none');
-//     let editContact = document.getElementById('editNewContact');
-//     editContact.style.transform = "translateX(113%)";
-//     setTimeout(() => {
-//         editContact.style.transform = "translateX(0)";
-//     }, 50);
-//     showColorForBigContact(i, color);
-// }
-
 async function openEditContact(i) {
+    debugger
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    localStorage.setItem("contacts", contacts)
-    console.log(userData);
-    console.log(contacts);
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let number = document.getElementById('phone');
-    name.value = contacts[0]['name']
-    email.value = contacts['email']
-    number.value = contacts['number']
-
     let dialogEditContact = document.getElementById('dialogNewEditContact');
-    document.getElementById('dialogNewEditContact').classList.remove('d-none');
+    dialogEditContact.innerHTML = getEditContactHtml();
+    dialogEditContact.classList.remove('d-none');
     let editContact = document.getElementById('editNewContact');
     editContact.style.transform = "translateX(113%)";
     setTimeout(() => {
         editContact.style.transform = "translateX(0)";
     }, 50);
-    showColorForBigContact(i, backgroundcolor);
+    let name = document.getElementById('name-input');
+    let email = document.getElementById('email-input');
+    let number = document.getElementById('phone-input');
+    name.value = contacts[i]['name'];
+    email.value = contacts[i]['email'];
+    number.value = contacts[i]['number'];
 }
 
 
@@ -279,16 +264,16 @@ function getEditContactHtml() {
                     <img src="./img/Group 13.png" class="contact-img">
                     <div>
                         <div class="add-contact-data">
-                            <input id="name" placeholder="Name" type="text" required class="name-input">
-                                <input id="email" placeholder="Email" type="email" required class="email-input">
-                                <input id="phone" placeholder="Phone" type="text" required class="phone-input">
+                            <input id="name-input" placeholder="Name" type="text" required class="name-input">
+                                <input id="email-input" placeholder="Email" type="email" required class="email-input">
+                                <input id="phone-input" placeholder="Phone" type="text" required class="phone-input">
                         </div>
                         <div class="close-create-button">
                             <button class="color-white-button" onclick="closeDialog(event)">
                                 <div class="button-txt-img">Delete</div>
                             </button>
-                            <button class="color-blue-button">
-                                <div onclick="" class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg">
+                            <button onclick="saveEditedContact()"class="color-blue-button">
+                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg">
                                 </div>
                             </button>
                         </div>
@@ -296,6 +281,45 @@ function getEditContactHtml() {
                 </div>
             </div>
         </div>`;
+}
+
+
+async function saveEditedContact() {
+    debugger
+    // Get the index of the contact being edited
+    const contactIndex = document.getElementById('dialogNewEditContact').dataset.index;
+
+    // Get the edited values from the form fields
+    const editedName = document.getElementById('name-input').value;
+    const editedEmail = document.getElementById('email-input').value;
+    const editedPhone = document.getElementById('phone-input').value;
+
+    try {
+        // Assuming you have a function to get the current user's ID
+        const userId = localStorage.getItem('uid'); // Replace with actual user ID
+        let userData = await loadSpecificUserDataFromLocalStorage(); // Fetch the current user data
+      
+
+        console.log('User data before modification:', userData);
+
+        // Update the contact data within the user data
+        userData.contacts[contactIndex] = {
+            name: editedName,
+            email: editedEmail,
+            number: editedPhone // Ensure the key matches the stored contact object
+        };
+        console.log('User data after modification:', userData);
+
+        // Save the updated user data to Firebase
+        await updateUserData(userId, userData);
+
+        // Hide the edit form
+        document.getElementById('dialogNewEditContact').classList.add('d-none');
+
+        console.log('Contact updated successfully!');
+    } catch (error) {
+        console.error('Error updating contact: ', error);
+    }
 }
 
 
@@ -313,28 +337,6 @@ async function createNewContact() {
     checkExistingInitials();
     displayInitialsFilter();
     displayInitialsAndContacts();
-}
-
-async function editContacts(path = "contacts", data = {}) {
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let number = document.getElementById('phone');
-
-    data = {
-        name: name.value,
-        email: email.value,
-        number: number.value,
-    }
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-        method: "PUT",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    loadUserData();
-    closeDialog();
-    return responseToJson = await response.json();
 }
 
 

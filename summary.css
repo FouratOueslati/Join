@@ -25,7 +25,7 @@ body {
     gap: 30px;
     height: 100px;
     font-size: 27px;
-    margin: 110px 0 56px 96px;
+    margin: 0 0 56px 96px;
 }
 
 
@@ -54,6 +54,7 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
+   justify-content: space-evenly;
 }
 
 

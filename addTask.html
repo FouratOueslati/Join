@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="addTask.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
-
+    <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="./templates/bluebar.css">
     <link rel="stylesheet" href="./templates/topbar.css">
     <script src="storage.js"></script>
@@ -93,19 +93,22 @@
                                 <button onclick="addPrioEventListeners()" id="urgentButton" type="button"
                                     class="button-prio">
                                     <div class="center">
-                                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
+                                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg"
+                                                class="prio-photos"></div>
                                     </div>
                                 </button>
                                 <button onclick="addPrioEventListeners()" id="mediumButton" type="button"
                                     class="button-prio">
                                     <div class="center">
-                                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
+                                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg"
+                                                class="prio-photos"></div>
                                     </div>
                                 </button>
                                 <button onclick="addPrioEventListeners()" id="lowButton" type="button"
                                     class="button-prio">
                                     <div class="center">
-                                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
+                                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg"
+                                                class="prio-photos"></div>
                                     </div>
                                 </button>
                             </div>
@@ -122,14 +125,17 @@
                             </div>
                             <span class="span-margin">Subtask</span>
                             <div class="input-with-img">
-                                <input required placeholder="Add new subtask" class="task-input-with-img"oninput="onInputChange()" id="inputFieldSubtask">
+                                <input required placeholder="Add new subtask" class="task-input-with-img"
+                                    oninput="onInputChange()" id="inputFieldSubtask">
                                 <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
                                 <div class="check-cross-position" id="closeOrAccept">
-                                    <button class="button-transparacy" >
-                                        <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                                    <button class="button-transparacy">
+                                        <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg"
+                                            class="subtaskButtons" alt="close">
                                     </button>
                                     <button class="button-transparacy">
-                                        <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
+                                        <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg"
+                                            class="subtaskButtons" alt="accept">
                                     </button>
                                 </div>
                             </div>
@@ -145,7 +151,7 @@
                                 <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
                                 </div>
                             </button>
-                            <button  onclick="addTask()" id="createButton" type="button" class="color-blue-button">
+                            <button onclick="addTask()" id="createButton" type="button" class="color-blue-button">
                                 <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
                                         class="check-svg"></div>
                             </button>

@@ -148,6 +148,12 @@
     cursor: pointer;
 }
 
+.edit {
+    position: absolute;
+    top: 288px;
+    left: 180px;
+}
+
 .contact-information {
     height: 74px;
     display: flex;
@@ -228,6 +234,10 @@
     padding: 67px 72px 0 0;
 }
 
+.contact-big-container {
+    padding-right: 20px;
+}
+
 .contact-box-right {
     display: flex;
 }
@@ -290,10 +300,6 @@
     cursor: pointer;
     background-color: #F6F7F8;
     border-radius: 32px;
-}
-
-.contact-infos {
-    margin: 32px 0 0 65px;
 }
 
 .edit-delete-box {
@@ -364,7 +370,7 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 1390px) {
+@media (max-width: 1300px) {
     .add-new-contact {
         flex-direction: column;
         width: 500px;
@@ -405,7 +411,7 @@
         margin-top: -123px;
         margin-left: 142px;
     }
-    
+
 
     .close-add-contact {
         padding: unset;
@@ -419,14 +425,14 @@
         margin-right: -200px;
         border-radius: 32px;
     }
-    
+
     .close-add-contact img:hover {
         background-color: #D1D1D1;
     }
 
     .contact-box-right {
         height: 51%;
-        padding-top: 32px;
+        padding-top: 55px;
     }
 
     .close-create-button {
@@ -434,17 +440,19 @@
         justify-content: center;
     }
 
-    .color-white-button {
-        display: none;
-    }
-}
-
-@media (max-width: 1150px) {
     .full-name {
         font-size: 36px;
         font-weight: 700;
     }
+
+    .shorts-name-big {
+        height: 80px;
+        width: 80px;
+        font-size: 27px;
+        font-weight: 400;
+    }
 }
+
 
 @media (max-width: 900px) {
     .contact-big-container {

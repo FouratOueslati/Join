@@ -41,6 +41,17 @@ async function loadSpecificUserDataFromLocalStorage() {
 }
 
 
+async function updateUserData(uid, userData) {
+    const response = await fetch($`{BASE_URL_USER_DATA}/users/${uid}.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    });
+}
+
+
 // dient zum updaten der userData
 async function updateUserData(uid, userData) {
     const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
@@ -52,9 +63,9 @@ async function updateUserData(uid, userData) {
     });
 }
 
-// dient zum löschen der userData
-async function deleteUserData(uid) {
-    let response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
+
+async function deleteUserData(uid, i) {
+    let response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacts/${i}.json`, {
         method: 'DELETE',
     });
     return responseToJson = await response.json();

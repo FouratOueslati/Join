@@ -73,18 +73,8 @@
     }
 }
 
-@media (max-width: 700px) {
-    .header-container {
-        position: fixed;
-    }
-
-}
-
 @media (max-width: 550px) {
-    .header-container {
-        justify-content: space-between;
-    }
-
+  
     .user-initials-container {
         width: 30px;
         height: 30px;

@@ -11,7 +11,7 @@ body {
 
 .parent-container {
     background-color: #F6F7F8;
-    height: calc(100% - 96px);
+    height: 90%;
     display: flex;
     flex-direction: column;
 }
@@ -22,14 +22,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding-left: 10%;
     gap: 30px;
-    height: 100px;
+    height: 20%;
     font-size: 27px;
-    margin: 0 0 56px 96px;
+    
 }
 
 
-.join-360, .fat-Contacts-headline {
+.join-360,
+.fat-Contacts-headline {
     font-weight: 700;
     font-size: 60px;
 }
@@ -51,15 +53,18 @@ body {
 
 
 .greeting-and-todos-container {
+    gap: 18px;
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-   justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 
 .todos-container {
     display: flex;
+    width: 50%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -172,10 +177,10 @@ body {
 
 
 .greeting-container {
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-right: 87px;
 }
 
 
@@ -186,17 +191,7 @@ body {
 
 
 .user-name {
-    font-size: 64px;
+    font-size: 55px;
     font-weight: 700;
     color: #29ABE2;
-}
-
-@media (max-width: 1300px) {
-    .greeting-container {
-        display: none;
-    }
-
-    .fat-Contacts-headline {
-        font-size: 47px;
-    }
 }

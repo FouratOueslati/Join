@@ -16,6 +16,10 @@
         font-size: 20px;
     }
 
+    .parent-container {
+        height: calc(100vh - 160px);
+    }
+
     /* CSS Nicole ////////////////////////// */
     .help_legal_privacy {
         padding-left: 16px;

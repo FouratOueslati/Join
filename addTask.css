@@ -2,6 +2,7 @@ body {
     margin: 0px;
     padding: 0px;
     background-color: rgb(246, 247, 249);
+    background-color: rgb(246, 247, 249);
     display: flex;
     font-family: "Inter", sans-serif;
     box-sizing: border-box;
@@ -43,6 +44,7 @@ body {
     height: 75%;
     display: flex;
     justify-content: center;
+    padding-left: 96px;
 }
 
 .button-end-process-container {
@@ -107,6 +109,7 @@ body {
     padding: 10px 15px 10px 15px;
     width: 31%;
     border: 1px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     border-radius: 10px;
     cursor: pointer;
 }
@@ -137,6 +140,7 @@ body {
     background-color: white;
     color: black;
     border: 1px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     padding: 8px 8px 8px 8px;
     cursor: pointer;
     border-radius: 10px;
@@ -144,10 +148,13 @@ body {
 
 .color-blue-button {
     background-color: rgb(42, 54, 71);
+    background-color: rgb(42, 54, 71);
     color: white;
+    border: 1px solid rgb(209, 209, 209);
     border: 1px solid rgb(209, 209, 209);
     padding: 8px 8px 8px 8px;
     cursor: pointer;
+    border-radius: 10px;
     border-radius: 10px;
 }
 
@@ -182,6 +189,7 @@ body {
     padding: 10px 8px 8px 10px;
     border-radius: 10px;
     border: 1px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -203,6 +211,7 @@ body {
     list-style: none;
     padding: 0.2em 0.5em;
     border: 1px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     color: rgb(0, 0, 0);
@@ -214,6 +223,7 @@ body {
     transition: 0.5s;
     z-index: 1;
     overflow-y: auto;
+    max-height: 80px;
     max-height: 80px;
 }
 
@@ -262,6 +272,7 @@ body {
 .input-with-img {
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(209, 209, 209);
     border: 1px solid rgb(209, 209, 209);
     display: flex;
     align-items: center;
@@ -355,9 +366,16 @@ body {
     align-items: center;
 }
 
+
 .creat-and-close-buttons {
     display: flex;
     gap: 8px;
+}
+
+@media (max-width: 1024px) {
+    .aot-task {
+        margin: 48px 0 40px 96px;
+    }
 }
 
 @media(max-width: 900px) {
@@ -389,11 +407,14 @@ body {
         height: 80%;
     }
 
+
     .main-container-task-one-two {
         display: flex;
         flex-direction: column;
-        height: 80%;
+        padding-left: unset;
+        align-items: flex-start;
     }
+
 
     .add-task-set-up-one-container {
         width: 90%;
@@ -409,6 +430,7 @@ body {
         flex-direction: column;
     }
 
+
     .input-field-svg {
         margin-left: 53%;
     }
@@ -420,19 +442,23 @@ body {
         width: 80%;
     }
 
+
     .color-white-button {
         display: none;
     }
 
+
     .select {
         width: 96%;
     }
+
 
     .aot-task {
         width: 100%;
         font-size: 40px;
         margin-left: 32px;
     }
+
 
     .input-field-svg {
         margin-left: 52%;

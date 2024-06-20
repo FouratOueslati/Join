@@ -76,7 +76,7 @@ async function displayInitialsFilter() {
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    for (let j = 0; j < displayedLetters.length; j++) {
+    for (let j = 1; j < displayedLetters.length; j++) {
         let contactInitial = document.getElementById(`initialLetter${j}`);
         let contactsContainer = document.getElementById(`contactsContainer${j}`);
         contactsContainer.innerHTML = '';

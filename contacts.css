@@ -15,7 +15,7 @@
 .add-contact-box {
     display: flex;
     justify-content: center;
-    height: 20%;
+    height: 101px;
 }
 
 .button-add-contacts {
@@ -46,6 +46,8 @@
     font-size: 20px;
     background-color: #FFFFFF;
     padding-left: 15px;
+    border-bottom: solid 1px #D1D1D1;
+    width: 105%;
 }
 
 .seperator {
@@ -453,6 +455,11 @@
     }
 }
 
+@media (max-width: 1024px) {
+    .contact-big-container {
+
+    }
+}
 
 @media (max-width: 900px) {
     .contact-big-container {
@@ -462,7 +469,7 @@
     .contacts-container {
         width: 100%;
         flex-direction: column-reverse;
-        align-items: flex-end;
+        justify-content: flex-end;
     }
 
     .button-txt {
@@ -480,8 +487,10 @@
 
     .add-contact-box {
         position: absolute;
-        margin: 0 16px 22px 0;
+        margin: 0 16px 32px 0;
         height: unset;
+        right: 0;
+        bottom: 80px;
     }
 
     .button-add-contacts {
@@ -491,5 +500,6 @@
     #filteredContactsContainer {
         width: -webkit-fill-available;
         margin-left: 24px;
+        padding-top: 24px;
     }
 }

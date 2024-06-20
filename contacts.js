@@ -357,7 +357,7 @@ async function createNewContact() {
 }
 
 function postContacts(path = "", data = {}) {
-    const BASE_URL_CONTACTS = "https://joincontacts-default-rtdb.europe-west1.firebasedatabase.app/";
+    const BASE_URL_CONTACTS = "https://join-gruppenarbeit-7a79e-default-rtdb.europe-west1.firebasedatabase.app/";
     return fetch(BASE_URL_CONTACTS + path + ".json", {
         method: "POST",
         headers: {

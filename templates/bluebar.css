@@ -34,7 +34,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-
 }
 
 
@@ -108,6 +107,15 @@ a:hover {
         display: none;
     }
 
+    .content-container {
+        height: 100vh;
+        margin: unset;
+    }
+
+    .summary-headline {
+        padding-left: 16px;
+    }
+
     .tools-container {
         padding-top: unset;
         justify-content: center;
@@ -127,16 +135,10 @@ a:hover {
 
     .menu-tool {
         flex-direction: column;
-        border-radius: 10px;
         justify-content: center;
+        align-items: center;
         gap: 8px;
-        width: 100px;
-        height: 100%;
-        padding: 12px;
-    }
-
-    .menu-tool img {
-        padding: unset;
+        
     }
 
     .menu-tool:hover {
@@ -148,6 +150,7 @@ a:hover {
         width: 24px;
     }
 
+<<<<<<< HEAD
     .content-container {
         height: 100vh;
         margin: unset;
@@ -166,6 +169,10 @@ a:hover {
 
     .summary-headline {
         padding-left: 16px;
+=======
+    .menu-tool img {
+        padding-left: unset;
+>>>>>>> 6eaa3733236d85213caa392483fde2a60e56f96f
     }
 
     .todo {

@@ -219,21 +219,47 @@ async function addTask() {
     let date = document.getElementById('date').value;
     let lastClickedButton = localStorage.getItem('lastClickedButton');
     let selectedCategory = localStorage.getItem('selectedCategory');
-    let contacts = localStorage.getItem('contacts');
-    let subtasks = localStorage.getItem('subtasks');
-    let uid = localStorage.getItem('uid')
+    let contacts = JSON.parse(localStorage.getItem('contacts')); 
+    let subtasks = JSON.parse(localStorage.getItem('subtasks')); 
+    let uid = localStorage.getItem('uid');
+    let task = { 
+        name: taskTitle, 
+        description: taskDescription, 
+        date: date, 
+        category: selectedCategory, 
+        contacts: contacts, 
+        subtasks: subtasks 
+    };
+    postTask('/users/' + uid + '/tasks', task)
+        .then(async function(response) { 
+            console.log('Task added:', response);
+            if (lastClickedButton === 'urgentButton') {
+                userData.urgentTasks = userData.urgentTasks || [];
+                userData.urgentTasks.push(task);
+            } else if (lastClickedButton === 'mediumButton') {
+                userData.mediumTasks = userData.mediumTasks || [];
+                userData.mediumTasks.push(task);
+            } else if (lastClickedButton === 'lowButton') {
+                userData.lowTasks = userData.lowTasks || [];
+                userData.lowTasks.push(task);
+            }
 
-    let task = { name: taskTitle, description: taskDescription, date: date, category: selectedCategory, contacts: contacts, subtasks: subtasks };
+            await updateUserData(uid, userData); 
 
-    if (lastClickedButton === 'urgentButton') {
-        userData.urgentTasks = userData.urgentTasks || [];
-        userData.urgentTasks.push(task);
-    } else if (lastClickedButton === 'mediumButton') {
-        userData.mediumTasks = userData.mediumTasks || [];
-        userData.mediumTasks.push(task);
-    } else if (lastClickedButton === 'lowButton') {
-        userData.lowTasks = userData.lowTasks || [];
-        userData.lowTasks.push(task);
-    }
-    await updateUserData(uid, userData);
+            console.log('User data updated');
+        })
+        .catch(function(error) {
+            console.error('Error posting task:', error);
+        });
+}
+
+function postTask(path = "", data = {}) {
+    const BASE_URL_CONTACTS = "https://joincontacts-default-rtdb.europe-west1.firebasedatabase.app/";
+    return fetch(BASE_URL_CONTACTS + path + ".json", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })  
 }

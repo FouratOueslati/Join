@@ -42,6 +42,7 @@ async function loadContacts() {
 async function checkExistingInitials() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
+    displayedLetters = []; // Clear the array before checking
     for (let i = 0; i < letters.length; i++) {
         for (let j = 0; j < contacts.length; j++) {
             let letter = letters[i];
@@ -78,6 +79,7 @@ async function displayInitialsAndContacts() {
     for (let j = 0; j < displayedLetters.length; j++) {
         let contactInitial = document.getElementById(`initialLetter${j}`);
         let contactsContainer = document.getElementById(`contactsContainer${j}`);
+        contactsContainer.innerHTML = '';
         displayContactsByInitial(contacts, contactInitial, contactsContainer);
     }
 }
@@ -98,6 +100,7 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
         }
     }
 }
+
 
 function showColorForContact(i, color) {
     let contactInitial = document.getElementById(`contactsInitials${i}`);
@@ -326,6 +329,45 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
 }
 
 
+async function saveEditedContact() {
+    debugger
+    // Get the index of the contact being edited
+    const contactIndex = document.getElementById('dialogNewEditContact').dataset.index;
+
+    // Get the edited values from the form fields
+    const editedName = document.getElementById('name-input').value;
+    const editedEmail = document.getElementById('email-input').value;
+    const editedPhone = document.getElementById('phone-input').value;
+
+    try {
+        // Assuming you have a function to get the current user's ID
+        const userId = localStorage.getItem('uid'); // Replace with actual user ID
+        let userData = await loadSpecificUserDataFromLocalStorage(); // Fetch the current user data
+
+
+        console.log('User data before modification:', userData);
+
+        // Update the contact data within the user data
+        userData.contacts[contactIndex] = {
+            name: editedName,
+            email: editedEmail,
+            number: editedPhone // Ensure the key matches the stored contact object
+        };
+        console.log('User data after modification:', userData);
+
+        // Save the updated user data to Firebase
+        await updateUserData(userId, userData);
+
+        // Hide the edit form
+        document.getElementById('dialogNewEditContact').classList.add('d-none');
+
+        console.log('Contact updated successfully!');
+    } catch (error) {
+        console.error('Error updating contact: ', error);
+    }
+}
+
+
 async function createNewContact() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let uid = localStorage.getItem('uid');
@@ -333,23 +375,46 @@ async function createNewContact() {
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
     let color = getRandomColor();
-    let contact = { name: name, email: email, number: number, backgroundcolor: color };
-    userData.contacts = userData.contacts || [];
-    userData.contacts.push(contact);
-    await updateUserData(uid, userData);
-    checkExistingInitials();
-    displayInitialsFilter();
-    displayInitialsAndContacts();
-    closeDialog();
+    let contact = { 
+        name: name,
+        email: email, 
+        number: number, 
+        backgroundcolor: color 
+    };
+    contacts('/users/' + uid + '/contacts', contact)
+        .then(function(response){
+            console.log('Contact posted:', response);
+            checkExistingInitials();
+            displayInitialsFilter();
+            displayInitialsAndContacts();
+            closeDialog();
+        })
+        .catch(function(error) {
+            console.error('Error posting contact:', error);
+        });
+}
+
+function postContacts(path = "", data = {}) {
+    return fetch(BASE_URL_CONTACTS + path + ".json", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })  
 }
 
 
 async function deleteContact(uid, i) {
-        userData.contacts.splice(i, 1);
-        await deleteUserData(uid);
-        checkExistingInitials();
-        displayInitialsFilter();
-        displayInitialsAndContacts();
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    userData.contacts.splice(i, 1); // Remove the contact at index i
+    for (let j = 0; j < userData.contacts.length; j++) {
+        userData.contacts[j].id = j;
+    }
+    await deleteUserData(uid); 
+    await checkExistingInitials(); 
+    await displayInitialsFilter(); 
+    await displayInitialsAndContacts(); 
 }
 
 
@@ -371,7 +436,12 @@ async function onloadFunc(i, name, email, number, backgroundcolor, currentContac
     currentContact.name = editname;
     currentContact.email = editemail;
     currentContact.number = editnumber;
+<<<<<<< HEAD
     await updateUserData(uid, userData); 
+=======
+
+    await updateUserData(uid, userData);
+>>>>>>> 6eaa3733236d85213caa392483fde2a60e56f96f
 }
 
 

@@ -42,6 +42,7 @@ async function loadContacts() {
 async function checkExistingInitials() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
+    displayedLetters = []; // Clear the array before checking
     for (let i = 0; i < letters.length; i++) {
         for (let j = 0; j < contacts.length; j++) {
             let letter = letters[i];
@@ -72,35 +73,13 @@ async function displayInitialsFilter() {
 }
 
 
-// async function displayInitialsAndContacts() {
-//     let userData = await loadSpecificUserDataFromLocalStorage();
-//     let contacts = userData.contacts;
-//     for (let j = 0; j < displayedLetters.length; j++) {
-//         let contactInitial = document.getElementById(`initialLetter${j}`);
-//         let contactsContainer = document.getElementById(`contactsContainer${j}`);
-//         for (let i = 0; i < contacts.length; i++) {
-//             let name = contacts[i]["name"];
-//             let email = contacts[i]["email"];
-//             let color = contacts[i]["backgroundcolor"];
-//             let spaceIndex = name.indexOf(' ');
-//             let firstName = name.split(' ')[0];
-//             let lastName = name.split(' ')[1];
-//             let firstLetterOfName = name.charAt(0);
-//             let firstLetterOfLastName = name.charAt(spaceIndex + 1);
-//             if (contactInitial.innerHTML === firstLetterOfName) {
-//                 contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
-//                 showColorForContact(i, color);
-//             }
-//         }
-//     }
-// }
-
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
     for (let j = 0; j < displayedLetters.length; j++) {
         let contactInitial = document.getElementById(`initialLetter${j}`);
         let contactsContainer = document.getElementById(`contactsContainer${j}`);
+        contactsContainer.innerHTML = '';
         displayContactsByInitial(contacts, contactInitial, contactsContainer);
     }
 }
@@ -121,6 +100,7 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
         }
     }
 }
+
 
 function showColorForContact(i, color) {
     let contactInitial = document.getElementById(`contactsInitials${i}`);
@@ -344,7 +324,7 @@ async function saveEditedContact() {
         // Assuming you have a function to get the current user's ID
         const userId = localStorage.getItem('uid'); // Replace with actual user ID
         let userData = await loadSpecificUserDataFromLocalStorage(); // Fetch the current user data
-      
+
 
         console.log('User data before modification:', userData);
 
@@ -388,11 +368,15 @@ async function createNewContact() {
 
 
 async function deleteContact(uid, i) {
-        userData.contacts.splice(i, 1);
-        await deleteUserData(uid);
-        checkExistingInitials();
-        displayInitialsFilter();
-        displayInitialsAndContacts();
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    userData.contacts.splice(i, 1); // Remove the contact at index i
+    for (let j = 0; j < userData.contacts.length; j++) {
+        userData.contacts[j].id = j;
+    }
+    await deleteUserData(uid); 
+    await checkExistingInitials(); 
+    await displayInitialsFilter(); 
+    await displayInitialsAndContacts(); 
 }
 
 
@@ -418,7 +402,7 @@ async function onloadFunc(i, name, email, number, backgroundcolor, currentContac
     currentContact.email = editemail;
     currentContact.number = editnumber;
 
-    await updateUserData(uid, userData); 
+    await updateUserData(uid, userData);
 }
 
 

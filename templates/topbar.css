@@ -53,6 +53,25 @@
     cursor: pointer;
 }
 
+.log-out-container {
+    color: white;
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: #2A3647;
+    padding: 16px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.d-none {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .header-container {
         height: 10%;
@@ -74,7 +93,7 @@
 }
 
 @media (max-width: 550px) {
-  
+
     .user-initials-container {
         width: 30px;
         height: 30px;

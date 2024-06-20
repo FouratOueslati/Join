@@ -1,4 +1,5 @@
-const BASE_URL_USER_DATA = "https://joincontacts-default-rtdb.europe-west1.firebasedatabase.app/";
+const BASE_URL_USER_DATA = "https://join-gruppenarbeit-7a79e-default-rtdb.europe-west1.firebasedatabase.app/";
+
 
 // lädt all user Data, wird grundsätzlich nur zum einloggen benötigt.
 async function loadUserData(path = "") {
@@ -63,6 +64,15 @@ async function updateUserData(uid, userData) {
     });
 }
 
+async function updateUserContacts(uid, contacts) {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacs.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contacts)
+    });
+}
 
 async function deleteUserData(uid, i) {
     let response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacts/${i}.json`, {

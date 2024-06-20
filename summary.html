@@ -7,23 +7,24 @@
     <link rel="stylesheet" href="summary.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
-    <link rel="stylesheet" href="responsive.css">
-    <link rel="stylesheet" href="./templates/bluebar.css">
-    <link rel="stylesheet" href="./templates/topbar.css">
+    <link rel="stylesheet" href="responsiveSummary.css">
+    <link rel="stylesheet" href="templates/bluebar.css">
+    <link rel="stylesheet" href="templates/topbar.css">
     <script src="include.js"></script>
+    <script src="/templates/topbar.js"></script>
     <script src="storage.js"></script>
-    <script src="summary.js"></script>
+    <script src="login.js"></script>
     <title>Summary</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
 
-<body onload="includeHTML(), loadSpecificUserDataFromLocalStorage(), displayIntialsOfLoggedInUser()">
+<body onload="includeHTML(); showLoggedUserInitials()">
     <div class="main-content">
-        <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
+        <div class="tools-container" w3-include-html="/templates/bluebar.html"></div>
         <div class="content-container">
-            <div class="header-container" w3-include-html="templates/topbar.html"></div>
+            <div class="header-container" w3-include-html="/templates/topbar.html"></div>
             <div class="parent-container">
-                <div class="summary-headline">
+                <div  class="summary-headline">
                     <div class="join-360">Join 360</div>
                     <div class="seperator-and-text-container">
                         <div class="vertical-seperator"></div>

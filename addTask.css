@@ -2,6 +2,7 @@ body {
     margin: 0px;
     padding: 0px;
     background-color: rgb(246, 247, 249);
+    background-color: rgb(246, 247, 249);
     display: flex;
     font-family: "Inter", sans-serif;
     box-sizing: border-box;
@@ -11,97 +12,103 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: 85%;
+    width: 100%;
     height: 100vh;
 }
 
+.parent-container {
+    box-sizing: border-box;
+    padding-top: 10%;
+    background-color: #F6F7F8;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .main-container-task {
-    width: 75%;
-    height: 80%;
+    width: 70%;
 }
 
 .aot-task-container {
     width: 100%;
 }
 
-.aot-task {
-    margin: 110px 0 56px 96px;
+
+.inputs-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .main-container-task-one-two {
-    width: 100%;
-    height: 424px;
+    height: 75%;
     display: flex;
-    align-items: center;
     justify-content: center;
     padding-left: 96px;
 }
 
-.button-end-proces-container {
-    width: 92.5%;
+.button-end-process-container {
+    box-sizing: border-box;
     height: 10%;
-    margin: 40px 32px 0 96px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .add-task-set-up-one-container {
-    width: 55%;
+    width: 50%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    gap: 16px
 }
 
 .seperate-container {
+    background-color: rgb(209, 209, 209);
     height: 100%;
-    width: 3%;
+    width: 1px;
 }
 
 .add-task-set-up-two-container {
-    width: 55%;
+    width: 50%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
 }
 
-h1 {
-    margin: 0px;
-    font-size: 60px;
+.add-task-title {
+    font-size: 48px;
+    font-weight: 700;
 }
 
 .add-task-set-up-one {
     width: 90%;
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
 .task-input-field {
-    width: 90%;
     padding: 12px 8px 8px 12px;
     border-radius: 10px;
     border: 1px solid rgb(209, 209, 209);
-}
-
-.seperate-add-task {
-    width: 1px;
-    height: 100%;
-    display: flex;
-    margin-left: 50%;
-    background-color: rgb(209, 209, 209);
 }
 
 .add-task-set-up-two {
     width: 90%;
     display: flex;
     flex-direction: column;
+    gap: 24px;
 }
 
 .button-prio-width {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .button-prio {
     background-color: white;
     padding: 10px 15px 10px 15px;
     width: 31%;
+    border: 1px solid rgb(209, 209, 209);
     border: 1px solid rgb(209, 209, 209);
     border-radius: 10px;
     cursor: pointer;
@@ -124,12 +131,6 @@ h1 {
     font-size: 20px;
 }
 
-.button-end-proces {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .color-blue-button:hover {
     background-color: #29ABE2;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
@@ -139,6 +140,7 @@ h1 {
     background-color: white;
     color: black;
     border: 1px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     padding: 8px 8px 8px 8px;
     cursor: pointer;
     border-radius: 10px;
@@ -146,10 +148,13 @@ h1 {
 
 .color-blue-button {
     background-color: rgb(42, 54, 71);
+    background-color: rgb(42, 54, 71);
     color: white;
+    border: 1px solid rgb(209, 209, 209);
     border: 1px solid rgb(209, 209, 209);
     padding: 8px 8px 8px 8px;
     cursor: pointer;
+    border-radius: 10px;
     border-radius: 10px;
 }
 
@@ -164,10 +169,6 @@ h1 {
 
 .close-svg {
     width: 12px;
-}
-
-.span-margin {
-    margin: 8px 0px 8px 0px;
 }
 
 .bubble-setup {
@@ -185,9 +186,9 @@ h1 {
 
 .select {
     background-color: rgb(255, 255, 255);
-    width: 95%;
     padding: 10px 8px 8px 10px;
     border-radius: 10px;
+    border: 1px solid rgb(209, 209, 209);
     border: 1px solid rgb(209, 209, 209);
     display: flex;
     justify-content: space-between;
@@ -210,17 +211,19 @@ h1 {
     list-style: none;
     padding: 0.2em 0.5em;
     border: 1px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     color: rgb(0, 0, 0);
     position: absolute;
     top: 2.43em;
-    width: 95%;
+    width: 100%;
     background-color: rgb(255, 255, 255);
     display: none;
     transition: 0.5s;
     z-index: 1;
     overflow-y: auto;
+    max-height: 80px;
     max-height: 80px;
 }
 
@@ -270,9 +273,9 @@ h1 {
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     display: flex;
     align-items: center;
-    width: 94%;
 }
 
 .task-input-with-img {
@@ -364,14 +367,9 @@ h1 {
 }
 
 
-@media(max-width: 1200px) {
-    .button-txt-img {
-        font-size: 10px;
-    }
-
-    .select {
-        width: 97%;
-    }
+.creat-and-close-buttons {
+    display: flex;
+    gap: 8px;
 }
 
 @media (max-width: 1024px) {
@@ -381,26 +379,34 @@ h1 {
 }
 
 @media(max-width: 900px) {
-    .input-field-svg {
-        margin-left: 28%;
+    .main-container-task-one-two {
+        height: 65%;
+    }
+    .parent-container {
+        margin-top: 5%;
     }
 }
 
 @media(max-width: 700px) {
+    .aot-task-container {
+        height: 10%;
+        background-color: rgb(246, 247, 249);
+        top: 10%;
+        position: fixed;
+    }
+
+    .main-container-task-one-two {
+        height: 60%;
+    }
+
     .content-container {
-        height: 200%;
+        height: 100%;
     }
 
     .main-container-task {
-        height: unset;
-        width: unset;
+        height: 80%;
     }
 
-    .aot-task-container {
-        background-color: rgb(246, 247, 249);
-        display: flex;
-        align-items: center;
-    }
 
     .main-container-task-one-two {
         display: flex;
@@ -409,21 +415,14 @@ h1 {
         align-items: flex-start;
     }
 
+
     .add-task-set-up-one-container {
         width: 90%;
     }
 
-    .seperate-container {
-        height: 0%;
-        width: 0%;
-    }
-
     .add-task-set-up-two-container {
         width: 90%;
-    }
-
-    .seperate-add-task {
-        display: hidden;
+        justify-content: flex-start;
     }
 
     .add-task-set-up {
@@ -431,41 +430,28 @@ h1 {
         flex-direction: column;
     }
 
+
     .input-field-svg {
         margin-left: 53%;
     }
 
-    .span-margin {
-        margin: 4px 0px 4px 0px;
-    }
-
-    .button-end-proces {
+    .button-end-process-container {
         background-color: rgb(246, 247, 249);
         position: fixed;
-        width: 90%;
-        flex-direction: column;
-        padding-bottom: 64px;
-        margin-bottom: 18px;
-        align-items: flex-start;
+        bottom: 10%;
+        width: 80%;
     }
 
-    .button-end-proces-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        bottom: 80px;
-        padding-left: 20px;
-        margin: unset;
-    }
 
     .color-white-button {
         display: none;
     }
 
+
     .select {
         width: 96%;
     }
+
 
     .aot-task {
         width: 100%;
@@ -473,14 +459,13 @@ h1 {
         margin-left: 32px;
     }
 
+
     .input-field-svg {
         margin-left: 52%;
     }
 
 }
 
-
-/* responsive */
 @media (max-width: 1150px) {
     .summary-headline {
         padding-left: 100px;
@@ -517,6 +502,21 @@ h1 {
     .content-container {
         height: 180vh;
         width: 100vw;
+    }
+
+    .parent-container {
+        width: 100vw;
+    }
+
+    .summary-headline {
+        padding-left: unset;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        padding-left: 10px;
+        height: 20%;
+        font-size: 18px;
+        gap: 8px;
     }
 
     .greeting-and-todos-container {
@@ -572,7 +572,6 @@ h1 {
         gap: 12px;
     }
 
-    /* CSS Nicole ////////////////////////// */
     .help_legal_privacy {
         padding-left: 16px;
     }
@@ -580,8 +579,6 @@ h1 {
     .help_legal_privacy-headline {
         margin: 48px 0 32px 0;
     }
-
-    /* //////////////////////////////////// */
 }
 
 @media (max-width: 600px) {
@@ -667,8 +664,6 @@ h1 {
         font-size: 16px;
     }
 
-    /* CSS Nicole //////////////////// */
-
     .guide-container {
         width: 100%;
     }
@@ -677,10 +672,6 @@ h1 {
         width: 100%;
     }
 
-    /* ////////////////////////////// */
-
-    /* CSS Nicole //////////////////// */
-
     .guide-container {
         width: 100%;
     }
@@ -688,7 +679,4 @@ h1 {
     .text-help {
         width: 100%;
     }
-
-    /* ////////////////////////////// */
-
 }

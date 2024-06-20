@@ -1,0 +1,177 @@
+.policy-box {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-right: 20px;
+    gap: 12px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: #29ABE2;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.legal-container {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    color: rgba(168, 168, 168, 1);
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.help_legal_privacy {
+    display: flex;
+    flex-direction: column;
+    padding-left: 96px;
+    height: 100%;
+}
+
+.help-headline img {
+    height: 32px;
+
+}
+
+.help_legal_privacy-headline {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+    height: 100px;
+    margin: 110px 32px 32px 0;
+}
+
+.arrow-left {
+    padding-right: 96px;
+}
+
+.headline {
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.guide-container {
+    width: 80%;
+}
+
+.guide {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.guide-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 35px;
+}
+
+.guide-headline {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.guide-text {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.text-help {
+    font-size: 16px;
+    font-weight: 400px;
+    margin-bottom: 24px;
+    width: 80%;
+}
+
+.text-help-guide {
+    margin-bottom: 16px;
+}
+
+.join {
+    color: #29ABE2
+}
+
+.scroll {
+    overflow-y: scroll;
+    height: calc(100vh - 96px);;
+    display: flex;
+    justify-content: center;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F6F7F8;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #A8A8A8;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #29ABE2;
+    border-radius: 4px;
+}
+
+ul {
+    margin: 0 0 24px 0;
+}
+
+h4 {
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .policy-container {
+        display: flex;
+        flex-direction: column;
+        display: none;
+    }
+
+    .help_legal_privacy {
+        padding: 0 16px;
+        width: 90%;
+    }
+
+    .help_legal_privacy-headline {
+        margin: 48px 32px 32px 0;
+        height: unset;
+    }
+
+    .join-360 {
+        font-size: 38px;
+    }
+
+    .arrow-left {
+        padding: unset;
+    }
+
+    .text-help {
+        width: 100%;
+    }
+
+    .scroll {
+        height: calc(100vh - 160px);
+    }
+
+    .guide-container {
+        width: 100%;
+    }
+
+    .text-help {
+        width: 100%;
+    }
+}

@@ -356,14 +356,33 @@ async function createNewContact() {
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
     let color = getRandomColor();
-    let contact = { name: name, email: email, number: number, backgroundcolor: color };
-    userData.contacts = userData.contacts || [];
-    userData.contacts.push(contact);
-    await updateUserData(uid, userData);
-    checkExistingInitials();
-    displayInitialsFilter();
-    displayInitialsAndContacts();
-    closeDialog();
+    let contact = { 
+        name: name,
+        email: email, 
+        number: number, 
+        backgroundcolor: color 
+    };
+    contacts('/users/' + uid + '/contacts', contact)
+        .then(function(response){
+            console.log('Contact posted:', response);
+            checkExistingInitials();
+            displayInitialsFilter();
+            displayInitialsAndContacts();
+            closeDialog();
+        })
+        .catch(function(error) {
+            console.error('Error posting contact:', error);
+        });
+}
+
+function postContacts(path = "", data = {}) {
+    return fetch(BASE_URL_CONTACTS + path + ".json", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })  
 }
 
 

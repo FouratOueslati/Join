@@ -3,14 +3,9 @@
     Kanban Project Management Tool
 </div>
 <div class="help-container">
-<<<<<<< HEAD
     <a href="help.html">
         <img class="help-icon" src="./img/help.png">
     </a>
-    <div id="userInitialsRoundContainer" class="user-initials-container">FO</div>
-</div>
-=======
-    <img class="help-icon" src="./img/help.png">
     <div onclick="toggleMenu()" id="userInitialsRoundContainer" class="user-initials-container"></div>
 </div>
 <div id="menu" class="log-out-container d-none">
@@ -20,20 +15,19 @@
 </div>
 <script>
     function showLoggedUserInitials() {
-    let data = localStorage.getItem('data');
-    let dataAsText = JSON.parse(data);
-    let name = dataAsText.name
-    let spaceIndex = name.indexOf(' ');
-    let firstLetterOfName = name.charAt(0);
-    let firstLetterOfLastName = name.charAt(spaceIndex + 1);
-    let roundContainer = document.getElementById('userInitialsRoundContainer');
-    roundContainer.value = `
+        let data = localStorage.getItem('data');
+        let dataAsText = JSON.parse(data);
+        let name = dataAsText.name
+        let spaceIndex = name.indexOf(' ');
+        let firstLetterOfName = name.charAt(0);
+        let firstLetterOfLastName = name.charAt(spaceIndex + 1);
+        let roundContainer = document.getElementById('userInitialsRoundContainer');
+        roundContainer.value = `
 ${firstLetterOfName}${firstLetterOfLastName}
 `;
-}
+    }
 
-function toggleMenu() {
-    document.getElementById('menu').classList.toggle('d-none');
-}
+    function toggleMenu() {
+        document.getElementById('menu').classList.toggle('d-none');
+    }
 </script>
->>>>>>> 6eaa3733236d85213caa392483fde2a60e56f96f

@@ -311,7 +311,6 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
 
 
 async function saveEditedContact() {
-    debugger
     // Get the index of the contact being edited
     const contactIndex = document.getElementById('dialogNewEditContact').dataset.index;
 
@@ -362,7 +361,7 @@ async function createNewContact() {
         number: number, 
         backgroundcolor: color 
     };
-    contacts('/users/' + uid + '/contacts', contact)
+    postContacts('/users/' + uid + '/contacts', contact)
         .then(function(response){
             console.log('Contact posted:', response);
             checkExistingInitials();

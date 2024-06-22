@@ -10,21 +10,23 @@
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="./templates/bluebar.css">
     <link rel="stylesheet" href="./templates/topbar.css">
+    <link rel="stylesheet" href="legal_privacy.css">
     <script src="include.js"></script>
+    <script src="privacy_policy.js"></script>
     <title>Privacy Policy</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), addClassScroll()">
     <div class="main-content">
         <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
         <div class="content-container">
             <div class="header-container" w3-include-html="templates/topbar.html"></div>
-            <div class="parent-container">
+            <div class="parent-container" id="ppParentCont">
                 <div class="help_legal_privacy">
                     <div class="help_legal_privacy-headline">
                         <div class="join-360">Privacy Policy</div>
-                        <img src="./img/arrow-left-line.png">
+                        <img onclick="history.back()" class="arrow-left" src="./img/arrow-left-line.png">
                     </div>
                     <div class="headline">Subtitle</div>
                     <div class="text-help"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio

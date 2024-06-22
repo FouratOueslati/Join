@@ -79,23 +79,12 @@
     flex: 1;
 }
 
-
-.policy-box {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding-right: 20px;
-    gap: 12px;
-}
-
-
 a {
     text-align: left;
 }
 
 a:hover {
     color: #29ABE2;
-    font-size: 18px;
     cursor: pointer;
 }
 
@@ -113,7 +102,6 @@ a:hover {
 }
 
 @media (max-width: 1024px) {
-
     .join-icon {
         display: none;
     }

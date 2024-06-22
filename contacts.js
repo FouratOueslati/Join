@@ -76,7 +76,7 @@ async function displayInitialsFilter() {
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    for (let j = 1; j < displayedLetters.length; j++) {
+    for (let j = 0; j < displayedLetters.length; j++) {
         let contactInitial = document.getElementById(`initialLetter${j}`);
         let contactsContainer = document.getElementById(`contactsContainer${j}`);
         contactsContainer.innerHTML = '';
@@ -187,14 +187,33 @@ function openAddNewContact() {
     let test = document.getElementById('dialogNewEditContact');
     test.innerHTML = getAddNewContactHtml();
     document.getElementById('dialogNewEditContact').classList.remove('d-none');
-    let addNewContact = document.getElementById('addNewContact');
-    addNewContact.style.transform = "translateX(113%)";
-    setTimeout(() => {
-        addNewContact.style.transform = "translateX(0)";
-    }, 50);
+    animateAddNewContact()
     openContact();
     getRandomColor();
 }
+
+
+function animateAddNewContact() {
+    const screenWidth = window.innerWidth;
+    const addNewContact = document.querySelector('.add-new-contact');
+
+    if (screenWidth < 900) {
+        addNewContact.style.transform = "translateY(100%)";
+        addNewContact.classList.remove('d-none');
+        setTimeout(() => {
+            addNewContact.style.transform = "translateY(0)";
+        }, 50);
+    } else {
+        addNewContact.style.transform = "translateX(113%)";
+        addNewContact.classList.remove('d-none');
+        setTimeout(() => {
+            addNewContact.style.transform = "translateX(0)";
+        }, 50);
+    }
+}
+
+
+window.addEventListener('resize', animateAddNewContact);
 
 
 function getAddNewContactHtml() {
@@ -215,18 +234,18 @@ function getAddNewContactHtml() {
                     </div>
                     <div class="contact-box-right">
                         <img src="./img/Group 13.png" class="contact-img">
-                        <div>
+                        <div class="data-box">
                             <div class="add-contact-data">
                                 <input id="name" placeholder="Name" type="text" required class="name-input">
-                                <input id="email" placeholder="Email" type="email" required class="email-input">
+                                <input id="email" placeholder="Email" type="email" required class="email-input email-edit">
                                 <input id="number" placeholder="Phone" type="text" required class="phone-input">
                             </div>
                             <div class="close-create-button">
-                                <button class="color-white-button" onclick="closeDialog(event)">
+                                <button class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
                                     <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg"></div>
                                 </button>
-                                <button class="color-blue-button">
-                                    <div onclick="createNewContact()" class="button-txt-img">Create Contact <img src="./addTaskImg/check.svg"
+                                <button onclick="createNewContact()" class="color-blue-button">
+                                    <div class="button-txt-img">Create Contact <img src="./addTaskImg/check.svg"
                                             class="check-svg">
                                     </div>
                                 </button>
@@ -403,12 +422,10 @@ async function getEditContact(i) {
     let uid = localStorage.getItem('uid');
     let userData = await loadSpecificUserDataFromLocalStorage();
     let currentContact = userData.contacts[i];
-    // let id = currentContact.id;
     let name = currentContact.name;
     let email = currentContact.email;
     let number = currentContact.number;
     let backgroundcolor = currentContact.backgroundcolor;
-
     onloadFunc(i, name, email, number, backgroundcolor, currentContact, uid, userData);
 }
 
@@ -416,12 +433,15 @@ async function onloadFunc(i, name, email, number, backgroundcolor, currentContac
     let editname = document.getElementById(`editName${i}`).value;
     let editemail = document.getElementById(`editEmail${i}`).value;
     let editnumber = document.getElementById(`editNumber${i}`).value;
-
     currentContact.name = editname;
     currentContact.email = editemail;
     currentContact.number = editnumber;
+<<<<<<< HEAD
+    await updateUserData(uid, userData); 
+=======
 
     await updateUserData(uid, userData);
+>>>>>>> 6eaa3733236d85213caa392483fde2a60e56f96f
 }
 
 

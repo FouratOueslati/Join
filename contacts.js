@@ -4,49 +4,38 @@ let letters = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ]
-
-
 let displayedLetters = [];
-
-
 let contacts = [];
+let uid = localStorage.getItem('uid');
 
 
 async function init() {
     includeHTML();
-    loadUserData();
-    checkExistingInitials();
+    await loadUserData();
+    await checkExistingInitials();
     displayInitialsFilter();
-    displayInitialsAndContacts();
-    loadContacts();
+    await displayInitialsAndContacts();
+}
+
+async function loadDataAfterChanges() {
+    await loadUserData();
+    await checkExistingInitials();
+    displayInitialsFilter();
+    await displayInitialsAndContacts();
 }
 
 
-async function loadContacts() {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let contactsData = userData.contacts;
-    for (const key in contactsData) {
-        const SINGLE_CONTACT = contactsData[key];
-        let contact = {
-            "id": key,
-            "name": SINGLE_CONTACT.name,
-            "email": SINGLE_CONTACT.email,
-            "number": SINGLE_CONTACT.number,
-            "backgroundcolor": SINGLE_CONTACT.backgroundcolor
-        };
-        contacts.push(contact);
-    }
-}
-
-
+// schaut ob die Initialien der Namen im Array Letters vorhanden sind
 async function checkExistingInitials() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    displayedLetters = []; // Clear the array before checking
+    displayedLetters = [];
+    const keys = Object.keys(contacts);
     for (let i = 0; i < letters.length; i++) {
-        for (let j = 0; j < contacts.length; j++) {
-            let letter = letters[i];
-            let firstLetter = contacts[j]["name"].charAt(0);
+        let letter = letters[i];
+        for (let j = 0; j < keys.length; j++) {
+            let contactId = keys[j];
+            let firstLetter = contacts[contactId]["name"].charAt(0);
             if (letter === firstLetter && displayedLetters.indexOf(letter) === -1) {
                 displayedLetters.push(firstLetter);
             }
@@ -54,29 +43,28 @@ async function checkExistingInitials() {
     }
 }
 
-
-async function displayInitialsFilter() {
-    await loadSpecificUserDataFromLocalStorage();
+// generiert den Filter für die Kontakte, je nachdem welche Initialien vorhanden sind
+function displayInitialsFilter() {
     let filteredContactContainer = document.getElementById('filteredContactsContainer');
     filteredContactContainer.innerHTML = '';
-    for (let i = 0; i < displayedLetters.length; i++) {
-        let displayedLetter = displayedLetters[i];
+    for (let j = 0; j < displayedLetters.length; j++) {
+        let displayedLetter = displayedLetters[j];
         filteredContactContainer.innerHTML += `
         <div>
-            <div id="initialLetter${i}" class="initial-letter">${displayedLetter}</div>
+            <div id="initialLetter${j}" class="initial-letter">${displayedLetter}</div>
             <div class="separator"></div>
         </div>
-        <div id="contactsContainer${i}">
+        <div id="contactsContainer${j}">
         </div>
         `;
     }
 }
 
-
+// zeigt alle vorhandenen Kontakte an
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    for (let j = 1; j < displayedLetters.length; j++) {
+    for (let j = 0; j < displayedLetters.length; j++) {
         let contactInitial = document.getElementById(`initialLetter${j}`);
         let contactsContainer = document.getElementById(`contactsContainer${j}`);
         contactsContainer.innerHTML = '';
@@ -84,14 +72,18 @@ async function displayInitialsAndContacts() {
     }
 }
 
+// wird eins drüber aufgerufen dass die obere Funktion funktioniert
 function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
-    for (let i = 0; i < contacts.length; i++) {
-        let name = contacts[i]["name"];
-        let email = contacts[i]["email"];
-        let color = contacts[i]["backgroundcolor"];
+    const keys = Object.keys(contacts);
+    for (let i = 0; i < keys.length; i++) {
+        let contactId = keys[i];
+        let contact = contacts[contactId];
+        let name = contact.name;
+        let email = contact.email;
+        let color = contact.backgroundcolor;
         let spaceIndex = name.indexOf(' ');
         let firstName = name.split(' ')[0];
-        let lastName = name.split(' ')[1];
+        let lastName = name.split(' ')[1] || '';
         let firstLetterOfName = name.charAt(0);
         let firstLetterOfLastName = name.charAt(spaceIndex + 1);
         if (contactInitial.innerHTML === firstLetterOfName) {
@@ -101,7 +93,7 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
     }
 }
 
-
+// zeigt die jeweilige Farbe des Kontakts
 function showColorForContact(i, color) {
     let contactInitial = document.getElementById(`contactsInitials${i}`);
     contactInitial.style.backgroundColor = color;
@@ -120,16 +112,29 @@ function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, f
     `;
 }
 
+async function CloseContact(i) {
+}
+async function findIndexOf(contactId) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    const keys = Object.keys(userData.contacts);
+    return keys.indexOf(contactId);
+}
+
+// öffnet das Kontakt
 async function openContact(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    let contactData = document.getElementById(`contactData${i}`);
-    let firstLetterOfName = contactData.querySelector('.shorts-name').textContent.charAt(0);
-    let firstLetterOfSurname = contactData.querySelector('.shorts-name').textContent.charAt(1);
-    let name = contactData.querySelector('.contact-name').textContent;
-    let email = contactData.querySelector('.contact-email').textContent;
-    let number = contacts[i]["number"];
-    let color = contacts[i]["backgroundcolor"];
+    const keys = Object.keys(contacts);
+    let contactId = keys[i];
+    let contact = contacts[contactId];
+    let contactContainer = document.getElementById(`contactData${i}`);
+    contactContainer.classList.add('dark-background')
+    let firstLetterOfName = document.getElementById(`contactsInitials${i}`).innerHTML.charAt(0);
+    let firstLetterOfSurname = document.getElementById(`contactsInitials${i}`).innerHTML.charAt(1);
+    let name = contact.name;
+    let email = contact.email;
+    let number = contact.number;
+    let color = contact.backgroundcolor;
     let contactInfos = document.getElementById('contactInfos');
     contactInfos.innerHTML = '';
     contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i);
@@ -137,15 +142,7 @@ async function openContact(i) {
 }
 
 
-function showColorForBigContact(i, color) {
-    let contactInitialBig = document.getElementById(`contactsInitialsBig${i}`);
-    contactInitialBig.style.backgroundColor = color;
-    let contactData = document.getElementById(`contactData${i}`);
-    contactData.classList.add('selected-contact-data');
-}
-
-
-function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surname, number, i) {
+function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i) {
     return `
     <div>
         <div class="edit-delete-contact">
@@ -160,7 +157,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
         <div class="contact-information">Contact Information</div>
         <div class="email-phone-box">
             <div class="email-phone-headline">Email</div>
-            <div class="email-phone join">${surname}</div>
+            <div class="email-phone join">${email}</div>
             <div class="email-phone-headline">Phone</div>
             <div class="email-phone">${number}</div>
         </div>
@@ -168,7 +165,15 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, surn
     `;
 }
 
+// generiert die Farbe und zeigt sie an
+function showColorForBigContact(i, color) {
+    let contactInitialBig = document.getElementById(`contactsInitialsBig${i}`);
+    contactInitialBig.style.backgroundColor = color;
+    let contactData = document.getElementById(`contactData${i}`);
+    contactData.classList.add('selected-contact-data');
+}
 
+// generiert eine random Farbe
 function getRandomColor() {
     let newColor = document.getElementById('newColor');
     let symbols, color;
@@ -182,7 +187,7 @@ function getRandomColor() {
     return color;
 }
 
-
+// öffnet das Window um ein neues Kontakt zu erstellen
 function openAddNewContact() {
     let test = document.getElementById('dialogNewEditContact');
     test.innerHTML = getAddNewContactHtml();
@@ -192,7 +197,6 @@ function openAddNewContact() {
     setTimeout(() => {
         addNewContact.style.transform = "translateX(0)";
     }, 50);
-    openContact();
     getRandomColor();
 }
 
@@ -239,11 +243,9 @@ function getAddNewContactHtml() {
     `;
 }
 
-
+// schließt das Window für add new contact
 function closeDialog() {
     document.getElementById('dialogNewEditContact').classList.add('d-none');
-    document.getElementById('contactInfos').classList.add('d-none');
-    document.getElementById('dialogEditContact').classList.add('d-none');
 }
 
 
@@ -251,28 +253,32 @@ function doNotClose(event) {
     event.stopPropagation();
 }
 
-
+// öffnet das Fentser um Kontakte zu editieren
 async function openEditContact(i) {
-    await loadUserData();
-    let contact = contacts[i];
-    let { name, email, number, backgroundcolor } = contacts[i] || {};
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts; // Extrahiert die Kontakte aus den geladenen Daten
+    const keys = Object.keys(contacts); // Holt die Schlüssel des contacts-Objekts
+    let contactId = keys[i]; // Wählt die Kontakt-ID basierend auf dem Index i
+    let contact = contacts[contactId]; // Wählt den Kontakt basierend auf der Kontakt-ID aus
+    let { name, email, number, backgroundcolor } = contact || {};
     let dialogEditContact = document.getElementById('dialogNewEditContact');
     let spaceIndex = name.indexOf(' ');
     let firstLetterOfName = name.charAt(0);
-    let firstLetterOfLastName = name.charAt(spaceIndex + 1);
-    dialogEditContact.innerHTML = getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, i);
+    let firstLetterOfLastName = spaceIndex !== -1 ? name.charAt(spaceIndex + 1) : ''; // Stellt sicher, dass das Leerzeichen gefunden wurde
+    dialogEditContact.innerHTML = getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, contactId);
     document.getElementById('dialogNewEditContact').classList.remove('d-none');
     let editContact = document.getElementById('editNewContact');
-    let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${i}`);
+    let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${contactId}`);
     contactInitialBig.style.backgroundColor = backgroundcolor;
     editContact.style.transform = "translateX(113%)";
     setTimeout(() => {
         editContact.style.transform = "translateX(0)";
     }, 50);
+    await loadDataAfterChanges();
 }
 
 
-function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, i) {
+function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, contactId) {
     return `
         <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
             <div class="add-contact-left">
@@ -287,20 +293,19 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                     <img src="./img/close.png" onclick="closeDialog()">
                 </div>
                 <div class="contact-box-right">
-                    <div id="edit-contactsInitialsBig${i}" class="shorts-name-big edit">${firstLetterOfName}${firstLetterOfLastName}</div>
+                    <div id="edit-contactsInitialsBig${contactId}" class="shorts-name-big edit">${firstLetterOfName}${firstLetterOfLastName}</div>
                     <div>
                         <div class="add-contact-data">
-                            <input id="editName${i}" placeholder="Name" type="text" required class="name-input" value="${name}">
-                                <input id="editEmail${i}" placeholder="Email" type="email" required class="email-input" value="${email}">
-                                <input id="editNumber${i}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
+                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input" value="${email}">
+                            <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
                         </div>
                         <div class="close-create-button">
-                            <button onclick="getEditContactToDelete(${i})" class="color-white-button delete-btn">
+                            <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
                                 <div class="button-txt-img">Delete</div>
                             </button>
-                            <button onclick="getEditContact(${i})" class="color-blue-button">
-                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg">
-                                </div>
+                            <button onclick="saveEditContact('${contactId}')" class="color-blue-button">
+                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
                             </button>
                         </div>
                     </div>
@@ -309,127 +314,78 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
         </div>`;
 }
 
-
-async function saveEditedContact() {
-    debugger
-    // Get the index of the contact being edited
-    const contactIndex = document.getElementById('dialogNewEditContact').dataset.index;
-
-    // Get the edited values from the form fields
-    const editedName = document.getElementById('name-input').value;
-    const editedEmail = document.getElementById('email-input').value;
-    const editedPhone = document.getElementById('phone-input').value;
-
-    try {
-        // Assuming you have a function to get the current user's ID
-        const userId = localStorage.getItem('uid'); // Replace with actual user ID
-        let userData = await loadSpecificUserDataFromLocalStorage(); // Fetch the current user data
-
-
-        console.log('User data before modification:', userData);
-
-        // Update the contact data within the user data
-        userData.contacts[contactIndex] = {
-            name: editedName,
-            email: editedEmail,
-            number: editedPhone // Ensure the key matches the stored contact object
-        };
-        console.log('User data after modification:', userData);
-
-        // Save the updated user data to Firebase
-        await updateUserData(userId, userData);
-
-        // Hide the edit form
-        document.getElementById('dialogNewEditContact').classList.add('d-none');
-
-        console.log('Contact updated successfully!');
-    } catch (error) {
-        console.error('Error updating contact: ', error);
-    }
+// speichert die Änderungen der Kontakte
+async function saveEditContact(contactId) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    const editedName = document.getElementById(`editName${contactId}`).value;
+    const editedEmail = document.getElementById(`editEmail${contactId}`).value;
+    const editedPhone = document.getElementById(`editNumber${contactId}`).value;
+    const background = userData.contacts[contactId]['backgroundcolor']
+    userData.contacts[contactId] = {
+        name: editedName,
+        email: editedEmail,
+        number: editedPhone,
+        backgroundcolor: background
+    };
+    await updateUserData(uid, userData);
+    await loadDataAfterChanges();
+    document.getElementById('dialogNewEditContact').classList.add('d-none');
+    closeDialog();
 }
 
-
+// erstellt eine neues Kontakt
 async function createNewContact() {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let uid = localStorage.getItem('uid');
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
     let color = getRandomColor();
-    let contact = { 
+    let contact = {
         name: name,
-        email: email, 
-        number: number, 
-        backgroundcolor: color 
+        email: email,
+        number: number,
+        backgroundcolor: color
     };
-    contacts('/users/' + uid + '/contacts', contact)
-        .then(function(response){
-            console.log('Contact posted:', response);
-            checkExistingInitials();
-            displayInitialsFilter();
-            displayInitialsAndContacts();
-            closeDialog();
-        })
-        .catch(function(error) {
-            console.error('Error posting contact:', error);
-        });
+    postContacts('/users/' + uid + '/contacts', contact)
+    await loadDataAfterChanges();
+    closeDialog();
 }
 
-function postContacts(path = "", data = {}) {
-    return fetch(BASE_URL_CONTACTS + path + ".json", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })  
-}
-
-
-async function deleteContact(uid, i) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    userData.contacts.splice(i, 1); // Remove the contact at index i
-    for (let j = 0; j < userData.contacts.length; j++) {
-        userData.contacts[j].id = j;
+// löscht ein Kontakt
+async function deleteContact(contactId) {
+    const keys = Object.keys(contacts);
+    for (let i = 0; i < keys.length; i++) {
+        let contact = keys[i]
+        if (contact === contactId)
+            userData.contacts.splice(contactId, 1);
+        console.log(contact) // Remove the contact at index i
     }
-    await deleteUserData(uid); 
-    await checkExistingInitials(); 
-    await displayInitialsFilter(); 
-    await displayInitialsAndContacts(); 
+    await deleteUserContact(uid, contactId);
+    await loadDataAfterChanges();
 }
 
-
+// holt das Kontakt zu editieren
 async function getEditContact(i) {
-    let uid = localStorage.getItem('uid');
     let userData = await loadSpecificUserDataFromLocalStorage();
-    let currentContact = userData.contacts[i];
-    // let id = currentContact.id;
+    let contacts = userData.contacts;
+    const keys = Object.keys(contacts);
+    let contactId = keys[i];
+    let currentContact = contacts[contactId];
     let name = currentContact.name;
     let email = currentContact.email;
     let number = currentContact.number;
     let backgroundcolor = currentContact.backgroundcolor;
-
-    onloadFunc(i, name, email, number, backgroundcolor, currentContact, uid, userData);
+    onloadFunc(contactId, name, email, number, backgroundcolor, currentContact, uid, userData);
 }
 
-async function onloadFunc(i, name, email, number, backgroundcolor, currentContact, uid, userData) {
-    let editname = document.getElementById(`editName${i}`).value;
-    let editemail = document.getElementById(`editEmail${i}`).value;
-    let editnumber = document.getElementById(`editNumber${i}`).value;
-
+// wird eins drüber aufgerufen
+async function onloadFunc(contactId, name, email, number, backgroundcolor, currentContact, uid, userData) {
+    let editname = document.getElementById(`editName${contactId}`).value;
+    let editemail = document.getElementById(`editEmail${contactId}`).value;
+    let editnumber = document.getElementById(`editNumber${contactId}`).value;
     currentContact.name = editname;
     currentContact.email = editemail;
     currentContact.number = editnumber;
-
     await updateUserData(uid, userData);
-}
-
-
-async function getEditContactToDelete(i) {
-    let uid = localStorage.getItem('uid');
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let currentContact = userData.contacts[i];
-    deleteUserData(uid, i);
 }
 
 

@@ -72,6 +72,7 @@ async function displayInitialsAndContacts() {
         displayContactsByInitial(contacts, contactInitial, contactsContainer);
     }
 }
+}
 
 // wird eins drüber aufgerufen dass die obere Funktion funktioniert
 function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
@@ -410,7 +411,4 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
     currentContact.email = editemail;
     currentContact.number = editnumber;
     await updateUserData(uid, userData);
->>>>>>> 6eaa3733236d85213caa392483fde2a60e56f96f
 }
-
-

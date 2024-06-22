@@ -371,6 +371,11 @@ body {
     gap: 8px;
 }
 
+.assigned-contacts-container {
+    display: flex;
+    gap: 8px;
+}
+
 @media (max-width: 1024px) {
     .aot-task {
         margin: 48px 0 40px 96px;

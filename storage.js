@@ -73,6 +73,7 @@ async function deleteUserContact(uid, contactId) {
     return response.json();
 }
 
+
 function postContacts(path = "", data = {}) {
     return fetch(BASE_URL_USER_DATA + path + ".json", {
         method: "POST",
@@ -83,14 +84,18 @@ function postContacts(path = "", data = {}) {
     })
 }
 
-async function deleteUserData(uid, i) {
-    let response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacts/${i}.json`, {
-        method: 'DELETE',
-    });
-    return responseToJson = await response.json();
-}
-
 // die Funktion wird erst beim ausloggen benötigt, um die UID des ausgeloggten User aus dem local Storage zu löschen
 function clearLoggedInUser() {
     localStorage.removeItem('uid');
+}
+
+
+function postTask(path = "", data = {}) {
+    return fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
 }

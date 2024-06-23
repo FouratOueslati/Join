@@ -44,7 +44,7 @@ async function loadSpecificUserDataFromLocalStorage() {
 
 // dient zum updaten der userData
 async function updateUserData(uid, userData) {
-    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
+    await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ async function updateUserData(uid, userData) {
 }
 
 async function updateUserContacts(uid, contacts) {
-    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacs.json`, {
+    await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacs.json`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

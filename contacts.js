@@ -65,13 +65,13 @@ async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
     for (let j = 0; j < displayedLetters.length; j++) {
-    for (let j = 0; j < displayedLetters.length; j++) {
-        let contactInitial = document.getElementById(`initialLetter${j}`);
-        let contactsContainer = document.getElementById(`contactsContainer${j}`);
-        contactsContainer.innerHTML = '';
-        displayContactsByInitial(contacts, contactInitial, contactsContainer);
+        for (let j = 0; j < displayedLetters.length; j++) {
+            let contactInitial = document.getElementById(`initialLetter${j}`);
+            let contactsContainer = document.getElementById(`contactsContainer${j}`);
+            contactsContainer.innerHTML = '';
+            displayContactsByInitial(contacts, contactInitial, contactsContainer);
+        }
     }
-}
 }
 
 // wird eins drüber aufgerufen dass die obere Funktion funktioniert
@@ -104,13 +104,13 @@ function showColorForContact(i, color) {
 
 function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email) {
     return `
-    <div id="contactData${i}" class="contact-data" onclick="openContact(${i})">
-        <div id="contactsInitials${i}" class="shorts-name">${firstLetterOfName}${firstLetterOfLastName}</div>
-        <div>
-            <div id="contact-name${i}" class="contact-name">${firstName} ${lastName}</div>
-            <div id="contact-email${i}" class="contact-email">${email}</div>
+        <div id="contactData${i}" class="contact-data" onclick="openContact(${i}), openContactMobile(${i})">
+            <div id="contactsInitials${i}" class="shorts-name">${firstLetterOfName}${firstLetterOfLastName}</div>
+            <div>
+                <div id="contact-name${i}" class="contact-name">${firstName} ${lastName}</div>
+                <div id="contact-email${i}" class="contact-email">${email}</div>
+            </div>
         </div>
-    </div>
     `;
 }
 
@@ -300,6 +300,32 @@ async function openEditContact(i) {
         editContact.style.transform = "translateX(0)";
     }, 50);
     await loadDataAfterChanges();
+}
+
+
+function openContactMobile(i) {
+    let screenWidth = window.innerWidth;
+    if (screenWidth < 900) {
+        let contactBigContainer = document.getElementById('contactBigContainer');
+        let contactsContainer = document.getElementById('contactsContainer');
+        let contactHeadline = document.getElementById('contactHeadline');
+        let arrowContact = document.getElementById('arrowContact');
+        contactBigContainer.style.display = 'block';
+        contactsContainer.classList.add('d-none');
+        contactHeadline.style.display = 'block';
+        arrowContact.style.display = 'block';
+    }
+}
+
+function closeContactMobile() {
+    let contactBigContainer = document.getElementById('contactBigContainer');
+        let contactsContainer = document.getElementById('contactsContainer');
+        let contactHeadline = document.getElementById('contactHeadline');
+        let arrowContact = document.getElementById('arrowContact');
+        contactBigContainer.style.display = 'none';
+        contactsContainer.classList.remove('d-none');
+        contactHeadline.style.display = 'none';
+        arrowContact.style.display = 'none';
 }
 
 

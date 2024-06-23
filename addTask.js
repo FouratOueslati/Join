@@ -3,29 +3,51 @@ let subtaskCounter = 0;
 let assignedContacts = [];
 // dieses Array wird benötigt um die subtasks zu den Tasks hinzufügen zu können
 let subtasks = [];
+let uid = localStorage.getItem('uid');
 
 
-function onloadFunction() {
+
+async function onloadFunction() {
+    await loadSpecificUserDataFromLocalStorage();
     includeHTML();
     loadSubtasksFromLocalStorage();
-    displayName();
+    displayNamesOfContacts();
 }
 
 // displays contacts names die man wählen kann
-async function displayName() {
+async function displayNamesOfContacts() {
     let containerContact = document.getElementById("contactList");
+    containerContact.innerHTML = '';
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    containerContact.innerHTML = '';  // Clear existing content
-    for (let i = 0; i < contacts.length; i++) {
-        let name = contacts[i].name;
-        let color = contacts[i].backgroundcolor;
+    const keys = Object.keys(contacts);
+    for (let i = 0; i < keys.length; i++) {
+        let contactId = keys[i];
+        let name = contacts[contactId]["name"];
+        let color = contacts[contactId]["backgroundcolor"];
         let initials = getInitials(name);
         containerContact.innerHTML += generateContactToChose(name, color, initials, i);
     }
 }
 
-// displays contacts initials
+// generates HTML für die Funktion displayNamesOfContacts()
+function generateContactToChose(name, color, initials, i) {
+    return `
+    <div class="contact-boarder">
+        <div class="name-inicial">
+            <div class="circle-inicial" style="background: ${color}">
+                <div class="inicial-style">${initials}</div>
+            </div>
+            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
+        </div>
+        <div class="check-box-custom">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event); displayContactsForAssignment()">
+        </div>
+    </div>
+    `;
+}
+
+//  contacts initials generieren
 function getInitials(name) {
     let upperChars = "";
     let words = name.split(" ");
@@ -37,25 +59,9 @@ function getInitials(name) {
     return upperChars;
 }
 
-// generates HTML für die Funktion displayName()
-function generateContactToChose(name, color, initials, i) {
-    return `
-    <div class="contact-boarder">
-        <div class="name-inicial">
-            <div class="circle-inicial" style="background: ${color}">
-                <div class="inicial-style">${initials}</div>
-            </div>
-            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
-        </div>
-        <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
-        </div>
-    </div>
-    `;
-}
-
 // displays contacts names die man gewählt hat
-function displayContactForAssignment() {
+function displayContactsForAssignment() {
+    debugger
     let containerBubbleInitials = document.getElementById('contactsDisplayBuble');
     containerBubbleInitials.innerHTML = '';
     let checkboxes = document.querySelectorAll('.check-box-style');
@@ -74,8 +80,8 @@ function displayContactForAssignment() {
 
 // generates HTML für die Funktion DisplayContactsForAssignment()
 function generateBubbleInitials(i, initials, color) {
-    return /* html */ `
-    <div id="bubble-${i}" class="bubble-initial" style="background: ${color}">
+    return `
+    <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
         <span class="inicial-style">${initials}</span>
     </div>
     `;
@@ -196,7 +202,7 @@ function addCategoryEventListener() {
         });
     });
 }
-
+/////////////////////////////////////////////////////////////////////////////////////
 // Kontakte wählen und im localStorage speichern
 function choseContactForAssignment(event) {
     const checkbox = event.target;
@@ -210,57 +216,34 @@ function choseContactForAssignment(event) {
     }
     localStorage.setItem('contacts', assignedContacts)
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 // task adden
 async function addTask() {
-    let userData = await loadSpecificUserDataFromLocalStorage();
     let taskTitle = document.getElementById('taskTitle').value;
     let taskDescription = document.getElementById('taskDescription').value;
     let date = document.getElementById('date').value;
+    let contacts = (localStorage.getItem('contacts'));
+    let subtasks = (localStorage.getItem('subtasks'));
     let lastClickedButton = localStorage.getItem('lastClickedButton');
     let selectedCategory = localStorage.getItem('selectedCategory');
-    let contacts = JSON.parse(localStorage.getItem('contacts')); 
-    let subtasks = JSON.parse(localStorage.getItem('subtasks')); 
-    let uid = localStorage.getItem('uid');
-    let task = { 
-        name: taskTitle, 
-        description: taskDescription, 
-        date: date, 
-        category: selectedCategory, 
-        contacts: contacts, 
-        subtasks: subtasks 
+    let task = {
+        name: taskTitle,
+        description: taskDescription,
+        date: date,
+        category: selectedCategory,
+        contacts: contacts,
+        subtasks: subtasks
     };
-    postTask('/users/' + uid + '/tasks', task)
-        .then(async function(response) { 
-            console.log('Task added:', response);
-            if (lastClickedButton === 'urgentButton') {
-                userData.urgentTasks = userData.urgentTasks || [];
-                userData.urgentTasks.push(task);
-            } else if (lastClickedButton === 'mediumButton') {
-                userData.mediumTasks = userData.mediumTasks || [];
-                userData.mediumTasks.push(task);
-            } else if (lastClickedButton === 'lowButton') {
-                userData.lowTasks = userData.lowTasks || [];
-                userData.lowTasks.push(task);
-            }
-
-            await updateUserData(uid, userData); 
-
-            console.log('User data updated');
-        })
-        .catch(function(error) {
-            console.error('Error posting task:', error);
-        });
+    conditionForAddTask(lastClickedButton, uid, task);
 }
 
-function postTask(path = "", data = {}) {
-    const BASE_URL_CONTACTS = "https://join-gruppenarbeit-7a79e-default-rtdb.europe-west1.firebasedatabase.app/";
-    return fetch(BASE_URL_CONTACTS + path + ".json", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })  
+// wird eins drüber bei der Funktion addTask() benötigt.
+function conditionForAddTask(lastClickedButton, uid, task) {
+    if (lastClickedButton === 'urgentButton') {
+        postTask('/users/' + uid + '/urgentTasks', task);
+    } else if (lastClickedButton === 'mediumButton') {
+        postTask('/users/' + uid + '/mediumTasks', task);
+    } else if (lastClickedButton === 'lowButton') {
+        postTask('/users/' + uid + '/lowTasks', task);
+    }
 }
-

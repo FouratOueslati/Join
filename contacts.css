@@ -34,6 +34,10 @@
     gap: 16px;
 }
 
+.dark-background {
+    background-color: darkblue;
+}
+
 .img-contact-add {
     height: 32px;
 }
@@ -63,13 +67,13 @@
     align-items: center;
     gap: 34px;
     font-size: 20px;
-    background-color: #FFFFFF;
     padding-left: 20px;
     border-radius: 10px;
 }
 
 .contact-data:hover {
     background-color: #F6F7F8;
+    font-size: 100px;
 }
 
 .shorts-name {

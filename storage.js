@@ -41,17 +41,6 @@ async function loadSpecificUserDataFromLocalStorage() {
 }
 
 
-async function updateUserData(uid, userData) {
-    const response = await fetch($`{BASE_URL_USER_DATA}/users/${uid}.json`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-    });
-}
-
-
 // dient zum updaten der userData
 async function updateUserData(uid, userData) {
     const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
@@ -73,11 +62,25 @@ async function updateUserContacts(uid, contacts) {
     });
 }
 
-async function deleteUserData(uid, i) {
-    let response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacts/${i}.json`, {
+async function deleteUserContact(uid, contactId) {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacts/${contactId}.json`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
-    return responseToJson = await response.json();
+    return response.json();
+}
+
+
+function postContacts(path = "", data = {}) {
+    return fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
 }
 
 // die Funktion wird erst beim ausloggen benötigt, um die UID des ausgeloggten User aus dem local Storage zu löschen
@@ -85,3 +88,16 @@ function clearLoggedInUser() {
     localStorage.removeItem('uid');
 }
 
+<<<<<<< HEAD
+=======
+
+function postTask(path = "", data = {}) {
+    return fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+}
+>>>>>>> 9c0e7aec897833fb770bc87de1d43061aabc0b1b

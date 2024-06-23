@@ -371,6 +371,11 @@ body {
     gap: 8px;
 }
 
+.assigned-contacts-container {
+    display: flex;
+    gap: 8px;
+}
+
 @media (max-width: 1024px) {
     .aot-task {
         margin: 48px 0 40px 96px;
@@ -465,8 +470,6 @@ body {
 
 }
 
-<<<<<<< HEAD
-=======
 @media (max-width: 1150px) {
     .summary-headline {
         padding-left: 100px;
@@ -681,4 +684,3 @@ body {
         width: 100%;
     }
 }
->>>>>>> 6eaa3733236d85213caa392483fde2a60e56f96f

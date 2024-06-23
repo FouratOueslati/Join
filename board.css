@@ -14,6 +14,12 @@ body {
     justify-content: space-between;
 }
 
+.content-container {
+    height: 100vh;
+    width: calc(100vw - 232px);
+    margin-left: 232px;
+}
+
 .find-task-button-and-input {
     display: flex;
     gap: 8px;

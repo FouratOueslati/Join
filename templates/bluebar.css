@@ -88,18 +88,7 @@ a:hover {
     cursor: pointer;
 }
 
-.content-container {
-    height: 100vh;
-    width: calc(100vw - 232px);
-    margin-left: 232px;
-}
 
-.parent-container {
-    background-color: #F6F7F8;
-    height: calc(100vh - 96px);
-    display: flex;
-    flex-direction: column;
-}
 
 @media (max-width: 1024px) {
     .join-icon {
@@ -111,15 +100,11 @@ a:hover {
         margin: unset;
     }
 
-    .summary-headline {
-        padding-left: 16px;
-    }
-
     .tools-container {
         padding-top: unset;
         justify-content: center;
         width: 100vw;
-        height: 80px;
+        height: 10%;
         position: fixed;
         bottom: 0;
         font-size: 14px;

@@ -72,7 +72,7 @@
     display: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
     .header-container {
         height: 10%;
         padding-left: 20px;

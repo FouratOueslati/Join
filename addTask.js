@@ -3,7 +3,6 @@ let subtaskCounter = 0;
 let assignedContacts = [];
 // dieses Array wird benötigt um die subtasks zu den Tasks hinzufügen zu können
 let subtasks = [];
-let uid = localStorage.getItem('uid');
 
 
 
@@ -214,7 +213,7 @@ function choseContactForAssignment(event) {
     } else {
         assignedContacts = assignedContacts.filter(name => name !== contactName);
     }
-    localStorage.setItem('contacts', assignedContacts)
+    localStorage.setItem('contacts', JSON.stringify(assignedContacts));
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 // task adden
@@ -222,8 +221,8 @@ async function addTask() {
     let taskTitle = document.getElementById('taskTitle').value;
     let taskDescription = document.getElementById('taskDescription').value;
     let date = document.getElementById('date').value;
-    let contacts = (localStorage.getItem('contacts'));
-    let subtasks = (localStorage.getItem('subtasks'));
+    let contacts = JSON.parse(localStorage.getItem('contacts'));
+    let subtasks = JSON.parse(localStorage.getItem('subtasks'));
     let lastClickedButton = localStorage.getItem('lastClickedButton');
     let selectedCategory = localStorage.getItem('selectedCategory');
     let task = {
@@ -232,7 +231,8 @@ async function addTask() {
         date: date,
         category: selectedCategory,
         contacts: contacts,
-        subtasks: subtasks
+        subtasks: subtasks,
+        dragCategory: "open"
     };
     conditionForAddTask(lastClickedButton, uid, task);
 }

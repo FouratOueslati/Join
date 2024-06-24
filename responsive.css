@@ -26,22 +26,9 @@
 }
 
 @media (max-width: 1024px) {
-    .parent-container {
-        width: 100vw;
-        height: calc(100vh - 160px);
-    }
-
-    .content-container {
-        height: 90%;
-        width: 100vw;
-    }
-
+  
     .scroll {
         overflow-x: hidden;
-    }
-
-    .summary-headline {
-        margin: 48px 0 40px 96px;
     }
 }
 
@@ -112,20 +99,8 @@
         font-size: 48px;
     }
 
-    .summary-headline {
-        padding-left: unset;
-        align-items: flex-start;
-        justify-content: center;
-        flex-direction: column;
-        padding-left: 10px;
-        height: 20%;
-        gap: 8px;
-    }
-
-    .greeting-and-todos-container {
-        height: 80%;
-        align-items: flex-start;
-    }
+   
+  
 
     .greeting-container {
         display: none;

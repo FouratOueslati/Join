@@ -7,7 +7,7 @@
     <title>Add Task</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
     <link rel="stylesheet" href="addTask.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsiveAddTask.css">
     <link rel="stylesheet" href="font.css">
     <link rel="stylesheet" href="./templates/bluebar.css">
     <link rel="stylesheet" href="./templates/topbar.css">
@@ -139,9 +139,11 @@
                             <div class="inputs-flex">
                                 <span>Subtask</span>
                                 <div class="input-with-img">
-                                    <input required placeholder="Add new subtask" class="task-input-with-img"
-                                        oninput="onInputChange()" id="inputFieldSubtask">
-                                    <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+                                    <div style="display: flex; align-items: center; width: 100%;">
+                                        <input required placeholder="Add new subtask" class="task-input-with-img"
+                                            oninput="onInputChange()" id="inputFieldSubtask">
+                                        <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+                                    </div>
                                     <div class="check-cross-position" id="closeOrAccept">
                                         <button class="button-transparacy">
                                             <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg"

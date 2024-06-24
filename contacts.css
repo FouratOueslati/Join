@@ -35,7 +35,7 @@
 }
 
 .dark-background {
-    background-color: darkblue;
+    background-color: #2A3647;
 }
 
 .img-contact-add {
@@ -527,6 +527,32 @@
     .email-edit {
         width: unset !important;
         background-position: 93% !important;
+    }
+
+    .arrow-contact {
+        position: absolute;
+        top: 128px;
+        right: 16px;
+    }
+
+    .arrow-contact:hover {
+        cursor: pointer;
+    }
+
+    .contact-headline {
+        margin: 48px 0 0 16px;
+    }
+
+    .fat-Contacts-headline{
+        font-size: 47px !important;
+    }
+
+    .contact-infos {
+        margin: 48px 0 0 16px;
+    }
+
+    .full-name { 
+        padding-left: 20px;
     }
 }
 

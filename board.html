@@ -16,12 +16,14 @@
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="legal_privacy.css">
     <script src="/templates/topbar.js"></script>
+    <script src="storage.js"></script>
     <script src="include.js"></script>
     <script src="board.js"></script>
+    <script src="addTask.js"></script>
     <script src="login.js"></script>
 </head>
 
-<body onload="updateHTML();includeHTML()">
+<body onload="initBoard(); includeHTML()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
@@ -60,12 +62,13 @@
                 </div>
                 <div class="task-width">
                     <div>
-                        <span class="txt-svg-cetering">In progres <img class="txt-svg-centering"
+                        <span class="txt-svg-cetering">In progress <img class="txt-svg-centering"
                                 src="./boardImg/add.svg"></span>
                         <div>
                             <div class="drag-area" id="inprogress" ondrop="moveTo('inprogress')"
                                 ondragleave="removeHighlight('inprogress')"
-                                ondragover="allowDrop(event); highlight('inprogress')"></div>
+                                ondragover="allowDrop(event); highlight('inprogress')">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +97,7 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
 </body>
 
 </html>

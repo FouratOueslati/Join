@@ -1,4 +1,5 @@
 const BASE_URL_USER_DATA = "https://join-gruppenarbeit-7a79e-default-rtdb.europe-west1.firebasedatabase.app/";
+let uid = getLoggedInUser();
 
 
 // lädt all user Data, wird grundsätzlich nur zum einloggen benötigt.
@@ -38,9 +39,45 @@ async function loadSpecificUserDataFromLocalStorage() {
         },
     });
     const userData = await response.json();
+    console.log(userData)
     return userData;
 }
 
+async function getLowTasks() {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/lowTasks.json`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    const lowTasks = await response.json();
+    console.log(lowTasks)
+    return lowTasks;
+}
+
+
+async function getMediumTasks() {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/mediumTasks.json`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    const mediumTasks = await response.json();
+    console.log(mediumTasks)
+    return mediumTasks;
+}
+async function getUrgentTasks() {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/urgentTasks.json`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    const urgentTasks = await response.json();
+    console.log(urgentTasks)
+    return urgentTasks;
+}
 
 // dient zum updaten der userData
 async function updateUserData(uid, userData) {

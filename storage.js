@@ -1,5 +1,4 @@
 const BASE_URL_USER_DATA = "https://join-gruppenarbeit-7a79e-default-rtdb.europe-west1.firebasedatabase.app/";
-let uid = getLoggedInUser();
 
 
 // lädt all user Data, wird grundsätzlich nur zum einloggen benötigt.

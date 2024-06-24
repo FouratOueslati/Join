@@ -30,13 +30,11 @@ async function displayOpenTasks() {
     let urgentTasksArray = Object.values(urgentTasks);
     let allTasksArray = urgentTasksArray.concat(lowTasksArray, mediumTasksArray);
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] == 'open');
-    console.log(allTasksArray)
     const keys = Object.keys(mediumTasks);
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
         let task = allOpenTasks[i];
-        toDoContainer.innerHTML += getOpenTaskHtml(task);
-
+            toDoContainer.innerHTML += getOpenTaskHtml(task);
     }
 }
 
@@ -44,16 +42,18 @@ async function displayOpenTasks() {
 function getOpenTaskHtml(task) {
     return `<div draggable="true" ondragstart="startDragging()" class="todo">
     <div class="task-category">
-<div class="category">${task['category']}</div>
-</div>
-<div class="task-title" >${task['name']}</div>
-<div class="task-description">${task['description']}</div>
-<div>
-<div>0/2 Subtasks</div>
-</div>
-<div>${task['contacts']}</div>
+        <div class="category">${task['category']}</div>
+    </div>
+    <div class="task-title">${task['name']}</div>
+    <div class="task-description">${task['description']}</div>
+    <div class="subtasks-number-container">
+        <img class="load-bar" src="./img/filler.png">
+        <div class="subtasks">0/2 Subtasks</div>
+    </div>
+    <div>${task['contacts']}</div>
 </div>`;
 }
+
 
 /*function updateHTML() {
     let open = todos.filter(t => t['category'] == 'open');

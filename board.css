@@ -141,8 +141,23 @@ body {
 
 .task-description {
     color: #ADADAD;
+    margin-bottom: 12px;
 }
 
+.subtasks-number-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+}
+
+.load-bar {
+    width: 50%;
+}
+.subtasks {
+    font-size: 14px;
+    width: 50%;
+}
 @media(max-width: 1300px) {
     .board-position-lower {
         flex-direction: column;

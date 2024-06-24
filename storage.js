@@ -1,5 +1,6 @@
 const BASE_URL_USER_DATA = "https://join-gruppenarbeit-7a79e-default-rtdb.europe-west1.firebasedatabase.app/";
 
+
 // lädt all user Data, wird grundsätzlich nur zum einloggen benötigt.
 async function loadUserData(path = "") {
     let response = await fetch(BASE_URL_USER_DATA + path + ".json");
@@ -88,8 +89,6 @@ function clearLoggedInUser() {
     localStorage.removeItem('uid');
 }
 
-<<<<<<< HEAD
-=======
 
 function postTask(path = "", data = {}) {
     return fetch(BASE_URL_USER_DATA + path + ".json", {
@@ -100,4 +99,3 @@ function postTask(path = "", data = {}) {
         body: JSON.stringify(data)
     })
 }
->>>>>>> 9c0e7aec897833fb770bc87de1d43061aabc0b1b

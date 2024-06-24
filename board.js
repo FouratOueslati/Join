@@ -1,3 +1,35 @@
+async function getTaskDataFromFireBase() {
+    let data = await loadSpecificUserDataFromLocalStorage();
+    console.log(data);
+    let tasks = Object.values(data);
+    let containerToDo = document.getElementById('open');
+    let urgent = data['urgentTasks'];
+    for (let i = 0; i < urgent.length; i++) {
+        console.log('Urgent', urgent);
+    }
+}
+
+
+/*
+async function getTaskDataFromFireBase() {
+    let containerToDo = document.getElementById('open');
+    containerToDo.innerHTML = '';
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let urgent = userData.urgentTask;
+    let medium = userData.mediumTask;
+    let low = userData.lowTask;
+    const data = [Object.values(urgent), Object.values(medium), Object.values(low)];
+    for (let i = 0; i < data.length; i++) {
+        console.log('Task', data[i]); 
+    }
+}
+*/
+
+
+
+
+
+
 let todos = [{
     'id': 0,
     'title': 'Task 1',
@@ -15,6 +47,7 @@ let todos = [{
 let currentDraggedElement;
 
 function updateHTML() {
+    getTaskDataFromFireBase();
     let open = todos.filter(t => t['category'] == 'open');
 
     document.getElementById('open').innerHTML = '';

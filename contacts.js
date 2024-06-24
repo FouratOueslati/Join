@@ -339,44 +339,6 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
         </div>`;
 }
 
-<<<<<<< HEAD
-
-async function saveEditedContact() {
-    // Get the index of the contact being edited
-    const contactIndex = document.getElementById('dialogNewEditContact').dataset.index;
-
-    // Get the edited values from the form fields
-    const editedName = document.getElementById('name-input').value;
-    const editedEmail = document.getElementById('email-input').value;
-    const editedPhone = document.getElementById('phone-input').value;
-
-    try {
-        // Assuming you have a function to get the current user's ID
-        const userId = localStorage.getItem('uid'); // Replace with actual user ID
-        let userData = await loadSpecificUserDataFromLocalStorage(); // Fetch the current user data
-
-
-        console.log('User data before modification:', userData);
-
-        // Update the contact data within the user data
-        userData.contacts[contactIndex] = {
-            name: editedName,
-            email: editedEmail,
-            number: editedPhone // Ensure the key matches the stored contact object
-        };
-        console.log('User data after modification:', userData);
-
-        // Save the updated user data to Firebase
-        await updateUserData(userId, userData);
-
-        // Hide the edit form
-        document.getElementById('dialogNewEditContact').classList.add('d-none');
-
-        console.log('Contact updated successfully!');
-    } catch (error) {
-        console.error('Error updating contact: ', error);
-    }
-=======
 // speichert die Änderungen der Kontakte
 async function saveEditContact(contactId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -394,7 +356,6 @@ async function saveEditContact(contactId) {
     await loadDataAfterChanges();
     document.getElementById('dialogNewEditContact').classList.add('d-none');
     closeDialog();
->>>>>>> 9c0e7aec897833fb770bc87de1d43061aabc0b1b
 }
 
 // erstellt eine neues Kontakt
@@ -410,37 +371,6 @@ async function createNewContact() {
         backgroundcolor: color
     };
     postContacts('/users/' + uid + '/contacts', contact)
-<<<<<<< HEAD
-        .then(function(response){
-            console.log('Contact posted:', response);
-            checkExistingInitials();
-            displayInitialsFilter();
-            displayInitialsAndContacts();
-            closeDialog();
-        })
-        .catch(function(error) {
-            console.error('Error posting contact:', error);
-        });
-}
-
-function postContacts(path = "", data = {}) {
-    const BASE_URL_CONTACTS = "https://join-gruppenarbeit-7a79e-default-rtdb.europe-west1.firebasedatabase.app/";
-    return fetch(BASE_URL_CONTACTS + path + ".json", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })  
-}
-
-
-async function deleteContact(uid, i) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    userData.contacts.splice(i, 1); // Remove the contact at index i
-    for (let j = 0; j < userData.contacts.length; j++) {
-        userData.contacts[j].id = j;
-=======
     await loadDataAfterChanges();
     closeDialog();
 }
@@ -453,7 +383,6 @@ async function deleteContact(contactId) {
         if (contact === contactId)
             userData.contacts.splice(contactId, 1);
         console.log(contact) // Remove the contact at index i
->>>>>>> 9c0e7aec897833fb770bc87de1d43061aabc0b1b
     }
     await deleteUserContact(uid, contactId);
     await loadDataAfterChanges();

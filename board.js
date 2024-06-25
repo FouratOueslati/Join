@@ -13,6 +13,7 @@
 }];*/
 
 let currentDraggedElement;
+let currentTask = 0;
 
 async function initBoard() {
     await displayOpenTasks();
@@ -39,17 +40,18 @@ async function displayOpenTasks() {
 }
 
 // Html für die Funktion displayOpenTaks generieren
-function getOpenTaskHtml(task) {
-    return `<div draggable="true" ondragstart="startDragging()" class="todo">
-    <div class="task-category">
-        <div class="category">${task['category']}</div>
-    </div>
-    <div class="task-title">${task['name']}</div>
-    <div class="task-description">${task['description']}</div>
-    <div class="subtasks-number-container">
-        <img class="load-bar" src="./img/filler.png">
-        <div class="subtasks">0/2 Subtasks</div>
-    </div>
+function getOpenTaskHtml(task, i) {
+    return /*html*/`
+    <div draggable="true" ondragstart="startDragging()" class="todo" onclick="zoomTaskInfo(${i})">
+        <div class="task-category">
+            <div class="category">${task['category']}</div>
+        </div>
+        <div class="task-title">${task['name']}</div>
+        <div class="task-description">${task['description']}</div>
+        <div class="subtasks-number-container">
+            <img class="load-bar" src="./img/filler.png">
+            <div class="subtasks">0/2 Subtasks</div>
+        </div>
     <div>${task['contacts']}</div>
 </div>`;
 }
@@ -116,4 +118,53 @@ function highlight(id) {
 
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+//New
+function extractTaskData(task) {
+    let taskData = {};
+    taskData.category = document.getElementById(`${task['category']}`);
+    taskData.title = document.getElementById(`${task['name']}`);
+    taskData.description = document.getElementById(`${task['description']}`);
+    taskData.concats = document.getElementById(`${task['contacts']}`);
+    return taskData;
+}
+
+function generateModalContent(data, task, i) {
+    return /*html*/ `
+    <div id="myModal${i}" class="modal">
+        <div class='modal-content'>
+            <div></div>
+        </div>
+    </div>
+    ` 
+}
+
+async function loadDataIntoModal(modalContent, data, i) {
+    modalContent.innerHTML = generateModalContent(data, task, i);
+}
+
+async function showModal(modal) {
+    modal.display = block;
+    document.body.style.overflow = "hidden";
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal(modal);
+        }
+    }
+}
+
+async function zoomTaskInfo(i) {
+    currentTask = i;
+    const modal = document.getElementById(`myModal${i}`);
+    const modalContent = modal.querySelector('.modal-content');
+    const taskData = extractTaskData(task);
+    await loadDataIntoModal();
+    showModal(modal);
+}
+
+function closeModal (modal) {
+    modal.style.display = "none"
+    document.body.style.overflow = "auto";
+    window.onclick = null;
 }

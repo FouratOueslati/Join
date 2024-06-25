@@ -16,6 +16,7 @@ let currentDraggedElement;
 
 async function initBoard() {
     await displayOpenTasks();
+    displayInitialsOfAssignedContacts();
 }
 
 
@@ -29,18 +30,18 @@ async function displayOpenTasks() {
     let lowTasksArray = Object.values(lowTasks);
     let urgentTasksArray = Object.values(urgentTasks);
     let allTasksArray = urgentTasksArray.concat(lowTasksArray, mediumTasksArray);
-    let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] == 'open');
-    const keys = Object.keys(mediumTasks);
+    let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
+
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
         let task = allOpenTasks[i];
-            toDoContainer.innerHTML += getOpenTaskHtml(task);
+        toDoContainer.innerHTML += getOpenTaskHtml(task);
     }
 }
 
 // Html für die Funktion displayOpenTaks generieren
 function getOpenTaskHtml(task) {
-    return `<div draggable="true" ondragstart="startDragging()" class="todo">
+    return `<div id="${task['id']}" draggable="true" ondragstart="startDragging(${task['id']})" class="todo">
     <div class="task-category">
         <div class="category">${task['category']}</div>
     </div>
@@ -50,52 +51,14 @@ function getOpenTaskHtml(task) {
         <img class="load-bar" src="./img/filler.png">
         <div class="subtasks">0/2 Subtasks</div>
     </div>
-    <div>${task['contacts']}</div>
+    <div id="AssignedContactsContainer">${task['initials']}</div>
 </div>`;
 }
 
-
-/*function updateHTML() {
-    let open = todos.filter(t => t['category'] == 'open');
- 
-    document.getElementById('open').innerHTML = '';
- 
-    for (let index = 0; index < open.length; index++) {
-        const element = open[index];
-        document.getElementById('open').innerHTML += generateTodoHTML(element);
-    }
- 
-    let inprogress = todos.filter(t => t['category'] == 'inprogress')
- 
-    document.getElementById('inprogress').innerHTML = '';
- 
-    for (let index = 0; index < inprogress.length; index++) {
-        const element = inprogress[index];
-        document.getElementById('inprogress').innerHTML += generateTodoHTML(element);
-    }
- 
-    let awaitfeedback = todos.filter(t => t['category'] == 'awaitfeedback')
- 
-    document.getElementById('awaitfeedback').innerHTML = '';
- 
-    for (let index = 0; index < awaitfeedback.length; index++) {
-        const element = awaitfeedback[index];
-        document.getElementById('awaitfeedback').innerHTML += generateTodoHTML(element);
-    }
- 
-    let closed = todos.filter(t => t['category'] == 'closed');
- 
-    document.getElementById('closed').innerHTML = '';
- 
-    for (let index = 0; index < closed.length; index++) {
-        const element = closed[index];
-        document.getElementById('closed').innerHTML += generateTodoHTML(element);
-    }
+function displayInitialsOfAssignedContacts() {
+    let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
+console.log(allOpenTasks)
 }
-    function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
-}
- */
 
 function startDragging(id) {
     currentDraggedElement = id;

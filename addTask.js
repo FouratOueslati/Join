@@ -3,7 +3,7 @@ let subtaskCounter = 0;
 let assignedContacts = [];
 // dieses Array wird benötigt um die subtasks zu den Tasks hinzufügen zu können
 let subtasks = [];
-
+let uid = localStorage.getItem('uid')
 
 
 async function onloadFunction() {
@@ -222,10 +222,12 @@ async function addTask() {
     let taskDescription = document.getElementById('taskDescription').value;
     let date = document.getElementById('date').value;
     let contacts = JSON.parse(localStorage.getItem('contacts'));
+    let initials = getContactsInitials(contacts);
     let subtasks = JSON.parse(localStorage.getItem('subtasks'));
     let lastClickedButton = localStorage.getItem('lastClickedButton');
     let selectedCategory = localStorage.getItem('selectedCategory');
     let task = {
+        initials: initials,
         name: taskTitle,
         description: taskDescription,
         date: date,
@@ -235,6 +237,14 @@ async function addTask() {
         dragCategory: "open"
     };
     conditionForAddTask(lastClickedButton, uid, task);
+}
+
+// Initialien der assigned contacts holen
+function getContactsInitials(contacts) {
+    if (!Array.isArray(contacts)) {
+        return '';
+    }
+    return contacts.map(contact => getInitials(contact.trim())).join(', ');
 }
 
 // wird eins drüber bei der Funktion addTask() benötigt.

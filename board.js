@@ -52,10 +52,29 @@ function getOpenTaskHtml(task, i) {
             <img class="load-bar" src="./img/filler.png">
             <div class="subtasks">0/2 Subtasks</div>
         </div>
-    <div>${task['contacts']}</div>
-</div>`;
+        <div>${getContactInitials(task['contacts'])}</div>
+    </div>`;
 }
 
+function getInitials(name) {
+    var upperChars = "";
+    var words = name.split(" ");
+    for (var i = 0; i < words.length; i++) {
+        var word = words[i];
+        if (word.length > 0) {
+            upperChars += word[0].toUpperCase();
+        }
+    }
+    return upperChars;
+}
+
+function getContactInitials(contacts) {
+    var initialsArray = [];
+    for (var j = 0; j < contacts.length; j++) {
+        initialsArray.push(getInitials(contacts[j]));
+    }
+    return initialsArray.join(', ');
+}
 
 /*function updateHTML() {
     let open = todos.filter(t => t['category'] == 'open');

@@ -17,7 +17,6 @@ let currentTask = 0;
 
 async function initBoard() {
     await displayOpenTasks();
-    displayInitialsOfAssignedContacts();
 }
 
 
@@ -34,32 +33,93 @@ async function displayOpenTasks() {
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
+        let contacts = allOpenTasks[i]['contacts'];
         let task = allOpenTasks[i];
-        let initials = task['initials']
-        toDoContainer.innerHTML += getOpenTaskHtml(task, initials);
+        toDoContainer.innerHTML += getOpenTaskHtml(task, i);
+        getContactInitials(contacts, i);
     }
 }
 
 // Html für die Funktion displayOpenTaks generieren
-function getOpenTaskHtml(task, initials) {
-    return `<div id="${task['id']}" draggable="true" ondragstart="startDragging(${task['id']})" class="todo">
-    <div class="task-category">
-        <div class="category">${task['category']}</div>
-    </div>
-    <div class="task-title">${task['name']}</div>
-    <div class="task-description">${task['description']}</div>
-    <div class="subtasks-number-container">
-        <img class="load-bar" src="./img/filler.png">
-        <div class="subtasks">0/2 Subtasks</div>
-    </div>
-    <div id="AssignedContactsContainer">${initials}</div>
-</div>`;
+function getOpenTaskHtml(task, i) {
+    return /*html*/`
+    <div draggable="true" ondragstart="startDragging()" class="todo" onclick="zoomTaskInfo(${i})">
+        <div class="task-category">
+            <div class="category">${task['category']}</div>
+        </div>
+        <div class="task-title">${task['name']}</div>
+        <div class="task-description">${task['description']}</div>
+        <div class="subtasks-number-container">
+            <img class="load-bar" src="./img/filler.png">
+            <div class="subtasks">0/2 Subtasks</div>
+        </div>
+        <div class="initials-container" id="initialsContainer${i}"></div>
+    </div>`;
 }
 
-function displayInitialsOfAssignedContacts() {
-    let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
-console.log(allOpenTasks)
+function getInitials(name) {
+    var upperChars = "";
+    var words = name.split(" ");
+    for (var i = 0; i < words.length; i++) {
+        var word = words[i];
+        if (word.length > 0) {
+            upperChars += word[0].toUpperCase();
+        }
+    }
+    return upperChars;
 }
+
+function getContactInitials(contacts, i) {
+    let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
+    contactInitialsContainer.innerHTML = '';
+    if (contacts && contacts.length > 0) {
+        for (let j = 0; j < contacts.length; j++) {
+            const initial = getInitials(contacts[j]);
+            contactInitialsContainer.innerHTML += `<div>${initial}</div>`;
+        }
+    }
+}
+/*function updateHTML() {
+    let open = todos.filter(t => t['category'] == 'open');
+ 
+    document.getElementById('open').innerHTML = '';
+ 
+    for (let index = 0; index < open.length; index++) {
+        const element = open[index];
+        document.getElementById('open').innerHTML += generateTodoHTML(element);
+    }
+ 
+    let inprogress = todos.filter(t => t['category'] == 'inprogress')
+ 
+    document.getElementById('inprogress').innerHTML = '';
+ 
+    for (let index = 0; index < inprogress.length; index++) {
+        const element = inprogress[index];
+        document.getElementById('inprogress').innerHTML += generateTodoHTML(element);
+    }
+ 
+    let awaitfeedback = todos.filter(t => t['category'] == 'awaitfeedback')
+ 
+    document.getElementById('awaitfeedback').innerHTML = '';
+ 
+    for (let index = 0; index < awaitfeedback.length; index++) {
+        const element = awaitfeedback[index];
+        document.getElementById('awaitfeedback').innerHTML += generateTodoHTML(element);
+    }
+ 
+    let closed = todos.filter(t => t['category'] == 'closed');
+ 
+    document.getElementById('closed').innerHTML = '';
+ 
+    for (let index = 0; index < closed.length; index++) {
+        const element = closed[index];
+        document.getElementById('closed').innerHTML += generateTodoHTML(element);
+    }
+}
+    function generateTodoHTML(element) {
+    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
+}
+ */
 
 function startDragging(id) {
     currentDraggedElement = id;
@@ -99,7 +159,7 @@ function generateModalContent(data, task, i) {
             <div></div>
         </div>
     </div>
-    ` 
+    `
 }
 
 async function loadDataIntoModal(modalContent, data, i) {
@@ -109,7 +169,7 @@ async function loadDataIntoModal(modalContent, data, i) {
 async function showModal(modal) {
     modal.display = block;
     document.body.style.overflow = "hidden";
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             closeModal(modal);
         }
@@ -125,7 +185,7 @@ async function zoomTaskInfo(i) {
     showModal(modal);
 }
 
-function closeModal (modal) {
+function closeModal(modal) {
     modal.style.display = "none"
     document.body.style.overflow = "auto";
     window.onclick = null;

@@ -1,3 +1,4 @@
+
 /*let todos = [{
     'id': 0,
     'title': 'Task 1',
@@ -35,14 +36,14 @@ async function displayOpenTasks() {
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
         let task = allOpenTasks[i];
-            toDoContainer.innerHTML += getOpenTaskHtml(task);
+            toDoContainer.innerHTML += getOpenTaskHtml(task, i);
     }
 }
 
 // Html für die Funktion displayOpenTaks generieren
 function getOpenTaskHtml(task, i) {
     return /*html*/`
-    <div draggable="true" ondragstart="startDragging()" class="todo" onclick="zoomTaskInfo(${i})">
+    <div draggable="true" ondragstart="startDragging(${task.id})" class="todo" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
             <div class="category">${task['category']}</div>
         </div>
@@ -53,9 +54,13 @@ function getOpenTaskHtml(task, i) {
             <div class="subtasks">0/2 Subtasks</div>
         </div>
         <div>${getContactInitials(task['contacts'])}</div>
+    </div>
+    <div id="myModal${i}" class="modal">
+        <div class="modal-content">
+            ${generateModalContent(task)}
+        </div>
     </div>`;
 }
-
 function getInitials(name) {
     var upperChars = "";
     var words = name.split(" ");
@@ -140,23 +145,14 @@ function removeHighlight(id) {
 }
 
 //New
-function extractTaskData(task) {
-    let taskData = {};
-    taskData.category = document.getElementById(`${task['category']}`);
-    taskData.title = document.getElementById(`${task['name']}`);
-    taskData.description = document.getElementById(`${task['description']}`);
-    taskData.concats = document.getElementById(`${task['contacts']}`);
-    return taskData;
-}
-
-function generateModalContent(data, task, i) {
-    return /*html*/ `
-    <div id="myModal${i}" class="modal">
-        <div class='modal-content'>
-            <div></div>
-        </div>
-    </div>
-    ` 
+function generateModalContent(task) {
+    return /*html*/`
+        <div>
+            <div>${task['category']}</div>
+            <div>${task['name']}</div>
+            <div>${task['description']}</div>
+            <div>${getContactInitials(task['contacts'])}</div>
+        </div>`;
 }
 
 async function loadDataIntoModal(modalContent, data, i) {
@@ -174,16 +170,19 @@ async function showModal(modal) {
 }
 
 async function zoomTaskInfo(i) {
-    currentTask = i;
     const modal = document.getElementById(`myModal${i}`);
-    const modalContent = modal.querySelector('.modal-content');
-    const taskData = extractTaskData(task);
-    await loadDataIntoModal();
-    showModal(modal);
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden";
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal(modal);
+        }
+    }
 }
 
-function closeModal (modal) {
-    modal.style.display = "none"
+function closeModal(modal) {
+    modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
 }
+

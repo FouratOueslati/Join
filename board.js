@@ -32,16 +32,16 @@ async function displayOpenTasks() {
     let urgentTasksArray = Object.values(urgentTasks);
     let allTasksArray = urgentTasksArray.concat(lowTasksArray, mediumTasksArray);
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
-
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
         let task = allOpenTasks[i];
-        toDoContainer.innerHTML += getOpenTaskHtml(task);
+        let initials = task['initials']
+        toDoContainer.innerHTML += getOpenTaskHtml(task, initials);
     }
 }
 
 // Html für die Funktion displayOpenTaks generieren
-function getOpenTaskHtml(task) {
+function getOpenTaskHtml(task, initials) {
     return `<div id="${task['id']}" draggable="true" ondragstart="startDragging(${task['id']})" class="todo">
     <div class="task-category">
         <div class="category">${task['category']}</div>
@@ -52,7 +52,7 @@ function getOpenTaskHtml(task) {
         <img class="load-bar" src="./img/filler.png">
         <div class="subtasks">0/2 Subtasks</div>
     </div>
-    <div id="AssignedContactsContainer">${task['initials']}</div>
+    <div id="AssignedContactsContainer">${initials}</div>
 </div>`;
 }
 

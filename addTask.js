@@ -3,7 +3,9 @@ let subtaskCounter = 0;
 let assignedContacts = [];
 // dieses Array wird benötigt um die subtasks zu den Tasks hinzufügen zu können
 let subtasks = [];
-let uid = localStorage.getItem('uid')
+
+let uid = localStorage.getItem('uid');
+
 
 
 async function onloadFunction() {

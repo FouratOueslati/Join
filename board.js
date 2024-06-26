@@ -13,6 +13,7 @@
 }];*/
 
 let currentDraggedElement;
+let currentTask = 0;
 
 async function initBoard() {
     await displayOpenTasks();
@@ -79,4 +80,53 @@ function highlight(id) {
 
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+//New
+function extractTaskData(task) {
+    let taskData = {};
+    taskData.category = document.getElementById(`${task['category']}`);
+    taskData.title = document.getElementById(`${task['name']}`);
+    taskData.description = document.getElementById(`${task['description']}`);
+    taskData.concats = document.getElementById(`${task['contacts']}`);
+    return taskData;
+}
+
+function generateModalContent(data, task, i) {
+    return /*html*/ `
+    <div id="myModal${i}" class="modal">
+        <div class='modal-content'>
+            <div></div>
+        </div>
+    </div>
+    ` 
+}
+
+async function loadDataIntoModal(modalContent, data, i) {
+    modalContent.innerHTML = generateModalContent(data, task, i);
+}
+
+async function showModal(modal) {
+    modal.display = block;
+    document.body.style.overflow = "hidden";
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal(modal);
+        }
+    }
+}
+
+async function zoomTaskInfo(i) {
+    currentTask = i;
+    const modal = document.getElementById(`myModal${i}`);
+    const modalContent = modal.querySelector('.modal-content');
+    const taskData = extractTaskData(task);
+    await loadDataIntoModal();
+    showModal(modal);
+}
+
+function closeModal (modal) {
+    modal.style.display = "none"
+    document.body.style.overflow = "auto";
+    window.onclick = null;
 }

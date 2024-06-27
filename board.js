@@ -18,6 +18,7 @@ let currentTask = 0;
 
 async function initBoard() {
     await displayOpenTasks();
+    await getBackgroundColorOfContact();
 }
 
 
@@ -34,11 +35,9 @@ async function displayOpenTasks() {
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
-        let contacts = allOpenTasks[i]['contacts'];
         let task = allOpenTasks[i];
-        let initials = getInitials(task['name']); 
         toDoContainer.innerHTML += getOpenTaskHtml(task, i);
-        await getContactInitials(contacts, i); // Await here to ensure initials are populated
+        await getContactInitials(task.contacts, i);
     }
 }
 
@@ -58,6 +57,8 @@ function getOpenTaskHtml(task, i) {
         <div class="initials-container" id="initialsContainer${i}"></div>
     </div>`;
 }
+
+
 function getInitials(name) {
     var upperChars = "";
     var words = name.split(" ");
@@ -76,11 +77,17 @@ async function getContactInitials(contacts, i) {
     contactInitialsContainer.innerHTML = '';
     if (contacts && contacts.length > 0) {
         for (let j = 0; j < contacts.length; j++) {
-            const initial = getInitials(contacts[j]);
-            contactInitialsContainer.innerHTML += `<div>${initial}</div>`;
+            const contact = contacts[j];
+            const initial = getInitials(contact.name);
+            const color = contact.backgroundcolor;
+            // VORSICHT, HIER KÖNNTE MAN SPÄTER ${i}-${j} BRAUCHEN
+            contactInitialsContainer.innerHTML += `<div id="initials${j}" class="initials" style="background-color: ${color};">${initial}</div>`;
         }
     }
 }
+
+
+
 /*function updateHTML() {
     let open = todos.filter(t => t['category'] == 'open');
  

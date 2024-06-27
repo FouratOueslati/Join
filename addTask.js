@@ -42,7 +42,7 @@ function generateContactToChose(name, color, initials, i) {
             <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
         </div>
         <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event); displayContactsForAssignment()">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
         </div>
     </div>
     `;
@@ -208,13 +208,16 @@ function addCategoryEventListener() {
 function choseContactForAssignment(event) {
     const checkbox = event.target;
     const contactName = checkbox.getAttribute('data-name');
+    const contactElement = checkbox.closest('.contact-boarder');
+    const color = contactElement.querySelector('.circle-inicial').style.background;
     if (checkbox.checked) {
-        if (!assignedContacts.includes(contactName)) {
-            assignedContacts.push(contactName);
+        if (!assignedContacts.some(contact => contact.name === contactName)) {
+            assignedContacts.push({ name: contactName, backgroundcolor: color });
         }
     } else {
-        assignedContacts = assignedContacts.filter(name => name !== contactName);
+        assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
     }
+    
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -224,12 +227,10 @@ async function addTask() {
     let taskDescription = document.getElementById('taskDescription').value;
     let date = document.getElementById('date').value;
     let contacts = JSON.parse(localStorage.getItem('contacts'));
-    let initials = getContactsInitials(contacts);
     let subtasks = JSON.parse(localStorage.getItem('subtasks'));
     let lastClickedButton = localStorage.getItem('lastClickedButton');
     let selectedCategory = localStorage.getItem('selectedCategory');
     let task = {
-        initials: initials,
         name: taskTitle,
         description: taskDescription,
         date: date,

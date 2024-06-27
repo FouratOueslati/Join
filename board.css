@@ -185,6 +185,15 @@ body {
     gap: 8px;
     margin-top: 12px;
 }
+
+.initials {
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-left: -16px;
+
+}
 @media(max-width: 1300px) {
     .board-position-lower {
         flex-direction: column;

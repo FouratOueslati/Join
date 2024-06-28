@@ -115,7 +115,8 @@ body {
     border-radius: 20px;
     width: 100%;
     height: 160px;
-    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.15);}
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
+}
 
 .task-category {
     box-sizing: border-box;
@@ -154,30 +155,31 @@ body {
 .load-bar {
     width: 50%;
 }
+
 .subtasks {
     font-size: 14px;
     width: 50%;
 }
 
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; 
+    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 40%; 
+    width: 40%;
 }
 
 .initials-container {
@@ -194,6 +196,41 @@ body {
     margin-left: -16px;
 
 }
+
+.parent-container-addTask-in-board {
+    border-radius: 30px;
+    box-sizing: border-box;
+    background-color: white;
+    width: 50%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+}
+
+.addTask-pop-up-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.hide-addTask-popup {
+    transform: translateX(100%);
+}
+
+.bring-out-addTask-popup {
+    transform: translateX(0%);
+}
+
+.background-effect-for-addTask-popup {
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 @media(max-width: 1300px) {
     .board-position-lower {
         flex-direction: column;

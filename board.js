@@ -86,7 +86,20 @@ async function getContactInitials(contacts, i) {
     }
 }
 
+// die FUnktion öffnet das AddTask Window im Board
+function openAddTask() {
+    let addTaskPopUp = document.getElementById('addTaskPopUp');
+    let popupContainer = document.getElementById('addTaskPopUp');
+    addTaskPopUp.classList.add("bring-out-addTask-popup");
+    popupContainer.classList.add("background-effect-for-addTask-popup");
+}
 
+function closeAddTask(){
+    let addTaskPopUp = document.getElementById('addTaskPopUp');
+    let popupContainer = document.getElementById('addTaskPopUp');
+    addTaskPopUp.classList.remove("bring-out-addTask-popup");
+    popupContainer.classList.remove("background-effect-for-addTask-popup");
+}
 
 /*function updateHTML() {
     let open = todos.filter(t => t['category'] == 'open');

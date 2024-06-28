@@ -55,6 +55,10 @@ function getOpenTaskHtml(task, i) {
             <div class="subtasks">0/2 Subtasks</div>
         </div>
         <div class="initials-container" id="initialsContainer${i}"></div>
+        <div id="myModal${i}" class="modal">
+        <div class="modal-content">
+            ${generateModalContent(task)}
+        </div>
     </div>`;
 }
 
@@ -73,6 +77,7 @@ function getInitials(name) {
 
 
 async function getContactInitials(contacts, i) {
+    debugger
     let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
     contactInitialsContainer.innerHTML = '';
     if (contacts && contacts.length > 0) {

@@ -20,11 +20,11 @@ async function logIn() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
     let rememberMeCheckbox = document.getElementById('rememberMeCheckbox');
     let rememberMe = localStorage.getItem('rememberMe') === 'true';
     rememberMeCheckbox.checked = rememberMe;
-});
+});*/
 
 
 async function logOut() {

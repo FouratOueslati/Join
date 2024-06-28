@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="./templates/topbar.css">
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="legal_privacy.css">
-    <link rel="stylesheet" href="addTask.css">
     <script src="/templates/topbar.js"></script>
     <script src="storage.js"></script>
     <script src="include.js"></script>
@@ -25,14 +24,10 @@
     <script src="storage.js"></script>
 </head>
 
-<body id="body" onload="initBoard(); includeHTML()">
+<body onload="initBoard(); includeHTML()">
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
-        <div id="addTaskPopUp" class="addTask-pop-up-container hide-addTask-popup">
-            <div class="parent-container-addTask-in-board" w3-include-html="addTaskWindow.html"></div>
-        </div>
-
         <div class="parent-container">
             <div class="aot">
                 <h1>Board</h1>
@@ -42,9 +37,9 @@
                         <div class="seperate-line"></div>
                         <img src="./boardImg/search.svg" class="input-svg">
                     </div>
-                    <button  onclick="openAddTask()" class="add-task-button">
-                        <div class="txt-svg-centering-add-task"><b class="display-none">Add
-                                task</b><img class="svg-size" src="./boardImg/plus.svg">
+                    <button class="add-task-button">
+                        <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
+                                class="svg-size" src="./boardImg/plus.svg">
                         </div>
                     </button>
                 </div>

@@ -77,7 +77,6 @@ function getInitials(name) {
 
 
 async function getContactInitials(contacts, i) {
-    debugger
     let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
     contactInitialsContainer.innerHTML = '';
     if (contacts && contacts.length > 0) {

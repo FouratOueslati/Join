@@ -1,10 +1,10 @@
 let currentDraggedElement;
 let currentTask = 0;
+let todos = {};
 
 async function initBoard() {
     await displayOpenTasks();
 }
-
 
 async function displayOpenTasks() {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -17,6 +17,10 @@ async function displayOpenTasks() {
     let urgentTasksArray = Object.values(urgentTasks);
     let allTasksArray = urgentTasksArray.concat(lowTasksArray, mediumTasksArray);
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
+    todos = allTasksArray.reduce((acc, task) => {
+        acc[task.id] = task;
+        return acc;
+    }, {});
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
         let task = allOpenTasks[i];
@@ -25,7 +29,7 @@ async function displayOpenTasks() {
     }
 }
 
-// Html für die Funktion displayOpenTaks generieren
+// HTML for the displayOpenTasks function
 function getOpenTaskHtml(task, i) {
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${task.id})" class="todo" onclick="zoomTaskInfo(${i})" id="task${i}">
@@ -40,12 +44,12 @@ function getOpenTaskHtml(task, i) {
         </div>
         <div class="initials-container" id="initialsContainer${i}"></div>
         <div id="myModal${i}" class="modal">
-        <div class="modal-content">
-            ${generateModalContent(task)}
+            <div class="modal-content">
+                ${generateModalContent(task, i)}
+            </div>
         </div>
     </div>`;
 }
-
 
 function getInitials(name) {
     var upperChars = "";
@@ -59,7 +63,6 @@ function getInitials(name) {
     return upperChars;
 }
 
-
 async function getContactInitials(contacts, i) {
     let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
     contactInitialsContainer.innerHTML = '';
@@ -68,8 +71,7 @@ async function getContactInitials(contacts, i) {
             const contact = contacts[j];
             const initial = getInitials(contact.name);
             const color = contact.backgroundcolor;
-            // VORSICHT, HIER KÖNNTE MAN SPÄTER ${i}-${j} BRAUCHEN
-            contactInitialsContainer.innerHTML += `<div id="initials${j}" class="initials" style="background-color: ${color};">${initial}</div>`;
+            contactInitialsContainer.innerHTML += `<div id="initials${i}-${j}" class="initials" style="background-color: ${color};">${initial}</div>`;
         }
     }
 }
@@ -83,8 +85,10 @@ function allowDrop(ev) {
 }
 
 function moveTo(category) {
-    todos[currentDraggedElement]['category'] = category;
-    updateHTML();
+    if (todos[currentDraggedElement]) {
+        todos[currentDraggedElement]['dragCategory'] = category;
+        updateHTML();
+    }
 }
 
 function highlight(id) {
@@ -95,7 +99,44 @@ function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
 
-//New
+function updateHTML() {
+    let open = Object.values(todos).filter(t => t['dragCategory'] == 'open');
+    document.getElementById('open').innerHTML = '';
+    for (let index = 0; index < open.length; index++) {
+        const element = open[index];
+        document.getElementById('open').innerHTML += getOpenTaskHtml(element, index);
+        getContactInitials(element.contacts, index);
+    }
+
+    let inprogress = Object.values(todos).filter(t => t['dragCategory'] == 'inprogress');
+    document.getElementById('inprogress').innerHTML = '';
+    for (let index = 0; index < inprogress.length; index++) {
+        const element = inprogress[index];
+        document.getElementById('inprogress').innerHTML += getOpenTaskHtml(element, index);
+        getContactInitials(element.contacts, index);
+    }
+
+    let awaitfeedback = Object.values(todos).filter(t => t['dragCategory'] == 'awaitfeedback');
+    document.getElementById('awaitfeedback').innerHTML = '';
+    for (let index = 0; index < awaitfeedback.length; index++) {
+        const element = awaitfeedback[index];
+        document.getElementById('awaitfeedback').innerHTML += getOpenTaskHtml(element, index);
+        getContactInitials(element.contacts, index);
+    }
+
+    let closed = Object.values(todos).filter(t => t['dragCategory'] == 'closed');
+    document.getElementById('closed').innerHTML = '';
+    for (let index = 0; index < closed.length; index++) {
+        const element = closed[index];
+        document.getElementById('closed').innerHTML += getOpenTaskHtml(element, index);
+        getContactInitials(element.contacts, index);
+    }
+}
+
+function generateTodoHTML(element) {
+    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['name']}</div>`;
+}
+
 function generateModalContent(task, i) {
     return /*html*/`
         <div>
@@ -106,7 +147,6 @@ function generateModalContent(task, i) {
         </div>`;
 }
 
-
 function generateContactInitialsHtml(contacts, i) {
     if (!contacts || contacts.length === 0) return '';
     return contacts.map((contact, j) => {
@@ -116,11 +156,9 @@ function generateContactInitialsHtml(contacts, i) {
     }).join('');
 }
 
-
 async function loadDataIntoModal(modalContent, data, i) {
-    modalContent.innerHTML = generateModalContent(data, task, i);
+    modalContent.innerHTML = generateModalContent(data, i);
 }
-
 
 async function showModal(modal) {
     modal.display = block;
@@ -131,7 +169,6 @@ async function showModal(modal) {
         }
     }
 }
-
 
 async function zoomTaskInfo(i) {
     const modal = document.getElementById(`myModal${i}`);
@@ -144,10 +181,8 @@ async function zoomTaskInfo(i) {
     }
 }
 
-
 function closeModal(modal) {
     modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
 }
-

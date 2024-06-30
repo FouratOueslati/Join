@@ -3,7 +3,10 @@ let currentTask = 0;
 let todos = {};
 
 async function initBoard() {
+    includeHTML();
     await displayOpenTasks();
+    displayNamesOfContacts();
+    showLoggedUserInitials();
 }
 
 async function displayOpenTasks() {
@@ -37,7 +40,7 @@ function getOpenTaskHtml(task, i) {
             <div class="category">${task['category']}</div>
         </div>
         <div class="task-title">${task['name']}</div>
-        <div class="task-description">${task['description']}</div>
+        <div id="desciption${i}" class="task-description">${task['description']}</div>
         <div class="subtasks-number-container">
             <img class="load-bar" src="./img/filler.png">
             <div class="subtasks">0/2 Subtasks</div>

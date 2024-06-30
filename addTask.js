@@ -7,12 +7,12 @@ let subtasks = [];
 let uid = localStorage.getItem('uid');
 
 
-
 async function onloadFunction() {
-    await loadSpecificUserDataFromLocalStorage();
     includeHTML();
+    await loadSpecificUserDataFromLocalStorage();
     loadSubtasksFromLocalStorage();
     displayNamesOfContacts();
+    showLoggedUserInitials();
 }
 
 // displays contacts names die man wählen kann
@@ -260,3 +260,35 @@ function conditionForAddTask(lastClickedButton, uid, task) {
         postTask('/users/' + uid + '/lowTasks', task);
     }
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const dropDowns = document.querySelectorAll('.drop-down');
+    dropDowns.forEach(dropDown => {
+        const select = dropDown.querySelector('.select');
+        const caret = dropDown.querySelector('.caret');
+        const menu = dropDown.querySelector('.menu');
+        const options = dropDown.querySelectorAll('.menu li');
+        const selected = dropDown.querySelector('.selected');
+
+        select.addEventListener('click', () => {
+            select.classList.toggle('selectClicked');
+            caret.classList.toggle('createRotate');
+            menu.classList.toggle('menuOpen');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                selected.innerText = option.innerText;
+                select.classList.remove('selectClicked');
+                caret.classList.remove('createRotate');
+                menu.classList.remove('menuOpen');
+
+                options.forEach(option => {
+                    option.classList.remove('active');
+                });
+                option.classList.add('active');
+            });
+        });
+    });
+});

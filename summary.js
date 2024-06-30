@@ -1,0 +1,5 @@
+function initSummary() {
+    includeHTML();
+    showLoggedUserInitials();
+}
+

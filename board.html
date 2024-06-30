@@ -15,18 +15,144 @@
     <link rel="stylesheet" href="./templates/topbar.css">
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="legal_privacy.css">
-    <script src="/templates/topbar.js"></script>
+    <link rel="stylesheet" href="addTask.css">
+    <script src="addTask.js"></script>
     <script src="include.js"></script>
     <script src="board.js"></script>
-    <script src="login.js"></script>
     <script src="storage.js"></script>
+    <script src="logout.js"></script>
+    <script src="templates/topbar.js"></script>
 </head>
-
-<body onload="initBoard(); includeHTML()">
+<body onload="initBoard()">
+    <div onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
+        <div onclick="doNotClose(event)" id="addTaskPopUp" class="parent-Container-for-addTask-board addTask-window">
+            <div class="main-container-task">
+                <div class="aot-task-container">
+                    <div class="add-task-title">Add Task</div>
+                </div>
+                <div class="main-container-task-one-two">
+                    <div class="add-task-set-up-one-container">
+                        <div class="add-task-set-up-one">
+                            <div class="inputs-flex">
+                                <span>Title<b style="color: orange;">*</b></span>
+                                <input id="taskTitle" required placeholder="Enter a title..." minlength="4"
+                                    class="task-input-field">
+                            </div>
+                            <div class="inputs-flex">
+                                <span>Description</span>
+                                <textarea style="height: 80px;" id="taskDescription" required
+                                    placeholder="Enter a Description..." minlength="4" class="task-input-field"
+                                    id="description"></textarea>
+                            </div>
+                            <div class="inputs-flex">
+                                <span>Assigned to</span>
+                                <div class="drop-down">
+                                    <div class="select">
+                                        <span class="selected" id="selectContact">Search Contact</span>
+                                        <div class="caret"></div>
+                                    </div>
+                                    <ul class="menu" id="contactList"></ul>
+                                </div>
+                                <div class="bubble-setup">
+                                    <div id="contactsDisplayBuble" class="assigned-contacts-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="seperate-container">
+                    </div>
+                    <div class="add-task-set-up-two-container">
+                        <div class="add-task-set-up-two">
+                            <div class="inputs-flex">
+                                <span>Due date<b style="color: orange;">*</b></span>
+                                <input id="date" type="date" class="task-input-field date">
+                            </div>
+                            <div class="inputs-flex">
+                                <span>Prio</span>
+                                <div class="button-prio-width">
+                                    <button onclick="addPrioEventListeners()" id="urgentButton" type="button"
+                                        class="button-prio">
+                                        <div class="center">
+                                            <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg"
+                                                    class="prio-photos">
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <button onclick="addPrioEventListeners()" id="mediumButton" type="button"
+                                        class="button-prio">
+                                        <div class="center">
+                                            <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg"
+                                                    class="prio-photos"></div>
+                                        </div>
+                                    </button>
+                                    <button onclick="addPrioEventListeners()" id="lowButton" type="button"
+                                        class="button-prio">
+                                        <div class="center">
+                                            <div class="button-txt-img">Low <img src="./addTaskImg/low.svg"
+                                                    class="prio-photos">
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="inputs-flex">
+                                <span>Category<b style="color: orange;">*</b></span>
+                                <div class="drop-down">
+                                    <div class="select" id="selectCategoryContainer">
+                                        <span class="selected" id="selectCategory">Select task category</span>
+                                        <div class="caret"></div>
+                                    </div>
+                                    <ul onclick="addCategoryEventListener()" class="menu" id="categoryMenu">
+                                        <li>Technical Task</li>
+                                        <li>User Story</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="inputs-flex">
+                                <span>Subtask</span>
+                                <div class="input-with-img">
+                                    <div style="display: flex; align-items: center; width: 100%;">
+                                        <input required placeholder="Add new subtask" class="task-input-with-img"
+                                            oninput="onInputChange()" id="inputFieldSubtask">
+                                        <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+                                    </div>
+                                    <div class="check-cross-position" id="closeOrAccept">
+                                        <button class="button-transparacy">
+                                            <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg"
+                                                class="subtaskButtons" alt="close">
+                                        </button>
+                                        <button class="button-transparacy">
+                                            <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg"
+                                                class="subtaskButtons" alt="accept">
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="subtask-container" id="subtasksContainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-end-process-container">
+                    <span><b style="color: orange;">*</b>This field is required</span>
+                    <div class="creat-and-close-buttons">
+                        <button onclick="closeAddTaskInBoard()" type="button" class="color-white-button"
+                            onclick="removeAllInput()">
+                            <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg">
+                            </div>
+                        </button>
+                        <button onclick="addTask()" id="addTaskButton" type="button" class="color-blue-button">
+                            <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg" class="check-svg">
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
     <div class="content-container">
         <div class="header-container" w3-include-html="templates/topbar.html"></div>
-        <div class="parent-container">
+        <div>
             <div class="aot">
                 <h1>Board</h1>
                 <div class="find-task-button-and-input">
@@ -35,7 +161,7 @@
                         <div class="seperate-line"></div>
                         <img src="./boardImg/search.svg" class="input-svg">
                     </div>
-                    <button class="add-task-button">
+                    <button onclick="openAddTaskInBoard()" class="add-task-button">
                         <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
                                 class="svg-size" src="./boardImg/plus.svg">
                         </div>

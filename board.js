@@ -1,24 +1,8 @@
-
-/*let todos = [{
-    'id': 0,
-    'title': 'Task 1',
-    'category': 'open'
-}, {
-    'id': 1,
-    'title': 'Task 2',
-    'category': 'open'
-}, {
-    'id': 2,
-    'title': 'Task 3',
-    'category': 'closed'
-}];*/
-
 let currentDraggedElement;
 let currentTask = 0;
 
 async function initBoard() {
     await displayOpenTasks();
-    await getBackgroundColorOfContact();
 }
 
 
@@ -90,50 +74,6 @@ async function getContactInitials(contacts, i) {
     }
 }
 
-
-
-/*function updateHTML() {
-    let open = todos.filter(t => t['category'] == 'open');
- 
-    document.getElementById('open').innerHTML = '';
- 
-    for (let index = 0; index < open.length; index++) {
-        const element = open[index];
-        document.getElementById('open').innerHTML += generateTodoHTML(element);
-    }
- 
-    let inprogress = todos.filter(t => t['category'] == 'inprogress')
- 
-    document.getElementById('inprogress').innerHTML = '';
- 
-    for (let index = 0; index < inprogress.length; index++) {
-        const element = inprogress[index];
-        document.getElementById('inprogress').innerHTML += generateTodoHTML(element);
-    }
- 
-    let awaitfeedback = todos.filter(t => t['category'] == 'awaitfeedback')
- 
-    document.getElementById('awaitfeedback').innerHTML = '';
- 
-    for (let index = 0; index < awaitfeedback.length; index++) {
-        const element = awaitfeedback[index];
-        document.getElementById('awaitfeedback').innerHTML += generateTodoHTML(element);
-    }
- 
-    let closed = todos.filter(t => t['category'] == 'closed');
- 
-    document.getElementById('closed').innerHTML = '';
- 
-    for (let index = 0; index < closed.length; index++) {
-        const element = closed[index];
-        document.getElementById('closed').innerHTML += generateTodoHTML(element);
-    }
-}
-    function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
-}
- */
-
 function startDragging(id) {
     currentDraggedElement = id;
 }
@@ -156,19 +96,31 @@ function removeHighlight(id) {
 }
 
 //New
-function generateModalContent(task) {
+function generateModalContent(task, i) {
     return /*html*/`
         <div>
             <div>${task['category']}</div>
             <div>${task['name']}</div>
             <div>${task['description']}</div>
-            <div>${getContactInitials(task['contacts'])}</div>
+            <div>${generateContactInitialsHtml(task['contacts'], i)}</div>
         </div>`;
 }
+
+
+function generateContactInitialsHtml(contacts, i) {
+    if (!contacts || contacts.length === 0) return '';
+    return contacts.map((contact, j) => {
+        const initial = getInitials(contact.name);
+        const color = contact.backgroundcolor;
+        return `<div id="initials${i}-${j}" class="initials" style="background-color: ${color};">${initial}</div>`;
+    }).join('');
+}
+
 
 async function loadDataIntoModal(modalContent, data, i) {
     modalContent.innerHTML = generateModalContent(data, task, i);
 }
+
 
 async function showModal(modal) {
     modal.display = block;
@@ -180,6 +132,7 @@ async function showModal(modal) {
     }
 }
 
+
 async function zoomTaskInfo(i) {
     const modal = document.getElementById(`myModal${i}`);
     modal.style.display = "block";
@@ -190,6 +143,7 @@ async function zoomTaskInfo(i) {
         }
     }
 }
+
 
 function closeModal(modal) {
     modal.style.display = "none";

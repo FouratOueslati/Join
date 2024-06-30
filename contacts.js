@@ -232,7 +232,6 @@ function getAddNewContactHtml() {
                 <div class="add-contact-left">
                     <div>
                         <img src="./img/Capa 3.png">
-    
                         <div class="add-new-contact-headline">Add contact</div>
                         <div class="text-contact">Tasks are better width a team!</div>
                         <div class="blue-seperator-contact"></div>
@@ -271,11 +270,6 @@ function getAddNewContactHtml() {
 // schließt das Window für add new contact
 function closeDialog() {
     document.getElementById('dialogNewEditContact').classList.add('d-none');
-}
-
-
-function doNotClose(event) {
-    event.stopPropagation();
 }
 
 // öffnet das Fentser um Kontakte zu editieren

@@ -3,6 +3,7 @@ let currentTask = 0;
 
 async function initBoard() {
     await displayOpenTasks();
+    displayNamesOfContacts();
 }
 
 
@@ -26,14 +27,14 @@ async function displayOpenTasks() {
 }
 
 // Html für die Funktion displayOpenTaks generieren
-function getOpenTaskHtml(task, i) {
+function getOpenTaskHtml(task, i,) {
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${task.id})" class="todo" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
             <div class="category">${task['category']}</div>
         </div>
         <div class="task-title">${task['name']}</div>
-        <div class="task-description">${task['description']}</div>
+        <div id="desciption${i}" class="task-description">${task['description']}</div>
         <div class="subtasks-number-container">
             <img class="load-bar" src="./img/filler.png">
             <div class="subtasks">0/2 Subtasks</div>
@@ -149,5 +150,33 @@ function closeModal(modal) {
     modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
+}
+
+
+function openAddTaskInBoard() {
+    let addTask = document.getElementById('addTaskContainerInBoard');
+    addTask.classList.remove('d-none');
+    addTask.classList.add('addTask-container-background');
+    let addTaskWindow = document.getElementById('addTaskPopUp');
+    addTaskWindow.classList.add('bring-out-addTask-window');
+}
+
+function closeAddTaskInBoard() {
+    let addTask = document.getElementById('addTaskContainerInBoard');
+    addTask.classList.add('d-none');
+    let addTaskWindow = document.getElementById('addTaskPopUp');
+    addTaskWindow.classList.remove('bring-out-addTask-window');
+}
+
+
+function limitText(containerId, wordLimit) {
+    var container = document.getElementById(containerId);
+    if (container) {
+        var words = container.innerText.split(' ');
+        if (words.length > wordLimit) {
+            var truncatedText = words.slice(0, wordLimit).join(' ') + ' ..';
+            container.innerText = truncatedText;
+        }
+    }
 }
 

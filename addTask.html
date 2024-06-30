@@ -17,38 +17,6 @@
     <script src="include.js"></script>
     <script src="addTask.js"></script>
     <script src="login.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dropDowns = document.querySelectorAll('.drop-down');
-            dropDowns.forEach(dropDown => {
-                const select = dropDown.querySelector('.select');
-                const caret = dropDown.querySelector('.caret');
-                const menu = dropDown.querySelector('.menu');
-                const options = dropDown.querySelectorAll('.menu li');
-                const selected = dropDown.querySelector('.selected');
-
-                select.addEventListener('click', () => {
-                    select.classList.toggle('selectClicked');
-                    caret.classList.toggle('createRotate');
-                    menu.classList.toggle('menuOpen');
-                });
-
-                options.forEach(option => {
-                    option.addEventListener('click', () => {
-                        selected.innerText = option.innerText;
-                        select.classList.remove('selectClicked');
-                        caret.classList.remove('createRotate');
-                        menu.classList.remove('menuOpen');
-
-                        options.forEach(option => {
-                            option.classList.remove('active');
-                        });
-                        option.classList.add('active');
-                    });
-                });
-            });
-        });
-    </script>
 </head>
 
 <body onload="onloadFunction()">
@@ -164,7 +132,7 @@
                     <span><b style="color: orange;">*</b>This field is required</span>
                     <div class="creat-and-close-buttons">
                         <button type="button" class="color-white-button" onclick="removeAllInput()">
-                            <div class="button-txt-img">Close <img src="./addTaskImg/close.svg" class="close-svg">
+                            <div class="button-txt-img">Clear<img src="./addTaskImg/close.svg" class="close-svg">
                             </div>
                         </button>
                         <button onclick="addTask()" id="addTaskButton" type="button" class="color-blue-button">

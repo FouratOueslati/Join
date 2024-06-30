@@ -15,6 +15,7 @@ async function init() {
     await checkExistingInitials();
     displayInitialsFilter();
     await displayInitialsAndContacts();
+    showLoggedUserInitials();
 }
 
 async function loadDataAfterChanges() {

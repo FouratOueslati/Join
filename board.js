@@ -1,9 +1,12 @@
 let currentDraggedElement;
 let currentTask = 0;
 
+
 async function initBoard() {
+    includeHTML();
     await displayOpenTasks();
     displayNamesOfContacts();
+    showLoggedUserInitials();
 }
 
 

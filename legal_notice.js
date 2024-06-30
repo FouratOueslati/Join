@@ -1,0 +1,4 @@
+function initLegal() {
+    includeHTML();
+    showLoggedUserInitials();
+}

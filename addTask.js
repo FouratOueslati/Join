@@ -7,12 +7,12 @@ let subtasks = [];
 let uid = localStorage.getItem('uid');
 
 
-
 async function onloadFunction() {
-    await loadSpecificUserDataFromLocalStorage();
     includeHTML();
+    await loadSpecificUserDataFromLocalStorage();
     loadSubtasksFromLocalStorage();
     displayNamesOfContacts();
+    showLoggedUserInitials();
 }
 
 // displays contacts names die man wählen kann

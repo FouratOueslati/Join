@@ -183,15 +183,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function addPrioEventListeners() {
     document.getElementById('urgentButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'urgentButton');
+        localStorage.setItem('lastClickedButton', 'Urgent');
     });
 
     document.getElementById('mediumButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'mediumButton');
+        localStorage.setItem('lastClickedButton', 'Medium');
     });
 
     document.getElementById('lowButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'lowButton');
+        localStorage.setItem('lastClickedButton', 'Low');
     });
 }
 
@@ -234,6 +234,7 @@ async function addTask() {
         name: taskTitle,
         description: taskDescription,
         date: date,
+        priority: lastClickedButton,
         category: selectedCategory,
         contacts: contacts,
         subtasks: subtasks,
@@ -252,11 +253,11 @@ function getContactsInitials(contacts) {
 
 // wird eins drüber bei der Funktion addTask() benötigt.
 function conditionForAddTask(lastClickedButton, uid, task) {
-    if (lastClickedButton === 'urgentButton') {
+    if (lastClickedButton === 'Urgent') {
         postTask('/users/' + uid + '/urgentTasks', task);
-    } else if (lastClickedButton === 'mediumButton') {
+    } else if (lastClickedButton === 'Medium') {
         postTask('/users/' + uid + '/mediumTasks', task);
-    } else if (lastClickedButton === 'lowButton') {
+    } else if (lastClickedButton === 'Low') {
         postTask('/users/' + uid + '/lowTasks', task);
     }
 }

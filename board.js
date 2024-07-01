@@ -48,11 +48,112 @@ function getOpenTaskHtml(task, i) {
         <div class="initials-container" id="initialsContainer${i}"></div>
         <div id="myModal${i}" class="modal">
             <div class="modal-content">
-                ${generateModalContent(task, i)}
+              ${generateModalContent(task, i)}
             </div>
         </div>
     </div>`;
 }
+
+
+
+function generateModalContent(task, i) {
+    return /*html*/`
+            <div class="category-opened">${task['category']}</div>
+            <div class="title-opened">${task['name']}</div>
+            <div class="description-opened">${task['description']}</div>
+            <div class="details-container">
+                <span class="fine-written"> Due date:</span>
+                <div class="space-correct"> ${task['date']}</div>
+            </div>
+            <div class="details-container">
+                <span class="fine-written"> Priority:</span>
+                <div class="space-correct"> ${task['priority']}</div>
+            </div>
+            <div class="assigned-to-container">
+                  <div>Assigned To:</div>
+                <div class="assigned-contacts-container">
+                  <div >${generateContactInitialsAndNamesHtml(task['contacts'], i)}</div>
+                </div>
+            </div>       
+            <div>
+              <div class="details-container">Subtasks</div>
+              <div class="subtasks-opened">${generateSubtasksHtml(task['subtasks'], i)}</div>
+            </div>
+        `;
+}
+
+function generateContactInitialsAndNamesHtml(contacts, i) {
+    if (!contacts || contacts.length === 0) return '';
+    let result = '';
+    for (let j = 0; j < contacts.length; j++) {
+        const contact = contacts[j];
+        const initial = getInitials(contact.name);
+        const color = contact.backgroundcolor;
+        const contactName = contact.name;
+        result += `
+        <div class="assigned-contacts-and-intials-container">
+            <div id="initials${i}-${j}" class="initials-opened" style="background-color: ${color};">${initial}</div>
+            <div id="contact${i}-${j}">${contactName}</div>
+        </div>
+        `;
+    }
+    return result;
+}
+
+
+function generateSubtasksHtml(subtasks, i) {
+    if (!subtasks || subtasks.length === 0) return '';
+    let result = '';
+    for (let j = 0; j < subtasks.length; j++) {
+        const subtask = subtasks[j];
+        result += `
+        <div class="checkbox-and-subtask">
+            <input type="checkbox" class="rectangle">
+            <div>${subtask}</div>
+        </div>
+        `;
+    }
+    return result;
+}
+
+
+async function zoomTaskInfo(i) {
+    const modal = document.getElementById(`myModal${i}`);
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden";
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal(modal);
+        }
+    }
+}
+
+
+async function loadDataIntoModal(modalContent, data, i) {
+    modalContent.innerHTML = generateModalContent(data, i);
+}
+
+
+
+
+
+async function showModal(modal) {
+    modal.display = block;
+    document.body.style.overflow = "hidden";
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal(modal);
+        }
+    }
+}
+
+
+function closeModal(modal) {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+    window.onclick = null;
+}
+
 
 function getInitials(name) {
     var upperChars = "";
@@ -78,6 +179,8 @@ async function getContactInitials(contacts, i) {
         }
     }
 }
+
+
 function openAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
     addTask.classList.remove('d-none'); addTask.classList.add('addTask-container-background');
@@ -166,52 +269,5 @@ function generateTodoHTML(element) {
     return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['name']}</div>`;
 }
 
-function generateModalContent(task, i) {
-    return /*html*/`
-        <div>
-            <div>${task['category']}</div>
-            <div>${task['name']}</div>
-            <div>${task['description']}</div>
-            <div>${generateContactInitialsHtml(task['contacts'], i)}</div>
-        </div>`;
-}
 
-function generateContactInitialsHtml(contacts, i) {
-    if (!contacts || contacts.length === 0) return '';
-    return contacts.map((contact, j) => {
-        const initial = getInitials(contact.name);
-        const color = contact.backgroundcolor;
-        return `<div id="initials${i}-${j}" class="initials" style="background-color: ${color};">${initial}</div>`;
-    }).join('');
-}
 
-async function loadDataIntoModal(modalContent, data, i) {
-    modalContent.innerHTML = generateModalContent(data, i);
-}
-
-async function showModal(modal) {
-    modal.display = block;
-    document.body.style.overflow = "hidden";
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            closeModal(modal);
-        }
-    }
-}
-
-async function zoomTaskInfo(i) {
-    const modal = document.getElementById(`myModal${i}`);
-    modal.style.display = "block";
-    document.body.style.overflow = "hidden";
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            closeModal(modal);
-        }
-    }
-}
-
-function closeModal(modal) {
-    modal.style.display = "none";
-    document.body.style.overflow = "auto";
-    window.onclick = null;
-}

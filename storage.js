@@ -134,3 +134,16 @@ function postTask(path = "", data = {}) {
         body: JSON.stringify(data)
     })
 }
+
+
+async function loadAllTasksFromStorage() {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let mediumTasks = userData.mediumTasks || {};
+    let lowTasks = userData.lowTasks || {};
+    let urgentTasks = userData.urgentTasks || {};
+    let mediumTasksArray = Object.values(mediumTasks);
+    let lowTasksArray = Object.values(lowTasks);
+    let urgentTasksArray = Object.values(urgentTasks);
+    let allTasksArray = urgentTasksArray.concat(lowTasksArray, mediumTasksArray);
+    return allTasksArray;
+}

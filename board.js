@@ -9,16 +9,10 @@ async function initBoard() {
     showLoggedUserInitials();
 }
 
+
 async function displayOpenTasks() {
-    let userData = await loadSpecificUserDataFromLocalStorage();
     let toDoContainer = document.getElementById('open');
-    let mediumTasks = userData.mediumTasks || {};
-    let lowTasks = userData.lowTasks || {};
-    let urgentTasks = userData.urgentTasks || {};
-    let mediumTasksArray = Object.values(mediumTasks);
-    let lowTasksArray = Object.values(lowTasks);
-    let urgentTasksArray = Object.values(urgentTasks);
-    let allTasksArray = urgentTasksArray.concat(lowTasksArray, mediumTasksArray);
+    let allTasksArray = await loadAllTasksFromStorage();
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
     todos = allTasksArray.reduce((acc, task) => {
         acc[task.id] = task;

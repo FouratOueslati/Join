@@ -176,7 +176,7 @@
             <div class="board-position-lower">
                 <div class="task-width">
                     <div>
-                        <span class="txt-svg-cetering">To do <img class="txt-svg-centering"
+                        <span onclick="openAddTaskInBoard()" class="txt-svg-cetering">To do <img class="txt-svg-centering"
                                 src="./boardImg/add.svg"></span>
                         <div>
                             <div class="drag-area" id="open" ondrop="moveTo('open')"
@@ -187,7 +187,7 @@
                 </div>
                 <div class="task-width">
                     <div>
-                        <span class="txt-svg-cetering">In progress <img class="txt-svg-centering"
+                        <span onclick="openAddTaskInBoard()" class="txt-svg-cetering">In progress <img class="txt-svg-centering"
                                 src="./boardImg/add.svg"></span>
                         <div>
                             <div class="drag-area" id="inprogress" ondrop="moveTo('inprogress')"
@@ -199,7 +199,7 @@
                 </div>
                 <div class="task-width">
                     <div>
-                        <span class="txt-svg-cetering">Await feedback <img class="txt-svg-centering"
+                        <span onclick="openAddTaskInBoard()" class="txt-svg-cetering">Await feedback <img class="txt-svg-centering"
                                 src="./boardImg/add.svg"></span>
                         <div>
                             <div class="drag-area" id="awaitfeedback" ondrop="moveTo('awaitfeedback')"

@@ -15,6 +15,7 @@ async function displayOpenTasks() {
     let toDoContainer = document.getElementById('open');
     let allTasksArray = await loadAllTasksFromStorage();
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
+    console.log(allTasksArray);
     for (let i = 0; i < allTasksArray.length; i++) {
         let task = allTasksArray[i];
         todos[task.id] = task;
@@ -26,6 +27,7 @@ async function displayOpenTasks() {
         await getContactInitials(task.contacts, i);
     }
 }
+
 
 // HTML for the displayOpenTasks function
 function getOpenTaskHtml(task, i) {
@@ -123,14 +125,9 @@ async function zoomTaskInfo(i) {
     }
 }
 
-
 async function loadDataIntoModal(modalContent, data, i) {
     modalContent.innerHTML = generateModalContent(data, i);
 }
-
-
-
-
 
 async function showModal(modal) {
     modal.display = block;
@@ -141,7 +138,6 @@ async function showModal(modal) {
         }
     }
 }
-
 
 function closeModal(modal) {
     modal.style.display = "none";
@@ -212,6 +208,7 @@ function allowDrop(ev) {
 }
 
 function moveTo(category) {
+    debugger
     if (todos[currentDraggedElement]) {
         todos[currentDraggedElement]['dragCategory'] = category;
         updateHTML();

@@ -11,13 +11,14 @@ async function initBoard() {
 
 
 async function displayOpenTasks() {
+    debugger
     let toDoContainer = document.getElementById('open');
     let allTasksArray = await loadAllTasksFromStorage();
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
-    todos = allTasksArray.reduce((acc, task) => {
-        acc[task.id] = task;
-        return acc;
-    }, {});
+    for (let i = 0; i < allTasksArray.length; i++) {
+        let task = allTasksArray[i];
+        todos[task.id] = task;
+    }
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
         let task = allOpenTasks[i];

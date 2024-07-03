@@ -147,3 +147,11 @@ async function loadAllTasksFromStorage() {
     let allTasksArray = urgentTasksArray.concat(lowTasksArray, mediumTasksArray);
     return allTasksArray;
 }
+
+
+async function loadAllUrgentTasksFromStorage() {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let urgentTasks = userData.urgentTasks || {};
+    let urgentTasksArray = Object.values(urgentTasks);
+    return urgentTasksArray;
+}

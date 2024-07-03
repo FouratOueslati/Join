@@ -10,20 +10,22 @@ async function initBoard() {
 }
 
 async function displayOpenTasks() {
+    debugger
     let userData = await loadSpecificUserDataFromLocalStorage();
     let toDoContainer = document.getElementById('open');
     let mediumTasks = userData.mediumTasks || {};
     let lowTasks = userData.lowTasks || {};
-    let urgentTasks = userData.urgentTasks || {};
+    let urgentTasks = userData.urgentTasks || {}; 
     let mediumTasksArray = Object.values(mediumTasks);
     let lowTasksArray = Object.values(lowTasks);
-    let urgentTasksArray = Object.values(urgentTasks);
+    let urgentTasksArray = Object.values(urgentTasks);    
     let allTasksArray = urgentTasksArray.concat(lowTasksArray, mediumTasksArray);
     let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
-    todos = allTasksArray.reduce((acc, task) => {
-        acc[task.id] = task;
-        return acc;
-    }, {});
+    console.log(allTasksArray);
+    for (let i = 0; i < allTasksArray.length; i++) {
+        let task = allTasksArray[i];
+        todos[task.id] = task;
+    }
     toDoContainer.innerHTML = '';
     for (let i = 0; i < allOpenTasks.length; i++) {
         let task = allOpenTasks[i];
@@ -31,6 +33,7 @@ async function displayOpenTasks() {
         await getContactInitials(task.contacts, i);
     }
 }
+
 
 // HTML for the displayOpenTasks function
 function getOpenTaskHtml(task, i) {
@@ -128,14 +131,9 @@ async function zoomTaskInfo(i) {
     }
 }
 
-
 async function loadDataIntoModal(modalContent, data, i) {
     modalContent.innerHTML = generateModalContent(data, i);
 }
-
-
-
-
 
 async function showModal(modal) {
     modal.display = block;
@@ -146,7 +144,6 @@ async function showModal(modal) {
         }
     }
 }
-
 
 function closeModal(modal) {
     modal.style.display = "none";
@@ -217,6 +214,7 @@ function allowDrop(ev) {
 }
 
 function moveTo(category) {
+    debugger
     if (todos[currentDraggedElement]) {
         todos[currentDraggedElement]['dragCategory'] = category;
         updateHTML();

@@ -22,6 +22,16 @@ body {
     justify-content: center;
 }
 
+.parent-Container-for-addTask-board {
+    border-radius: 30px;
+    background-color: white;
+    width: 50%;
+    box-sizing: border-box;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+}
+
 .main-container-task {
     width: 100%;
     display: flex;

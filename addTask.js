@@ -7,12 +7,12 @@ let subtasks = [];
 let uid = localStorage.getItem('uid');
 
 
-
 async function onloadFunction() {
-    await loadSpecificUserDataFromLocalStorage();
     includeHTML();
+    await loadSpecificUserDataFromLocalStorage();
     loadSubtasksFromLocalStorage();
     displayNamesOfContacts();
+    showLoggedUserInitials();
 }
 
 // displays contacts names die man wählen kann
@@ -183,15 +183,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function addPrioEventListeners() {
     document.getElementById('urgentButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'urgentButton');
+        localStorage.setItem('lastClickedButton', 'Urgent');
     });
 
     document.getElementById('mediumButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'mediumButton');
+        localStorage.setItem('lastClickedButton', 'Medium');
     });
 
     document.getElementById('lowButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'lowButton');
+        localStorage.setItem('lastClickedButton', 'Low');
     });
 }
 
@@ -217,7 +217,7 @@ function choseContactForAssignment(event) {
     } else {
         assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
     }
-    
+
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -234,12 +234,13 @@ async function addTask() {
         name: taskTitle,
         description: taskDescription,
         date: date,
+        priority: lastClickedButton,
         category: selectedCategory,
         contacts: contacts,
         subtasks: subtasks,
         dragCategory: "open"
     };
-    conditionForAddTask(lastClickedButton, uid, task);
+    postTask('/users/' + uid + '/tasks', task);
 }
 
 // Initialien der assigned contacts holen
@@ -250,13 +251,35 @@ function getContactsInitials(contacts) {
     return contacts.map(contact => getInitials(contact.trim())).join(', ');
 }
 
-// wird eins drüber bei der Funktion addTask() benötigt.
-function conditionForAddTask(lastClickedButton, uid, task) {
-    if (lastClickedButton === 'urgentButton') {
-        postTask('/users/' + uid + '/urgentTasks', task);
-    } else if (lastClickedButton === 'mediumButton') {
-        postTask('/users/' + uid + '/mediumTasks', task);
-    } else if (lastClickedButton === 'lowButton') {
-        postTask('/users/' + uid + '/lowTasks', task);
-    }
-}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const dropDowns = document.querySelectorAll('.drop-down');
+    dropDowns.forEach(dropDown => {
+        const select = dropDown.querySelector('.select');
+        const caret = dropDown.querySelector('.caret');
+        const menu = dropDown.querySelector('.menu');
+        const options = dropDown.querySelectorAll('.menu li');
+        const selected = dropDown.querySelector('.selected');
+
+        select.addEventListener('click', () => {
+            select.classList.toggle('selectClicked');
+            caret.classList.toggle('createRotate');
+            menu.classList.toggle('menuOpen');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                selected.innerText = option.innerText;
+                select.classList.remove('selectClicked');
+                caret.classList.remove('createRotate');
+                menu.classList.remove('menuOpen');
+
+                options.forEach(option => {
+                    option.classList.remove('active');
+                });
+                option.classList.add('active');
+            });
+        });
+    });
+});

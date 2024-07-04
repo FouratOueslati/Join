@@ -134,3 +134,18 @@ function postTask(path = "", data = {}) {
         body: JSON.stringify(data)
     })
 }
+
+
+async function loadAllTasksFromStorage() {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    return tasks;
+}
+
+
+async function loadAllUrgentTasksFromStorage() {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let urgentTasks = userData.urgentTasks || {};
+    let urgentTasksArray = Object.values(urgentTasks);
+    return urgentTasksArray;
+}

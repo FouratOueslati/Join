@@ -13,21 +13,3 @@
     <a>Privacy Policy</a>
     <a onclick="logOut()">Log Out</a>
 </div>
-<script>
-    function showLoggedUserInitials() {
-        let data = localStorage.getItem('data');
-        let dataAsText = JSON.parse(data);
-        let name = dataAsText.name
-        let spaceIndex = name.indexOf(' ');
-        let firstLetterOfName = name.charAt(0);
-        let firstLetterOfLastName = name.charAt(spaceIndex + 1);
-        let roundContainer = document.getElementById('userInitialsRoundContainer');
-        roundContainer.value = `
-${firstLetterOfName}${firstLetterOfLastName}
-`;
-    }
-
-    function toggleMenu() {
-        document.getElementById('menu').classList.toggle('d-none');
-    }
-</script>

@@ -11,21 +11,22 @@
     <link rel="stylesheet" href="./templates/bluebar.css">
     <link rel="stylesheet" href="./templates/topbar.css">
     <link rel="stylesheet" href="legal_privacy.css">
+    <script src="summary.js"></script>
     <script src="include.js"></script>
-    <script src="/templates/topbar.js"></script>
     <script src="storage.js"></script>
-    <script src="login.js"></script>
+    <script src="logout.js"></script>
+    <script src="/templates/topbar.js"></script>
     <title>Summary</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
 
-<body onload="includeHTML(); showLoggedUserInitials()">
+<body onload="initSummary()">
     <div class="main-content">
         <div class="tools-container" w3-include-html="/templates/bluebar.html"></div>
         <div class="content-container">
             <div class="header-container" w3-include-html="/templates/topbar.html"></div>
             <div class="parent-container">
-                <div  class="summary-headline">
+                <div class="summary-headline">
                     <div class="join-360">Join 360</div>
                     <div class="seperator-and-text-container">
                         <div class="vertical-seperator"></div>
@@ -54,20 +55,20 @@
                             <div class="urgent-box">
                                 <img class="small-icon" src="./img/urgent.png">
                                 <div style="text-align: center;">
-                                    <div class="todos-number-container">1</div>
+                                    <div id="urgentTasksNumber" class="todos-number-container"></div>
                                     <div class="todos-text-container">Urgent</div>
                                 </div>
                             </div>
                             <div class="grey-seperator"></div>
                             <div class="deadline-reminder-container">
-                                <div class="date-container">October 16, 2022</div>
+                                <div id="deadline" class="date-container"></div>
                                 <div class="todos-text-container">Upcoming Deadline</div>
                             </div>
                         </div>
                         <div class="undone-todos-container">
                             <div class="todo-in-progress">
                                 <div style="text-align: center;">
-                                    <div class="todos-number-container">5</div>
+                                    <div id="allTasksNumber" class="todos-number-container"></div>
                                     <div>Tasks in <br>Board</div>
                                 </div>
                             </div>
@@ -88,7 +89,7 @@
                     </div>
                     <div class="greeting-container">
                         <div class="greeting">Good morning,</div>
-                        <div class="user-name">Fourat Oueslati</div>
+                        <div id="userNameContainer" class="user-name"></div>
                     </div>
                 </div>
             </div>

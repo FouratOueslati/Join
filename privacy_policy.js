@@ -8,3 +8,10 @@ function addClassScroll() {
         parentContainer.classList.remove("scroll");
     }
 }
+
+
+function initPolicy() {
+    includeHTML();
+    addClassScroll();     
+    showLoggedUserInitials();
+}

@@ -19,7 +19,6 @@ async function displayOpenTasks() {
         let id = taskIds[i];
         if (tasks[id]['dragCategory'] === 'open') {
             let task = { id: id, task: tasks[id] };
-            console.log(task)
             toDoContainer.innerHTML += getOpenTaskHtml(task, i);
             await getContactInitials(task.task.contacts, i);
         }

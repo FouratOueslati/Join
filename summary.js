@@ -4,19 +4,28 @@ async function initSummary() {
     await greetUser();
     await loadAllTasks();
     await displayUpcomingDeadline();
-    await loadUrgentsTasks();
+    await loadUrgentTaskNumbers();
 }
 
 async function loadAllTasks() {
-    let allTasksArray = await loadAllTasksFromStorage();
     let allTasksNumber = document.getElementById('allTasksNumber');
-    allTasksNumber.innerHTML = allTasksArray.length;
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    allTasksNumber.innerHTML = taskIds.length;
 }
 
-async function loadUrgentsTasks() {
-    let urgentTasks = await loadAllUrgentTasksFromStorage();
+async function loadUrgentTasksNumber() {
     let urgentTasksNumber = document.getElementById('urgentTasksNumber');
-    urgentTasksNumber.innerHTML = urgentTasks.length;
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    let urgentTaskCount = 0;
+    for (let i = 0; i < taskIds.length; i++) {
+        let id = taskIds[i];
+        if (tasks[id].priority === 'Urgent') {
+            urgentTaskCount++;
+        }
+    }
+    urgentTasksNumber.innerHTML = urgentTaskCount;
 }
 
 async function greetUser() {
@@ -28,17 +37,24 @@ async function greetUser() {
 
 async function displayUpcomingDeadline() {
     let deadline = document.getElementById('deadline');
-    let urgentTasks = await loadAllUrgentTasksFromStorage();
-    let earliestTask = urgentTasks[0];
-    for (let i = 1; i < urgentTasks.length; i++) {
-        let currentTask = urgentTasks[i];
-        let currentTaskDeadline = new Date(currentTask.date);
-        let earliestTaskDeadline = new Date(earliestTask.date);
-        if (currentTaskDeadline < earliestTaskDeadline) {
-            earliestTask = currentTask;
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    let earliestTask = null;
+    for (let i = 0; i < taskIds.length; i++) {
+        let id = taskIds[i];
+        if (tasks[id].priority === 'Urgent') {
+            let currentTask = tasks[id];
+            let currentTaskDeadline = new Date(currentTask.date);
+            if (!earliestTask || currentTaskDeadline < new Date(earliestTask.date)) {
+                earliestTask = currentTask;
+            }
         }
     }
-    let options = { year: 'numeric', month: 'long', day: 'numeric' };
-    let formattedDeadline = new Date(earliestTask.date).toLocaleDateString('en-US', options);
-    deadline.innerHTML = formattedDeadline;
+    if (earliestTask) {
+        let options = { year: 'numeric', month: 'long', day: 'numeric' };
+        let formattedDeadline = new Date(earliestTask.date).toLocaleDateString('en-US', options);
+        deadline.innerHTML = formattedDeadline;
+    } else {
+        deadline.innerHTML = 'No upcoming Deadlines';
+    }
 }

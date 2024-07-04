@@ -217,7 +217,7 @@ function choseContactForAssignment(event) {
     } else {
         assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
     }
-    
+
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -240,7 +240,7 @@ async function addTask() {
         subtasks: subtasks,
         dragCategory: "open"
     };
-    conditionForAddTask(lastClickedButton, uid, task);
+    postTask('/users/' + uid + '/tasks', task);
 }
 
 // Initialien der assigned contacts holen
@@ -251,16 +251,6 @@ function getContactsInitials(contacts) {
     return contacts.map(contact => getInitials(contact.trim())).join(', ');
 }
 
-// wird eins drüber bei der Funktion addTask() benötigt.
-function conditionForAddTask(lastClickedButton, uid, task) {
-    if (lastClickedButton === 'Urgent') {
-        postTask('/users/' + uid + '/urgentTasks', task);
-    } else if (lastClickedButton === 'Medium') {
-        postTask('/users/' + uid + '/mediumTasks', task);
-    } else if (lastClickedButton === 'Low') {
-        postTask('/users/' + uid + '/lowTasks', task);
-    }
-}
 
 
 document.addEventListener('DOMContentLoaded', () => {

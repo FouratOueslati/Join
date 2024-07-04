@@ -11,20 +11,18 @@ async function initBoard() {
 
 
 async function displayOpenTasks() {
-    debugger
     let toDoContainer = document.getElementById('open');
-    let allTasksArray = await loadAllTasksFromStorage();
-    let allOpenTasks = allTasksArray.filter(task => task['dragCategory'] === 'open');
-    console.log(allTasksArray);
-    for (let i = 0; i < allTasksArray.length; i++) {
-        let task = allTasksArray[i];
-        todos[task.id] = task;
-    }
-    toDoContainer.innerHTML = '';
-    for (let i = 0; i < allOpenTasks.length; i++) {
-        let task = allOpenTasks[i];
-        toDoContainer.innerHTML += getOpenTaskHtml(task, i);
-        await getContactInitials(task.contacts, i);
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    let taskIds = Object.keys(tasks);
+    for (let i = 0; i < taskIds.length; i++) {
+        let id = taskIds[i];
+        if (tasks[id]['dragCategory'] === 'open') {
+            let task = { id: id, task: tasks[id] };
+            console.log(task)
+            toDoContainer.innerHTML += getOpenTaskHtml(task, i);
+            await getContactInitials(task.task.contacts, i);
+        }
     }
 }
 
@@ -32,12 +30,12 @@ async function displayOpenTasks() {
 // HTML for the displayOpenTasks function
 function getOpenTaskHtml(task, i) {
     return /*html*/`
-    <div draggable="true" ondragstart="startDragging(${task.id})" class="todo" onclick="zoomTaskInfo(${i})" id="task${i}">
+    <div draggable="true" ondragstart="startDragging(${i})" class="todo" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
-            <div class="category">${task['category']}</div>
+            <div class="category">${task['task']['category']}</div>
         </div>
-        <div class="task-title">${task['name']}</div>
-        <div id="desciption${i}" class="task-description">${task['description']}</div>
+        <div class="task-title">${task['task']['name']}</div>
+        <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
         <div class="subtasks-number-container">
             <img class="load-bar" src="./img/filler.png">
             <div class="subtasks">0/2 Subtasks</div>
@@ -51,30 +49,32 @@ function getOpenTaskHtml(task, i) {
     </div>`;
 }
 
-
+function startDragging(id) {
+    currentDraggedElement = id;
+}
 
 function generateModalContent(task, i) {
     return /*html*/`
-            <div class="category-opened">${task['category']}</div>
-            <div class="title-opened">${task['name']}</div>
-            <div class="description-opened">${task['description']}</div>
+            <div class="category-opened">${task['task']['category']}</div>
+            <div class="title-opened">${task['task']['name']}</div>
+            <div class="description-opened">${task['task']['description']}</div>
             <div class="details-container">
                 <span class="fine-written"> Due date:</span>
-                <div class="space-correct"> ${task['date']}</div>
+                <div class="space-correct"> ${task['task']['date']}</div>
             </div>
             <div class="details-container">
                 <span class="fine-written"> Priority:</span>
-                <div class="space-correct"> ${task['priority']}</div>
+                <div class="space-correct"> ${task['task']['priority']}</div>
             </div>
             <div class="assigned-to-container">
                   <div>Assigned To:</div>
                 <div class="assigned-contacts-container">
-                  <div >${generateContactInitialsAndNamesHtml(task['contacts'], i)}</div>
+                  <div >${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
                 </div>
             </div>       
             <div>
               <div class="details-container">Subtasks</div>
-              <div class="subtasks-opened">${generateSubtasksHtml(task['subtasks'], i)}</div>
+              <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
             </div>
         `;
 }
@@ -199,16 +199,12 @@ function limitText(containerId, wordLimit) {
     }
 }
 
-function startDragging(id) {
-    currentDraggedElement = id;
-}
 
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
 function moveTo(category) {
-    debugger
     if (todos[currentDraggedElement]) {
         todos[currentDraggedElement]['dragCategory'] = category;
         updateHTML();
@@ -257,9 +253,6 @@ function updateHTML() {
     }
 }
 
-function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['name']}</div>`;
-}
 
 
 

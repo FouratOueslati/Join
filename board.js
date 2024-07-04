@@ -49,7 +49,7 @@ function getOpenTaskHtml(task, i) {
 
 function getInitials(name) {
     var upperChars = "";
-    var words = name.split(" ");
+    var words = name.split("");
     for (var i = 0; i < words.length; i++) {
         var word = words[i];
         if (word.length > 0) {

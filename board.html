@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
-
     <link rel="stylesheet" href="board.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
@@ -16,14 +15,14 @@
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="legal_privacy.css">
     <link rel="stylesheet" href="addTask.css">
+    <script src="board.js"></script>
     <script src="addTask.js"></script>
     <script src="include.js"></script>
-    <script src="board.js"></script>
     <script src="storage.js"></script>
     <script src="logout.js"></script>
     <script src="templates/topbar.js"></script>
 </head>
-<body onload="initBoard()">
+<body id="allContentBoard" style="visibility: hidden;" onload="initBoard()">
     <div onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
         <div onclick="doNotClose(event)" id="addTaskPopUp" class="parent-Container-for-addTask-board addTask-window">
             <div class="main-container-task">

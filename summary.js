@@ -2,10 +2,16 @@ async function initSummary() {
     includeHTML();
     showLoggedUserInitials();
     await greetUser();
-    await loadAllTasks();
+    await loadToDoTasks();
+    await loadUrgentTasksNumber();
     await displayUpcomingDeadline();
-    await loadUrgentTaskNumbers();
+    await loadAllTasks();
+    await loadInProgressTasks();
+    await loadFeedbackTasks();
+    document.getElementById('allContentSummary').style.visibility = 'visible';
 }
+
+
 
 async function loadAllTasks() {
     let allTasksNumber = document.getElementById('allTasksNumber');
@@ -27,6 +33,51 @@ async function loadUrgentTasksNumber() {
     }
     urgentTasksNumber.innerHTML = urgentTaskCount;
 }
+
+
+async function loadToDoTasks() {
+    let toDoTasksNumber = document.getElementById('toDosNumber');
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    let toDoTasksCount = 0;
+    for (let i = 0; i < taskIds.length; i++) {
+        let id = taskIds[i];
+        if (tasks[id].dragCategory === 'to do') {
+            toDoTasksCount++;
+        }
+    }
+    toDoTasksNumber.innerHTML = toDoTasksCount;
+}
+
+
+async function loadInProgressTasks() {
+    let inProgressTasksNumber = document.getElementById('inProgressNumber');
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    let inProgressTasksCount = 0;
+    for (let i = 0; i < taskIds.length; i++) {
+        let id = taskIds[i];
+        if (tasks[id].dragCategory === 'in progress') {
+            inProgressTasksCount++;
+        }
+    }
+    inProgressTasksNumber.innerHTML = inProgressTasksCount;
+}
+
+async function loadFeedbackTasks() {
+    let feedbackTasksNumber = document.getElementById('feedbackNumber');
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    let feedbackTasksCount = 0;
+    for (let i = 0; i < taskIds.length; i++) {
+        let id = taskIds[i];
+        if (tasks[id].dragCategory === 'await feedback') {
+            feedbackTasksCount++;
+        }
+    }
+    feedbackTasksNumber.innerHTML = feedbackTasksCount;
+}
+
 
 async function greetUser() {
     let userData = await loadSpecificUserDataFromLocalStorage();

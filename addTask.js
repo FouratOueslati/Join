@@ -178,6 +178,7 @@ function clearSubtaskInput() {
 document.addEventListener('DOMContentLoaded', (event) => {
     addPrioEventListeners();
     addCategoryEventListener();
+    addDragCategoryEventListeners();
 });
 
 
@@ -192,6 +193,18 @@ function addPrioEventListeners() {
 
     document.getElementById('lowButton').addEventListener('click', () => {
         localStorage.setItem('lastClickedButton', 'Low');
+    });
+}
+
+function addDragCategoryEventListeners() {
+    document.getElementById('awaitFeedback').addEventListener('click', () => {
+        localStorage.setItem('dragCategory', 'await feedback');
+    });
+    document.getElementById('toDo').addEventListener('click', () => {
+        localStorage.setItem('dragCategory', 'to do');
+    });
+    document.getElementById('inProgress').addEventListener('click', () => {
+        localStorage.setItem('dragCategory', 'in progress');
     });
 }
 
@@ -217,7 +230,6 @@ function choseContactForAssignment(event) {
     } else {
         assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
     }
-
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -230,6 +242,7 @@ async function addTask() {
     let subtasks = JSON.parse(localStorage.getItem('subtasks'));
     let lastClickedButton = localStorage.getItem('lastClickedButton');
     let selectedCategory = localStorage.getItem('selectedCategory');
+    let dragCategory = localStorage.getItem('dragCategory');
     let task = {
         name: taskTitle,
         description: taskDescription,
@@ -238,10 +251,12 @@ async function addTask() {
         category: selectedCategory,
         contacts: contacts,
         subtasks: subtasks,
-        dragCategory: "open"
+        dragCategory: dragCategory || "to do"
     };
-    postTask('/users/' + uid + '/tasks', task);
+    await postTask('/users/' + uid + '/tasks', task);
+    localStorage.removeItem('dragCategory');
 }
+
 
 // Initialien der assigned contacts holen
 function getContactsInitials(contacts) {

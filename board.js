@@ -1,6 +1,6 @@
 let currentDraggedElement;
 let currentTask = 0;
-let todos = {};
+let todos = [];
 
 async function initBoard() {
     includeHTML();
@@ -11,20 +11,27 @@ async function initBoard() {
 
 
 async function displayOpenTasks() {
-    let toDoContainer = document.getElementById('open');
+    let toDoContainer = document.getElementById('toDoTasks');
+    let toDoInProgressContainer = document.getElementById('inProgressTasks');
+    let toDoFeedbackContainer = document.getElementById('feedbackTasks');
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     let taskIds = Object.keys(tasks);
     console.log(taskIds);
     for (let i = 0; i < taskIds.length; i++) {
         let id = taskIds[i];
-        if (tasks[id]['dragCategory'] === 'open') {
-            let task = { id: id, task: tasks[id] };
+        let task = { id: id, task: tasks[id] };
+        if (tasks[id]['dragCategory'] === 'to do') {
             toDoContainer.innerHTML += getOpenTaskHtml(task, i);
-            await getContactInitials(task.task.contacts, i);
+        } else if (tasks[id]['dragCategory'] === 'in progress') {
+            toDoInProgressContainer.innerHTML += getOpenTaskHtml(task, i);
+        } else if (tasks[id]['dragCategory'] === 'await feedback') {
+            toDoFeedbackContainer.innerHTML += getOpenTaskHtml(task, i);
         }
+        await getContactInitials(task.task.contacts, i);
     }
 }
+
 
 
 // HTML for the displayOpenTasks function

@@ -141,4 +141,3 @@ async function loadAllTasksFromStorage() {
     let tasks = userData.tasks;
     return tasks;
 }
-

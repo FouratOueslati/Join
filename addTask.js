@@ -178,7 +178,6 @@ function clearSubtaskInput() {
 document.addEventListener('DOMContentLoaded', (event) => {
     addPrioEventListeners();
     addCategoryEventListener();
-    addDragCategoryEventListeners();
 });
 
 
@@ -195,19 +194,6 @@ function addPrioEventListeners() {
         localStorage.setItem('lastClickedButton', 'Low');
     });
 }
-
-function addDragCategoryEventListeners() {
-    document.getElementById('awaitFeedback').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'await feedback');
-    });
-    document.getElementById('toDo').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'to do');
-    });
-    document.getElementById('inProgress').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'in progress');
-    });
-}
-
 
 function addCategoryEventListener() {
     document.querySelectorAll('#categoryMenu li').forEach(category => {

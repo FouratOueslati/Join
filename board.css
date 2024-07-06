@@ -284,6 +284,7 @@ body {
 }
 
 .initials-opened {
+    width: 100%;
     color: white;
     padding: 8px;
     border-radius: 50%;

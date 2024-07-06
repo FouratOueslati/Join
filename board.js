@@ -7,6 +7,24 @@ async function initBoard() {
     await displayOpenTasks();
     displayNamesOfContacts();
     showLoggedUserInitials();
+    document.getElementById('allContentBoard').style.visibility = 'visible';
+}
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    addDragCategoryEventListeners();
+});
+
+function addDragCategoryEventListeners() {
+    document.getElementById('awaitFeedback').addEventListener('click', () => {
+        localStorage.setItem('dragCategory', 'await feedback');
+    });
+    document.getElementById('toDo').addEventListener('click', () => {
+        localStorage.setItem('dragCategory', 'to do');
+    });
+    document.getElementById('inProgress').addEventListener('click', () => {
+        localStorage.setItem('dragCategory', 'in progress');
+    });
 }
 
 
@@ -157,7 +175,7 @@ function closeModal(modal) {
 
 function getInitials(name) {
     var upperChars = "";
-    var words = name.split("");
+    var words = name.split(" ");
     for (var i = 0; i < words.length; i++) {
         var word = words[i];
         if (word.length > 0) {

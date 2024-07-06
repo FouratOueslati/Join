@@ -15,6 +15,7 @@ async function displayOpenTasks() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     let taskIds = Object.keys(tasks);
+    console.log(taskIds);
     for (let i = 0; i < taskIds.length; i++) {
         let id = taskIds[i];
         if (tasks[id]['dragCategory'] === 'open') {
@@ -219,6 +220,7 @@ function removeHighlight(id) {
 }
 
 function updateHTML() {
+    debugger
     let open = Object.values(todos).filter(t => t['dragCategory'] == 'open');
     document.getElementById('open').innerHTML = '';
     for (let index = 0; index < open.length; index++) {

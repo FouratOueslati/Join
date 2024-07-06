@@ -142,10 +142,3 @@ async function loadAllTasksFromStorage() {
     return tasks;
 }
 
-
-async function loadAllUrgentTasksFromStorage() {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let urgentTasks = userData.urgentTasks || {};
-    let urgentTasksArray = Object.values(urgentTasks);
-    return urgentTasksArray;
-}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="contacts.css">
+    <link rel="stylesheet" href="summary.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="./templates/bluebar.css">
+    <link rel="stylesheet" href="./templates/topbar.css">
+    <link rel="stylesheet" href="legal_privacy.css">
+    <title>Contacts</title>
+    <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
+    <script src="contacts.js"></script>
+    <script src="storage.js"></script>
+    <script src="include.js"></script>
+    <script src="logout.js"></script>
+    <script src="templates/topbar.js"></script>
+</head>
+<body  onload="init()">
+    <div class="main-content">
+        <div id="dialogNewEditContact" class="dialog-new-contact d-none" onclick="closeDialog()"></div>
+        <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
+        <div class="content-container">
+            <div class="header-container" w3-include-html="templates/topbar.html"></div>
+            <div class="parent-container">
+                <div class="contact-box">
+                    <div id="arrowContact" class="arrow-contact d-none" onclick="closeContactMobile()">
+                        <img src="./img/arrow-left-line.png">
+                    </div>
+                    <div id="contactsContainer" class="contacts-container">
+                        <div class="add-contact-box">
+                            <button onclick="openAddNewContact()" class="button-add-contacts">
+                                <div class="button-txt">Add New Contact</div>
+                                <img class="img-contact-add" src="./contactsImg/person_add.svg">
+                            </button>
+                        </div>
+                        <div class="scroll">
+                            <div id="filteredContactsContainer">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contactBigContainer" class="contact-big-container">
+                        <div id="contactHeadline" class="contact-headline">
+                            <div class="fat-Contacts-headline">Contacts</div>
+                            <div class="seperator-and-text-container">
+                                <div class="vertical-seperator"></div>
+                                <div>Better with a team</div>
+                            </div>
+                        </div>
+                        <div id="test" class="test">
+                            <div id="contactInfos" class="contact-infos"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href=" font.css">
+    <link rel="stylesheet" href="signupLoginResponsive.css">
+    <script src="storage.js"></script>
+    <script src="signup.js"></script>
+    <title>Sign up</title>
+    <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
+</head>
+
+<body>
+    <div class="background">
+        <div>
+            <a href="login.html"><img class="arrow-left-line" src="./img/arrow-left-line.png"></a>
+            <img class="join-icon-signup" src="./img/Capa 2.png">
+        </div>
+        <form onsubmit="postUser('/users'); return false;" class="main-container-signup">
+            <div class="signup-headline">Sign up</div>
+            <div class="blue-seperator"></div>
+            <div class="data-container">
+                <input id="name" placeholder="Name" type="text" required class="name-input">
+                <input id="email" placeholder="Email" type="email" required class="email-input">
+                <input id="password" placeholder="Password" type="password" required class="password-input">
+                <input id="confirmedPassword" placeholder="Confirm Password" type="password" required
+                    class="password-input">
+            </div>
+            <div class="accept-policy-container">
+                <input class="rectangle" type="checkbox" required>
+                <div>
+                    <div class="accept-text">I accept the<a href="#" class="policy-link"> Privacy policy</a></div>
+                </div>
+            </div>
+            <button class="sign-up-button">Sign up</button>
+        </form>
+        <div class="legal-container">
+            <a>Privacy policy</a>
+            <a>Legal notice</a>
+        </div>
+    </div>
+    <div id="successfull-container" class="signup-successful-container d-none">
+        <div id="succesfull-signup" class="succesfull-signup">You signed up successfully</div>
+    </div>
+</body>
+</html>

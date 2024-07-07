@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href=" font.css">
+    <link rel="stylesheet" href="signupLoginResponsive.css">
+    <link rel="stylesheet" href="keyframes.css">
+    <script src="storage.js"></script>
+    <script src="login.js"></script>
+    <title>Log in</title>
+    <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
+</head>
+
+<body>
+    <div class="background-animation">
+    </div>
+    <img class="intro-img" src="./img/Capa 2.png">
+    <img class="intro-img-responsive" src="./img/Capa2White.png">
+    <div class="background">
+        <form onsubmit="logIn(); return false" class="main-container">
+            <div class="login-headline">Log in</div>
+            <div class="blue-seperator"></div>
+            <div class="data-container">
+                <input id="loginEmail" placeholder="Email" required class="email-input" type="email">
+                <input id="loginPassword" placeholder="Password" required class="password-input" type="password">
+                <div class="remember-container">
+                    <input type="checkbox" id="rememberMeCheckbox" class="rectangle">
+                    <label for="rememberMeCheckbox" class="remember-text">Remember me</label>
+                </div>
+                <div class="login-buttons-container">
+                    <button class="login-button">Log in</button>
+                    <button class="guest-button">Guest log in</button>
+                </div>
+            </div>
+        </form>
+        <div class="not-user-container">
+            <div class="not-user-text">Not a Join user?</div>
+            <a href="signup.html"><button class="sign-up-button">Sign up</button></a>
+        </div>
+        <div class="legal-container">
+            <a>Privacy policy</a>
+            <a>Legal notice</a>
+        </div>
+
+    </div>
+</body>
+
+</html>

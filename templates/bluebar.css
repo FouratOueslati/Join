@@ -1,0 +1,148 @@
+.tools-container {
+    width: 232px;
+    height: 100vh;
+    position: fixed;
+    background-color: #2A3647;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+
+.join-icon {
+    width: 65px;
+    height: 80px;
+    margin-bottom: 100px;
+}
+
+
+.tools-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.menu-tools-container {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.menu-tool {
+    color: white;
+    box-sizing: border-box;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    height: 50px;
+    text-decoration: none;
+}
+
+.menu-tool img {
+    padding-left: 56px;
+}
+
+
+.menu-tool:hover {
+    background-color: #091931;
+    cursor: pointer;
+}
+
+
+.menu-img {
+    width: 25px;
+    height: 25px;
+}
+
+
+.policy-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 50px;
+    gap: 12px;
+    color: rgba(168, 168, 168, 1);
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    flex: 1;
+}
+
+a {
+    text-align: left;
+}
+
+a:hover {
+    color: #29ABE2;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 1024px) {
+    .join-icon {
+        display: none;
+    }
+
+    .content-container {
+        height: 100vh;
+        margin: unset;
+    }
+
+    .tools-container {
+        padding-top: unset;
+        justify-content: center;
+        width: 100vw;
+        height: 10%;
+        position: fixed;
+        bottom: 0;
+        font-size: 14px;
+        text-align: center;
+        align-items: stretch;
+    }
+
+    .menu-tools-container {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .menu-tool {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        
+    }
+
+    .menu-tool:hover {
+        font-size: unset;
+    }
+
+    .menu-img {
+        height: 24px;
+        width: 24px;
+    }
+
+    .menu-tool img {
+        padding-left: unset;
+    }
+
+    .todo {
+        height: 110px;
+        width: 186px;
+        gap: 10px;
+    }
+
+
+}

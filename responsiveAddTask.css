@@ -1,0 +1,58 @@
+@media (max-width: 1024px) {
+    .parent-container {
+        width: 100vw;
+    }
+
+    .button-end-process-container {
+        margin-bottom: 10%;
+    }
+
+}
+
+@media (max-width: 800px) {
+    .seperate-container {
+        display: none;
+    }
+
+    .header-container {
+        z-index: 999;
+        position: fixed;
+        top: 0;
+    }
+
+    .aot-task-container {
+        padding-left: 18px;
+        margin-top: 65px;
+        z-index: 888;
+        width: 90%;
+        position: fixed;
+        top: 0;
+        background-color: #F6F7F8;
+    }
+
+    .main-container-task-one-two {
+        margin-bottom: 100px;
+        align-items: center;
+        width: 100vw;
+        flex-direction: column;
+        margin-top: 180px;
+        height: 100vh;
+    }
+
+    .add-task-set-up-one-container {
+        width: 90%;
+    }
+
+    .add-task-set-up-two-container {
+        width: 90%;
+    }
+
+    .button-end-process-container {
+        position: sticky;
+        bottom: 10%;
+        width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+        background-color: #F6F7F8;
+    }
+}

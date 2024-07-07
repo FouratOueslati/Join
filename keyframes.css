@@ -1,0 +1,53 @@
+@keyframes moveUp {
+
+    100% {
+        display: unset;
+        position: absolute;
+        width: 65px;
+        height: 80px;
+        top: 60px;
+        left: 60px;
+    }
+}
+
+
+@keyframes backgroundAnimation {
+
+    100% {
+        background-color: transparent;
+        display: none;
+    }
+}
+
+
+@keyframes moveUpResponsiveBlue {
+    100% {
+        display: unset;
+        position: absolute;
+        width: 65px;
+        height: 80px;
+        top: 20px;
+        left: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes moveUpResponsiveWhite {
+    100% {
+        position: absolute;
+        width: 65px;
+        height: 80px;
+        top: 20px;
+        left: 20px;
+        opacity: 0;
+    }
+}
+
+
+@keyframes backgroundAnimationResponsive {
+
+    100% {
+        background-color: transparent;
+        display: none;
+    }
+}

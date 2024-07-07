@@ -1,0 +1,204 @@
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+
+.main-content {
+    display: flex;
+}
+
+
+.parent-container {
+    background-color: #F6F7F8;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container {
+    height: 100vh;
+    width: calc(100vw - 232px);
+    margin-left: 232px;
+}
+
+.summary-headline {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10%;
+    gap: 30px;
+    height: 20%;
+    font-size: 27px;
+    
+}
+
+
+.join-360,
+.fat-Contacts-headline {
+    font-weight: 700;
+    font-size: 60px;
+}
+
+
+.seperator-and-text-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.vertical-seperator {
+    height: 60px;
+    width: 0px;
+    border: 2px solid #29ABE2;
+    border-radius: 8px;
+}
+
+
+.greeting-and-todos-container {
+    gap: 18px;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.todos-container {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    box-sizing: border-box;
+    padding: 0 80px 0 96px;
+}
+
+
+.todo {
+    width: 240px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    gap: 34px;
+    font-size: 20px;
+    background-color: #FFFFFF;
+}
+
+.todos-box {
+    display: flex;
+    justify-content: space-between;
+    width: 540px;
+}
+
+.todo:hover {
+    background-color: #2A3647;
+    color: white;
+}
+
+
+.todos-number-container {
+    font-weight: 600;
+    font-size: 64px;
+}
+
+
+.urgent-todo-container {
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    width: 540px;
+    height: 140px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+
+.urgent-todo-container:hover {
+    background-color: #2A3647;
+    color: white;
+}
+
+
+.urgent-box {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.grey-seperator {
+    border: 2px solid #D1D1D1;
+    width: 0px;
+    height: 100px;
+}
+
+
+.deadline-reminder-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.date-container {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+.undone-todos-container {
+    width: 540px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.todo-in-progress {
+    box-sizing: border-box;
+    padding: 8px;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    gap: 34px;
+    font-size: 20px;
+    background-color: #FFFFFF;
+}
+
+
+.todo-in-progress:hover {
+    background-color: #2A3647;
+    color: white;
+}
+
+
+.greeting-container {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+
+.greeting {
+    font-size: 47px;
+    font-weight: 500;
+}
+
+
+.user-name {
+    font-size: 55px;
+    font-weight: 700;
+    color: #29ABE2;
+}

@@ -1,0 +1,275 @@
+@media (max-width: 1300) {
+    .fat-Contacts-headline {
+        font-size: 47px;
+    }
+}
+
+@media (max-width: 1150px) {
+    .greeting-container {
+        width: 25%;
+    }
+
+    .greeting {
+        font-size: 36px;
+        font-weight: 400;
+    }
+
+    .user-name {
+        font-size: 47px;
+        font-weight: 700;
+    }
+
+    .not-user-container {
+        position: unset;
+    }
+
+}
+
+@media (max-width: 1024px) {
+  
+    .scroll {
+        overflow-x: hidden;
+    }
+}
+
+
+@media (max-width: 900px) {
+    body {
+        flex-direction: column-reverse;
+    }
+
+    .login-headline {
+        height: 60px;
+        font-size: 48px;
+    }
+
+    .blue-seperator {
+        width: 80px;
+    }
+
+    .main-container {
+        width: 310px;
+        margin-top: 100px;
+    }
+
+    .data-container {
+        width: 310px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .email-input {
+        width: 250px;
+        background-position: 250px;
+    }
+
+    .password-input {
+        width: 250px;
+        background-position: 250px;
+    }
+
+    .remember-container {
+        padding-left: unset;
+        margin-bottom: unset;
+        padding-right: 130px;
+    }
+
+    .login-buttons-container {
+        flex-direction: column;
+        gap: 21px;
+        padding-left: unset;
+    }
+
+    .login-button {
+        width: 140px;
+    }
+
+    .main-container-signup {
+        width: 310px;
+    }
+
+    .arrow-left-line {
+        right: 130px;
+        top: 120px;
+    }
+
+    .signup-headline {
+        height: 60px;
+        font-size: 48px;
+    }
+
+   
+  
+
+    .greeting-container {
+        display: none;
+    }
+
+    .seperator-and-text-container {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .help-icon {
+        display: none;
+    }
+
+    .join-360 {
+        font-size: 38px;
+    }
+
+    .vertical-seperator {
+        width: 60px;
+        height: 0;
+    }
+
+    .todos-container {
+        width: 100%;
+        gap: 12px;
+    }
+
+    .todo {
+        height: 120px;
+        width: 200px;
+    }
+
+    .urgent-todo-container {
+        height: 120px;
+    }
+
+    .todo-in-progress {
+        width: 120px;
+        height: 120px;
+    }
+
+    .contact-headline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 20px;
+    }
+
+    .parent-container {
+        height: calc(100vh - 160px);
+    }
+
+    /* CSS Nicole ////////////////////////// */
+    .help_legal_privacy {
+        padding-left: 16px;
+    }
+
+    .help_legal_privacy-headline {
+        margin: 48px 0 32px 0;
+    }
+
+    /* //////////////////////////////////// */
+}
+
+@media (max-width: 600px) {
+    .main-container-signup {
+        margin-top: 80px;
+    }
+
+    .arrow-left-line {
+        right: 130px;
+        top: 210px;
+    }
+
+
+    .contact-headline {
+        display: none;
+    }
+
+    .contact-data {
+        gap: 18px;
+    }
+
+    .contacts-name {
+        font-size: 16px;
+    }
+
+    .contact-email {
+        font-size: 12px;
+    }
+
+    .shorts-name {
+        height: 42px;
+        width: 42px;
+    }
+
+    .intro-img {
+        animation: moveUpResponsiveBlue ease-in-out 1500ms;
+        animation-fill-mode: forwards;
+    }
+
+    .intro-img-responsive {
+        animation: moveUpResponsiveWhite ease-in-out 1500ms;
+        animation-fill-mode: forwards;
+        display: unset;
+    }
+
+    .background-animation {
+        animation: backgroundAnimationResponsive ease-in-out 2000ms;
+        animation-fill-mode: forwards;
+        background-color: #2A3647;
+        height: 100vh;
+    }
+
+    .todos-box {
+        width: 310px;
+        gap: 24px;
+        gap: 24px;
+    }
+
+    .urgent-todo-container {
+        width: 310px;
+        padding: 24px;
+        gap: 20px;
+        gap: 20px;
+    }
+
+    .undone-todos-container {
+        width: 310px;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 550px) {
+    .main-container {
+        margin-top: 100px;
+    }
+
+    .todo-in-progress {
+        font-size: 16px;
+    }
+
+    .small-icon {
+        width: 40px;
+        height: 40px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .todos-number-container {
+        font-size: 47px;
+    }
+
+    .todos-text-container {
+        font-size: 14px;
+    }
+
+    .date-container {
+        font-size: 16px;
+        font-size: 47px;
+    }
+
+    .todos-text-container {
+        font-size: 14px;
+    }
+
+    .date-container {
+        font-size: 16px;
+    }
+}

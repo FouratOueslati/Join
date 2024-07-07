@@ -8,7 +8,6 @@ async function initBoard() {
     await displayOpenTasks();
     displayNamesOfContacts();
     showLoggedUserInitials();
-    document.getElementById('allContentBoard').style.visibility = 'visible';
 }
 
 

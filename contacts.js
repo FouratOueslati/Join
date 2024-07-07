@@ -16,7 +16,6 @@ async function init() {
     displayInitialsFilter();
     await displayInitialsAndContacts();
     showLoggedUserInitials();
-    document.getElementById('allContentContacts').style.visibility = 'visible';
 }
 
 async function loadDataAfterChanges() {

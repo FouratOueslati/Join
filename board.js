@@ -26,7 +26,6 @@ function addDragCategoryEventListeners() {
     });
 }
 
-fgjksdfkk
 async function displayOpenTasks() {
     let toDoContainer = document.getElementById('toDoTasks');
     let toDoInProgressContainer = document.getElementById('inProgressTasks');

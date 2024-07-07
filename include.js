@@ -29,8 +29,5 @@ function includeHTML() {
   // stops propagation
   function doNotClose(event) {
     event.stopPropagation();
-    if [
-      
-    ]
 }
 

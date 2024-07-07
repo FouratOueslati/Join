@@ -8,7 +8,6 @@ async function initSummary() {
     await loadAllTasks();
     await loadInProgressTasks();
     await loadFeedbackTasks();
-    document.getElementById('allContentSummary').style.visibility = 'visible';
 }
 
 

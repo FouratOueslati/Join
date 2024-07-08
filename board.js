@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function addDragCategoryEventListeners() {
     document.getElementById('awaitFeedback').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'await feedback');
+        localStorage.setItem('dragCategory', 'awaitfeedback');
     });
     document.getElementById('toDo').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'to do');
+        localStorage.setItem('dragCategory', 'todo');
     });
     document.getElementById('inProgress').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'in progress');
+        localStorage.setItem('dragCategory', 'inprogress');
     });
 }
 
@@ -59,7 +59,7 @@ async function displayOpenTasks() {
 // HTML for the displayOpenTasks function
 function getOpenTaskHtml(task, i) {
     return /*html*/`
-    <div draggable="true" ondragstart="startDragging(${i})" class="todo" onclick="zoomTaskInfo(${i})" id="task${i}">
+    <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
             <div class="category">${task['task']['category']}</div>
         </div>
@@ -249,7 +249,8 @@ function removeHighlight() {
 }
 
 function updateHTML() {
-    let open = Object.values(todos).filter(t => t['task']['dragCategory'] == 'open');
+    debugger;
+    let open = Object.values(todos).filter(t => t['task']['dragCategory'] == 'todo');
     document.getElementById('toDoTasks').innerHTML = "";
     for (let index = 0; index < open.length; index++) {
         const element = open[index];

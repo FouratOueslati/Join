@@ -8,7 +8,9 @@ let displayedLetters = [];
 let contacts = [];
 let uid = localStorage.getItem('uid');
 
-
+/**
+ * This function load other functions
+ */
 async function init() {
     includeHTML();
     await loadUserData();
@@ -16,7 +18,6 @@ async function init() {
     displayInitialsFilter();
     await displayInitialsAndContacts();
     showLoggedUserInitials();
-    document.getElementById('allContentContacts').style.visibility = 'visible';
 }
 
 async function loadDataAfterChanges() {
@@ -62,7 +63,10 @@ function displayInitialsFilter() {
     }
 }
 
-// zeigt alle vorhandenen Kontakte an
+
+/**
+ * This function shows all existing contacts
+ */
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
@@ -97,27 +101,18 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
     }
 }
 
-// zeigt die jeweilige Farbe des Kontakts
+/**
+ * This function shows the color for the contact
+ * 
+ * @param {*} i 
+ * @param {*} color 
+ */
 function showColorForContact(i, color) {
     let contactInitial = document.getElementById(`contactsInitials${i}`);
     contactInitial.style.backgroundColor = color;
 }
 
 
-function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email) {
-    return `
-        <div id="contactData${i}" class="contact-data" onclick="openContact(${i}), openContactMobile(${i})">
-            <div id="contactsInitials${i}" class="shorts-name">${firstLetterOfName}${firstLetterOfLastName}</div>
-            <div>
-                <div id="contact-name${i}" class="contact-name">${firstName} ${lastName}</div>
-                <div id="contact-email${i}" class="contact-email">${email}</div>
-            </div>
-        </div>
-    `;
-}
-
-async function CloseContact(i) {
-}
 async function findIndexOf(contactId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     const keys = Object.keys(userData.contacts);
@@ -131,8 +126,6 @@ async function openContact(i) {
     const keys = Object.keys(contacts);
     let contactId = keys[i];
     let contact = contacts[contactId];
-    let contactContainer = document.getElementById(`contactData${i}`);
-    contactContainer.classList.add('dark-background')
     let firstLetterOfName = document.getElementById(`contactsInitials${i}`).innerHTML.charAt(0);
     let firstLetterOfSurname = document.getElementById(`contactsInitials${i}`).innerHTML.charAt(1);
     let name = contact.name;
@@ -143,31 +136,24 @@ async function openContact(i) {
     contactInfos.innerHTML = '';
     contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i);
     showColorForBigContact(i, color);
+    openContactChangeBgColor(i);
 }
 
 
-function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i) {
-    return `
-    <div>
-        <div class="edit-delete-contact">
-            <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
-            <div class="full-name">${name}
-                <div class="edit-delete-box">
-                    <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
-                    <img onclick="deleteContact(${i})" src="./img/delete_contact.png">
-                </div>
-            </div>
-        </div>
-        <div class="contact-information">Contact Information</div>
-        <div class="email-phone-box">
-            <div class="email-phone-headline">Email</div>
-            <div class="email-phone join">${email}</div>
-            <div class="email-phone-headline">Phone</div>
-            <div class="email-phone">${number}</div>
-        </div>
-    </div>
-    `;
+function openContactChangeBgColor(i) {
+    let contactData = document.getElementById(`contactData${i}`);
+    if (contactData) {
+        contactData.addEventListener("click", changeBgColor);
+        function changeBgColor() {
+            let allContacts = document.querySelectorAll('.bg-contact-container');
+            allContacts.forEach(contact => {
+                contact.classList.remove('bg-contact-container');
+            });
+            contactData.classList.add('bg-contact-container');
+        }
+    }
 }
+
 
 // generiert die Farbe und zeigt sie an
 function showColorForBigContact(i, color) {
@@ -208,7 +194,6 @@ function openAddNewContact() {
 function animateAddNewContact() {
     const screenWidth = window.innerWidth;
     const addNewContact = document.querySelector('.add-new-contact');
-
     if (screenWidth < 900) {
         addNewContact.style.transform = "translateY(100%)";
         addNewContact.classList.remove('d-none');
@@ -227,47 +212,6 @@ function animateAddNewContact() {
 
 window.addEventListener('resize', animateAddNewContact);
 
-
-function getAddNewContactHtml() {
-    return `
-    <div onclick="doNotClose(event)" id="addNewContact" class="add-new-contact">
-                <div class="add-contact-left">
-                    <div>
-                        <img src="./img/Capa 3.png">
-                        <div class="add-new-contact-headline">Add contact</div>
-                        <div class="text-contact">Tasks are better width a team!</div>
-                        <div class="blue-seperator-contact"></div>
-                    </div>
-                </div>
-                <div class="add-contact-right">
-                    <div class="close-add-contact">
-                        <img src="./img/close.png" onclick="closeDialog()">
-                    </div>
-                    <div class="contact-box-right">
-                        <img src="./img/Group 13.png" class="contact-img">
-                        <div class="data-box">
-                            <div class="add-contact-data">
-                                <input id="name" placeholder="Name" type="text" required class="name-input">
-                                <input id="email" placeholder="Email" type="email" required class="email-input email-edit">
-                                <input id="number" placeholder="Phone" type="text" required class="phone-input">
-                            </div>
-                            <div class="close-create-button">
-                                <button class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
-                                    <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg"></div>
-                                </button>
-                                <button onclick="createNewContact()" class="color-blue-button">
-                                    <div class="button-txt-img">Create Contact <img src="./addTaskImg/check.svg"
-                                            class="check-svg">
-                                    </div>
-                                </button>
-                                <div id="newColor" class="shorts-name d-none"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    `;
-}
 
 // schließt das Window für add new contact
 function closeDialog() {
@@ -324,42 +268,6 @@ function closeContactMobile() {
         arrowContact.style.display = 'none';
 }
 
-
-function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, contactId) {
-    return `
-        <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
-            <div class="add-contact-left">
-                <div>
-                    <img src="./img/Capa 3.png">
-                    <div class="add-new-contact-headline">Edit contact</div>
-                    <div class="blue-seperator-contact"></div>
-                </div>
-            </div>
-            <div class="add-contact-right">
-                <div class="close-add-contact">
-                    <img src="./img/close.png" onclick="closeDialog()">
-                </div>
-                <div class="contact-box-right">
-                    <div id="edit-contactsInitialsBig${contactId}" class="shorts-name-big edit">${firstLetterOfName}${firstLetterOfLastName}</div>
-                    <div>
-                        <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input" value="${email}">
-                            <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
-                        </div>
-                        <div class="close-create-button">
-                            <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
-                                <div class="button-txt-img">Delete</div>
-                            </button>
-                            <button onclick="saveEditContact('${contactId}')" class="color-blue-button">
-                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-}
 
 // speichert die Änderungen der Kontakte
 async function saveEditContact(contactId) {

@@ -229,6 +229,7 @@ async function addTask() {
     let lastClickedButton = localStorage.getItem('lastClickedButton');
     let selectedCategory = localStorage.getItem('selectedCategory');
     let dragCategory = localStorage.getItem('dragCategory');
+    dragCategory = dragCategory.split(" ").join("");
     let task = {
         name: taskTitle,
         description: taskDescription,
@@ -237,7 +238,7 @@ async function addTask() {
         category: selectedCategory,
         contacts: contacts,
         subtasks: subtasks,
-        dragCategory: dragCategory || "to do"
+        dragCategory: dragCategory || "todo"
     };
     await postTask('/users/' + uid + '/tasks', task);
     localStorage.removeItem('dragCategory');

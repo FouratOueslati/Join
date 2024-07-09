@@ -142,7 +142,7 @@ body {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.todo {
+.todo-class {
     margin-bottom: 12px;
     padding: 12px;
     background-color: white;
@@ -342,7 +342,7 @@ body {
         margin-bottom: 5%;
     }
 
-    .todo {
+    .todo-class {
         width: 200px;
     }
 }

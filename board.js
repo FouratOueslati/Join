@@ -1,3 +1,4 @@
+
 let currentDraggedElement;
 let currentTask = 0;
 let todos = [];
@@ -16,18 +17,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function addDragCategoryEventListeners() {
     document.getElementById('awaitFeedback').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'await feedback');
+        localStorage.setItem('dragCategory', 'awaitfeedback');
     });
     document.getElementById('toDo').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'to do');
+        localStorage.setItem('dragCategory', 'todo');
     });
     document.getElementById('inProgress').addEventListener('click', () => {
-        localStorage.setItem('dragCategory', 'in progress');
+        localStorage.setItem('dragCategory', 'inprogress');
     });
 }
 
 
 async function displayOpenTasks() {
+    debugger;
     let toDoContainer = document.getElementById('toDoTasks');
     let toDoInProgressContainer = document.getElementById('inProgressTasks');
     let toDoFeedbackContainer = document.getElementById('feedbackTasks');
@@ -38,11 +40,12 @@ async function displayOpenTasks() {
     for (let i = 0; i < taskIds.length; i++) {
         let id = taskIds[i];
         let task = { id: id, task: tasks[id] };
-        if (tasks[id]['dragCategory'] === 'to do') {
+        tasks[id]['dragCategory'] = tasks[id]['dragCategory'].split(" ").join("");
+        if (tasks[id]['dragCategory'] === 'todo') {
             toDoContainer.innerHTML += getOpenTaskHtml(task, i);
-        } else if (tasks[id]['dragCategory'] === 'in progress') {
+        } else if (tasks[id]['dragCategory'] === 'inprogress') {
             toDoInProgressContainer.innerHTML += getOpenTaskHtml(task, i);
-        } else if (tasks[id]['dragCategory'] === 'await feedback') {
+        } else if (tasks[id]['dragCategory'] === 'awaitfeedback') {
             toDoFeedbackContainer.innerHTML += getOpenTaskHtml(task, i);
         }
         await getContactInitials(task.task.contacts, i);
@@ -56,7 +59,7 @@ async function displayOpenTasks() {
 // HTML for the displayOpenTasks function
 function getOpenTaskHtml(task, i) {
     return /*html*/`
-    <div draggable="true" ondragstart="startDragging(${i})" class="todo" onclick="zoomTaskInfo(${i})" id="task${i}">
+    <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
             <div class="category">${task['task']['category']}</div>
         </div>
@@ -232,7 +235,7 @@ function allowDrop(ev) {
 
 function moveTo(category) {
     if (todos[currentDraggedElement]) {
-        todos[currentDraggedElement]['dragCategory'] = category;
+        todos[currentDraggedElement]['task']['dragCategory'] = category;
         updateHTML();
     }
 }
@@ -246,36 +249,39 @@ function removeHighlight() {
 }
 
 function updateHTML() {
-    debugger
-    let open = Object.values(todos).filter(t => t['dragCategory'] == 'open');
+    debugger;
+    let open = Object.values(todos).filter(t => t['task']['dragCategory'] == 'todo');
+    document.getElementById('toDoTasks').innerHTML = "";
     for (let index = 0; index < open.length; index++) {
         const element = open[index];
-        document.getElementById('toDoTasks').innerHTML += getOpenTaskHtml(element, index);
-        getContactInitials(element.contacts, index);
+        document.getElementById('toDoTasks').innerHTML += getOpenTaskHtml(element, element.id);
+        getContactInitials(element.contacts, element.id);
     }
 
-    let inprogress = Object.values(todos).filter(t => t['dragCategory'] == 'inprogress');
+    let inprogress = Object.values(todos).filter(t => t['task']['dragCategory'] == 'inprogress');
+    console.log(inprogress);
+    document.getElementById('inProgressTasks').innerHTML = "";
     for (let index = 0; index < inprogress.length; index++) {
         const element = inprogress[index];
-        document.getElementById('inProgressTasks').innerHTML += getOpenTaskHtml(element, index);
-        getContactInitials(element.contacts, index);
+        document.getElementById('inProgressTasks').innerHTML += getOpenTaskHtml(element, element.id);
+        getContactInitials(element.contacts, element.id);
     }
 
-    let awaitfeedback = Object.values(todos).filter(t => t['dragCategory'] == 'awaitfeedback');
+    let awaitfeedback = Object.values(todos).filter(t => t['task']['dragCategory'] == 'awaitfeedback');
+    document.getElementById('awaitFeedback').innerHTML = "";
     for (let index = 0; index < awaitfeedback.length; index++) {
         const element = awaitfeedback[index];
-        document.getElementById('awaitFeedback').innerHTML += getOpenTaskHtml(element, index);
-        getContactInitials(element.contacts, index);
+        document.getElementById('awaitFeedback').innerHTML += getOpenTaskHtml(element, element.id);
+        getContactInitials(element.contacts, element.id);
     }
 
-    let closed = Object.values(todos).filter(t => t['dragCategory'] == 'closed');
+    let closed = Object.values(todos).filter(t => t['task']['dragCategory'] == 'closed');
+    document.getElementById('closed').innerHTML = "";
     for (let index = 0; index < closed.length; index++) {
         const element = closed[index];
-        document.getElementById('closed').innerHTML += getOpenTaskHtml(element, index);
-        getContactInitials(element.contacts, index);
+        document.getElementById('closed').innerHTML += getOpenTaskHtml(element, element.id);
+        getContactInitials(element.contacts, element.id);
     }
 }
-
-
 
 

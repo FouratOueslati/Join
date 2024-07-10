@@ -53,7 +53,7 @@ function displayInitialsFilter() {
     for (let j = 0; j < displayedLetters.length; j++) {
         let displayedLetter = displayedLetters[j];
         filteredContactContainer.innerHTML += `
-        <div>
+        <div class="initial-box">
             <div id="initialLetter${j}" class="initial-letter">${displayedLetter}</div>
             <div class="separator"></div>
         </div>

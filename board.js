@@ -249,7 +249,6 @@ function removeHighlight() {
 }
 
 function updateHTML() {
-    debugger;
     let open = Object.values(todos).filter(t => t['task']['dragCategory'] == 'todo');
     document.getElementById('toDoTasks').innerHTML = "";
     for (let index = 0; index < open.length; index++) {
@@ -267,7 +266,9 @@ function updateHTML() {
         getContactInitials(element.contacts, element.id);
     }
 
+    
     let awaitfeedback = Object.values(todos).filter(t => t['task']['dragCategory'] == 'awaitfeedback');
+    console.log(awaitfeedback);
     document.getElementById('awaitFeedback').innerHTML = "";
     for (let index = 0; index < awaitfeedback.length; index++) {
         const element = awaitfeedback[index];
@@ -275,6 +276,7 @@ function updateHTML() {
         getContactInitials(element.contacts, element.id);
     }
 
+    debugger;
     let closed = Object.values(todos).filter(t => t['task']['dragCategory'] == 'closed');
     document.getElementById('closed').innerHTML = "";
     for (let index = 0; index < closed.length; index++) {

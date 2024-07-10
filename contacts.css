@@ -51,7 +51,12 @@
     background-color: #FFFFFF;
     padding-left: 15px;
     border-bottom: solid 1px #D1D1D1;
-    width: 105%;
+    width: 96%;
+}
+
+#filteredContactsContainer {
+    width: 100%;
+    padding: 0 20px 0 20px;
 }
 
 .seperator {
@@ -416,6 +421,13 @@
     }
 }
 
+@media(max-width: 1024px) {
+    .parent-container {
+        width: 100vw;
+        height: 80% !important;
+    }
+}
+
 @media (max-width: 1150px) {
     .add-new-contact {
         flex-direction: column;
@@ -523,14 +535,22 @@
         bottom: 80px;
     }
 
+    .contact-data {
+        width: 85%;
+    }
+
     .button-add-contacts {
         margin: unset;
+    }
+
+    .initial-box {
+        width: 90%;
     }
 
     #filteredContactsContainer {
         width: -webkit-fill-available;
         margin-left: 24px;
-        padding-top: 24px;
+        padding: 24px 20px 0 0;
     }
 
     .email-edit {
@@ -552,7 +572,7 @@
         margin: 48px 0 0 16px;
     }
 
-    .fat-Contacts-headline{
+    .fat-Contacts-headline {
         font-size: 47px !important;
     }
 
@@ -560,12 +580,21 @@
         margin: 48px 0 0 16px;
     }
 
-    .full-name { 
+    .full-name {
         padding-left: 20px;
     }
 }
 
 @media (max-width: 600px) {
+    .edit-delete-contact {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .full-name {
+        padding: 12px 0 0 0;
+    }
+
     .add-new-contact {
         width: 100%;
         height: 100%;

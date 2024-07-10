@@ -99,9 +99,6 @@
         font-size: 48px;
     }
 
-   
-  
-
     .greeting-container {
         display: none;
     }
@@ -154,17 +151,6 @@
     .parent-container {
         height: calc(100vh - 160px);
     }
-
-    /* CSS Nicole ////////////////////////// */
-    .help_legal_privacy {
-        padding-left: 16px;
-    }
-
-    .help_legal_privacy-headline {
-        margin: 48px 0 32px 0;
-    }
-
-    /* //////////////////////////////////// */
 }
 
 @media (max-width: 600px) {
@@ -176,7 +162,6 @@
         right: 130px;
         top: 210px;
     }
-
 
     .contact-headline {
         display: none;

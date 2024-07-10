@@ -29,35 +29,32 @@ function addDragCategoryEventListeners() {
 
 
 async function displayOpenTasks() {
-    debugger;
     let toDoContainer = document.getElementById('toDoTasks');
     let toDoInProgressContainer = document.getElementById('inProgressTasks');
     let toDoFeedbackContainer = document.getElementById('feedbackTasks');
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     let taskIds = Object.keys(tasks);
-    console.log(taskIds);
     for (let i = 0; i < taskIds.length; i++) {
         let id = taskIds[i];
-        let task = { id: id, task: tasks[id] };
+        let task = {task: tasks[id]};
         tasks[id]['dragCategory'] = tasks[id]['dragCategory'].split(" ").join("");
         if (tasks[id]['dragCategory'] === 'todo') {
-            toDoContainer.innerHTML += getOpenTaskHtml(task, i);
+            toDoContainer.innerHTML += getToDoTaskHtml(task, i);
         } else if (tasks[id]['dragCategory'] === 'inprogress') {
-            toDoInProgressContainer.innerHTML += getOpenTaskHtml(task, i);
+            toDoInProgressContainer.innerHTML += getToDoTaskHtml(task, i);
         } else if (tasks[id]['dragCategory'] === 'awaitfeedback') {
-            toDoFeedbackContainer.innerHTML += getOpenTaskHtml(task, i);
+            toDoFeedbackContainer.innerHTML += getToDoTaskHtml(task, i);
         }
         await getContactInitials(task.task.contacts, i);
         todos.push(task);
     }
-    console.log('Todos:', todos);
 }
 
 
 
 // HTML for the displayOpenTasks function
-function getOpenTaskHtml(task, i) {
+function getToDoTaskHtml(task, i) {
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
@@ -249,33 +246,45 @@ function removeHighlight() {
 }
 
 function updateHTML() {
+<<<<<<< HEAD
     let open = Object.values(todos).filter(t => t['task']['dragCategory'] == 'todo');
+=======
+    let todo = Object.values(todos).filter(t => t['task']['dragCategory'] == 'todo');
+>>>>>>> c07bf75f1add185f6cf7b08b87f62258ac284e7f
     document.getElementById('toDoTasks').innerHTML = "";
-    for (let index = 0; index < open.length; index++) {
-        const element = open[index];
-        document.getElementById('toDoTasks').innerHTML += getOpenTaskHtml(element, element.id);
-        getContactInitials(element.contacts, element.id);
+    for (let index = 0; index < todo.length; index++) {
+        const element = todo[index];
+        const positionInTodos = Object.values(todos).findIndex(t => t === element);
+        document.getElementById('toDoTasks').innerHTML += getToDoTaskHtml(element, positionInTodos);
+        getContactInitials(element.task.contacts, positionInTodos);
     }
 
     let inprogress = Object.values(todos).filter(t => t['task']['dragCategory'] == 'inprogress');
-    console.log(inprogress);
     document.getElementById('inProgressTasks').innerHTML = "";
     for (let index = 0; index < inprogress.length; index++) {
         const element = inprogress[index];
-        document.getElementById('inProgressTasks').innerHTML += getOpenTaskHtml(element, element.id);
-        getContactInitials(element.contacts, element.id);
+        const positionInTodos = Object.values(todos).findIndex(t => t === element);
+        document.getElementById('inProgressTasks').innerHTML += getToDoTaskHtml(element, positionInTodos);
+        getContactInitials(element.task.contacts, positionInTodos);
+
     }
 
     
     let awaitfeedback = Object.values(todos).filter(t => t['task']['dragCategory'] == 'awaitfeedback');
+<<<<<<< HEAD
     console.log(awaitfeedback);
     document.getElementById('awaitFeedback').innerHTML = "";
+=======
+    document.getElementById('feedbackTasks').innerHTML = "";
+>>>>>>> c07bf75f1add185f6cf7b08b87f62258ac284e7f
     for (let index = 0; index < awaitfeedback.length; index++) {
         const element = awaitfeedback[index];
-        document.getElementById('awaitFeedback').innerHTML += getOpenTaskHtml(element, element.id);
-        getContactInitials(element.contacts, element.id);
+        const positionInTodos = Object.values(todos).findIndex(t => t === element);
+        document.getElementById('feedbackTasks').innerHTML += getToDoTaskHtml(element, positionInTodos);
+        getContactInitials(element.task.contacts, positionInTodos);
     }
 
+<<<<<<< HEAD
     debugger;
     let closed = Object.values(todos).filter(t => t['task']['dragCategory'] == 'closed');
     document.getElementById('closed').innerHTML = "";
@@ -283,7 +292,14 @@ function updateHTML() {
         const element = closed[index];
         document.getElementById('closed').innerHTML += getOpenTaskHtml(element, element.id);
         getContactInitials(element.contacts, element.id);
+=======
+    let done = Object.values(todos).filter(t => t['task']['dragCategory'] == 'done');
+    document.getElementById('done').innerHTML = "";
+    for (let index = 0; index < done.length; index++) {
+        const element = done[index];
+        const positionInTodos = Object.values(todos).findIndex(t => t === element);
+        document.getElementById('done').innerHTML += getToDoTaskHtml(element, positionInTodos);
+        getContactInitials(element.task.contacts, positionInTodos);
+>>>>>>> c07bf75f1add185f6cf7b08b87f62258ac284e7f
     }
 }
-
-

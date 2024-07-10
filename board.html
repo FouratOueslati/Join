@@ -22,7 +22,8 @@
     <script src="logout.js"></script>
     <script src="templates/topbar.js"></script>
 </head>
-<body  onload="initBoard()">
+
+<body onload="initBoard()">
     <div onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
         <div onclick="doNotClose(event)" id="addTaskPopUp" class="parent-Container-for-addTask-board addTask-window">
             <div class="main-container-task">
@@ -160,7 +161,7 @@
                         <div class="seperate-line"></div>
                         <img src="./boardImg/search.svg" class="input-svg">
                     </div>
-                    <button  onclick="openAddTaskInBoard()" class="add-task-button">
+                    <button onclick="openAddTaskInBoard()" class="add-task-button">
                         <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
                                 class="svg-size" src="./boardImg/plus.svg">
                         </div>
@@ -175,19 +176,20 @@
             <div class="board-position-lower">
                 <div class="task-width">
                     <div>
-                        <span class="txt-svg-cetering">To do <img id="toDo" onclick="openAddTaskInBoard()"  class="txt-svg-centering"
-                                src="./boardImg/add.svg"></span>
+                        <span class="txt-svg-cetering">To do <img id="toDo" onclick="openAddTaskInBoard()"
+                                class="txt-svg-centering" src="./boardImg/add.svg"></span>
                         <div>
-                            <div class="drag-area" id="toDoTasks" ondrop="moveTo('open')"
-                                ondragleave="removeHighlight('open')" ondragover="allowDrop(event); highlight('open')">
+                            <div class="drag-area" id="toDoTasks" ondrop="moveTo('todo')"
+                                ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="task-width">
                     <div>
-                        <span class="txt-svg-cetering">In progress <img id="inProgress" onclick="openAddTaskInBoard()"  class="txt-svg-centering"
-                                src="./boardImg/add.svg"></span>
+                        <span class="txt-svg-cetering">In progress <img id="inProgress" onclick="openAddTaskInBoard()"
+                                class="txt-svg-centering" src="./boardImg/add.svg"></span>
                         <div>
                             <div class="drag-area" id="inProgressTasks" ondrop="moveTo('inprogress')"
                                 ondragleave="removeHighlight('inprogress')"
@@ -198,7 +200,8 @@
                 </div>
                 <div class="task-width">
                     <div>
-                        <span class="txt-svg-cetering">Await feedback <img id="awaitFeedback" onclick="openAddTaskInBoard()"  class="txt-svg-centering"
+                        <span class="txt-svg-cetering">Await feedback <img id="awaitFeedback"
+                                onclick="openAddTaskInBoard()" class="txt-svg-centering"
                                 src="./boardImg/add.svg"></span>
                         <div>
                             <div class="drag-area" id="feedbackTasks" ondrop="moveTo('awaitfeedback')"
@@ -211,9 +214,8 @@
                     <div>
                         <span class="txt-svg-cetering">Done</span>
                         <div>
-                            <div class="drag-area" id="closed" ondrop="moveTo('closed')"
-                                ondragleave="removeHighlight('closed')"
-                                ondragover="allowDrop(event); highlight('closed')">
+                            <div class="drag-area" id="done" ondrop="moveTo('done')"
+                                ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                             </div>
                         </div>
                     </div>

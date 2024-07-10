@@ -380,6 +380,15 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
+.bg-contact-container {
+    background-color: #2A3647;
+    color: white;
+}
+
+.bg-contact-container:hover {
+    background-color: #2A3647;
+}
+
 @media (max-width: 1300px) {
     .close-add-contact img:hover {
         background-color: #D1D1D1;

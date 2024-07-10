@@ -49,6 +49,7 @@ async function displayOpenTasks() {
         await getContactInitials(task.task.contacts, i);
         todos.push(task);
     }
+    console.log(todos);
 }
 
 
@@ -246,11 +247,7 @@ function removeHighlight() {
 }
 
 function updateHTML() {
-<<<<<<< HEAD
-    let open = Object.values(todos).filter(t => t['task']['dragCategory'] == 'todo');
-=======
     let todo = Object.values(todos).filter(t => t['task']['dragCategory'] == 'todo');
->>>>>>> c07bf75f1add185f6cf7b08b87f62258ac284e7f
     document.getElementById('toDoTasks').innerHTML = "";
     for (let index = 0; index < todo.length; index++) {
         const element = todo[index];
@@ -271,12 +268,7 @@ function updateHTML() {
 
     
     let awaitfeedback = Object.values(todos).filter(t => t['task']['dragCategory'] == 'awaitfeedback');
-<<<<<<< HEAD
-    console.log(awaitfeedback);
-    document.getElementById('awaitFeedback').innerHTML = "";
-=======
     document.getElementById('feedbackTasks').innerHTML = "";
->>>>>>> c07bf75f1add185f6cf7b08b87f62258ac284e7f
     for (let index = 0; index < awaitfeedback.length; index++) {
         const element = awaitfeedback[index];
         const positionInTodos = Object.values(todos).findIndex(t => t === element);
@@ -284,15 +276,6 @@ function updateHTML() {
         getContactInitials(element.task.contacts, positionInTodos);
     }
 
-<<<<<<< HEAD
-    debugger;
-    let closed = Object.values(todos).filter(t => t['task']['dragCategory'] == 'closed');
-    document.getElementById('closed').innerHTML = "";
-    for (let index = 0; index < closed.length; index++) {
-        const element = closed[index];
-        document.getElementById('closed').innerHTML += getOpenTaskHtml(element, element.id);
-        getContactInitials(element.contacts, element.id);
-=======
     let done = Object.values(todos).filter(t => t['task']['dragCategory'] == 'done');
     document.getElementById('done').innerHTML = "";
     for (let index = 0; index < done.length; index++) {
@@ -300,6 +283,13 @@ function updateHTML() {
         const positionInTodos = Object.values(todos).findIndex(t => t === element);
         document.getElementById('done').innerHTML += getToDoTaskHtml(element, positionInTodos);
         getContactInitials(element.task.contacts, positionInTodos);
->>>>>>> c07bf75f1add185f6cf7b08b87f62258ac284e7f
     }
+    console.log(todos);
+}
+
+function dragAreaUppdate() {
+    let doneArea = document.getElementById('done');
+    if (doneArea == "") {
+        document.getElementById('done').classList.add('drag-area');
+    }  
 }

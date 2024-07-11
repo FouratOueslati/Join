@@ -242,6 +242,8 @@ async function addTask() {
     };
     await postTask('/users/' + uid + '/tasks', task);
     localStorage.removeItem('dragCategory');
+    displayOpenTasks();
+    closeAddTaskInBoard();
 }
 
 

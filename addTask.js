@@ -278,7 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 select.classList.remove('selectClicked');
                 caret.classList.remove('createRotate');
                 menu.classList.remove('menuOpen');
-
                 options.forEach(option => {
                     option.classList.remove('active');
                 });

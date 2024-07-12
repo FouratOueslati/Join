@@ -245,6 +245,7 @@ async function moveTo(category) {
         await updateContainer(currentCategory);
         // den neuen Container aktualisieren
         await updateContainer(category);
+        removeSpecificColorFromDragArea();
     }
 }
 
@@ -310,7 +311,24 @@ function renderElements(category, containerId) {
     }
 }
 
-function removeGreyBlock() {
-    let color = document.querySelector('.drag-area');
-    
+function removeSpecificColorFromDragArea() {
+    let containers = [
+        document.getElementById('toDoTasks'),
+        document.getElementById('inProgressTasks'),
+        document.getElementById('feedbackTasks'),
+        document.getElementById('done')
+    ];
+    let classRemove = 'drag-area';
+    let classAdd = 'drag-area-full';
+    for (let i = 0; i < containers.length; i++) {
+        let container = containers[i];
+        if (container && container.querySelector('div')) {
+            console.log('Test');
+            container.classList.remove(classRemove);
+        } else {
+            container.classList.add(classAdd);
+        }
+    }
 }
+
+

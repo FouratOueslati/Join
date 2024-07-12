@@ -13,6 +13,7 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    align-items: center;
 }
 
 .content-container-board {
@@ -148,6 +149,11 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     border: 1px dashed black;
+}
+
+.drag-are-full {
+    background-color: rgb(246,247,249);
+    border: 1px dashed rgb(246,247,249);
 }
 
 .drag-area-highlight {

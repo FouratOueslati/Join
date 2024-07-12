@@ -298,3 +298,8 @@ async function updateHTML() {
         }
     });
 }
+
+function removeGreyBlock() {
+    let color = document.querySelector('.drag-area');
+    
+}

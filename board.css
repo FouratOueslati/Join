@@ -15,14 +15,13 @@ body {
     justify-content: space-between;
 }
 
-.content-container {
+.content-container-board {
     height: 100vh;
     width: 100%;
     margin-left: 232px;
 }
 
 .open-tasks-container {
-    width: 90%;
     height: 70%;
     display: flex;
     flex-direction: column;
@@ -34,7 +33,7 @@ body {
     gap: 8px;
 }
 
-.input-with-img {
+.input-with-img-board {
     width: 296px;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
@@ -45,8 +44,11 @@ body {
 .find-task-input {
     border-radius: 10px;
     width: 180px;
-    padding: 12px 24px;
+    padding: 12px 20px;
     border-width: 0px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .seperate-line {
@@ -129,9 +131,19 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.drag-area {
+.drag-area-grey {
     width: 100%;
     height: 32px;
+    margin-top: 10%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px dashed black;
+}
+
+.drag-area {
+    width: 100%;
+    min-height: 32px;
+    height: 100%;
     margin-top: 10%;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -149,7 +161,7 @@ body {
     border-color: transparent;
     border-radius: 20px;
     width: 100%;
-    height: 180px;
+    height: 200px;
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
 }
 
@@ -340,6 +352,10 @@ body {
     .drag-area {
         margin-top: 3%;
         margin-bottom: 5%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     .todo-class {
@@ -347,8 +363,18 @@ body {
     }
 }
 
+@media(max-width: 1025px) {
+    .content-container-board {
+        margin-left: 0px;
+    }
+    .board-position-lower {
+        display: flex;
+        align-items: center;
+    }
+}
+
 @media(max-width: 700px) {
-    .input-with-img {
+    .input-with-img-board {
         display: none;
     }
 

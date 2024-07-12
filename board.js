@@ -58,6 +58,7 @@ async function processTasks(containers) {
             }
         }
     }
+    console.log(todos);
 }
 
 
@@ -307,4 +308,9 @@ function renderElements(category, containerId) {
             getContactInitials(element.task.contacts, i);
         }
     }
+}
+
+function removeGreyBlock() {
+    let color = document.querySelector('.drag-area');
+    
 }

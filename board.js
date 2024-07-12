@@ -38,6 +38,11 @@ async function displayOpenTasks() {
     for (let key in containers) {
         containers[key].innerHTML = '';
     }
+    await processTasks(containers);
+}
+
+
+async function processTasks(containers) {
     const userData = await loadSpecificUserDataFromLocalStorage();
     const tasks = userData.tasks;
     if (tasks) {
@@ -45,11 +50,11 @@ async function displayOpenTasks() {
         for (let i = 0; i < taskIds.length; i++) {
             const id = taskIds[i];
             const task = { id: id, task: tasks[id] };
-            const category = tasks[id]['dragCategory'].trim(); // Ensure no leading or trailing spaces
+            const category = tasks[id]['dragCategory'].trim();
             if (containers[category]) {
                 containers[category].innerHTML += getToDoTaskHtml(task, i);
                 await getContactInitials(task.task.contacts, i);
-                todos.push(task);
+                todos.push(task); 
             }
         }
     }
@@ -189,6 +194,7 @@ function getInitials(name) {
     return upperChars;
 }
 
+// zeigt die Initialien der Kontakte an
 async function getContactInitials(contacts, i) {
     let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
     contactInitialsContainer.innerHTML = '';
@@ -218,7 +224,7 @@ function closeAddTaskInBoard() {
     addTaskWindow.classList.remove('bring-out-addTask-window');
 }
 
-
+// limitiert den Text des Description
 function limitText(containerId, wordLimit) {
     var container = document.getElementById(containerId);
     if (container) {
@@ -231,12 +237,17 @@ function limitText(containerId, wordLimit) {
 }
 
 
-function moveTo(category) {
+async function moveTo(category) {
     if (todos[currentDraggedElement]) {
+        const currentCategory = todos[currentDraggedElement]['task']['dragCategory'];
         todos[currentDraggedElement]['task']['dragCategory'] = category;
-        updateHTML();
+        // den alten Container aktualisieren
+        await updateContainer(currentCategory);
+        // den neuen Container aktualisieren
+        await updateContainer(category);
     }
 }
+
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -251,52 +262,52 @@ function removeHighlight() {
     document.querySelector('.drag-area').classList.remove('drag-area-highlight');
 }
 
-async function updateInFirebase(dragCategoryOfDraggedElement, idOfTaskInTodos) {
+// speichert die Änderung der dragCategory in Firebase
+async function updateInFirebase(newDragCategory, taskId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
-    if (tasks[idOfTaskInTodos]) {
-        tasks[idOfTaskInTodos].dragCategory = dragCategoryOfDraggedElement;
-        console.log(idOfTaskInTodos);
+    if (tasks[taskId]) {
+        tasks[taskId].dragCategory = newDragCategory;
         await updateUserData(uid, userData);
     }
 }
 
 
-async function updateHTML() {
-    // Clear all task containers
-    document.getElementById('toDoTasks').innerHTML = "";
-    document.getElementById('inProgressTasks').innerHTML = "";
-    document.getElementById('feedbackTasks').innerHTML = "";
-    document.getElementById('done').innerHTML = "";
-
-    // Update Firebase only if necessary
-    for (let i = 0; i < todos.length; i++) {
-        const element = todos[i];
-        let dragCategoryOfDraggedElement = element.task.dragCategory;
-        let idOfTaskInTodos = element.id;
-        await updateInFirebase(dragCategoryOfDraggedElement, idOfTaskInTodos);
-    }
-
-    // Object to map drag category to container ID
-    const categoryToContainerId = {
+async function updateContainer(category) {
+    const containerIdMap = {
         'todo': 'toDoTasks',
         'inprogress': 'inProgressTasks',
         'awaitfeedback': 'feedbackTasks',
         'done': 'done'
     };
+    const containerId = containerIdMap[category];
+    if (containerId) {
+        document.getElementById(containerId).innerHTML = "";
+        await updateElements(category);
+        renderElements(category, containerId);
+    }
+}
 
-    // Re-render tasks based on their updated categories
-    todos.forEach((element, index) => {
-        const positionInTodos = index;
-        let dragCategoryOfDraggedElement = element.task.dragCategory;
-        let containerId = categoryToContainerId[dragCategoryOfDraggedElement];
-        
-        if (containerId) {
-            const container = document.getElementById(containerId);
-            container.innerHTML += getToDoTaskHtml(element, positionInTodos);
-            getContactInitials(element.task.contacts, positionInTodos);
+// Elemente in Firebase basierend auf der übergebenen category aktualisieren
+async function updateElements(category) {
+    for (let i = 0; i < todos.length; i++) {
+        const element = todos[i];
+        if (element.task.dragCategory === category) {
+            await updateInFirebase(category, element.id);
         }
-    });
+    }
+}
+
+//  HTML basierend auf der übergebenen category  rendern und sie dem spezifizierten Container anzufügen
+function renderElements(category, containerId) {
+    for (let i = 0; i < todos.length; i++) {
+        const element = todos[i];
+        if (element.task.dragCategory === category) {
+            const container = document.getElementById(containerId);
+            container.innerHTML += getToDoTaskHtml(element, i);
+            getContactInitials(element.task.contacts, i);
+        }
+    }
 }
 
 function removeGreyBlock() {

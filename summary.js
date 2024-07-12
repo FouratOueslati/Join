@@ -41,7 +41,7 @@ async function loadToDoTasks() {
     let toDoTasksCount = 0;
     for (let i = 0; i < taskIds.length; i++) {
         let id = taskIds[i];
-        if (tasks[id].dragCategory === 'to do') {
+        if (tasks[id].dragCategory === 'todo') {
             toDoTasksCount++;
         }
     }
@@ -56,7 +56,7 @@ async function loadInProgressTasks() {
     let inProgressTasksCount = 0;
     for (let i = 0; i < taskIds.length; i++) {
         let id = taskIds[i];
-        if (tasks[id].dragCategory === 'in progress') {
+        if (tasks[id].dragCategory === 'inprogress') {
             inProgressTasksCount++;
         }
     }
@@ -70,7 +70,7 @@ async function loadFeedbackTasks() {
     let feedbackTasksCount = 0;
     for (let i = 0; i < taskIds.length; i++) {
         let id = taskIds[i];
-        if (tasks[id].dragCategory === 'await feedback') {
+        if (tasks[id].dragCategory === 'awaitfeedback') {
             feedbackTasksCount++;
         }
     }

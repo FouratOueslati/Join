@@ -8,6 +8,7 @@ async function initBoard() {
     await displayOpenTasks();
     displayNamesOfContacts();
     showLoggedUserInitials();
+    removeSpecificColorFromDragArea();
 }
 
 
@@ -70,7 +71,7 @@ function getToDoTaskHtml(task, i) {
         <div class="task-category">
             <div class="category">${task['task']['category']}</div>
         </div>
-        <div class="task-title">${task['task']['name']}</div>
+        <div id="taskTitle${i}" class="task-title">${task['task']['name']}</div>
         <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
         <div class="subtasks-number-container">
             <img class="load-bar" src="./img/filler.png">
@@ -286,7 +287,7 @@ async function updateContainer(category) {
         document.getElementById(containerId).innerHTML = "";
         await updateElements(category);
         renderElements(category, containerId);
-    }
+    }    
 }
 
 // Elemente in Firebase basierend auf der übergebenen category aktualisieren
@@ -309,6 +310,7 @@ function renderElements(category, containerId) {
             getContactInitials(element.task.contacts, i);
         }
     }
+    removeSpecificColorFromDragArea();
 }
 
 function removeSpecificColorFromDragArea() {
@@ -331,4 +333,25 @@ function removeSpecificColorFromDragArea() {
     }
 }
 
+function filterTask() {
+    let search = document.getElementById('search').value.toLowerCase().slice(0, 3);
+    if (search.length >= 3) {
+        filterWithSearchTerm(search);
+    } else {
+        location.reload();
+    } if (search.length === 0) {
+        location.reload();
+    }
+}
 
+function filterWithSearchTerm(searchTerm) {
+    for (let i = 0; i < todos.length; i++) {
+        let taskTitle = document.getElementById(`taskTitle${i}`).textContent.toLocaleLowerCase().slice(0,3);
+        let taskCard = document.getElementById(`task${i}`);
+        if (taskTitle.includes(searchTerm)) {
+            taskCard.style.display = 'block';
+        } else {
+            taskCard.style.display = 'none';
+        }
+    }
+}

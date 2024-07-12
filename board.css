@@ -152,8 +152,13 @@ body {
 }
 
 .drag-are-full {
+    width: 100%;
+    min-height: 32px;
+    height: 100%;
+    margin-top: 10%;
     background-color: rgb(246,247,249);
     border: 1px dashed rgb(246,247,249);
+    
 }
 
 .drag-area-highlight {
@@ -349,6 +354,11 @@ body {
         flex-direction: column;
     }
 
+    .borat-task-set-up {
+        display: flex;
+        gap: 8px;
+        margin-top: 5%;
+    }
     .task-width {
         width: 90%;
         height: auto;

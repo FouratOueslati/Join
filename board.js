@@ -50,17 +50,33 @@ async function processTasks(containers) {
         for (let i = 0; i < taskIds.length; i++) {
             const id = taskIds[i];
             const task = { id: id, task: tasks[id] };
-            const category = tasks[id]['dragCategory'].trim();
+            const category = tasks[id]['dragCategory'];
             if (containers[category]) {
                 containers[category].innerHTML += getToDoTaskHtml(task, i);
                 await getContactInitials(task.task.contacts, i);
-                todos.push(task); 
+                todos.push(task);
+                await generateNumberOfSubtasks(i, task);
             }
         }
     }
-    console.log(todos);
 }
 
+
+async function generateNumberOfSubtasks(i, task) {
+    let subtasksNumber = document.getElementById(`subtasksNumber${i}`);
+    if (subtasksNumber) {
+        let numberOfSubtasks = task.task.subtasks && task.task.subtasks.length ? task.task.subtasks.length : 0;
+        let completedSubtasks = 0;
+        if (task.task.subtasks) {
+            for (let subtask of task.task.subtasks) {
+                if (subtask.completed) {
+                    completedSubtasks++;
+                }
+            }
+        }
+        subtasksNumber.innerHTML = `${completedSubtasks}/${numberOfSubtasks} Subtasks`;
+    }
+}
 
 
 // HTML for the displayOpenTasks function
@@ -74,7 +90,9 @@ function getToDoTaskHtml(task, i) {
         <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
         <div class="subtasks-number-container">
             <img class="load-bar" src="./img/filler.png">
-            <div class="subtasks">0/2 Subtasks</div>
+            <div id="subtasksNumber${i}" class="subtasks">
+           
+            </div>
         </div>
         <div class="initials-container" id="initialsContainer${i}"></div>
         <div id="myModal${i}" class="modal">
@@ -85,34 +103,94 @@ function getToDoTaskHtml(task, i) {
     </div>`;
 }
 
+
 function startDragging(id) {
     currentDraggedElement = id;
 }
 
 function generateModalContent(task, i) {
     return /*html*/`
-            <div class="category-opened">${task['task']['category']}</div>
-            <div class="title-opened">${task['task']['name']}</div>
-            <div class="description-opened">${task['task']['description']}</div>
-            <div class="details-container">
-                <span class="fine-written"> Due date:</span>
-                <div class="space-correct"> ${task['task']['date']}</div>
+        <div class="category-opened">${task['task']['category']}</div>
+        <div class="title-opened">${task['task']['name']}</div>
+        <div class="description-opened">${task['task']['description']}</div>
+        <div class="details-container">
+            <span class="fine-written">Due date:</span>
+            <div class="space-correct">${task['task']['date']}</div>
+        </div>
+        <div class="details-container">
+            <span class="fine-written">Priority:</span>
+            <div class="space-correct">${task['task']['priority']}</div>
+        </div>
+        <div class="assigned-to-container">
+            <div>Assigned To:</div>
+            <div class="assigned-contacts-container">
+                <div>${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
             </div>
-            <div class="details-container">
-                <span class="fine-written"> Priority:</span>
-                <div class="space-correct"> ${task['task']['priority']}</div>
-            </div>
-            <div class="assigned-to-container">
-                  <div>Assigned To:</div>
-                <div class="assigned-contacts-container">
-                  <div >${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
-                </div>
-            </div>       
-            <div>
-              <div class="details-container">Subtasks</div>
-              <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
-            </div>
+        </div>
+        <div>
+            <div class="details-container">Subtasks</div>
+            <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
+        </div>
+    `;
+}
+
+
+function generateSubtasksHtml(subtasks, i) {
+    if (!subtasks || subtasks.length === 0) return '';
+    let result = '';
+    for (let j = 0; j < subtasks.length; j++) {
+        const subtask = subtasks[j];
+        result += `
+        <div class="checkbox-and-subtask">
+            <input id="subtaskCheckbox(${i}, ${j})" type="checkbox" class="rectangle" ${subtask.status === 'done' ? 'checked' : ''} onchange="toggleSubtaskStatus(${i}, ${j})">
+            <div id="subtaskText(${i}, ${j})">${subtask.text}</div>
+        </div>
         `;
+    }
+    return result;
+}
+
+
+async function toggleSubtaskStatus(i, j) {
+    let subtaskCheckbox = document.getElementById(`subtaskCheckbox(${i}, ${j})`);
+    localStorage.setItem(`subtaskCheck(${i}, ${j})`, subtaskCheckbox.checked);
+    let statusOfSubtask = JSON.parse(localStorage.getItem(`subtaskCheck(${i}, ${j})`));
+    let subtaskText = document.getElementById(`subtaskText(${i}, ${j})`);
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    const taskIds = Object.keys(tasks);
+    console.log(taskIds)
+    const tasksArray = Object.values(tasks);
+    console.log(tasksArray)
+    for (let i = 0; i < taskIds.length; i++) {
+        const task = tasksArray[i];
+        let subtasksArray = task.subtasks;
+        for (let j = 0; j < subtasksArray.length; j++) {
+            const subtask = subtasksArray[j];
+            let text = subtask.text;
+            if (subtaskText.innerHTML == text) {
+                let status = statusOfSubtask ? 'done' : 'undone';
+                subtask.status = status;
+                await updateSubtaskStatusInFirebase(subtask, status);
+            }
+        }
+    }
+}
+
+async function updateSubtaskStatusInFirebase(subtask, status) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    subtask = status;
+    await updateUserData(uid, userData);
+}
+
+
+async function updateDragCategoryInFirebase(newDragCategory, taskId) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    if (tasks[taskId]) {
+        tasks[taskId].dragCategory = newDragCategory;
+        await updateUserData(uid, userData);
+    }
 }
 
 function generateContactInitialsAndNamesHtml(contacts, i) {
@@ -134,25 +212,9 @@ function generateContactInitialsAndNamesHtml(contacts, i) {
 }
 
 
-function generateSubtasksHtml(subtasks, i) {
-    if (!subtasks || subtasks.length === 0) return '';
-    let result = '';
-    for (let j = 0; j < subtasks.length; j++) {
-        const subtask = subtasks[j];
-        result += `
-        <div class="checkbox-and-subtask">
-            <input type="checkbox" class="rectangle">
-            <div>${subtask}</div>
-        </div>
-        `;
-    }
-    return result;
-}
-
-
 async function zoomTaskInfo(i) {
     const modal = document.getElementById(`myModal${i}`);
-    modal.style.display = "block";
+    modal.style.display = "flex";
     document.body.style.overflow = "hidden";
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -222,6 +284,7 @@ function closeAddTaskInBoard() {
     addTask.classList.add('d-none');
     let addTaskWindow = document.getElementById('addTaskPopUp');
     addTaskWindow.classList.remove('bring-out-addTask-window');
+    localStorage.removeItem('dragCategory');
 }
 
 // limitiert den Text des Description
@@ -245,6 +308,7 @@ async function moveTo(category) {
         await updateContainer(currentCategory);
         // den neuen Container aktualisieren
         await updateContainer(category);
+        removeSpecificColorFromDragArea();
     }
 }
 
@@ -260,16 +324,6 @@ function highlight() {
 
 function removeHighlight() {
     document.querySelector('.drag-area').classList.remove('drag-area-highlight');
-}
-
-// speichert die Änderung der dragCategory in Firebase
-async function updateInFirebase(newDragCategory, taskId) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let tasks = userData.tasks;
-    if (tasks[taskId]) {
-        tasks[taskId].dragCategory = newDragCategory;
-        await updateUserData(uid, userData);
-    }
 }
 
 
@@ -293,10 +347,21 @@ async function updateElements(category) {
     for (let i = 0; i < todos.length; i++) {
         const element = todos[i];
         if (element.task.dragCategory === category) {
-            await updateInFirebase(category, element.id);
+            await updateDragCategoryInFirebase(category, element.id);
         }
     }
 }
+
+// speichert die Änderung der dragCategory in Firebase
+async function updateDragCategoryInFirebase(newDragCategory, taskId) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    if (tasks[taskId]) {
+        tasks[taskId].dragCategory = newDragCategory;
+        await updateUserData(uid, userData);
+    }
+}
+
 
 //  HTML basierend auf der übergebenen category  rendern und sie dem spezifizierten Container anzufügen
 function renderElements(category, containerId) {
@@ -310,7 +375,24 @@ function renderElements(category, containerId) {
     }
 }
 
-function removeGreyBlock() {
-    let color = document.querySelector('.drag-area');
-    
+function removeSpecificColorFromDragArea() {
+    let containers = [
+        document.getElementById('toDoTasks'),
+        document.getElementById('inProgressTasks'),
+        document.getElementById('feedbackTasks'),
+        document.getElementById('done')
+    ];
+    let classRemove = 'drag-area';
+    let classAdd = 'drag-area-full';
+    for (let i = 0; i < containers.length; i++) {
+        let container = containers[i];
+        if (container && container.querySelector('div')) {
+            console.log('Test');
+            container.classList.remove(classRemove);
+        } else {
+            container.classList.add(classAdd);
+        }
+    }
 }
+
+

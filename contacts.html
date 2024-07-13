@@ -14,19 +14,18 @@
     <link rel="stylesheet" href="legal_privacy.css">
     <title>Contacts</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
-    <script src="contacts.js"></script>
-    <script src="storage.js"></script>
     <script src="include.js"></script>
+    <script src="./templates/topbar.js"></script>
+    <script src="storage.js"></script>
+    <script src="contacts.js"></script>
     <script src="logout.js"></script>
-    <script src="templates/topbar.js"></script>
-    <script src="templates/contacts.js"></script>
 </head>
 <body onload="init()">
     <div class="main-content">
         <div id="dialogNewEditContact" class="dialog-new-contact d-none" onclick="closeDialog()"></div>
-        <div class="tools-container" w3-include-html="templates/bluebar.html"></div>
+        <div class="tools-container" w3-include-html="./templates/bluebar.html"></div>
         <div class="content-container">
-            <div class="header-container" w3-include-html="templates/topbar.html"></div>
+            <div class="header-container" w3-include-html="./templates/topbar.html"></div>
             <div class="parent-container">
                 <div class="contact-box">
                     <div id="arrowContact" class="arrow-contact d-none" onclick="closeContactMobile()">

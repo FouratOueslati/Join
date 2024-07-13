@@ -157,9 +157,9 @@
                 <h1>Board</h1>
                 <div class="find-task-button-and-input">
                     <div class="input-with-img-board">
-                        <input class="find-task-input" placeholder="Find Task">
+                        <input class="find-task-input" placeholder="Find Task" id="search">
                         <div class="seperate-line"></div>
-                        <img src="./boardImg/search.svg" class="input-svg">
+                        <img src="./boardImg/search.svg" class="input-svg" onclick="filterTask()">
                     </div>
                     <button onclick="openAddTaskInBoard()" class="add-task-button">
                         <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
@@ -179,7 +179,7 @@
                         <span class="txt-svg-cetering">To do <img id="toDo" onclick="openAddTaskInBoard()"
                                 class="txt-svg-centering" src="./boardImg/add.svg"></span>
                         <div>
-                            <div class="drag-area" id="toDoTasks" ondrop="moveTo('todo')"
+                            <div class="drag-area borat-task-set-up " id="toDoTasks" ondrop="moveTo('todo')"
                                 ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
 
                             </div>
@@ -191,7 +191,7 @@
                         <span class="txt-svg-cetering">In progress <img id="inProgress" onclick="openAddTaskInBoard()"
                                 class="txt-svg-centering" src="./boardImg/add.svg"></span>
                         <div>
-                            <div class="drag-area" id="inProgressTasks" ondrop="moveTo('inprogress')"
+                            <div class="drag-area borat-task-set-up " id="inProgressTasks" ondrop="moveTo('inprogress')"
                                 ondragleave="removeHighlight('inprogress')"
                                 ondragover="allowDrop(event); highlight('inprogress')">
                             </div>
@@ -204,7 +204,7 @@
                                 onclick="openAddTaskInBoard()" class="txt-svg-centering"
                                 src="./boardImg/add.svg"></span>
                         <div>
-                            <div class="drag-area" id="feedbackTasks" ondrop="moveTo('awaitfeedback')"
+                            <div class="drag-area borat-task-set-up " id="feedbackTasks" ondrop="moveTo('awaitfeedback')"
                                 ondragleave="removeHighlight('awaitfeedback')"
                                 ondragover="allowDrop(event); highlight('awaitfeedback')"></div>
                         </div>
@@ -214,7 +214,7 @@
                     <div>
                         <span class="txt-svg-cetering">Done</span>
                         <div>
-                            <div class="drag-area" id="done" ondrop="moveTo('done')"
+                            <div class="drag-area borat-task-set-up " id="done" ondrop="moveTo('done')"
                                 ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                             </div>
                         </div>

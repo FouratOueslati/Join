@@ -79,7 +79,7 @@ function getToDoTaskHtml(task, i) {
         </div>
         <div class="initials-container" id="initialsContainer${i}"></div>
         <div id="myModal${i}" class="modal">
-            <div class="modal-content">
+            <div id="modal${i}" class="modal-content">
               ${generateModalContent(task, i)}
             </div>
         </div>
@@ -89,16 +89,22 @@ function getToDoTaskHtml(task, i) {
 
 function generateModalContent(task, i) {
     return /*html*/`
-        <div class="category-opened">${task['task']['category']}</div>
-        <div class="title-opened">${task['task']['name']}</div>
+        <div class="category-opened-container">
+            <div class="category-opened">${task['task']['category']}</div>
+            <img onclick="closeModal(document.getElementById('myModal${i}'))" src="./img/close.png">
+        </div>
+        <div id="openedTitle${i}" class="title-opened">${task['task']['name']}</div>
         <div class="description-opened">${task['task']['description']}</div>
         <div class="details-container">
             <span class="fine-written">Due date:</span>
             <div class="space-correct">${task['task']['date']}</div>
         </div>
         <div class="details-container">
-            <span class="fine-written">Priority:</span>
-            <div class="space-correct">${task['task']['priority']}</div>
+            <span class="fine-written">Priority:</span>´
+            <div class="space-correct">
+            <div id="openedPriority${i}">${task['task']['priority']}</div>
+            <img id="priorityImg${i}">
+            </div>
         </div>
         <div class="assigned-to-container">
             <div>Assigned To:</div>
@@ -111,12 +117,14 @@ function generateModalContent(task, i) {
             <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
         </div>
         <div class="edit-delete-task-container">
-        <img onclick="deleteContact(3)" src="./img/delete_contact.png">
-        <div style="font-size: 12px;">|</div>
-        <img onclick="openEditContact(3)" src="./img/edit_contacts.png">
+            <img onclick="deleteTask(${i})" src="./img/delete_contact.png">
+            <div style="font-size: 12px;">|</div>
+            <img src="./img/edit_contacts.png">
         </div>
     `;
 }
+
+
 
 function generateSubtasksHtml(subtasks, i) {
     if (!subtasks || subtasks.length === 0) return '';
@@ -220,6 +228,7 @@ async function zoomTaskInfo(i) {
             closeModal(modal);
         }
     }
+    generatePriorityImgInModal(i);
 }
 
 async function loadDataIntoModal(modalContent, data, i) {
@@ -266,6 +275,20 @@ async function getContactInitials(contacts, i) {
             const color = contact.backgroundcolor;
             contactInitialsContainer.innerHTML += `<div id="initials${i}-${j}" class="initials" style="background-color: ${color};">${initial}</div>`;
         }
+    }
+}
+
+
+function generatePriorityImgInModal(i) {
+    let priority = document.getElementById(`openedPriority${i}`);
+    let img = document.getElementById(`priorityImg${i}`);
+    if (priority && priority.innerHTML === 'Medium') {
+        img.src = "./addTaskImg/mediu.svg";
+    } else if (priority && priority.innerHTML === 'Low') {
+        img.src = "./addTaskImg/low.svg";
+    } else if (priority && priority.innerHTML === 'Urgent') {
+        img.src = "./addTaskImg/high.svg";
+
     }
 }
 
@@ -422,4 +445,20 @@ function filterWithSearchTerm(searchTerm) {
             taskCard.style.display = 'none';
         }
     }
+}
+
+
+async function deleteTask(i) {
+    let taskTitle = document.getElementById(`openedTitle${i}`).innerHTML;
+    let taskIndex = todos.findIndex(todo => taskTitle === todo.task.name);
+    if (taskIndex !== -1) {
+        const taskId = todos[taskIndex].id;
+        await deleteUserTask(uid, taskId);
+    }
+    displayOpenTasks();
+}
+
+
+async function editTask() {
+
 }

@@ -242,10 +242,15 @@ body {
     background-color: #fefefe;
     padding: 35px;
     border: 1px solid #888;
-    width: 25%;
-    height: 60%;
+    width: 20%;
+    height: 80%;
 }
 
+.category-opened-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .category-opened {
     display: flex;
@@ -265,12 +270,13 @@ body {
 }
 
 .description-opened {
+    font-weight: 500;
     width: 100%;
     margin-top: 12px;
 }
 
 .fine-written {
-    width: 35%;
+    width: 25%;
     color: #2A3647;
 }
 
@@ -284,9 +290,11 @@ body {
 
 .space-correct {
     font-weight: 500;
-    width: 65%;
+    width: 75%;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
 }
 
 .assigned-to-container {
@@ -331,11 +339,11 @@ body {
 }
 
 .subtask-checkbox {
-        width: 16px;
-        height: 16px;
-        border-radius: 3px;
-        border: 21px solid rgba(42, 54, 71, 1);
-        accent-color: rgba(41, 171, 226, 1);
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 21px solid rgba(42, 54, 71, 1);
+    accent-color: rgba(41, 171, 226, 1);
 }
 
 .task-description {
@@ -367,6 +375,7 @@ body {
     justify-content: flex-end;
     align-items: center;
 }
+
 @media(max-width: 1300px) {
     .board-position-lower {
         flex-direction: column;

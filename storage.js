@@ -109,6 +109,17 @@ async function deleteUserContact(uid, contactId) {
 }
 
 
+async function deleteUserTask(uid, taskId) {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${taskId}.json`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return response.json();
+}
+
+
 function postContacts(path = "", data = {}) {
     return fetch(BASE_URL_USER_DATA + path + ".json", {
         method: "POST",

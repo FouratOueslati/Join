@@ -156,9 +156,9 @@ body {
     min-height: 32px;
     height: 100%;
     margin-top: 10%;
-    background-color: rgb(246,247,249);
-    border: 1px dashed rgb(246,247,249);
-    
+    background-color: rgb(246, 247, 249);
+    border: 1px dashed rgb(246, 247, 249);
+
 }
 
 .drag-area-highlight {
@@ -237,13 +237,13 @@ body {
 .modal-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     border-radius: 15px;
     background-color: #fefefe;
-    padding: 20px;
+    padding: 35px;
     border: 1px solid #888;
     width: 25%;
-    height: 75%;
+    height: 60%;
 }
 
 
@@ -258,23 +258,24 @@ body {
 }
 
 .title-opened {
+    width: 100%;
     margin-top: 12px;
-   font-weight: 700;
-   font-size: 40px; 
+    font-weight: 700;
+    font-size: 40px;
 }
 
 .description-opened {
+    width: 100%;
     margin-top: 12px;
 }
 
 .fine-written {
-    width: 50%;
+    width: 35%;
     color: #2A3647;
 }
 
 .details-container {
     margin-top: 12px;
-    width: 45%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -283,7 +284,7 @@ body {
 
 .space-correct {
     font-weight: 500;
-    width: 50%;
+    width: 65%;
     display: flex;
     justify-content: flex-start;
 }
@@ -296,6 +297,10 @@ body {
 .assigned-contacts-container {
     margin-top: 12px;
     display: flex;
+}
+
+.names-style {
+    font-weight: 500;
 }
 
 .assigned-contacts-and-intials-container {
@@ -325,6 +330,14 @@ body {
     gap: 12px;
 }
 
+.subtask-checkbox {
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+        border: 21px solid rgba(42, 54, 71, 1);
+        accent-color: rgba(41, 171, 226, 1);
+}
+
 .task-description {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -347,6 +360,13 @@ body {
     margin-right: -20px;
 }
 
+.edit-delete-task-container {
+    margin-top: 18px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+}
 @media(max-width: 1300px) {
     .board-position-lower {
         flex-direction: column;
@@ -357,6 +377,7 @@ body {
         gap: 8px;
         margin-top: 5%;
     }
+
     .task-width {
         width: 90%;
         height: auto;
@@ -381,6 +402,7 @@ body {
     .content-container-board {
         margin-left: 0px;
     }
+
     .board-position-lower {
         display: flex;
         align-items: center;

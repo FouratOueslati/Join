@@ -230,11 +230,13 @@ async function addTask() {
     let selectedCategory = localStorage.getItem('selectedCategory');
     let dragCategory = localStorage.getItem('dragCategory');
     let subtasksArray = [];
-    for (let i = 0; i < subtasks.length; i++) {
-        subtasksArray.push({
-            text: subtasks[i],
-            status: "undone"
-        });
+    if (subtasks) {
+        for (let i = 0; i < subtasks.length; i++) {
+            subtasksArray.push({
+                text: subtasks[i],
+                status: "undone"
+            });
+        }
     }
     let task = {
         name: taskTitle,

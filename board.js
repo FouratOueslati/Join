@@ -3,6 +3,7 @@ let currentDraggedElement;
 let currentTask = 0;
 let todos = [];
 
+
 async function initBoard() {
     includeHTML();
     await displayOpenTasks();
@@ -62,24 +63,6 @@ async function processTasks(containers) {
     }
 }
 
-
-async function generateNumberOfSubtasks(i, task) {
-    let subtasksNumber = document.getElementById(`subtasksNumber${i}`);
-    if (subtasksNumber) {
-        let numberOfSubtasks = task.task.subtasks && task.task.subtasks.length ? task.task.subtasks.length : 0;
-        let completedSubtasks = 0;
-        if (task.task.subtasks) {
-            for (let subtask of task.task.subtasks) {
-                if (subtask.completed) {
-                    completedSubtasks++;
-                }
-            }
-        }
-        subtasksNumber.innerHTML = `${completedSubtasks}/${numberOfSubtasks} Subtasks`;
-    }
-}
-
-
 // HTML for the displayOpenTasks function
 function getToDoTaskHtml(task, i) {
     return /*html*/`
@@ -92,7 +75,6 @@ function getToDoTaskHtml(task, i) {
         <div class="subtasks-number-container">
             <img class="load-bar" src="./img/filler.png">
             <div id="subtasksNumber${i}" class="subtasks">
-           
             </div>
         </div>
         <div class="initials-container" id="initialsContainer${i}"></div>
@@ -104,10 +86,6 @@ function getToDoTaskHtml(task, i) {
     </div>`;
 }
 
-
-function startDragging(id) {
-    currentDraggedElement = id;
-}
 
 function generateModalContent(task, i) {
     return /*html*/`
@@ -132,9 +110,13 @@ function generateModalContent(task, i) {
             <div class="details-container">Subtasks</div>
             <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
         </div>
+        <div class="edit-delete-task-container">
+        <img onclick="deleteContact(3)" src="./img/delete_contact.png">
+        <div style="font-size: 12px;">|</div>
+        <img onclick="openEditContact(3)" src="./img/edit_contacts.png">
+        </div>
     `;
 }
-
 
 function generateSubtasksHtml(subtasks, i) {
     if (!subtasks || subtasks.length === 0) return '';
@@ -143,12 +125,24 @@ function generateSubtasksHtml(subtasks, i) {
         const subtask = subtasks[j];
         result += `
         <div class="checkbox-and-subtask">
-            <input id="subtaskCheckbox(${i}, ${j})" type="checkbox" class="rectangle" ${subtask.status === 'done' ? 'checked' : ''} onchange="toggleSubtaskStatus(${i}, ${j})">
+            <input id="subtaskCheckbox(${i}, ${j})" type="checkbox" class="subtask-checkbox" ${subtask.status === 'done' ? 'checked' : ''} onchange="toggleSubtaskStatus(${i}, ${j})">
             <div id="subtaskText(${i}, ${j})">${subtask.text}</div>
         </div>
         `;
     }
     return result;
+}
+
+
+// DIESE FUNKTION MUSS ICH MIR NOCHMAL GENAUER ANSCHAUEN ES FUNKTIONIERT NUR DANN WENN MAN PAGE REFRESH MACHT
+async function generateNumberOfSubtasks(i, task) {
+    const subtasksNumber = document.getElementById(`subtasksNumber${i}`);
+    if (!subtasksNumber || !task.task || !Array.isArray(task.task.subtasks)) return;
+    const subtasks = task.task.subtasks;
+    const completedSubtasks = subtasks.filter(subtask => subtask.status === 'done').length;
+    const numberOfSubtasks = subtasks.length;
+    subtasksNumber.innerHTML = `${completedSubtasks}/${numberOfSubtasks} Subtasks`;
+    generateSubtasksHtml(subtasks, i);
 }
 
 
@@ -159,40 +153,44 @@ async function toggleSubtaskStatus(i, j) {
     let subtaskText = document.getElementById(`subtaskText(${i}, ${j})`);
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
+    let taskIds = Object.keys(tasks);
+    let id = taskIds[i];
+    let task = tasks[id];
+    await findAndUpdateSubtask(tasks, subtaskText.innerHTML, statusOfSubtask);
+    generateNumberOfSubtasks(i, task);
+}
+
+
+async function findAndUpdateSubtask(tasks, subtaskText, statusOfSubtask) {
     const taskIds = Object.keys(tasks);
-    console.log(taskIds)
-    const tasksArray = Object.values(tasks);
-    console.log(tasksArray)
-    for (let i = 0; i < taskIds.length; i++) {
-        const task = tasksArray[i];
-        let subtasksArray = task.subtasks;
-        for (let j = 0; j < subtasksArray.length; j++) {
-            const subtask = subtasksArray[j];
-            let text = subtask.text;
-            if (subtaskText.innerHTML == text) {
-                let status = statusOfSubtask ? 'done' : 'undone';
-                subtask.status = status;
-                await updateSubtaskStatusInFirebase(subtask, status);
+    for (let taskIndex = 0; taskIndex < taskIds.length; taskIndex++) {
+        const taskId = taskIds[taskIndex];
+        let task = tasks[taskId];
+        let subtasks = task.subtasks;
+        const subtaskIds = Object.keys(subtasks);
+
+        for (let subtaskIndex = 0; subtaskIndex < subtaskIds.length; subtaskIndex++) {
+            const subtaskId = subtaskIds[subtaskIndex];
+            let subtask = subtasks[subtaskId];
+
+            if (subtaskText === subtask.text) {
+                subtask.status = statusOfSubtask ? 'done' : 'undone';
+                await updateSubtaskStatusInFirebase(subtask.status, taskId, subtaskId);
             }
         }
     }
 }
 
-async function updateSubtaskStatusInFirebase(subtask, status) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    subtask = status;
-    await updateUserData(uid, userData);
-}
 
-
-async function updateDragCategoryInFirebase(newDragCategory, taskId) {
+async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
-    if (tasks[taskId]) {
-        tasks[taskId].dragCategory = newDragCategory;
+    if (tasks[taskId] && tasks[taskId].subtasks[subtaskId]) {
+        tasks[taskId].subtasks[subtaskId].status = status;
         await updateUserData(uid, userData);
     }
 }
+
 
 function generateContactInitialsAndNamesHtml(contacts, i) {
     if (!contacts || contacts.length === 0) return '';
@@ -205,7 +203,7 @@ function generateContactInitialsAndNamesHtml(contacts, i) {
         result += `
         <div class="assigned-contacts-and-intials-container">
             <div id="initials${i}-${j}" class="initials-opened" style="background-color: ${color};">${initial}</div>
-            <div id="contact${i}-${j}">${contactName}</div>
+            <div class="names-style" id="contact${i}-${j}">${contactName}</div>
         </div>
         `;
     }
@@ -301,6 +299,11 @@ function limitText(containerId, wordLimit) {
 }
 
 
+function startDragging(id) {
+    currentDraggedElement = id;
+}
+
+
 async function moveTo(category) {
     if (todos[currentDraggedElement]) {
         const currentCategory = todos[currentDraggedElement]['task']['dragCategory'];
@@ -340,7 +343,7 @@ async function updateContainer(category) {
         document.getElementById(containerId).innerHTML = "";
         await updateElements(category);
         renderElements(category, containerId);
-    }    
+    }
 }
 
 // Elemente in Firebase basierend auf der übergebenen category aktualisieren
@@ -363,7 +366,6 @@ async function updateDragCategoryInFirebase(newDragCategory, taskId) {
     }
 }
 
-
 //  HTML basierend auf der übergebenen category  rendern und sie dem spezifizierten Container anzufügen
 function renderElements(category, containerId) {
     for (let i = 0; i < todos.length; i++) {
@@ -377,6 +379,7 @@ function renderElements(category, containerId) {
     removeSpecificColorFromDragArea();
 }
 
+
 function removeSpecificColorFromDragArea() {
     let containers = [
         document.getElementById('toDoTasks'),
@@ -389,13 +392,13 @@ function removeSpecificColorFromDragArea() {
     for (let i = 0; i < containers.length; i++) {
         let container = containers[i];
         if (container && container.querySelector('div')) {
-            console.log('Test');
             container.classList.remove(classRemove);
         } else {
             container.classList.add(classAdd);
         }
     }
 }
+
 
 function filterTask() {
     let search = document.getElementById('search').value.toLowerCase().slice(0, 3);
@@ -408,9 +411,10 @@ function filterTask() {
     }
 }
 
+
 function filterWithSearchTerm(searchTerm) {
     for (let i = 0; i < todos.length; i++) {
-        let taskTitle = document.getElementById(`taskTitle${i}`).textContent.toLocaleLowerCase().slice(0,3);
+        let taskTitle = document.getElementById(`taskTitle${i}`).textContent.toLocaleLowerCase().slice(0, 3);
         let taskCard = document.getElementById(`task${i}`);
         if (taskTitle.includes(searchTerm)) {
             taskCard.style.display = 'block';

@@ -104,6 +104,7 @@
     font-size: 47px;
     font-weight: 500;
     color: white;
+    margin: 32px 0 0 0;
 }
 
 .contact-name {
@@ -130,6 +131,10 @@
 
 .contact-infos {
     margin: 32px 0 0 65px;
+}
+
+.contact-info {
+    display: flex;
 }
 
 .edit-delete-contact {
@@ -159,11 +164,11 @@
     cursor: pointer;
 }
 
-.edit {
+/* .edit {
     position: absolute;
     top: 288px;
     left: 180px;
-}
+} */
 
 .contact-information {
     height: 74px;
@@ -258,10 +263,11 @@
 }
 
 .add-contact-data {
-    /* width: 400px; */
+    width: 400px;
     display: flex;
     flex-direction: column;
     gap: 32px;
+    padding-left: 48px;
 }
 
 .add-new-contact-headline {
@@ -342,6 +348,10 @@
     margin: 21px 0;
 }
 
+.contact-infos {
+    display: flex;
+}
+
 .email-phone-box {
     font-size: 16px;
     font-weight: 700;
@@ -404,13 +414,6 @@
         font-weight: 700;
     }
 
-    .shorts-name-big {
-        height: 80px;
-        width: 80px;
-        font-size: 27px;
-        font-weight: 400;
-    }
-
     .add-contact-left,
     .add-contact-right {
         padding: 0 48px;
@@ -462,9 +465,17 @@
         align-items: center;
     }
 
+    .add-contact-data {
+        padding: unset;
+    }
+
+    .contact-info {
+        flex-direction: column;
+    }
+
     .contact-box-right {
         height: 51%;
-        padding-top: 55px;
+        padding: unset;
         width: 100%;
         justify-content: center;
     }
@@ -498,7 +509,7 @@
     }
 
     .close-create-button {
-        padding: 32px 0 32px 0;
+        padding: unset;
         justify-content: center;
     }
 }
@@ -574,10 +585,6 @@
 
     .fat-Contacts-headline {
         font-size: 47px !important;
-    }
-
-    .contact-infos {
-        margin: 48px 0 0 16px;
     }
 
     .full-name {

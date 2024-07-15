@@ -434,21 +434,24 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                     <img src="./img/close.png" onclick="closeDialog()">
                 </div>
                 <div class="contact-box-right">
-                    <div id="edit-contactsInitialsBig${contactId}" class="shorts-name-big edit">${firstLetterOfName}${firstLetterOfLastName}</div>
                     <div>
-                        <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input" value="${email}">
-                            <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
+                        <div class="contact-info">
+                            <div id="edit-contactsInitialsBig${contactId}" class="shorts-name-big edit">${firstLetterOfName}${firstLetterOfLastName}</div>
+                            <div class="add-contact-data">
+                                <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
+                                <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input" value="${email}">
+                                <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
+                                <div class="close-create-button">
+                                    <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
+                                        <div class="button-txt-img">Delete</div>
+                                    </button>
+                                    <button onclick="saveEditContact('${contactId}')" class="color-blue-button">
+                                        <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
+                                    </button>
                         </div>
-                        <div class="close-create-button">
-                            <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
-                                <div class="button-txt-img">Delete</div>
-                            </button>
-                            <button onclick="saveEditContact('${contactId}')" class="color-blue-button">
-                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
-                            </button>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

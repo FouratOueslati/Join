@@ -1,4 +1,3 @@
-
 let currentDraggedElement;
 let currentTask = 0;
 let todos = [];
@@ -58,6 +57,7 @@ async function processTasks(containers) {
                 await getContactInitials(task.task.contacts, i);
                 todos.push(task);
                 await generateNumberOfSubtasks(i, task);
+                await generatePriorityImgUnopened(i, task);
             }
         }
     }
@@ -77,7 +77,10 @@ function getToDoTaskHtml(task, i) {
             <div id="subtasksNumber${i}" class="subtasks">
             </div>
         </div>
-        <div class="initials-container" id="initialsContainer${i}"></div>
+        <div class="initials-and-priority-container">
+          <div class="initials-container" id="initialsContainer${i}"></div>
+          <img id="priorityImgUnopened${i}">
+        </div>
         <div id="myModal${i}" class="modal">
             <div id="modal${i}" class="modal-content">
               ${generateModalContent(task, i)}
@@ -150,7 +153,19 @@ async function generateNumberOfSubtasks(i, task) {
     const completedSubtasks = subtasks.filter(subtask => subtask.status === 'done').length;
     const numberOfSubtasks = subtasks.length;
     subtasksNumber.innerHTML = `${completedSubtasks}/${numberOfSubtasks} Subtasks`;
-    generateSubtasksHtml(subtasks, i);
+}
+
+
+async function generatePriorityImgUnopened(i, task) {
+    const img = document.getElementById(`priorityImgUnopened${i}`);
+    let priority = task.task.priority;
+    if (priority && priority === 'Medium') {
+        img.src = "./addTaskImg/mediu.svg";
+    } else if (priority && priority === 'Low') {
+        img.src = "./addTaskImg/low.svg";
+    } else if (priority && priority === 'Urgent') {
+        img.src = "./addTaskImg/high.svg";
+    }
 }
 
 
@@ -165,7 +180,7 @@ async function toggleSubtaskStatus(i, j) {
     let id = taskIds[i];
     let task = tasks[id];
     await findAndUpdateSubtask(tasks, subtaskText.innerHTML, statusOfSubtask);
-    generateNumberOfSubtasks(i, task);
+    await generateNumberOfSubtasks(i, task);
 }
 
 
@@ -176,11 +191,9 @@ async function findAndUpdateSubtask(tasks, subtaskText, statusOfSubtask) {
         let task = tasks[taskId];
         let subtasks = task.subtasks;
         const subtaskIds = Object.keys(subtasks);
-
         for (let subtaskIndex = 0; subtaskIndex < subtaskIds.length; subtaskIndex++) {
             const subtaskId = subtaskIds[subtaskIndex];
             let subtask = subtasks[subtaskId];
-
             if (subtaskText === subtask.text) {
                 subtask.status = statusOfSubtask ? 'done' : 'undone';
                 await updateSubtaskStatusInFirebase(subtask.status, taskId, subtaskId);
@@ -228,7 +241,7 @@ async function zoomTaskInfo(i) {
             closeModal(modal);
         }
     }
-    generatePriorityImgInModal(i);
+    generatePriorityImgOpened(i);
 }
 
 async function loadDataIntoModal(modalContent, data, i) {
@@ -279,7 +292,7 @@ async function getContactInitials(contacts, i) {
 }
 
 
-function generatePriorityImgInModal(i) {
+function generatePriorityImgOpened(i) {
     let priority = document.getElementById(`openedPriority${i}`);
     let img = document.getElementById(`priorityImg${i}`);
     if (priority && priority.innerHTML === 'Medium') {
@@ -288,7 +301,6 @@ function generatePriorityImgInModal(i) {
         img.src = "./addTaskImg/low.svg";
     } else if (priority && priority.innerHTML === 'Urgent') {
         img.src = "./addTaskImg/high.svg";
-
     }
 }
 
@@ -397,6 +409,8 @@ function renderElements(category, containerId) {
             const container = document.getElementById(containerId);
             container.innerHTML += getToDoTaskHtml(element, i);
             getContactInitials(element.task.contacts, i);
+            generateNumberOfSubtasks(i, element);  // Ensure subtasks are generated
+            generatePriorityImgUnopened(i, element);  // Ensure priority image is generated
         }
     }
     removeSpecificColorFromDragArea();

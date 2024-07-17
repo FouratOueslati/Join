@@ -325,6 +325,11 @@ body {
     border: 2px solid white;
 }
 
+.initials-and-priority-container {
+    display: flex;
+    align-items: center;
+}
+
 .subtasks-opened {
     margin-top: 12px;
     display: flex;
@@ -358,6 +363,7 @@ body {
     display: flex;
     gap: 8px;
     margin-top: 12px;
+    width: 90%;
 }
 
 .initials {

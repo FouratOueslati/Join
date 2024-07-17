@@ -164,12 +164,6 @@
     cursor: pointer;
 }
 
-/* .edit {
-    position: absolute;
-    top: 288px;
-    left: 180px;
-} */
-
 .contact-information {
     height: 74px;
     display: flex;
@@ -267,6 +261,9 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+}
+
+.edit-contact-data {
     padding-left: 48px;
 }
 
@@ -484,6 +481,10 @@
         width: 95%;
     }
 
+    .edit {
+        margin: -90px 0 24px 33%;
+    }
+
     .wht-btn-edit {
         display: none;
     }
@@ -548,6 +549,10 @@
 
     .contact-data {
         width: 85%;
+    }
+
+    .contact-infos {
+        margin: 32px 0 0 24px;
     }
 
     .button-add-contacts {
@@ -619,11 +624,19 @@
         font-size: 47px;
     }
 
+    .add-contact-data {
+        width: unset;
+    }
+
     .text-contact {
         font-size: 20px;
     }
 
     .wht-btn-edit {
         display: none;
+    }
+
+    .contact-box-all {
+        width: -webkit-fill-available;
     }
 }

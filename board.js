@@ -122,7 +122,39 @@ function generateModalContent(task, i) {
         <div class="edit-delete-task-container">
             <img onclick="deleteTask(${i})" src="./img/delete_contact.png">
             <div style="font-size: 12px;">|</div>
-            <img src="./img/edit_contacts.png">
+            <img onclick="editTask(${i})" src="./img/edit_contacts.png">
+        </div>
+    `;
+}
+
+//New
+function generateEditModalContent(task, i) {
+    return /*html*/`
+        <div class="category-opened-container">
+            <div class="category-opened">${task.category}</div>
+            <img onclick="closeModal(document.getElementById('myModal${i}'))" src="./img/close.png">
+        </div>
+        <div class="modal-edit-content">
+            <label for="editTaskTitle${i}">Title:</label>
+            <input type="text" id="editTaskTitle${i}" value="${task.name}">
+            
+            <label for="editTaskDescription${i}">Description:</label>
+            <textarea id="editTaskDescription${i}">${task.description}</textarea>
+
+            <label for="editTaskDate${i}">Due date:</label>
+            <input type="date" id="editTaskDate${i}" value="${task.date}">
+
+            <label for="editTaskPriority${i}">Priority:</label>
+            <select id="editTaskPriority${i}">
+                <option value="Low" ${task.priority === 'Low' ? 'selected' : ''}>Low</option>
+                <option value="Medium" ${task.priority === 'Medium' ? 'selected' : ''}>Medium</option>
+                <option value="Urgent" ${task.priority === 'Urgent' ? 'selected' : ''}>Urgent</option>
+            </select>
+
+            <div class="edit-delete-task-container">
+                <button onclick="saveTask(${i})">Save</button>
+                <button onclick="deleteTask(${i})">Delete</button>
+            </div>
         </div>
     `;
 }
@@ -472,7 +504,20 @@ async function deleteTask(i) {
     displayOpenTasks();
 }
 
+//New
+async function editTask(i) {
+    const modalContentEdit = document.getElementById(`modal${i}`);
+    const task = todos[i].task;
 
-async function editTask() {
+    modalContentEdit.innerHTML = generateEditModalContent(task, i);
 
+    const modal = document.getElementById(`myModal${i}`);
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal(modal);
+        }
+    }
 }

@@ -143,8 +143,18 @@ function generateEditModalContent(task, i) {
 
             
             <label for="editTaskTitle${i}">Assigned to:</label>
-
-
+            <div class="inputs-flex">
+                <div class="drop-down">
+                    <div class="select">
+                        <span class="selected" id="selectContact">Search Contact</span>
+                            <div class="caret"></div>
+                    </div>
+                        <ul class="menu" id="contactList"></ul>
+                </div>
+                    <div class="bubble-setup">
+                                    <div id="contactsDisplayBuble" class="assigned-contacts-container"></div>
+                    </div>
+            </div>
 
             <label for="editTaskDate${i}">Due date:</label>
             <input type="date" id="editTaskDate${i}" value="${task.date}">
@@ -166,7 +176,7 @@ function generateEditModalContent(task, i) {
 
 
 
-            
+
 
             <div class="edit-delete-task-container">
                 <button onclick="saveTask(${i})">Save</button>

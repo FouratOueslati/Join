@@ -141,6 +141,11 @@ function generateEditModalContent(task, i) {
             <label for="editTaskDescription${i}">Description:</label>
             <textarea id="editTaskDescription${i}">${task.description}</textarea>
 
+            
+            <label for="editTaskTitle${i}">Assigned to:</label>
+
+
+
             <label for="editTaskDate${i}">Due date:</label>
             <input type="date" id="editTaskDate${i}" value="${task.date}">
 
@@ -150,6 +155,18 @@ function generateEditModalContent(task, i) {
                 <option value="Medium" ${task.priority === 'Medium' ? 'selected' : ''}>Medium</option>
                 <option value="Urgent" ${task.priority === 'Urgent' ? 'selected' : ''}>Urgent</option>
             </select>
+
+
+
+            <label for="editTaskTitle${i}">Category:</label>
+
+
+
+            <label for="editTaskTitle${i}">Subtask</label>
+
+
+
+            
 
             <div class="edit-delete-task-container">
                 <button onclick="saveTask(${i})">Save</button>

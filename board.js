@@ -1,7 +1,7 @@
-
 let currentDraggedElement;
 let currentTask = 0;
 let todos = [];
+
 
 async function initBoard() {
     includeHTML();
@@ -51,18 +51,17 @@ async function processTasks(containers) {
         for (let i = 0; i < taskIds.length; i++) {
             const id = taskIds[i];
             const task = { id: id, task: tasks[id] };
-            const category = tasks[id]['dragCategory'].trim();
+            const category = tasks[id]['dragCategory'];
             if (containers[category]) {
                 containers[category].innerHTML += getToDoTaskHtml(task, i);
                 await getContactInitials(task.task.contacts, i);
-                todos.push(task); 
+                todos.push(task);
+                await generateNumberOfSubtasks(i, task);
+                await generatePriorityImgUnopened(i, task);
             }
         }
     }
-    console.log(todos);
 }
-
-
 
 // HTML for the displayOpenTasks function
 function getToDoTaskHtml(task, i) {
@@ -75,46 +74,144 @@ function getToDoTaskHtml(task, i) {
         <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
         <div class="subtasks-number-container">
             <img class="load-bar" src="./img/filler.png">
-            <div class="subtasks">0/2 Subtasks</div>
+            <div id="subtasksNumber${i}" class="subtasks">
+            </div>
         </div>
-        <div class="initials-container" id="initialsContainer${i}"></div>
+        <div class="initials-and-priority-container">
+          <div class="initials-container" id="initialsContainer${i}"></div>
+          <img id="priorityImgUnopened${i}">
+        </div>
         <div id="myModal${i}" class="modal">
-            <div class="modal-content">
+            <div id="modal${i}" class="modal-content">
               ${generateModalContent(task, i)}
             </div>
         </div>
     </div>`;
 }
 
-function startDragging(id) {
-    currentDraggedElement = id;
-}
 
 function generateModalContent(task, i) {
     return /*html*/`
+        <div class="category-opened-container">
             <div class="category-opened">${task['task']['category']}</div>
-            <div class="title-opened">${task['task']['name']}</div>
-            <div class="description-opened">${task['task']['description']}</div>
-            <div class="details-container">
-                <span class="fine-written"> Due date:</span>
-                <div class="space-correct"> ${task['task']['date']}</div>
+            <img onclick="closeModal(document.getElementById('myModal${i}'))" src="./img/close.png">
+        </div>
+        <div id="openedTitle${i}" class="title-opened">${task['task']['name']}</div>
+        <div class="description-opened">${task['task']['description']}</div>
+        <div class="details-container">
+            <span class="fine-written">Due date:</span>
+            <div class="space-correct">${task['task']['date']}</div>
+        </div>
+        <div class="details-container">
+            <span class="fine-written">Priority:</span>´
+            <div class="space-correct">
+            <div id="openedPriority${i}">${task['task']['priority']}</div>
+            <img id="priorityImg${i}">
             </div>
-            <div class="details-container">
-                <span class="fine-written"> Priority:</span>
-                <div class="space-correct"> ${task['task']['priority']}</div>
+        </div>
+        <div class="assigned-to-container">
+            <div>Assigned To:</div>
+            <div class="assigned-contacts-container">
+                <div>${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
             </div>
-            <div class="assigned-to-container">
-                  <div>Assigned To:</div>
-                <div class="assigned-contacts-container">
-                  <div >${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
-                </div>
-            </div>       
-            <div>
-              <div class="details-container">Subtasks</div>
-              <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
-            </div>
-        `;
+        </div>
+        <div>
+            <div class="details-container">Subtasks</div>
+            <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
+        </div>
+        <div class="edit-delete-task-container">
+            <img onclick="deleteTask(${i})" src="./img/delete_contact.png">
+            <div style="font-size: 12px;">|</div>
+            <img src="./img/edit_contacts.png">
+        </div>
+    `;
 }
+
+
+
+function generateSubtasksHtml(subtasks, i) {
+    if (!subtasks || subtasks.length === 0) return '';
+    let result = '';
+    for (let j = 0; j < subtasks.length; j++) {
+        const subtask = subtasks[j];
+        result += `
+        <div class="checkbox-and-subtask">
+            <input id="subtaskCheckbox(${i}, ${j})" type="checkbox" class="subtask-checkbox" ${subtask.status === 'done' ? 'checked' : ''} onchange="toggleSubtaskStatus(${i}, ${j})">
+            <div id="subtaskText(${i}, ${j})">${subtask.text}</div>
+        </div>
+        `;
+    }
+    return result;
+}
+
+
+// DIESE FUNKTION MUSS ICH MIR NOCHMAL GENAUER ANSCHAUEN ES FUNKTIONIERT NUR DANN WENN MAN PAGE REFRESH MACHT
+async function generateNumberOfSubtasks(i, task) {
+    const subtasksNumber = document.getElementById(`subtasksNumber${i}`);
+    if (!subtasksNumber || !task.task || !Array.isArray(task.task.subtasks)) return;
+    const subtasks = task.task.subtasks;
+    const completedSubtasks = subtasks.filter(subtask => subtask.status === 'done').length;
+    const numberOfSubtasks = subtasks.length;
+    subtasksNumber.innerHTML = `${completedSubtasks}/${numberOfSubtasks} Subtasks`;
+}
+
+
+async function generatePriorityImgUnopened(i, task) {
+    const img = document.getElementById(`priorityImgUnopened${i}`);
+    let priority = task.task.priority;
+    if (priority && priority === 'Medium') {
+        img.src = "./addTaskImg/mediu.svg";
+    } else if (priority && priority === 'Low') {
+        img.src = "./addTaskImg/low.svg";
+    } else if (priority && priority === 'Urgent') {
+        img.src = "./addTaskImg/high.svg";
+    }
+}
+
+
+async function toggleSubtaskStatus(i, j) {
+    let subtaskCheckbox = document.getElementById(`subtaskCheckbox(${i}, ${j})`);
+    localStorage.setItem(`subtaskCheck(${i}, ${j})`, subtaskCheckbox.checked);
+    let statusOfSubtask = JSON.parse(localStorage.getItem(`subtaskCheck(${i}, ${j})`));
+    let subtaskText = document.getElementById(`subtaskText(${i}, ${j})`);
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    let taskIds = Object.keys(tasks);
+    let id = taskIds[i];
+    let task = tasks[id];
+    await findAndUpdateSubtask(tasks, subtaskText.innerHTML, statusOfSubtask);
+    await generateNumberOfSubtasks(i, task);
+}
+
+
+async function findAndUpdateSubtask(tasks, subtaskText, statusOfSubtask) {
+    const taskIds = Object.keys(tasks);
+    for (let taskIndex = 0; taskIndex < taskIds.length; taskIndex++) {
+        const taskId = taskIds[taskIndex];
+        let task = tasks[taskId];
+        let subtasks = task.subtasks;
+        const subtaskIds = Object.keys(subtasks);
+        for (let subtaskIndex = 0; subtaskIndex < subtaskIds.length; subtaskIndex++) {
+            const subtaskId = subtaskIds[subtaskIndex];
+            let subtask = subtasks[subtaskId];
+            if (subtaskText === subtask.text) {
+                subtask.status = statusOfSubtask ? 'done' : 'undone';
+                await updateSubtaskStatusInFirebase(subtask.status, taskId, subtaskId);
+            }
+        }
+    }
+}
+
+
+async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    if (tasks[taskId] && tasks[taskId].subtasks[subtaskId]) {
+        tasks[taskId].subtasks[subtaskId].status = status;
+        await updateUserData(uid, userData);
+    }
+}
+
 
 function generateContactInitialsAndNamesHtml(contacts, i) {
     if (!contacts || contacts.length === 0) return '';
@@ -127,23 +224,7 @@ function generateContactInitialsAndNamesHtml(contacts, i) {
         result += `
         <div class="assigned-contacts-and-intials-container">
             <div id="initials${i}-${j}" class="initials-opened" style="background-color: ${color};">${initial}</div>
-            <div id="contact${i}-${j}">${contactName}</div>
-        </div>
-        `;
-    }
-    return result;
-}
-
-
-function generateSubtasksHtml(subtasks, i) {
-    if (!subtasks || subtasks.length === 0) return '';
-    let result = '';
-    for (let j = 0; j < subtasks.length; j++) {
-        const subtask = subtasks[j];
-        result += `
-        <div class="checkbox-and-subtask">
-            <input type="checkbox" class="rectangle">
-            <div>${subtask}</div>
+            <div class="names-style" id="contact${i}-${j}">${contactName}</div>
         </div>
         `;
     }
@@ -153,13 +234,14 @@ function generateSubtasksHtml(subtasks, i) {
 
 async function zoomTaskInfo(i) {
     const modal = document.getElementById(`myModal${i}`);
-    modal.style.display = "block";
+    modal.style.display = "flex";
     document.body.style.overflow = "hidden";
     window.onclick = function (event) {
         if (event.target == modal) {
             closeModal(modal);
         }
     }
+    generatePriorityImgOpened(i);
 }
 
 async function loadDataIntoModal(modalContent, data, i) {
@@ -210,6 +292,19 @@ async function getContactInitials(contacts, i) {
 }
 
 
+function generatePriorityImgOpened(i) {
+    let priority = document.getElementById(`openedPriority${i}`);
+    let img = document.getElementById(`priorityImg${i}`);
+    if (priority && priority.innerHTML === 'Medium') {
+        img.src = "./addTaskImg/mediu.svg";
+    } else if (priority && priority.innerHTML === 'Low') {
+        img.src = "./addTaskImg/low.svg";
+    } else if (priority && priority.innerHTML === 'Urgent') {
+        img.src = "./addTaskImg/high.svg";
+    }
+}
+
+
 function openAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
     addTask.classList.remove('d-none'); addTask.classList.add('addTask-container-background');
@@ -223,6 +318,7 @@ function closeAddTaskInBoard() {
     addTask.classList.add('d-none');
     let addTaskWindow = document.getElementById('addTaskPopUp');
     addTaskWindow.classList.remove('bring-out-addTask-window');
+    localStorage.removeItem('dragCategory');
 }
 
 // limitiert den Text des Description
@@ -235,6 +331,11 @@ function limitText(containerId, wordLimit) {
             container.innerText = truncatedText;
         }
     }
+}
+
+
+function startDragging(id) {
+    currentDraggedElement = id;
 }
 
 
@@ -264,16 +365,6 @@ function removeHighlight() {
     document.querySelector('.drag-area').classList.remove('drag-area-highlight');
 }
 
-// speichert die Änderung der dragCategory in Firebase
-async function updateInFirebase(newDragCategory, taskId) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let tasks = userData.tasks;
-    if (tasks[taskId]) {
-        tasks[taskId].dragCategory = newDragCategory;
-        await updateUserData(uid, userData);
-    }
-}
-
 
 async function updateContainer(category) {
     const containerIdMap = {
@@ -287,7 +378,7 @@ async function updateContainer(category) {
         document.getElementById(containerId).innerHTML = "";
         await updateElements(category);
         renderElements(category, containerId);
-    }    
+    }
 }
 
 // Elemente in Firebase basierend auf der übergebenen category aktualisieren
@@ -295,8 +386,18 @@ async function updateElements(category) {
     for (let i = 0; i < todos.length; i++) {
         const element = todos[i];
         if (element.task.dragCategory === category) {
-            await updateInFirebase(category, element.id);
+            await updateDragCategoryInFirebase(category, element.id);
         }
+    }
+}
+
+// speichert die Änderung der dragCategory in Firebase
+async function updateDragCategoryInFirebase(newDragCategory, taskId) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    if (tasks[taskId]) {
+        tasks[taskId].dragCategory = newDragCategory;
+        await updateUserData(uid, userData);
     }
 }
 
@@ -308,10 +409,13 @@ function renderElements(category, containerId) {
             const container = document.getElementById(containerId);
             container.innerHTML += getToDoTaskHtml(element, i);
             getContactInitials(element.task.contacts, i);
+            generateNumberOfSubtasks(i, element);  // Ensure subtasks are generated
+            generatePriorityImgUnopened(i, element);  // Ensure priority image is generated
         }
     }
     removeSpecificColorFromDragArea();
 }
+
 
 function removeSpecificColorFromDragArea() {
     let containers = [
@@ -325,13 +429,13 @@ function removeSpecificColorFromDragArea() {
     for (let i = 0; i < containers.length; i++) {
         let container = containers[i];
         if (container && container.querySelector('div')) {
-            console.log('Test');
             container.classList.remove(classRemove);
         } else {
             container.classList.add(classAdd);
         }
     }
 }
+
 
 function filterTask() {
     let search = document.getElementById('search').value.toLowerCase().slice(0, 3);
@@ -344,9 +448,10 @@ function filterTask() {
     }
 }
 
+
 function filterWithSearchTerm(searchTerm) {
     for (let i = 0; i < todos.length; i++) {
-        let taskTitle = document.getElementById(`taskTitle${i}`).textContent.toLocaleLowerCase().slice(0,3);
+        let taskTitle = document.getElementById(`taskTitle${i}`).textContent.toLocaleLowerCase().slice(0, 3);
         let taskCard = document.getElementById(`task${i}`);
         if (taskTitle.includes(searchTerm)) {
             taskCard.style.display = 'block';
@@ -354,4 +459,20 @@ function filterWithSearchTerm(searchTerm) {
             taskCard.style.display = 'none';
         }
     }
+}
+
+
+async function deleteTask(i) {
+    let taskTitle = document.getElementById(`openedTitle${i}`).innerHTML;
+    let taskIndex = todos.findIndex(todo => taskTitle === todo.task.name);
+    if (taskIndex !== -1) {
+        const taskId = todos[taskIndex].id;
+        await deleteUserTask(uid, taskId);
+    }
+    displayOpenTasks();
+}
+
+
+async function editTask() {
+
 }

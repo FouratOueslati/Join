@@ -1,6 +1,5 @@
 async function initSummary() {
     includeHTML();
-    showLoggedUserInitials();
     await greetUser();
     await loadToDoTasks();
     await loadUrgentTasksNumber();
@@ -8,6 +7,7 @@ async function initSummary() {
     await loadAllTasks();
     await loadInProgressTasks();
     await loadFeedbackTasks();
+    showLoggedUserInitials();
 }
 
 

@@ -229,7 +229,15 @@ async function addTask() {
     let lastClickedButton = localStorage.getItem('lastClickedButton');
     let selectedCategory = localStorage.getItem('selectedCategory');
     let dragCategory = localStorage.getItem('dragCategory');
-    dragCategory = dragCategory.split(" ").join("");
+    let subtasksArray = [];
+    if (subtasks) {
+        for (let i = 0; i < subtasks.length; i++) {
+            subtasksArray.push({
+                text: subtasks[i],
+                status: "undone"
+            });
+        }
+    }
     let task = {
         name: taskTitle,
         description: taskDescription,
@@ -237,7 +245,7 @@ async function addTask() {
         priority: lastClickedButton,
         category: selectedCategory,
         contacts: contacts,
-        subtasks: subtasks,
+        subtasks: subtasksArray,
         dragCategory: dragCategory || "todo"
     };
     await postTask('/users/' + uid + '/tasks', task);
@@ -245,16 +253,6 @@ async function addTask() {
     displayOpenTasks();
     closeAddTaskInBoard();
 }
-
-
-// Initialien der assigned contacts holen
-function getContactsInitials(contacts) {
-    if (!Array.isArray(contacts)) {
-        return '';
-    }
-    return contacts.map(contact => getInitials(contact.trim())).join(', ');
-}
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -278,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 select.classList.remove('selectClicked');
                 caret.classList.remove('createRotate');
                 menu.classList.remove('menuOpen');
-
                 options.forEach(option => {
                     option.classList.remove('active');
                 });

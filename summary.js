@@ -10,7 +10,9 @@ async function initSummary() {
     showLoggedUserInitials();
 }
 
-
+/**
+ * This function load all tasks of an user from the local storage
+ */
 async function loadAllTasks() {
     let allTasksNumber = document.getElementById('allTasksNumber');
     let tasks = await loadAllTasksFromStorage();
@@ -18,7 +20,9 @@ async function loadAllTasks() {
     allTasksNumber.innerHTML = taskIds.length;
 }
 
-
+/**
+ * This function load the number of taks in the category urgent of an user an show them
+ */
 async function loadUrgentTasksNumber() {
     let urgentTasksNumber = document.getElementById('urgentTasksNumber');
     let tasks = await loadAllTasksFromStorage();
@@ -33,7 +37,9 @@ async function loadUrgentTasksNumber() {
     urgentTasksNumber.innerHTML = urgentTaskCount;
 }
 
-
+/**
+ * This function load the number of tasks in the category to do of an user an show them
+ */
 async function loadToDoTasks() {
     let toDoTasksNumber = document.getElementById('toDosNumber');
     let tasks = await loadAllTasksFromStorage();
@@ -48,7 +54,9 @@ async function loadToDoTasks() {
     toDoTasksNumber.innerHTML = toDoTasksCount;
 }
 
-
+/**
+ * This function load the number of tasks in the category progress of an user an show them
+ */
 async function loadInProgressTasks() {
     let inProgressTasksNumber = document.getElementById('inProgressNumber');
     let tasks = await loadAllTasksFromStorage();
@@ -63,7 +71,9 @@ async function loadInProgressTasks() {
     inProgressTasksNumber.innerHTML = inProgressTasksCount;
 }
 
-
+/**
+ * This function load the number of tasks in the category feedback of an user an show them
+ */
 async function loadFeedbackTasks() {
     let feedbackTasksNumber = document.getElementById('feedbackNumber');
     let tasks = await loadAllTasksFromStorage();
@@ -78,7 +88,9 @@ async function loadFeedbackTasks() {
     feedbackTasksNumber.innerHTML = feedbackTasksCount;
 }
 
-
+/**
+ * This function load the specific user name ofe the user and show the greet
+ */
 async function greetUser() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let UserNameContainer = document.getElementById('userNameContainer');

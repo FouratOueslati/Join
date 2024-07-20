@@ -15,7 +15,7 @@
 
 @media (max-width: 1024px) {
     .greeting-and-todos-container {
-        height: 80%;
+        /* height: 80%; */
         align-items: flex-start;
     }
 
@@ -30,7 +30,8 @@
     }
 
     .summary-headline {
-        padding-left: 16px;
+        padding-left: unset;
+        margin: 20px 0 20px 20px;
         height: 10%;
         gap: 8px;
     }
@@ -120,25 +121,29 @@
     }
 
     .todos-box {
-        width: 310px;
+        width: 95%;
         gap: 24px;
         gap: 24px;
     }
 
     .urgent-todo-container {
-        width: 310px;
+        width: 95%;
         padding: 24px;
         gap: 20px;
         gap: 20px;
     }
 
     .undone-todos-container {
-        width: 310px;
+        width: 95%;
         gap: 8px;
     }
 
     .todo-in-progress {
         font-size: 16px;
+    }
+
+    .todos-container {
+        padding: unset;
     }
 
     .small-icon {

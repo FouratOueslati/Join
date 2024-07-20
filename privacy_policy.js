@@ -1,4 +1,12 @@
+function initPolicy() {
+    includeHTML();
+    addClassScroll();     
+    showLoggedUserInitials();
+}
 
+/**
+ * This function add or remove the characteristic to scroll the webside based on the screen width
+ */
 function addClassScroll() {
     const screenWidth = window.innerWidth;
     const parentContainer = document.getElementById('ppParentCont');
@@ -7,11 +15,4 @@ function addClassScroll() {
     } else {
         parentContainer.classList.remove("scroll");
     }
-}
-
-
-function initPolicy() {
-    includeHTML();
-    addClassScroll();     
-    showLoggedUserInitials();
 }

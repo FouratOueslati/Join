@@ -434,25 +434,24 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                     <img src="./img/close.png" onclick="closeDialog()">
                 </div>
                 <div class="contact-box-right">
-                    <div class="contact-box-all">
-                        <div class="contact-info">
-                            <div id="edit-contactsInitialsBig${contactId}" class="shorts-name-big edit">${firstLetterOfName}${firstLetterOfLastName}</div>
-                            <div class="add-contact-data edit-contact-data">
-                                <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
-                                <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-edit" value="${email}">
-                                <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
-                                <div class="close-create-button">
-                                    <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
-                                        <div class="button-txt-img">Delete</div>
-                                    </button>
-                                    <button onclick="saveEditContact('${contactId}')" class="color-blue-button">
-                                        <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
-                                    </button>
+                    <div id="edit-contactsInitialsBig${contactId}" class="edit-img">${firstLetterOfName}${firstLetterOfLastName}</div>
+                    <div class="data-box">
+                        <div class="add-contact-data">
+                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-edit" value="${email}">
+                            <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
                         </div>
-                            </div>
+                        <div class="close-create-button">
+                            <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
+                                <div class="button-txt-img">Delete</div>
+                            </button>
+                            <button onclick="saveEditContact('${contactId}')" class="color-blue-button">
+                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
+                            </button>
                         </div>
-                        
                     </div>
+                        
+                    
                 </div>
             </div>
         </div>`;

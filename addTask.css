@@ -47,7 +47,6 @@ body {
     align-items: center;
 }
 
-
 .inputs-flex {
     display: flex;
     flex-direction: column;
@@ -380,7 +379,6 @@ body {
     align-items: center;
 }
 
-
 .creat-and-close-buttons {
     display: flex;
     gap: 8px;
@@ -390,11 +388,3 @@ body {
     display: flex;
     gap: 8px;
 }
-
-
-
-
-
-
-
-   

@@ -22,7 +22,6 @@
     .not-user-container {
         position: unset;
     }
-
 }
 
 @media (max-width: 1024px) {
@@ -31,7 +30,6 @@
         overflow-x: hidden;
     }
 }
-
 
 @media (max-width: 900px) {
     body {

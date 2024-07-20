@@ -11,13 +11,13 @@ async function initSummary() {
 }
 
 
-
 async function loadAllTasks() {
     let allTasksNumber = document.getElementById('allTasksNumber');
     let tasks = await loadAllTasksFromStorage();
     let taskIds = Object.keys(tasks);
     allTasksNumber.innerHTML = taskIds.length;
 }
+
 
 async function loadUrgentTasksNumber() {
     let urgentTasksNumber = document.getElementById('urgentTasksNumber');
@@ -62,6 +62,7 @@ async function loadInProgressTasks() {
     }
     inProgressTasksNumber.innerHTML = inProgressTasksCount;
 }
+
 
 async function loadFeedbackTasks() {
     let feedbackTasksNumber = document.getElementById('feedbackNumber');

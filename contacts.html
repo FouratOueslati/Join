@@ -17,6 +17,7 @@
     <script src="./templates/topbar.js"></script>
     <script src="storage.js"></script>
     <script src="contacts.js"></script>
+    <script src="./templates/contacts.js"></script>
     <script src="logout.js"></script>
 </head>
 <body onload="init()">
@@ -30,6 +31,10 @@
                     <div id="arrowContact" class="arrow-contact d-none" onclick="closeContactMobile()">
                         <img src="./img/arrow-left-line.png">
                     </div>
+                    <button onclick="openEditSmallMenu(), showEditDeleteMenuBox()" id="btnEditContacts" class="button-edit-contacts d-none">
+                        <img src="./contactsImg/dot_menu.svg">
+                    </button>
+                    <div id="editDeleteMenuBox" class="edit-delete-menu-box d-none"></div>
                     <div id="contactsContainer" class="contacts-container">
                         <div class="add-contact-box">
                             <button onclick="openAddNewContact()" class="button-add-contacts">
@@ -38,19 +43,18 @@
                             </button>
                         </div>
                         <div class="scroll">
-                            <div id="filteredContactsContainer">
-                            </div>
+                            <div id="filteredContactsContainer"></div>
                         </div>
                     </div>
                     <div id="contactBigContainer" class="contact-big-container">
                         <div id="contactHeadline" class="contact-headline">
-                            <div class="fat-Contacts-headline">Contacts</div>
+                            <div class="fat-contacts-headline">Contacts</div>
                             <div class="seperator-and-text-container">
                                 <div class="vertical-seperator"></div>
                                 <div>Better with a team</div>
                             </div>
                         </div>
-                        <div id="test" class="test">
+                        <div>
                             <div id="contactInfos" class="contact-infos"></div>
                         </div>
                     </div>

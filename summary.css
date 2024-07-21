@@ -32,10 +32,14 @@ body {
     
 }
 
-.join-360,
-.fat-Contacts-headline {
+.join-360 {
     font-weight: 700;
     font-size: 60px;
+}
+
+.fat-contacts-headline {
+    font-size: clamp(2.938rem, 0.938rem + 3.125vi, 3.75rem);
+    font-weight: 700;
 }
 
 .seperator-and-text-container {

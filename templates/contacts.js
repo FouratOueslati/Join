@@ -55,7 +55,7 @@ function getAddNewContactHtml() {
                         <div class="data-box">
                             <div class="add-contact-data">
                                 <input id="name" placeholder="Name" type="text" required class="name-input">
-                                <input id="email" placeholder="Email" type="email" required class="email-input email-edit">
+                                <input id="email" placeholder="Email" type="email" required class="email-input email-input-edit">
                                 <input id="number" placeholder="Phone" type="text" required class="phone-input">
                             </div>
                             <div class="close-create-button">
@@ -92,11 +92,11 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                     <img src="./img/close.png" onclick="closeDialog()">
                 </div>
                 <div class="contact-box-right">
-                    <div id="edit-contactsInitialsBig${contactId}" class="shorts-name-big edit">${firstLetterOfName}${firstLetterOfLastName}</div>
-                    <div>
+                    <div id="edit-contactsInitialsBig${contactId}" class="edit-img">${firstLetterOfName}${firstLetterOfLastName}</div>
+                    <div class="data-box">
                         <div class="add-contact-data">
                             <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input" value="${email}">
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-input-edit" value="${email}">
                             <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
                         </div>
                         <div class="close-create-button">
@@ -112,3 +112,11 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
             </div>
         </div>`;
 }
+
+function getEditDeleteMenuBoxHtml(i) {
+    return`
+    <button onclick="openEditContact(i)"><img src="./img/edit_contacts.png"></button>
+    <button onclick="deleteContact()"><img src="./img/delete_contact.png"></button>
+    `
+}
+

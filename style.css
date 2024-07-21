@@ -310,3 +310,17 @@ body {
     font-weight: 700;
     padding: 32px 0 24px 0;
 }
+
+.legal-privacy-container {
+    display: flex;
+    gap: 16px;
+}
+
+.privacy_policy_extern {
+    text-decoration: unset;
+    color: #A8A8A8;
+}
+
+.privacy_policy_extern:hover {
+    color: #29ABE2;
+}

@@ -32,6 +32,19 @@
     font-size: 16px;
     border: unset;
     gap: 16px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.button-edit-contacts {
+    height: 56px;
+    border-radius: 56px;
+    background-color: #2a3647;
+    position: absolute;
+    bottom: 112px;
+    right: 16px;
+    border: unset;
+    box-shadow: 0px 4px 4px 0px #00000040;
+
 }
 
 .dark-background {
@@ -105,7 +118,10 @@
     font-size: 47px;
     font-weight: 500;
     color: white;
-    margin: 32px 0 0 0;
+}
+
+.edit-img {
+    margin-top: 32px;
 }
 
 .contact-name {
@@ -124,15 +140,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: 110px 0 0 55px;
+    margin: 110px 0 32px 55px;
     gap: 30px;
-    height: 100px;
     font-size: 27px;
 }
 
-/* .contact-infos {
-    margin: 32px 0 0 65px;
-} */
+.contact-infos {
+    margin-left: 65px;
+}
 
 .contact-info {
     display: flex;
@@ -144,7 +159,7 @@
 }
 
 .full-name {
-    font-size: 47px;
+    font-size: clamp(2.25rem, 1.104rem + 2.037vi, 2.938rem);
     font-weight: 500;
     padding-left: 54px;
 }
@@ -242,7 +257,8 @@
 
 .contact-img {
     height: 120px;
-    margin: 32px 0 0 0;}
+    margin: 32px 0 0 0;
+}
 
 .contact-big-container {
     padding-right: 20px;
@@ -295,10 +311,11 @@
     padding-top: 48px;
 }
 
-.button-add-contacts:hover {
+.button-add-contacts:hover,
+.button-edit-contacts:hover {
     cursor: pointer;
     background-color: #29ABE2;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2); */
 }
 
 .button-txt-img {
@@ -338,18 +355,38 @@
     cursor: pointer;
 }
 
-.contact-information {
-    height: 74px;
+.edit-delete-menu-box {
+    position: absolute;
+    border-radius: 20px 20px 0 20px;
+    width: 116px;
+    height: 110px;
+    background: white;
+    gap: 16px;
     display: flex;
-    align-items: center;
-    font-size: 20px;
-    font-weight: 400;
-    margin: 21px 0;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    bottom: 108px;
+    right: 16px;
+    z-index: 1;
+    box-shadow: 0px 4px 4px 0px #00000040;;
+}
+
+.edit-delete-menu-box button {
+    border: unset;
+    background-color: unset;
+    display: flex;
+    padding: 8px;
+    border-radius: 8px 8px 0 8px;
+}
+
+.edit-delete-menu-box button:hover {
+    cursor: pointer;
+    background-color: #A8A8A8;
 }
 
 .contact-infos {
     display: flex;
-    padding-left: 55px;
 }
 
 .email-phone-box {
@@ -409,8 +446,7 @@
     }
 
     .full-name {
-        font-size: 36px;
-        font-weight: 700;
+        padding: 21px 0 0 0;
     }
 
     .add-contact-left,
@@ -418,9 +454,10 @@
         padding: 0 48px;
     }
 
-    /* .contact-img {
-        padding: 67px 48px 0 0;
-    } */
+    .edit-delete-contact {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 @media(max-width: 1024px) {
@@ -492,7 +529,8 @@
     }
 
     .edit {
-        margin: -90px 0 24px 33%;
+        position: absolute;
+        margin: -90px 0 24px 0;
     }
 
     .wht-btn-edit {
@@ -535,15 +573,16 @@
         justify-content: flex-end;
     }
 
-    .shorts-name-big {
-        margin: unset;
+    .contact-headline {
+        margin: 48px 0 48px 16px;
     }
 
     .button-txt {
         display: none;
     }
 
-    .button-add-contacts {
+    .button-add-contacts,
+    .button-edit-contacts {
         width: 56px;
         border-radius: 56px;
     }
@@ -565,7 +604,19 @@
     }
 
     .contact-infos {
-        margin: 32px 0 0 24px;
+        margin: 0 0 0 16px;
+    }
+
+    .full-name {
+        font-weight: 700;
+    }
+
+    .edit-delete-box {
+        display: none;
+    }
+
+    .contact-information {
+        margin: unset;
     }
 
     .button-add-contacts {
@@ -582,7 +633,7 @@
         padding: 24px 20px 0 0;
     }
 
-    .email-edit {
+    .email-input-edit {
         width: unset !important;
         background-position: 93% !important;
     }
@@ -593,33 +644,18 @@
         right: 16px;
     }
 
+    .menu-contact {
+        position: absolute;
+        right: 12px;
+        bottom: 100px;
+    }
+
     .arrow-contact:hover {
         cursor: pointer;
-    }
-
-    .contact-headline {
-        margin: 48px 0 0 16px;
-    }
-
-    .fat-Contacts-headline {
-        font-size: 47px !important;
-    }
-
-    .full-name {
-        padding-left: 20px;
     }
 }
 
 @media (max-width: 600px) {
-    .edit-delete-contact {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .full-name {
-        padding: 12px 0 0 0;
-    }
-
     .add-new-contact {
         width: 100%;
         height: 100%;

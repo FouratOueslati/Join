@@ -135,14 +135,13 @@ function generateEditModalContent(task, i) {
             <img onclick="closeModal(document.getElementById('myModal${i}'))" src="./img/close.png">
         </div>
         <div class="modal-edit-content">
-            <label for="editTaskTitle${i}">Title:</label>
-            <input type="text" id="editTaskTitle${i}" value="${task.name}">
+            <label for="editTaskTitle${i}" class="margin-span">Title:</label>
+            <input id="taskTitle" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
             
             <label for="editTaskDescription${i}">Description:</label>
-            <textarea id="editTaskDescription${i}">${task.description}</textarea>
-
-            
-            <label for="editTaskTitle${i}">Assigned to:</label>
+            <textarea style="height: 80px;" id="taskDescription" required placeholder="Enter a Description..." minlength="4" class="task-input-field" id="description" >${task.description}</textarea>
+           
+            <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
             <div class="inputs-flex">
                 <div class="drop-down">
                     <div class="select">
@@ -152,27 +151,65 @@ function generateEditModalContent(task, i) {
                         <ul class="menu" id="contactList"></ul>
                 </div>
                     <div class="bubble-setup">
-                                    <div id="contactsDisplayBuble" class="assigned-contacts-container"></div>
+                        <div id="contactsDisplayBuble" class="assigned-contacts-container"></div>
                     </div>
             </div>
 
-            <label for="editTaskDate${i}">Due date:</label>
-            <input type="date" id="editTaskDate${i}" value="${task.date}">
+            <label for="editTaskDate${i}" class="margin-span">Due date:</label>
+            <input id="date" type="date" class="task-input-field date" value="${task.date}">
 
-            <label for="editTaskPriority${i}">Priority:</label>
-            <select id="editTaskPriority${i}">
-                <option value="Low" ${task.priority === 'Low' ? 'selected' : ''}>Low</option>
-                <option value="Medium" ${task.priority === 'Medium' ? 'selected' : ''}>Medium</option>
-                <option value="Urgent" ${task.priority === 'Urgent' ? 'selected' : ''}>Urgent</option>
-            </select>
+            <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
+            <div class="button-prio-width">
+                <button onclick="addPrioEventListeners()" id="urgentButton" type="button"class="button-prio">
+                    <div class="center">
+                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
+                    </div>
+                </button>
+                <button onclick="addPrioEventListeners()" id="mediumButton" type="button"class="button-prio">
+                    <div class="center">
+                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
+                    </div>
+                </button>
+                <button onclick="addPrioEventListeners()" id="lowButton" type="button" class="button-prio">
+                <div class="center">
+                    <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
+                </div>
+                </button>
+            </div>
+        </div>
 
 
 
-            <label for="editTaskTitle${i}">Category:</label>
+        <label for="editTaskTitle${i}" class="margin-span">Category:</label>
+            <div class="drop-down">
+                <div class="select" id="selectCategoryContainer">
+                    <span class="selected" id="selectCategory">Select task category</span>
+                    <div class="caret"></div>
+                </div>
+            <ul onclick="addCategoryEventListener()" class="menu" id="categoryMenu">
+                <li>Technical Task</li>
+                <li>User Story</li>
+            </ul>
+            </div>
 
 
 
-            <label for="editTaskTitle${i}">Subtask</label>
+            <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
+            <div class="input-with-img">
+                <div style="display: flex; align-items: center; width: 100%;">
+                    <input required placeholder="Add new subtask" class="task-input-with-img" oninput="onInputChange()" id="inputFieldSubtask">
+                        <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+                </div>
+                    <div class="check-cross-position" id="closeOrAccept">
+                        <button class="button-transparacy">
+                            <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                        </button>
+                        <button class="button-transparacy">
+                            <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
+                        </button>
+                    </div>
+            </div>
+                <div class="subtask-container" id="subtasksContainer"></div>
 
 
 
@@ -548,3 +585,4 @@ async function editTask(i) {
         }
     }
 }
+

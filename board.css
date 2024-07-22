@@ -244,7 +244,7 @@ body {
     padding: 35px;
     border: 1px solid #888;
     width: 30%;
-    height: 80%;
+    height: auto;
 }
 
 .category-opened-container{
@@ -389,6 +389,11 @@ body {
     flex-direction: column;
 }
 
+.margin-span {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
 
 @media(max-width: 1300px) {
     .board-position-lower {
@@ -421,6 +426,7 @@ body {
     }
     .modal-content {
         width: 35%;
+        height: auto;
     }
 }
 
@@ -435,6 +441,7 @@ body {
     }
     .modal-content {
         width: 50%;
+        height: auto;
     }
 
     .open-tasks-container {

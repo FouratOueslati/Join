@@ -160,17 +160,17 @@ function generateEditModalContent(task, i) {
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
-                <button onclick="addPrioEventListeners()" id="urgentButton" type="button"class="button-prio">
+                <button onclick="addPrioEventListeners(); changeColor(clickedButton)" id="urgentButton" type="button"class="button-prio">
                     <div class="center">
                         <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
                     </div>
                 </button>
-                <button onclick="addPrioEventListeners()" id="mediumButton" type="button"class="button-prio">
+                <button onclick="addPrioEventListeners(); changeColor(clickedButton)" id="mediumButton" type="button"class="button-prio">
                     <div class="center">
                         <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
                     </div>
                 </button>
-                <button onclick="addPrioEventListeners()" id="lowButton" type="button" class="button-prio">
+                <button onclick="addPrioEventListeners(); changeColor(clickedButton)" id="lowButton" type="button" class="button-prio">
                 <div class="center">
                     <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
                 </div>
@@ -585,4 +585,7 @@ async function editTask(i) {
         }
     }
 }
+
+
+
 

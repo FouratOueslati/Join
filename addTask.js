@@ -254,6 +254,27 @@ async function addTask() {
     closeAddTaskInBoard();
 }
 
+//Changes button colors
+function changeColor(clickedButton) {
+    const buttons = [
+        { element: document.getElementById('lowButton'), class: 'lowSelected' },
+        { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
+        { element: document.getElementById('urgentButton'), class: 'urgentSelected' }
+    ];
+
+    buttons.forEach(button => {
+        button.element.classList.toggle(button.class, button.element === clickedButton);
+        if (button.element !== clickedButton) {
+            button.element.classList.remove(button.class);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('lowButton').onclick = function() { changeColor(this); };
+    document.getElementById('mediumButton').onclick = function() { changeColor(this); };
+    document.getElementById('urgentButton').onclick = function() { changeColor(this); };
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const dropDowns = document.querySelectorAll('.drop-down');

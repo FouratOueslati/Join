@@ -388,3 +388,14 @@ body {
     display: flex;
     gap: 8px;
 }
+
+/* Button change colors */
+.lowSelected {
+    background-color:  rgb(122,226,41);
+}
+.mediumSelected {
+    background-color: rgb(255,168,0);
+}
+.urgentSelected {
+    background-color: rgb(255,61,0);
+}

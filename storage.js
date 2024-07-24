@@ -1,4 +1,4 @@
-const BASE_URL_USER_DATA = "https://joinfirebase123-default-rtdb.europe-west1.firebasedatabase.app/";
+const BASE_URL_USER_DATA = "https://join-211-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
 /**

@@ -348,7 +348,7 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
     await updateUserData(uid, userData);
 }
 
-function showEditDeleteMenuBox() {
+function showEditDeleteMenuBox(i) {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
-    editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml();
+    editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml(i);
 }

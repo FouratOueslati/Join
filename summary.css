@@ -87,6 +87,10 @@ body {
     background-color: #FFFFFF;
 }
 
+.color-black {
+    color: black;
+}
+
 .todos-box {
     display: flex;
     justify-content: space-between;

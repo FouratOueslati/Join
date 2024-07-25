@@ -133,7 +133,7 @@ async function openContact(i) {
     let color = contact.backgroundcolor;
     let contactInfos = document.getElementById('contactInfos');
     contactInfos.innerHTML = '';
-    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i);
+    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i, contactId);
     showColorForBigContact(i, color);
     openContactChangeBgColor(i);
 }
@@ -142,15 +142,17 @@ async function openContact(i) {
 function openContactChangeBgColor(i) {
     let contactData = document.getElementById(`contactData${i}`);
     if (contactData) {
-        contactData.addEventListener("click", changeBgColor);
-        function changeBgColor() {
-            let allContacts = document.querySelectorAll('.bg-contact-container');
-            allContacts.forEach(contact => {
-                contact.classList.remove('bg-contact-container');
-            });
-            contactData.classList.add('bg-contact-container');
-        }
+        changeBgColor(contactData);
     }
+}
+
+
+function changeBgColor (contactData) {
+    let allcontacts = document.querySelectorAll('.bg-contact-container');
+        allcontacts.forEach(contact => {
+            contact.classList.remove('bg-contact-container');
+        });
+        contactData.classList.add('bg-contact-container');
 }
 
 
@@ -187,6 +189,7 @@ function openAddNewContact() {
     getRandomColor();
 }
 
+window.addEventListener('resize', animateAddNewContact);
 
 function animateAddNewContact() {
     const screenWidth = window.innerWidth;
@@ -205,9 +208,6 @@ function animateAddNewContact() {
         }, 50);
     }
 }
-
-
-window.addEventListener('resize', animateAddNewContact);
 
 
 // schließt das Window für add new contact
@@ -294,7 +294,7 @@ async function saveEditContact(contactId) {
 }
 
 // erstellt eine neues Kontakt
-async function createNewContact() {
+async function createNewContact(i) {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
@@ -308,6 +308,7 @@ async function createNewContact() {
     postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
+    openEditContact(i);
 }
 
 // löscht ein Kontakt
@@ -319,6 +320,7 @@ async function deleteContact(contactId) {
             userData.contacts.splice(contactId, 1);
         console.log(contact) // Remove the contact at index i
     }
+    contactInfos.innerHTML = '';
     await deleteUserContact(uid, contactId);
     await loadDataAfterChanges();
 }

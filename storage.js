@@ -12,6 +12,7 @@ async function loadUserData(path = "") {
     return await response.json();
 }
 
+
 /**
  * This function load user date and save in the local storage
  * 
@@ -31,7 +32,7 @@ async function setLoggedInUser(uid) {
 
 
 /**
- * Thias function recall the id of an user from loacal the storage
+ * This function recall the id of an user from the loacal storage
  * 
  * @returns {string}
  */

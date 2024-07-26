@@ -93,8 +93,31 @@ async function loadFeedbackTasks() {
  */
 async function greetUser() {
     let userData = await loadSpecificUserDataFromLocalStorage();
-    let UserNameContainer = document.getElementById('userNameContainer');
-    UserNameContainer.innerHTML = userData.name;
+    let userNameContainer = document.getElementById('userNameContainer');
+    userNameContainer.innerHTML = userData.name;
+    document.getElementById('greeting').innerHTML = getDayTime();
+}
+
+
+function greetDayTime(dayTime) {
+    if (dayTime < 12) {
+        return 'Good Morning,'
+    } else if (dayTime >= 12 && dayTime < 18) {
+        return 'Good afternoon,'
+    } else {
+        return 'Good evening,'
+    }
+}
+
+/**
+ * This function get the current time of the day for the matching greeting
+ * 
+ * @returns 
+ */
+function getDayTime() {
+    let dayTime = new Date().getHours();
+    let greeting = greetDayTime(dayTime);
+    return greeting;
 }
 
 

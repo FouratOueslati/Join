@@ -27,7 +27,9 @@ async function loadDataAfterChanges() {
 }
 
 
-// schaut ob die Initialien der Namen im Array Letters vorhanden sind
+/**
+ * This function check the initials of the user and save them in the array
+ */
 async function checkExistingInitials() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
@@ -45,7 +47,10 @@ async function checkExistingInitials() {
     }
 }
 
-// generiert den Filter für die Kontakte, je nachdem welche Initialien vorhanden sind
+
+/**
+ * This function create the first letters matching to the initials of an user
+ */
 function displayInitialsFilter() {
     let filteredContactContainer = document.getElementById('filteredContactsContainer');
     filteredContactContainer.innerHTML = '';
@@ -103,8 +108,8 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
 /**
  * This function shows the color for the contact
  * 
- * @param {*} i 
- * @param {*} color 
+ * @param {string} i 
+ * @param {string} color 
  */
 function showColorForContact(i, color) {
     let contactInitial = document.getElementById(`contactsInitials${i}`);
@@ -186,28 +191,6 @@ function openAddNewContact() {
     }, 50);
     getRandomColor();
 }
-
-
-function animateAddNewContact() {
-    const screenWidth = window.innerWidth;
-    const addNewContact = document.querySelector('.add-new-contact');
-    if (screenWidth < 900) {
-        addNewContact.style.transform = "translateY(100%)";
-        addNewContact.classList.remove('d-none');
-        setTimeout(() => {
-            addNewContact.style.transform = "translateY(0)";
-        }, 50);
-    } else {
-        addNewContact.style.transform = "translateX(113%)";
-        addNewContact.classList.remove('d-none');
-        setTimeout(() => {
-            addNewContact.style.transform = "translateX(0)";
-        }, 50);
-    }
-}
-
-
-window.addEventListener('resize', animateAddNewContact);
 
 
 // schließt das Window für add new contact

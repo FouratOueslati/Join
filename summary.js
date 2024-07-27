@@ -100,9 +100,11 @@ async function greetUser() {
 
 
 function greetDayTime(dayTime) {
-    if (dayTime < 12) {
+    if (dayTime < 10) {
         return 'Good Morning,'
-    } else if (dayTime >= 12 && dayTime < 18) {
+    } else if (dayTime >= 10 && dayTime < 16) {
+        return 'Hello,'
+    } else if (dayTime >= 16 && dayTime < 18) {
         return 'Good afternoon,'
     } else {
         return 'Good evening,'

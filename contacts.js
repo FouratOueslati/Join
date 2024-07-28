@@ -195,28 +195,6 @@ function openAddNewContact() {
 }
 
 
-function animateAddNewContact() {
-    const screenWidth = window.innerWidth;
-    const addNewContact = document.querySelector('.add-new-contact');
-    if (screenWidth < 900) {
-        addNewContact.style.transform = "translateY(100%)";
-        addNewContact.classList.remove('d-none');
-        setTimeout(() => {
-            addNewContact.style.transform = "translateY(0)";
-        }, 50);
-    } else {
-        addNewContact.style.transform = "translateX(113%)";
-        addNewContact.classList.remove('d-none');
-        setTimeout(() => {
-            addNewContact.style.transform = "translateX(0)";
-        }, 50);
-    }
-}
-
-
-window.addEventListener('resize', animateAddNewContact);
-
-
 // schließt das Window für add new contact
 function closeDialog() {
     document.getElementById('dialogNewEditContact').classList.add('d-none');

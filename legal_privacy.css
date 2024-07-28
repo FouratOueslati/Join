@@ -106,7 +106,7 @@ a:hover {
 
 .scroll {
     overflow-y: scroll;
-    height: calc(100vh - 96px);;
+    height: calc(100vh - 10%);;
     display: flex;
     justify-content: center;
 }
@@ -114,6 +114,7 @@ a:hover {
 ::-webkit-scrollbar {
     width: 4px;
     border-radius: 4px;
+    padding-right: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -139,9 +140,9 @@ h4 {
 }
 
 @media (max-width: 1024px) {
-    /* .parent-container {
+    .parent-container {
         width: 100vw;
-    } */
+    }
 
     .policy-container {
         display: flex;

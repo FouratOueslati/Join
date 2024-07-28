@@ -29,7 +29,7 @@ body {
     gap: 30px;
     height: 20%;
     font-size: 27px;
-    
+
 }
 
 .join-360 {
@@ -85,7 +85,7 @@ body {
     gap: 34px;
     font-size: 20px;
     background-color: #FFFFFF;
-    box-shadow: 0px 4px 4px 0px #00000040;
+    box-shadow: 0px 0px 4px 0px #0000001A;
 }
 
 .color-black {
@@ -118,7 +118,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 32px;
-    box-shadow: 0px 4px 4px 0px #00000040;
+    box-shadow: 0px 0px 4px 0px #0000001A;
 }
 
 .urgent-todo-container:hover {
@@ -167,7 +167,7 @@ body {
     gap: 34px;
     font-size: 20px;
     background-color: #FFFFFF;
-    box-shadow: 0px 4px 4px 0px #00000040;
+    box-shadow: 0px 0px 4px 0px #0000001A;
 }
 
 .todo-in-progress:hover {

@@ -104,7 +104,9 @@ async function loadFeedbackTasks() {
 async function greetUser() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let userNameContainer = document.getElementById('userNameContainer');
-    userNameContainer.innerHTML = userData.name;
+    if (userData.name !== 'Guest') {
+        userNameContainer.innerHTML = userData.name;
+    }
     document.getElementById('greeting').innerHTML = getDayTime();
 }
 

@@ -18,7 +18,6 @@ async function postUser(path = "users", data = {}) {
     setTimeout(() => {
         window.location.href = "login.html";
     }, 1500);
-
     if (password.value === confirmedPassword.value) {
         let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
             method: "POST",

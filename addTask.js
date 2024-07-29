@@ -21,13 +21,15 @@ async function displayNamesOfContacts() {
     containerContact.innerHTML = '';
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    const keys = Object.keys(contacts);
-    for (let i = 0; i < keys.length; i++) {
-        let contactId = keys[i];
-        let name = contacts[contactId]["name"];
-        let color = contacts[contactId]["backgroundcolor"];
-        let initials = getInitials(name);
-        containerContact.innerHTML += generateContactToChose(name, color, initials, i);
+    if (contacts) {
+        const keys = Object.keys(contacts);
+        for (let i = 0; i < keys.length; i++) {
+            let contactId = keys[i];
+            let name = contacts[contactId]["name"];
+            let color = contacts[contactId]["backgroundcolor"];
+            let initials = getInitials(name);
+            containerContact.innerHTML += generateContactToChose(name, color, initials, i);
+        }
     }
 }
 
@@ -271,9 +273,9 @@ function changeColor(clickedButton) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('lowButton').onclick = function() { changeColor(this); };
-    document.getElementById('mediumButton').onclick = function() { changeColor(this); };
-    document.getElementById('urgentButton').onclick = function() { changeColor(this); };
+    document.getElementById('lowButton').onclick = function () { changeColor(this); };
+    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
+    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
 });
 
 document.addEventListener('DOMContentLoaded', () => {

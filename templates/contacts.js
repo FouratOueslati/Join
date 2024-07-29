@@ -11,7 +11,7 @@ function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, f
 }
 
 
-function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i) {
+function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i, contactId) {
     return `
     <div>
         <div class="edit-delete-contact">
@@ -19,7 +19,7 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, emai
             <div class="full-name">${name}
                 <div class="edit-delete-box">
                     <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
-                    <img onclick="deleteContact(${i})" src="./img/delete_contact.png">
+                    <img onclick="deleteContact('${contactId}')" src="./img/delete_contact.png">
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
 
 function getEditDeleteMenuBoxHtml(i) {
     return`
-    <button onclick="openEditContact(i)"><img src="./img/edit_contacts.png"></button>
+    <button onclick="openEditContact('${i}')"><img src="./img/edit_contacts.png"></button>
     <button onclick="deleteContact()"><img src="./img/delete_contact.png"></button>
     `
 }

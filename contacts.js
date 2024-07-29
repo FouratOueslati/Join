@@ -1,8 +1,6 @@
 let alphabet = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ]
 let displayedLetters = [];
 let contacts = [];
@@ -10,12 +8,12 @@ let uid = localStorage.getItem('uid');
 
 
 async function init() {
-    includeHTML(); 
-    await loadUserData(); 
-    await checkExistingInitials(); 
-    displayInitialsFilter(); 
+    includeHTML();
+    await loadUserData();
+    await checkExistingInitials();
+    displayInitialsFilter();
     await displayInitialsAndContacts();
-    showLoggedUserInitials(); 
+    showLoggedUserInitials();
 }
 
 
@@ -27,25 +25,32 @@ async function loadDataAfterChanges() {
 }
 
 
-// schaut ob die Initialien der Namen im Array Letters vorhanden sind
+/**
+ * This function check the initials of the user and save them in the array
+ */
 async function checkExistingInitials() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
     displayedLetters = [];
-    const keys = Object.keys(contacts);
-    for (let i = 0; i < alphabet.length; i++) {
-        let letter = alphabet[i];
-        for (let j = 0; j < keys.length; j++) {
-            let contactId = keys[j];
-            let firstLetter = contacts[contactId]["name"].charAt(0);
-            if (letter === firstLetter && displayedLetters.indexOf(letter) === -1) {
-                displayedLetters.push(firstLetter);
+    if (contacts) {
+        const keys = Object.keys(contacts);
+        for (let i = 0; i < alphabet.length; i++) {
+            let letter = alphabet[i];
+            for (let j = 0; j < keys.length; j++) {
+                let contactId = keys[j];
+                let firstLetter = contacts[contactId]["name"].charAt(0);
+                if (letter === firstLetter && displayedLetters.indexOf(letter) === -1) {
+                    displayedLetters.push(firstLetter);
+                }
             }
         }
     }
 }
 
-// generiert den Filter für die Kontakte, je nachdem welche Initialien vorhanden sind
+
+/**
+ * This function create the first letters matching to the initials of an user
+ */
 function displayInitialsFilter() {
     let filteredContactContainer = document.getElementById('filteredContactsContainer');
     filteredContactContainer.innerHTML = '';
@@ -100,11 +105,12 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
     }
 }
 
+
 /**
  * This function shows the color for the contact
  * 
- * @param {*} i 
- * @param {*} color 
+ * @param {string} i 
+ * @param {string} color 
  */
 function showColorForContact(i, color) {
     let contactInitial = document.getElementById(`contactsInitials${i}`);
@@ -112,11 +118,18 @@ function showColorForContact(i, color) {
 }
 
 
+/**
+ * This function load specific user datas, extracted and return the contact id
+ * 
+ * @param {string} contactId 
+ * @returns {string}
+ */
 async function findIndexOf(contactId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     const keys = Object.keys(userData.contacts);
     return keys.indexOf(contactId);
 }
+
 
 // öffnet das Kontakt
 async function openContact(i) {
@@ -133,28 +146,46 @@ async function openContact(i) {
     let color = contact.backgroundcolor;
     let contactInfos = document.getElementById('contactInfos');
     contactInfos.innerHTML = '';
-    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i);
+    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i, contactId);
     showColorForBigContact(i, color);
     openContactChangeBgColor(i);
 }
 
 
+/**
+ * This function check if an contact exists to change the background
+ * 
+ * @param {string} i 
+ */
 function openContactChangeBgColor(i) {
     let contactData = document.getElementById(`contactData${i}`);
     if (contactData) {
-        contactData.addEventListener("click", changeBgColor);
-        function changeBgColor() {
-            let allContacts = document.querySelectorAll('.bg-contact-container');
-            allContacts.forEach(contact => {
-                contact.classList.remove('bg-contact-container');
-            });
-            contactData.classList.add('bg-contact-container');
-        }
+        changeBgColor(contactData);
     }
 }
 
 
-// generiert die Farbe und zeigt sie an
+/**
+ * This function change the background color of a selected contact
+ * 
+ * @param {string} contactData 
+ */
+function changeBgColor(contactData) {
+    let allcontacts = document.querySelectorAll('.bg-contact-container');
+    allcontacts.forEach(contact => {
+        contact.classList.remove('bg-contact-container');
+    });
+    contactData.classList.add('bg-contact-container');
+}
+
+
+/**
+ * This function show the random color for the selected contact
+ * 
+ * 
+ * @param {string} i 
+ * @param {string} color 
+ */
 function showColorForBigContact(i, color) {
     let contactInitialBig = document.getElementById(`contactsInitialsBig${i}`);
     contactInitialBig.style.backgroundColor = color;
@@ -162,7 +193,12 @@ function showColorForBigContact(i, color) {
     contactData.classList.add('selected-contact-data');
 }
 
-// generiert eine random Farbe
+
+/**
+ * This function generate a random color
+ * 
+ * @returns {string}
+ */
 function getRandomColor() {
     let newColor = document.getElementById('newColor');
     let symbols = "89ABCDEF";
@@ -174,7 +210,10 @@ function getRandomColor() {
     return color;
 }
 
-// öffnet das Window um ein neues Kontakt zu erstellen
+
+/**
+ * This function open a new window to add a new contact
+ */
 function openAddNewContact() {
     let test = document.getElementById('dialogNewEditContact');
     test.innerHTML = getAddNewContactHtml();
@@ -188,29 +227,9 @@ function openAddNewContact() {
 }
 
 
-function animateAddNewContact() {
-    const screenWidth = window.innerWidth;
-    const addNewContact = document.querySelector('.add-new-contact');
-    if (screenWidth < 900) {
-        addNewContact.style.transform = "translateY(100%)";
-        addNewContact.classList.remove('d-none');
-        setTimeout(() => {
-            addNewContact.style.transform = "translateY(0)";
-        }, 50);
-    } else {
-        addNewContact.style.transform = "translateX(113%)";
-        addNewContact.classList.remove('d-none');
-        setTimeout(() => {
-            addNewContact.style.transform = "translateX(0)";
-        }, 50);
-    }
-}
-
-
-window.addEventListener('resize', animateAddNewContact);
-
-
-// schließt das Window für add new contact
+/**
+ * This function close the window for add a new contact
+ */
 function closeDialog() {
     document.getElementById('dialogNewEditContact').classList.add('d-none');
 }
@@ -258,13 +277,13 @@ function openContactMobile(i) {
 
 function closeContactMobile() {
     let contactBigContainer = document.getElementById('contactBigContainer');
-        let contactsContainer = document.getElementById('contactsContainer');
-        let contactHeadline = document.getElementById('contactHeadline');
-        let arrowContact = document.getElementById('arrowContact');
-        contactBigContainer.style.display = 'none';
-        contactsContainer.classList.remove('d-none');
-        contactHeadline.style.display = 'none';
-        arrowContact.style.display = 'none';
+    let contactsContainer = document.getElementById('contactsContainer');
+    let contactHeadline = document.getElementById('contactHeadline');
+    let arrowContact = document.getElementById('arrowContact');
+    contactBigContainer.style.display = 'none';
+    contactsContainer.classList.remove('d-none');
+    contactHeadline.style.display = 'none';
+    arrowContact.style.display = 'none';
 }
 
 
@@ -274,7 +293,11 @@ function openEditSmallMenu() {
 }
 
 
-// speichert die Änderungen der Kontakte
+/**
+ * This function save the changes of the editet contact
+ * 
+ * @param {*} contactId 
+ */
 async function saveEditContact(contactId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     const editedName = document.getElementById(`editName${contactId}`).value;
@@ -293,8 +316,13 @@ async function saveEditContact(contactId) {
     closeDialog();
 }
 
-// erstellt eine neues Kontakt
-async function createNewContact() {
+
+/**
+ * This function create and save an new contact
+ * 
+ * @param {*} i 
+ */
+async function createNewContact(i) {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
@@ -308,9 +336,15 @@ async function createNewContact() {
     postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
+    openEditContact(i);
 }
 
-// löscht ein Kontakt
+
+/**
+ * This function delete an existing contact
+ * 
+ * @param {string} contactId 
+ */
 async function deleteContact(contactId) {
     const keys = Object.keys(contacts);
     for (let i = 0; i < keys.length; i++) {
@@ -319,11 +353,17 @@ async function deleteContact(contactId) {
             userData.contacts.splice(contactId, 1);
         console.log(contact) // Remove the contact at index i
     }
+    contactInfos.innerHTML = '';
     await deleteUserContact(uid, contactId);
     await loadDataAfterChanges();
 }
 
-// holt das Kontakt zu editieren
+
+/**
+ * This function get the data of a contact to edit them
+ * 
+ * @param {string} i 
+ */
 async function getEditContact(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
@@ -337,7 +377,19 @@ async function getEditContact(i) {
     onloadFunc(contactId, name, email, number, backgroundcolor, currentContact, uid, userData);
 }
 
-// wird eins drüber aufgerufen
+
+/**
+ * This function get the entered datas to save and update them
+ * 
+ * @param {string} contactId 
+ * @param {string} name 
+ * @param {string} email 
+ * @param {string} number 
+ * @param {string} backgroundcolor 
+ * @param {string} currentContact 
+ * @param {string} uid 
+ * @param {object} userData 
+ */
 async function onloadFunc(contactId, name, email, number, backgroundcolor, currentContact, uid, userData) {
     let editname = document.getElementById(`editName${contactId}`).value;
     let editemail = document.getElementById(`editEmail${contactId}`).value;
@@ -348,7 +400,21 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
     await updateUserData(uid, userData);
 }
 
-function showEditDeleteMenuBox() {
+
+/**
+ * This function show the menu to edit or delete a contact
+ * 
+ * @param {*} i 
+ */
+
+function showEditDeleteMenuBox(i) {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
-    editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml();
+    editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml(i);
+}
+
+function getEditDeleteMenuBoxHtml(i) {
+    return `
+    <button onclick="openEditContact('${i}')"><img src="./img/edit_contacts.png"></button>
+    <button onclick="deleteContact()"><img src="./img/delete_contact.png"></button>
+    `
 }

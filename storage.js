@@ -1,4 +1,4 @@
-const BASE_URL_USER_DATA = "https://joinfirebase123-default-rtdb.europe-west1.firebasedatabase.app/";
+const BASE_URL_USER_DATA = "https://join-211-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
 /**
@@ -11,6 +11,7 @@ async function loadUserData(path = "") {
     let response = await fetch(BASE_URL_USER_DATA + path + ".json");
     return await response.json();
 }
+
 
 /**
  * This function load user date and save in the local storage
@@ -31,7 +32,7 @@ async function setLoggedInUser(uid) {
 
 
 /**
- * Thias function recall the id of an user from loacal the storage
+ * This function recall the id of a user from the loacal storage
  * 
  * @returns {string}
  */

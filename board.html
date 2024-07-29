@@ -24,6 +24,20 @@
 <body onload="initBoard(); onloadFunction()">
     <div onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
         <div onclick="doNotClose(event)" id="addTaskPopUp" class="parent-Container-for-addTask-board addTask-window">
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
             <div class="main-container-task">
                 <div class="aot-task-container">
                     <div class="add-task-title">Add Task</div>
@@ -155,7 +169,7 @@
                 <h1>Board</h1>
                 <div class="find-task-button-and-input">
                     <div class="input-with-img-board">
-                        <input class="find-task-input" placeholder="Find Task" id="search">
+                        <input class="find-task-input" placeholder="Find Task" id="search" minlength="4">
                         <div class="seperate-line"></div>
                         <img src="./boardImg/search.svg" class="input-svg" onclick="filterTask()">
                     </div>
@@ -171,6 +185,11 @@
                 <div class="seperate-line"></div>
                 <img src="./boardImg/search.svg" class="input-svg">
             </div>
+
+            <div class="display-none-a">
+                <span>Click <a class="back-button">here</a> to go back!</span>
+            </div>
+
             <div class="board-position-lower">
                 <div class="task-width">
                     <div>

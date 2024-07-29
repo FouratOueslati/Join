@@ -15,9 +15,9 @@ async function initSummary() {
  */
 async function loadAllTasks() {
     let allTasksNumber = document.getElementById('allTasksNumber');
-    if (allTasksNumber.innerHTML) {
-        let tasks = await loadAllTasksFromStorage();
-        let taskIds = Object.keys(tasks);
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    if (tasks) {
         allTasksNumber.innerHTML = taskIds.length;
     }
 }
@@ -27,9 +27,9 @@ async function loadAllTasks() {
  */
 async function loadUrgentTasksNumber() {
     let urgentTasksNumber = document.getElementById('urgentTasksNumber');
-    if (urgentTasksNumber.innerHTML) {
-        let tasks = await loadAllTasksFromStorage();
-        let taskIds = Object.keys(tasks);
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    if (tasks) {
         let urgentTaskCount = 0;
         for (let i = 0; i < taskIds.length; i++) {
             let id = taskIds[i];
@@ -47,9 +47,9 @@ async function loadUrgentTasksNumber() {
 // Bitte Funktion prüfen
 async function loadToDoTasks() {
     let toDoTasksNumber = document.getElementById('toDosNumber');
-    if (toDoTasksNumber.innerHTML) {
-        let tasks = await loadAllTasksFromStorage();
-        let taskIds = Object.keys(tasks);
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    if (tasks) {
         let toDoTasksCount = 0;
         for (let i = 0; i < taskIds.length; i++) {
             let id = taskIds[i];
@@ -66,9 +66,9 @@ async function loadToDoTasks() {
  */
 async function loadInProgressTasks() {
     let inProgressTasksNumber = document.getElementById('inProgressNumber');
-    if (inProgressTasksNumber.innerHTML) {
-        let tasks = await loadAllTasksFromStorage();
-        let taskIds = Object.keys(tasks);
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    if (tasks) {
         let inProgressTasksCount = 0;
         for (let i = 0; i < taskIds.length; i++) {
             let id = taskIds[i];
@@ -84,9 +84,9 @@ async function loadInProgressTasks() {
  */
 async function loadFeedbackTasks() {
     let feedbackTasksNumber = document.getElementById('feedbackNumber');
-    if (feedbackTasksNumber.innerHTML) {
-        let tasks = await loadAllTasksFromStorage();
-        let taskIds = Object.keys(tasks);
+    let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
+    if (tasks) {
         let feedbackTasksCount = 0;
         for (let i = 0; i < taskIds.length; i++) {
             let id = taskIds[i];
@@ -136,8 +136,8 @@ function getDayTime() {
 async function displayUpcomingDeadline() {
     let deadline = document.getElementById('deadline');
     let tasks = await loadAllTasksFromStorage();
+    let taskIds = Object.keys(tasks);
     if (tasks) {
-        let taskIds = Object.keys(tasks);
         let earliestTask = null;
         for (let i = 0; i < taskIds.length; i++) {
             let id = taskIds[i];

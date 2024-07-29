@@ -32,7 +32,7 @@ async function setLoggedInUser(uid) {
 
 
 /**
- * This function recall the id of an user from the loacal storage
+ * This function recall the id of a user from the loacal storage
  * 
  * @returns {string}
  */

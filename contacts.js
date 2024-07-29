@@ -1,8 +1,6 @@
 let alphabet = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ]
 let displayedLetters = [];
 let contacts = [];
@@ -10,12 +8,12 @@ let uid = localStorage.getItem('uid');
 
 
 async function init() {
-    includeHTML(); 
-    await loadUserData(); 
-    await checkExistingInitials(); 
-    displayInitialsFilter(); 
+    includeHTML();
+    await loadUserData();
+    await checkExistingInitials();
+    displayInitialsFilter();
     await displayInitialsAndContacts();
-    showLoggedUserInitials(); 
+    showLoggedUserInitials();
 }
 
 
@@ -34,14 +32,16 @@ async function checkExistingInitials() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
     displayedLetters = [];
-    const keys = Object.keys(contacts);
-    for (let i = 0; i < alphabet.length; i++) {
-        let letter = alphabet[i];
-        for (let j = 0; j < keys.length; j++) {
-            let contactId = keys[j];
-            let firstLetter = contacts[contactId]["name"].charAt(0);
-            if (letter === firstLetter && displayedLetters.indexOf(letter) === -1) {
-                displayedLetters.push(firstLetter);
+    if (contacts) {
+        const keys = Object.keys(contacts);
+        for (let i = 0; i < alphabet.length; i++) {
+            let letter = alphabet[i];
+            for (let j = 0; j < keys.length; j++) {
+                let contactId = keys[j];
+                let firstLetter = contacts[contactId]["name"].charAt(0);
+                if (letter === firstLetter && displayedLetters.indexOf(letter) === -1) {
+                    displayedLetters.push(firstLetter);
+                }
             }
         }
     }
@@ -170,12 +170,12 @@ function openContactChangeBgColor(i) {
  * 
  * @param {string} contactData 
  */
-function changeBgColor (contactData) {
+function changeBgColor(contactData) {
     let allcontacts = document.querySelectorAll('.bg-contact-container');
-        allcontacts.forEach(contact => {
-            contact.classList.remove('bg-contact-container');
-        });
-        contactData.classList.add('bg-contact-container');
+    allcontacts.forEach(contact => {
+        contact.classList.remove('bg-contact-container');
+    });
+    contactData.classList.add('bg-contact-container');
 }
 
 
@@ -277,13 +277,13 @@ function openContactMobile(i) {
 
 function closeContactMobile() {
     let contactBigContainer = document.getElementById('contactBigContainer');
-        let contactsContainer = document.getElementById('contactsContainer');
-        let contactHeadline = document.getElementById('contactHeadline');
-        let arrowContact = document.getElementById('arrowContact');
-        contactBigContainer.style.display = 'none';
-        contactsContainer.classList.remove('d-none');
-        contactHeadline.style.display = 'none';
-        arrowContact.style.display = 'none';
+    let contactsContainer = document.getElementById('contactsContainer');
+    let contactHeadline = document.getElementById('contactHeadline');
+    let arrowContact = document.getElementById('arrowContact');
+    contactBigContainer.style.display = 'none';
+    contactsContainer.classList.remove('d-none');
+    contactHeadline.style.display = 'none';
+    arrowContact.style.display = 'none';
 }
 
 
@@ -410,4 +410,11 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
 function showEditDeleteMenuBox(i) {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
     editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml(i);
+}
+
+function getEditDeleteMenuBoxHtml(i) {
+    return `
+    <button onclick="openEditContact('${i}')"><img src="./img/edit_contacts.png"></button>
+    <button onclick="deleteContact()"><img src="./img/delete_contact.png"></button>
+    `
 }

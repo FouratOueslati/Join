@@ -17,7 +17,9 @@ async function loadAllTasks() {
     let allTasksNumber = document.getElementById('allTasksNumber');
     let tasks = await loadAllTasksFromStorage();
     let taskIds = Object.keys(tasks);
-    allTasksNumber.innerHTML = taskIds.length;
+    if (tasks) {
+        allTasksNumber.innerHTML = taskIds.length;
+    }
 }
 
 /**
@@ -27,31 +29,36 @@ async function loadUrgentTasksNumber() {
     let urgentTasksNumber = document.getElementById('urgentTasksNumber');
     let tasks = await loadAllTasksFromStorage();
     let taskIds = Object.keys(tasks);
-    let urgentTaskCount = 0;
-    for (let i = 0; i < taskIds.length; i++) {
-        let id = taskIds[i];
-        if (tasks[id].priority === 'Urgent') {
-            urgentTaskCount++;
+    if (tasks) {
+        let urgentTaskCount = 0;
+        for (let i = 0; i < taskIds.length; i++) {
+            let id = taskIds[i];
+            if (tasks[id].priority === 'Urgent') {
+                urgentTaskCount++;
+            }
         }
+        urgentTasksNumber.innerHTML = urgentTaskCount;
     }
-    urgentTasksNumber.innerHTML = urgentTaskCount;
 }
 
 /**
  * This function load the number of tasks in the category to do of an user an show them
  */
+// Bitte Funktion prüfen
 async function loadToDoTasks() {
     let toDoTasksNumber = document.getElementById('toDosNumber');
     let tasks = await loadAllTasksFromStorage();
     let taskIds = Object.keys(tasks);
-    let toDoTasksCount = 0;
-    for (let i = 0; i < taskIds.length; i++) {
-        let id = taskIds[i];
-        if (tasks[id].dragCategory === 'todo') {
-            toDoTasksCount++;
+    if (tasks) {
+        let toDoTasksCount = 0;
+        for (let i = 0; i < taskIds.length; i++) {
+            let id = taskIds[i];
+            if (tasks[id].dragCategory === 'todo') {
+                toDoTasksCount++;
+            }
         }
+        toDoTasksNumber.innerHTML = toDoTasksCount;
     }
-    toDoTasksNumber.innerHTML = toDoTasksCount;
 }
 
 /**
@@ -61,16 +68,17 @@ async function loadInProgressTasks() {
     let inProgressTasksNumber = document.getElementById('inProgressNumber');
     let tasks = await loadAllTasksFromStorage();
     let taskIds = Object.keys(tasks);
-    let inProgressTasksCount = 0;
-    for (let i = 0; i < taskIds.length; i++) {
-        let id = taskIds[i];
-        if (tasks[id].dragCategory === 'inprogress') {
-            inProgressTasksCount++;
+    if (tasks) {
+        let inProgressTasksCount = 0;
+        for (let i = 0; i < taskIds.length; i++) {
+            let id = taskIds[i];
+            if (tasks[id].dragCategory === 'inprogress') {
+                inProgressTasksCount++;
+            }
         }
+        inProgressTasksNumber.innerHTML = inProgressTasksCount;
     }
-    inProgressTasksNumber.innerHTML = inProgressTasksCount;
 }
-
 /**
  * This function load the number of tasks in the category feedback of an user an show them
  */
@@ -78,14 +86,16 @@ async function loadFeedbackTasks() {
     let feedbackTasksNumber = document.getElementById('feedbackNumber');
     let tasks = await loadAllTasksFromStorage();
     let taskIds = Object.keys(tasks);
-    let feedbackTasksCount = 0;
-    for (let i = 0; i < taskIds.length; i++) {
-        let id = taskIds[i];
-        if (tasks[id].dragCategory === 'awaitfeedback') {
-            feedbackTasksCount++;
+    if (tasks) {
+        let feedbackTasksCount = 0;
+        for (let i = 0; i < taskIds.length; i++) {
+            let id = taskIds[i];
+            if (tasks[id].dragCategory === 'awaitfeedback') {
+                feedbackTasksCount++;
+            }
         }
+        feedbackTasksNumber.innerHTML = feedbackTasksCount;
     }
-    feedbackTasksNumber.innerHTML = feedbackTasksCount;
 }
 
 /**
@@ -94,7 +104,9 @@ async function loadFeedbackTasks() {
 async function greetUser() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let userNameContainer = document.getElementById('userNameContainer');
-    userNameContainer.innerHTML = userData.name;
+    if (userData.name !== 'Guest') {
+        userNameContainer.innerHTML = userData.name;
+    }
     document.getElementById('greeting').innerHTML = getDayTime();
 }
 
@@ -127,22 +139,24 @@ async function displayUpcomingDeadline() {
     let deadline = document.getElementById('deadline');
     let tasks = await loadAllTasksFromStorage();
     let taskIds = Object.keys(tasks);
-    let earliestTask = null;
-    for (let i = 0; i < taskIds.length; i++) {
-        let id = taskIds[i];
-        if (tasks[id].priority === 'Urgent') {
-            let currentTask = tasks[id];
-            let currentTaskDeadline = new Date(currentTask.date);
-            if (!earliestTask || currentTaskDeadline < new Date(earliestTask.date)) {
-                earliestTask = currentTask;
+    if (tasks) {
+        let earliestTask = null;
+        for (let i = 0; i < taskIds.length; i++) {
+            let id = taskIds[i];
+            if (tasks[id].priority === 'Urgent') {
+                let currentTask = tasks[id];
+                let currentTaskDeadline = new Date(currentTask.date);
+                if (!earliestTask || currentTaskDeadline < new Date(earliestTask.date)) {
+                    earliestTask = currentTask;
+                }
             }
         }
-    }
-    if (earliestTask) {
-        let options = { year: 'numeric', month: 'long', day: 'numeric' };
-        let formattedDeadline = new Date(earliestTask.date).toLocaleDateString('en-US', options);
-        deadline.innerHTML = formattedDeadline;
-    } else {
-        deadline.innerHTML = 'No upcoming Deadlines';
+        if (earliestTask) {
+            let options = { year: 'numeric', month: 'long', day: 'numeric' };
+            let formattedDeadline = new Date(earliestTask.date).toLocaleDateString('en-US', options);
+            deadline.innerHTML = formattedDeadline;
+        } else {
+            deadline.innerHTML = 'No upcoming Deadlines';
+        }
     }
 }

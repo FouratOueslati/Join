@@ -383,6 +383,14 @@ body {
     align-items: center;
 }
 
+.back-button {
+    color: #0038FF;
+}
+
+.display-none-a {
+    display: none;
+}
+
 /* Edit task New*/
 .modal-edit-content {
     display: flex;

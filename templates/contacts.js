@@ -113,10 +113,5 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
         </div>`;
 }
 
-function getEditDeleteMenuBoxHtml(i) {
-    return`
-    <button onclick="openEditContact('${i}')"><img src="./img/edit_contacts.png"></button>
-    <button onclick="deleteContact()"><img src="./img/delete_contact.png"></button>
-    `
-}
+
 

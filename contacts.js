@@ -407,7 +407,14 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
  * @param {*} i 
  */
 
-function showEditDeleteMenuBox(i) {
+function showEditDeleteMenuBox(contactId) {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
-    editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml(i);
+    editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml(contactId);
+}
+
+function getEditDeleteMenuBoxHtml(contactId) {
+    return`
+    <button onclick="openEditContact('${contactId}')"><img src="./img/edit_contacts.png"></button>
+    <button onclick="deleteContact()"><img src="./img/delete_contact.png"></button>
+    `
 }

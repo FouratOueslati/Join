@@ -160,25 +160,23 @@ function generateEditModalContent(task, i) {
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
-                <button onclick="addPrioEventListeners(); changeColor(clickedButton)" id="urgentButton" type="button"class="button-prio">
+                <button onclick="addPrioEventListeners(); changeColor(this)" id="urgentButton" type="button" class="button-prio">
                     <div class="center">
                         <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
                     </div>
                 </button>
-                <button onclick="addPrioEventListeners(); changeColor(clickedButton)" id="mediumButton" type="button"class="button-prio">
+                <button onclick="addPrioEventListeners(); changeColor(this)" id="mediumButton" type="button" class="button-prio">
                     <div class="center">
                         <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
                     </div>
                 </button>
-                <button onclick="addPrioEventListeners(); changeColor(clickedButton)" id="lowButton" type="button" class="button-prio">
+                <button onclick="addPrioEventListeners(); changeColor(this)" id="lowButton" type="button" class="button-prio">
                 <div class="center">
                     <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
                 </div>
                 </button>
             </div>
         </div>
-
-
 
         <label for="editTaskTitle${i}" class="margin-span">Category:</label>
             <div class="drop-down">
@@ -191,8 +189,6 @@ function generateEditModalContent(task, i) {
                 <li>User Story</li>
             </ul>
             </div>
-
-
 
             <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
             <div class="input-with-img">
@@ -211,10 +207,6 @@ function generateEditModalContent(task, i) {
             </div>
                 <div class="subtask-container" id="subtasksContainer"></div>
 
-
-
-
-
             <div class="edit-delete-task-container">
                 <button onclick="saveTask(${i})">Save</button>
                 <button onclick="deleteTask(${i})">Delete</button>
@@ -222,8 +214,6 @@ function generateEditModalContent(task, i) {
         </div>
     `;
 }
-
-
 
 function generateSubtasksHtml(subtasks, i) {
     if (!subtasks || subtasks.length === 0) return '';
@@ -572,7 +562,9 @@ async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i].task;
 
+    addEventListenerDropDown();
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
+    addEventListenerDropDown();
 
     const modal = document.getElementById(`myModal${i}`);
     modal.style.display = "flex";
@@ -583,6 +575,58 @@ async function editTask(i) {
             closeModal(modal);
         }
     }
+}
+
+async function editTask(i) {
+    const modalContentEdit = document.getElementById(`modal${i}`);
+    const task = todos[i].task;
+
+    modalContentEdit.innerHTML = generateEditModalContent(task, i);
+    addEventListenerDropDown();
+
+    const modal = document.getElementById(`myModal${i}`);
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal(modal);
+        }
+    }
+}
+
+function addEventListenerDropDown() {
+    // Priority buttons event listeners
+    document.getElementById('lowButton').onclick = function () { changeColor(this); };
+    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
+    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
+    
+    // Dropdown event listeners
+    const dropDowns = document.querySelectorAll('.drop-down');
+    dropDowns.forEach(dropDown => {
+        const select = dropDown.querySelector('.select');
+        const caret = dropDown.querySelector('.caret');
+        const menu = dropDown.querySelector('.menu');
+        const options = dropDown.querySelectorAll('.menu li');
+        const selected = dropDown.querySelector('.selected');
+
+        select.addEventListener('click', () => {
+            select.classList.toggle('selectClicked');
+            caret.classList.toggle('createRotate');
+            menu.classList.toggle('menuOpen');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                selected.innerText = option.innerText;
+                select.classList.remove('selectClicked');
+                caret.classList.remove('createRotate');
+                menu.classList.remove('menuOpen');
+                options.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+            });
+        });
+    });
 }
 
 

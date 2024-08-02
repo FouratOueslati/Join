@@ -44,7 +44,7 @@ function generateContactToChose(name, color, initials, i) {
             <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
         </div>
         <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment()">
         </div>
     </div>
     `;
@@ -64,7 +64,6 @@ function getInitials(name) {
 
 // displays contacts names die man gewählt hat
 function displayContactsForAssignment() {
-    debugger
     let containerBubbleInitials = document.getElementById('contactsDisplayBuble');
     containerBubbleInitials.innerHTML = '';
     let checkboxes = document.querySelectorAll('.check-box-style');

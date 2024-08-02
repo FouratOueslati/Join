@@ -367,6 +367,17 @@ body {
     width: 90%;
 }
 
+.drag-area-has-elements {
+    background-color: rgb(246, 247, 249);
+    border: 1px dashed rgb(246, 247, 249);
+}
+
+.drag-area-no-elements {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px dashed black;
+}
+
 .initials {
     color: white;
     padding: 8px;

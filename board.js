@@ -160,21 +160,27 @@ function generateEditModalContent(task, i) {
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="urgentButton" type="button" class="button-prio">
-                    <div class="center">
-                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
-                    </div>
-                </button>
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="mediumButton" type="button" class="button-prio">
-                    <div class="center">
-                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
-                    </div>
-                </button>
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="lowButton" type="button" class="button-prio">
-                <div class="center">
-                    <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
-                </div>
-                </button>
+            <button onclick="addPrioEventListeners();  changeColor(clickedButton)" id="urgentButton" type="button"
+                                        class="button-prio">
+                                        <div class="center">
+                                            <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg"
+                                                    class="prio-photos"></div>
+                                        </div>
+            </button>
+            <button onclick="addPrioEventListeners();  changeColor(clickedButton)" id="mediumButton" type="button"
+                                        class="button-prio">
+                                        <div class="center">
+                                            <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg"
+                                                    class="prio-photos"></div>
+                                        </div>
+            </button>
+            <button onclick="addPrioEventListeners();  changeColor(clickedButton)" id="lowButton" type="button"
+                                        class="button-prio">
+                                        <div class="center">
+                                            <div class="button-txt-img">Low <img src="./addTaskImg/low.svg"
+                                                    class="prio-photos"></div>
+                                        </div>
+            </button>
             </div>
         </div>
 
@@ -493,6 +499,8 @@ function renderElements(category, containerId) {
         const element = todos[i];
         if (element.task.dragCategory === category) {
             const container = document.getElementById(containerId);
+            container.classList.remove('drag-area-no-elements');
+            container.classList.add('drag-area-has-elements');
             container.innerHTML += getToDoTaskHtml(element, i);
             getContactInitials(element.task.contacts, i);
             generateNumberOfSubtasks(i, element);  // Ensure subtasks are generated
@@ -510,14 +518,16 @@ function removeSpecificColorFromDragArea() {
         document.getElementById('feedbackTasks'),
         document.getElementById('done')
     ];
-    let classRemove = 'drag-area';
-    let classAdd = 'drag-area-full';
+    let classHasElements = 'drag-area-has-elements';
+    let classNoElements = 'drag-area-no-elements';
     for (let i = 0; i < containers.length; i++) {
         let container = containers[i];
+        container.classList.remove(classHasElements);
+        container.classList.remove(classNoElements);
         if (container && container.querySelector('div')) {
-            container.classList.remove(classRemove);
+            container.classList.add(classHasElements);
         } else {
-            container.classList.add(classAdd);
+            container.classList.add(classNoElements);
         }
     }
 }
@@ -562,24 +572,6 @@ async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i].task;
 
-    addEventListenerDropDown();
-    modalContentEdit.innerHTML = generateEditModalContent(task, i);
-    addEventListenerDropDown();
-
-    const modal = document.getElementById(`myModal${i}`);
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            closeModal(modal);
-        }
-    }
-}
-
-async function editTask(i) {
-    const modalContentEdit = document.getElementById(`modal${i}`);
-    const task = todos[i].task;
 
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
     addEventListenerDropDown();
@@ -595,12 +587,28 @@ async function editTask(i) {
     }
 }
 
-function addEventListenerDropDown() {
-    // Priority buttons event listeners
+function changeColor(clickedButton) {
+    const buttons = [
+        { element: document.getElementById('lowButton'), class: 'lowSelected' },
+        { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
+        { element: document.getElementById('urgentButton'), class: 'urgentSelected' }
+    ];
+
+    buttons.forEach(button => {
+        button.element.classList.toggle(button.class, button.element === clickedButton);
+        if (button.element !== clickedButton) {
+            button.element.classList.remove(button.class);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('lowButton').onclick = function () { changeColor(this); };
     document.getElementById('mediumButton').onclick = function () { changeColor(this); };
     document.getElementById('urgentButton').onclick = function () { changeColor(this); };
-    
+});
+
+function addEventListenerDropDown() {
     // Dropdown event listeners
     const dropDowns = document.querySelectorAll('.drop-down');
     dropDowns.forEach(dropDown => {

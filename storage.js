@@ -31,6 +31,17 @@ async function setLoggedInUser(uid) {
 }
 
 
+async function setLoggedInGuest(email, password) {
+    localStorage.removeItem('uid');
+    localStorage.removeItem('data');
+    let data = await loadUserData("users");
+    let users = Object.entries(data);
+    let foundUser = users.find(([uid, u]) => u.email === email && u.password === password);
+    let userUID = foundUser[0];
+    await setLoggedInUser(userUID);
+}
+
+
 /**
  * This function recall the id of a user from the loacal storage
  * 

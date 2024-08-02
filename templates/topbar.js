@@ -2,7 +2,6 @@ function showLoggedUserInitials() {
     let data = localStorage.getItem('data');
     let dataAsText = JSON.parse(data);
     let name = dataAsText.name
-    console.log(name)
     let spaceIndex = name.indexOf(' ');
     let firstLetterOfName = name.charAt(0);
     let firstLetterOfLastName = name.charAt(spaceIndex + 1);

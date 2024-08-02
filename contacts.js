@@ -258,6 +258,13 @@ async function openEditContact(i) {
     await loadDataAfterChanges();
 }
 
+async function editOpenedContactInMobileView() {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts; // Extrahiert die Kontakte aus den geladenen Daten
+    const keys = Object.keys(contacts);
+}
+
+
 
 function openContactMobile(i) {
     let screenWidth = window.innerWidth;
@@ -413,7 +420,7 @@ function showEditDeleteMenuBox(contactId) {
 }
 
 function getEditDeleteMenuBoxHtml(contactId) {
-    return`
+    return `
     <button onclick="openEditContact('${contactId}')"><img src="./img/edit_contacts.png"></button>
     <button onclick="deleteContact()"><img src="./img/delete_contact.png"></button>
     `

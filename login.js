@@ -9,7 +9,7 @@ async function logIn() {
     let rememberMeCheckbox = document.getElementById('rememberMeCheckbox');
     let rememberMe = rememberMeCheckbox.checked;
     localStorage.setItem('rememberMe', rememberMe ? 'true' : 'false');
-    if (rememberMe ) {
+    if (rememberMe) {
         localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
     } else {
         localStorage.removeItem('loggedInUser');
@@ -51,18 +51,23 @@ function toggleMenu() {
 
 
 async function guestLogin() {
+    debugger
     let guest = JSON.parse(localStorage.getItem('loggedInGuest'));
-    let email = document.getElementById('loginEmail').value;
-    let password = document.getElementById('loginPassword').value;
-    if (guest && guest.email === 'guest@email.com') {
-        email = guest.email;
-        password = guest.password;
+    let emailLocalStorage = guest.email;
+    let passworLocalStorage = guest.password;
+    let email = document.getElementById('loginEmail');
+    let password = document.getElementById('loginPassword');
+    if (guest && emailLocalStorage === 'guest@email.com') {
+        email.value = emailLocalStorage;
+        password.value = passworLocalStorage;
+        await setLoggedInGuest(emailLocalStorage, passworLocalStorage);
         window.location.href = "summary.html";
     } else {
         await postGuest();
         window.location.href = "summary.html";
     }
 }
+
 
 async function postGuest(path = "users", data = {}) {
     let name = 'Guest';
@@ -87,17 +92,6 @@ async function postGuest(path = "users", data = {}) {
     });
     await setLoggedInGuest(email, password);
     return responseToJson = await response.json();
-}
-
-
-async function setLoggedInGuest(email, password) {
-    localStorage.removeItem('uid');
-    localStorage.removeItem('data');
-    let data = await loadUserData("users");
-    let users = Object.entries(data);
-    let foundUser = users.find(([uid, u]) => u.email === email && u.password === password);
-    let userUID = foundUser[0];
-    await setLoggedInUser(userUID);
 }
 
 

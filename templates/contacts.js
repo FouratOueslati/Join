@@ -15,20 +15,21 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, emai
     return `
     <div>
         <div class="edit-delete-contact">
-            <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
-            <div class="full-name">${name}
+                <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
+            <div class="full-name">
+                <div id="nameOfContact">${name}</div>
                 <div class="edit-delete-box">
-                    <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
-                    <img onclick="deleteContact('${contactId}')" src="./img/delete_contact.png">
-                </div>
+                        <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
+                        <img onclick="deleteContact('${contactId}')" src="./img/delete_contact.png">
+                 </div>
             </div>
         </div>
         <div class="contact-information">Contact Information</div>
         <div class="email-phone-box">
             <div class="email-phone-headline">Email</div>
-            <div class="email-phone join">${email}</div>
+            <div id="emailOfContact" class="email-phone join">${email}</div>
             <div class="email-phone-headline">Phone</div>
-            <div class="email-phone">${number}</div>
+            <div id="numberOfContact" class="email-phone">${number}</div>
         </div>
     </div>
     `;

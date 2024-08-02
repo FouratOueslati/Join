@@ -1,10 +1,11 @@
 async function initSummary() {
     includeHTML();
+    await loadAllTasks();
     await greetUser();
     await loadToDoTasks();
+    await loadDoneTasks();
     await loadUrgentTasksNumber();
     await displayUpcomingDeadline();
-    await loadAllTasks();
     await loadInProgressTasks();
     await loadFeedbackTasks();
     showLoggedUserInitials();
@@ -19,6 +20,27 @@ async function loadAllTasks() {
     if (tasks) {
         let taskIds = Object.keys(tasks);
         allTasksNumber.innerHTML = taskIds.length;
+    } else {
+        allTasksNumber.innerHTML = '0';
+    }
+}
+
+
+async function loadDoneTasks() {
+    let doneTasksNumber = document.getElementById('doneNumber');
+    let tasks = await loadAllTasksFromStorage();
+    if (tasks) {
+        let taskIds = Object.keys(tasks);
+        let doneTasksCount = 0;
+        for (let i = 0; i < taskIds.length; i++) {
+            let id = taskIds[i];
+            if (tasks[id].dragCategory === 'done') {
+                doneTasksCount++;
+            }
+        }
+        doneTasksNumber.innerHTML = doneTasksCount;
+    } else {
+        doneTasksNumber.innerHTML = '0';
     }
 }
 
@@ -38,6 +60,8 @@ async function loadUrgentTasksNumber() {
             }
         }
         urgentTasksNumber.innerHTML = urgentTaskCount;
+    } else {
+        urgentTasksNumber.innerHTML = '0';
     }
 }
 
@@ -58,6 +82,8 @@ async function loadToDoTasks() {
             }
         }
         toDoTasksNumber.innerHTML = toDoTasksCount;
+    } else {
+        toDoTasksNumber.innerHTML = '0';
     }
 }
 
@@ -77,6 +103,8 @@ async function loadInProgressTasks() {
             }
         }
         inProgressTasksNumber.innerHTML = inProgressTasksCount;
+    } else {
+        inProgressTasksNumber.innerHTML = '0';
     }
 }
 /**
@@ -95,8 +123,11 @@ async function loadFeedbackTasks() {
             }
         }
         feedbackTasksNumber.innerHTML = feedbackTasksCount;
+    } else {
+        feedbackTasksNumber.innerHTML = '0';
     }
 }
+
 
 /**
  * This function load the specific user name ofe the user and show the greet
@@ -141,10 +172,9 @@ async function displayUpcomingDeadline() {
     if (tasks) {
         let taskIds = Object.keys(tasks);
         let earliestTask = null;
-        for (let i = 0; i < taskIds.length; i++) {
-            let id = taskIds[i];
-            if (tasks[id].priority === 'Urgent') {
-                let currentTask = tasks[id];
+        for (let id of taskIds) {
+            let currentTask = tasks[id];
+            if (currentTask.priority === 'Urgent') {
                 let currentTaskDeadline = new Date(currentTask.date);
                 if (!earliestTask || currentTaskDeadline < new Date(earliestTask.date)) {
                     earliestTask = currentTask;
@@ -158,5 +188,7 @@ async function displayUpcomingDeadline() {
         } else {
             deadline.innerHTML = 'No upcoming Deadlines';
         }
+    } else {
+        deadline.innerHTML = 'No upcoming Deadlines';
     }
 }

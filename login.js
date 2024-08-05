@@ -51,13 +51,12 @@ function toggleMenu() {
 
 
 async function guestLogin() {
-    debugger
     let guest = JSON.parse(localStorage.getItem('loggedInGuest'));
-    let emailLocalStorage = guest.email;
-    let passworLocalStorage = guest.password;
     let email = document.getElementById('loginEmail');
     let password = document.getElementById('loginPassword');
-    if (guest && emailLocalStorage === 'guest@email.com') {
+    if (guest && guest.email === 'guest@email.com') {
+        let emailLocalStorage = guest.email;
+        let passworLocalStorage = guest.password;
         email.value = emailLocalStorage;
         password.value = passworLocalStorage;
         await setLoggedInGuest(emailLocalStorage, passworLocalStorage);

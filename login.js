@@ -54,7 +54,7 @@ async function guestLogin() {
     let guest = JSON.parse(localStorage.getItem('loggedInGuest'));
     let email = document.getElementById('loginEmail');
     let password = document.getElementById('loginPassword');
-    if (guest && emailLocalStorage === 'guest@email.com') {
+    if (guest && guest.email === 'guest@email.com') {
         let emailLocalStorage = guest.email;
         let passworLocalStorage = guest.password;
         email.value = emailLocalStorage;

@@ -184,18 +184,6 @@ function generateEditModalContent(task, i) {
             </div>
         </div>
 
-        <label for="editTaskTitle${i}" class="margin-span">Category:</label>
-            <div class="drop-down">
-                <div class="select" id="selectCategoryContainer">
-                    <span class="selected" id="selectCategory">Select task category</span>
-                    <div class="caret"></div>
-                </div>
-            <ul onclick="addCategoryEventListener()" class="menu" id="categoryMenu">
-                <li>Technical Task</li>
-                <li>User Story</li>
-            </ul>
-            </div>
-
             <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
             <div class="input-with-img">
                 <div style="display: flex; align-items: center; width: 100%;">
@@ -211,7 +199,9 @@ function generateEditModalContent(task, i) {
                         </button>
                     </div>
             </div>
-                <div class="subtask-container" id="subtasksContainer"></div>
+                <div class="subtask-container" id="subtasksContainer">
+                
+                </div>
 
             <div class="edit-delete-task-container">
                 <button onclick="saveTask(${i})">Save</button>
@@ -570,10 +560,13 @@ async function deleteTask(i) {
 //New
 async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
-    const task = todos[i].task;
-
+    const task = todos[i]['task'];
+    const subtasks = task['subtasks'][i];
 
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
+    
+
+    document.getElementById(`subtasksContainer`).innerHTML = generateSubtasksHtml(subtasks, i);
     addEventListenerDropDown();
 
     const modal = document.getElementById(`myModal${i}`);
@@ -584,7 +577,7 @@ async function editTask(i) {
         if (event.target == modal) {
             closeModal(modal);
         }
-    }
+    };
 }
 
 function changeColor(clickedButton) {

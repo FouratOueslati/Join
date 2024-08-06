@@ -139,20 +139,20 @@ function generateEditModalContent(task, i) {
             <input id="taskTitle" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
             
             <label for="editTaskDescription${i}">Description:</label>
-            <textarea style="height: 80px;" id="taskDescription" required placeholder="Enter a Description..." minlength="4" class="task-input-field" id="description" >${task.description}</textarea>
+            <textarea style="height: 80px;" id="taskDescription" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
            
             <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
             <div class="inputs-flex">
                 <div class="drop-down">
                     <div class="select">
                         <span class="selected" id="selectContact">Search Contact</span>
-                            <div class="caret"></div>
+                        <div class="caret"></div>
                     </div>
-                        <ul class="menu" id="contactList"></ul>
+                    <ul class="menu" id="contactList"></ul>
                 </div>
-                    <div class="bubble-setup">
-                        <div id="contactsDisplayBuble" class="assigned-contacts-container"></div>
-                    </div>
+                <div class="bubble-setup">
+                    <div id="contactsDisplayBubble" class="assigned-contacts-container"></div>
+                </div>
             </div>
 
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
@@ -160,53 +160,46 @@ function generateEditModalContent(task, i) {
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
-            <button onclick="addPrioEventListeners();  changeColor(clickedButton)" id="urgentButton" type="button"
-                                        class="button-prio">
-                                        <div class="center">
-                                            <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg"
-                                                    class="prio-photos"></div>
-                                        </div>
-            </button>
-            <button onclick="addPrioEventListeners();  changeColor(clickedButton)" id="mediumButton" type="button"
-                                        class="button-prio">
-                                        <div class="center">
-                                            <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg"
-                                                    class="prio-photos"></div>
-                                        </div>
-            </button>
-            <button onclick="addPrioEventListeners();  changeColor(clickedButton)" id="lowButton" type="button"
-                                        class="button-prio">
-                                        <div class="center">
-                                            <div class="button-txt-img">Low <img src="./addTaskImg/low.svg"
-                                                    class="prio-photos"></div>
-                                        </div>
-            </button>
+                <button onclick="addPrioEventListeners(); changeColor(this)" id="urgentButton" type="button" class="button-prio">
+                    <div class="center">
+                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
+                    </div>
+                </button>
+                <button onclick="addPrioEventListeners(); changeColor(this)" id="mediumButton" type="button" class="button-prio">
+                    <div class="center">
+                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
+                    </div>
+                </button>
+                <button onclick="addPrioEventListeners(); changeColor(this)" id="lowButton" type="button" class="button-prio">
+                    <div class="center">
+                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
+                    </div>
+                </button>
             </div>
         </div>
 
-            <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
-            <div class="input-with-img">
-                <div style="display: flex; align-items: center; width: 100%;">
-                    <input required placeholder="Add new subtask" class="task-input-with-img" oninput="onInputChange()" id="inputFieldSubtask">
-                        <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
-                </div>
-                    <div class="check-cross-position" id="closeOrAccept">
-                        <button class="button-transparacy">
-                            <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
-                        </button>
-                        <button class="button-transparacy">
-                            <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
-                        </button>
-                    </div>
+        <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
+        <div class="input-with-img">
+            <div style="display: flex; align-items: center; width: 100%;">
+                <input required placeholder="Add new subtask" class="task-input-with-img" oninput="onInputChange()" id="inputFieldSubtask">
+                <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
             </div>
-                <div class="subtask-container" id="subtasksContainer">
-                
-                </div>
+            <div class="check-cross-position" id="closeOrAccept">
+                <button class="button-transparacy">
+                    <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                </button>
+                <button class="button-transparacy">
+                    <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
+                </button>
+            </div>
+        </div>
+        <div class="subtask-container" id="subtasksContainer">
+            ${generateSubtasksHtml(task.subtasks, i)}
+        </div>
 
-            <div class="edit-delete-task-container">
-                <button onclick="saveTask(${i})">Save</button>
-                <button onclick="deleteTask(${i})">Delete</button>
-            </div>
+        <div class="edit-delete-task-container">
+            <button onclick="saveTask(${i})">Save</button>
+            <button onclick="deleteTask(${i})">Delete</button>
         </div>
     `;
 }
@@ -561,14 +554,8 @@ async function deleteTask(i) {
 async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
-    const subtasks = task['subtasks'][i];
-
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
     
-
-    document.getElementById(`subtasksContainer`).innerHTML = generateSubtasksHtml(subtasks, i);
-    addEventListenerDropDown();
-
     const modal = document.getElementById(`myModal${i}`);
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
@@ -578,6 +565,9 @@ async function editTask(i) {
             closeModal(modal);
         }
     };
+
+    // Add dropdown event listeners after the modal content is loaded
+    addEventListenerDropDown();
 }
 
 function changeColor(clickedButton) {

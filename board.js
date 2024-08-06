@@ -566,8 +566,8 @@ async function editTask(i) {
         }
     };
 
-    // Add dropdown event listeners after the modal content is loaded
     addEventListenerDropDown();
+    changeColor(clickedButton);
 }
 
 function changeColor(clickedButton) {

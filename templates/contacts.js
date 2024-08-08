@@ -115,4 +115,41 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
 }
 
 
+function getEditContactHtmlMobileView(name, email, number, contactId) {
+return `
+        <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
+            <div class="add-contact-left">
+                <div>
+                    <img src="./img/Capa 3.png">
+                    <div class="add-new-contact-headline">Edit contact</div>
+                    <div class="blue-seperator-contact"></div>
+                </div>
+            </div>
+            <div class="add-contact-right">
+                <div class="close-add-contact">
+                    <img src="./img/close.png" onclick="closeDialog()">
+                </div>
+                <div class="contact-box-right">
+                    <div id="edit-contactsInitialsBig'${contactId}'" class="edit-img"></div>
+                    <div class="data-box">
+                        <div class="add-contact-data">
+                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-input-edit" value="${email}">
+                            <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
+                        </div>
+                        <div class="close-create-button">
+                            <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
+                                <div class="button-txt-img">Delete</div>
+                            </button>
+                            <button onclick="saveEditContact('${contactId}')" class="color-blue-button">
+                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+}
+
+
 

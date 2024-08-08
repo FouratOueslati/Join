@@ -6,7 +6,6 @@ let todos = [];
 async function initBoard() {
     includeHTML();
     await displayOpenTasks();
-    displayNamesOfContacts();
     showLoggedUserInitials();
     removeSpecificColorFromDragArea();
 }
@@ -103,7 +102,7 @@ function generateModalContent(task, i) {
             <div class="space-correct">${task['task']['date']}</div>
         </div>
         <div class="details-container">
-            <span class="fine-written">Priority:</span>´
+            <span class="fine-written">Priority:</span>
             <div class="space-correct">
             <div id="openedPriority${i}">${task['task']['priority']}</div>
             <img id="priorityImg${i}">
@@ -252,28 +251,23 @@ async function toggleSubtaskStatus(i, j) {
     let taskIds = Object.keys(tasks);
     let id = taskIds[i];
     let task = tasks[id];
-    await findAndUpdateSubtask(tasks, subtaskText.innerHTML, statusOfSubtask);
+    await updateSubtaskStatus(tasks, i, j, statusOfSubtask);
     await generateNumberOfSubtasks(i, task);
 }
 
 
-async function findAndUpdateSubtask(tasks, subtaskText, statusOfSubtask) {
-    const taskIds = Object.keys(tasks);
-    for (let taskIndex = 0; taskIndex < taskIds.length; taskIndex++) {
-        const taskId = taskIds[taskIndex];
-        let task = tasks[taskId];
-        let subtasks = task.subtasks;
-        const subtaskIds = Object.keys(subtasks);
-        for (let subtaskIndex = 0; subtaskIndex < subtaskIds.length; subtaskIndex++) {
-            const subtaskId = subtaskIds[subtaskIndex];
-            let subtask = subtasks[subtaskId];
-            if (subtaskText === subtask.text) {
-                subtask.status = statusOfSubtask ? 'done' : 'undone';
-                await updateSubtaskStatusInFirebase(subtask.status, taskId, subtaskId);
-            }
-        }
-    }
+async function updateSubtaskStatus(tasks, i, j, statusOfSubtask) {
+    let taskIds = Object.keys(tasks);
+    let taskId = taskIds[i];
+    let task = tasks[taskId];
+    let subtasks = task.subtasks;
+    let subtaskIds = Object.keys(subtasks);
+    let subtaskId = subtaskIds[j];
+    let subtask = subtasks[subtaskId];
+    subtask.status = statusOfSubtask ? 'done' : 'undone';
+    await updateSubtaskStatusInFirebase(subtask.status, taskId, subtaskId);
 }
+
 
 
 async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
@@ -520,7 +514,7 @@ function filterTask() {
         filterWithSearchTerm(search);
         document.querySelector('.display-none-a').style.display = "block";
     } else {
-        
+
     }
 }
 
@@ -558,7 +552,7 @@ async function editTask(i, clickedButton) {
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             closeModal(modal);
         }

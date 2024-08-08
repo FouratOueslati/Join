@@ -251,7 +251,6 @@ async function openEditContact(i) {
     let editContact = document.getElementById('editNewContact');
     let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${contactId}`);
     contactInitialBig.style.backgroundColor = backgroundcolor;
-    editContact.style.transform = "translateX(113%)";
     setTimeout(() => {
         editContact.style.transform = "translateX(0)";
     }, 50);
@@ -259,11 +258,32 @@ async function openEditContact(i) {
 }
 
 async function editOpenedContactInMobileView() {
+    let ToBeEditedContactId;
+    let dialogEditContact = document.getElementById('dialogNewEditContact');
+    let editContact = document.getElementById('editNewContact');
+    let name = document.getElementById('nameOfContact').innerHTML;
+    let email = document.getElementById('emailOfContact').innerHTML;
+    let number = document.getElementById('numberOfContact').innerHTML;
     let userData = await loadSpecificUserDataFromLocalStorage();
-    let contacts = userData.contacts; // Extrahiert die Kontakte aus den geladenen Daten
+    let contacts = userData.contacts;
     const keys = Object.keys(contacts);
+    for (let i = 0; i < keys.length; i++) {
+        const contactId = keys[i];
+        let contact = contacts[contactId];
+        if (contact.email === email) {
+            ToBeEditedContactId = contactId;
+            break;
+        }
+    }
+    if (ToBeEditedContactId) {
+        dialogEditContact.innerHTML = getEditContactHtmlMobileView(name, email, number, ToBeEditedContactId);
+        dialogEditContact.classList.remove('d-none');
+        setTimeout(() => {
+            editContact.style.transform = "translateY(0%)";
+        }, 50);
+        await loadDataAfterChanges();
+    }
 }
-
 
 
 function openContactMobile(i) {
@@ -343,7 +363,6 @@ async function createNewContact(i) {
     postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
-    openEditContact(i);
 }
 
 
@@ -358,10 +377,30 @@ async function deleteContact(contactId) {
         let contact = keys[i]
         if (contact === contactId)
             userData.contacts.splice(contactId, 1);
-        console.log(contact) // Remove the contact at index i
     }
-    contactInfos.innerHTML = '';
     await deleteUserContact(uid, contactId);
+    await loadDataAfterChanges();
+    closeDialog();
+}
+
+async function deleteContactMobileView(contactId) {
+    let ToBeDeletedContactId;
+    let email = document.getElementById('emailOfContact').innerHTML;
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts;
+    const keys = Object.keys(contacts);
+    for (let i = 0; i < keys.length; i++) {
+        const contactId = keys[i];
+        let contact = contacts[contactId];
+        if (contact.email === email) {
+            ToBeDeletedContactId = contactId;
+            break;
+        }
+    }
+    if (ToBeDeletedContactId) {
+        delete userData.contacts[contactId];
+    }
+    await deleteUserContact(uid, ToBeDeletedContactId);
     await loadDataAfterChanges();
     closeDialog();
 }
@@ -422,7 +461,7 @@ function showEditDeleteMenuBox(contactId) {
 
 function getEditDeleteMenuBoxHtml(contactId) {
     return `
-    <button onclick="openEditContact('${contactId}')"><img src="./img/edit_contacts.png"></button>
-    <button onclick="deleteContact()"><img src="./img/delete_contact.png"></button>
+    <button onclick="editOpenedContactInMobileView()"><img src="./img/edit_contacts.png"></button>
+    <button onclick="deleteContactMobileView(${contactId})"><img src="./img/delete_contact.png"></button>
     `
 }

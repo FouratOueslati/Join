@@ -1,4 +1,3 @@
-
 @media (max-width: 1150px) {
     .greeting-container {
         width: 25%;
@@ -20,13 +19,18 @@
 }
 
 @media (max-width: 1024px) {
-  
+
     .scroll {
         overflow-x: hidden;
     }
 }
 
 @media (max-width: 900px) {
+    .add-new-contact {
+        transform: translateY(110%);
+        transform: translateX(0);
+    }
+
     body {
         flex-direction: column-reverse;
     }

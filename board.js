@@ -102,7 +102,7 @@ function generateModalContent(task, i) {
             <div class="space-correct">${task['task']['date']}</div>
         </div>
         <div class="details-container">
-            <span class="fine-written">Priority:</span>´
+            <span class="fine-written">Priority:</span>
             <div class="space-correct">
             <div id="openedPriority${i}">${task['task']['priority']}</div>
             <img id="priorityImg${i}">

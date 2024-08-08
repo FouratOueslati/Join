@@ -160,17 +160,17 @@ function generateEditModalContent(task, i) {
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="urgentButton" type="button" class="button-prio">
+                <button onclick="changeColor(this)" id="urgentButton" type="button" class="button-prio">
                     <div class="center">
                         <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
                     </div>
                 </button>
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="mediumButton" type="button" class="button-prio">
+                <button onclick="changeColor(this)" id="mediumButton" type="button" class="button-prio">
                     <div class="center">
                         <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
                     </div>
                 </button>
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="lowButton" type="button" class="button-prio">
+                <button onclick="changeColor(this)" id="lowButton" type="button" class="button-prio">
                     <div class="center">
                         <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
                     </div>
@@ -189,17 +189,15 @@ function generateEditModalContent(task, i) {
                     <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
                 </button>
                 <button class="button-transparacy">
-                    <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
+                    <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="check">
                 </button>
             </div>
         </div>
-        <div class="subtask-container" id="subtasksContainer">
+        <div class="subtasks-opened" id="subtasksDiv">
             ${generateSubtasksHtml(task.subtasks, i)}
         </div>
-
-        <div class="edit-delete-task-container">
-            <button onclick="saveTask(${i})">Save</button>
-            <button onclick="deleteTask(${i})">Delete</button>
+        <div class="align-center justify-center">
+            <button class="button-dark" id="createTaskBtn" type="submit">Save Changes</button>
         </div>
     `;
 }
@@ -551,7 +549,7 @@ async function deleteTask(i) {
 }
 
 //New
-async function editTask(i) {
+async function editTask(i, clickedButton) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
@@ -571,6 +569,8 @@ async function editTask(i) {
 }
 
 function changeColor(clickedButton) {
+    console.log('Button clicked:', clickedButton.id);
+
     const buttons = [
         { element: document.getElementById('lowButton'), class: 'lowSelected' },
         { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
@@ -578,17 +578,28 @@ function changeColor(clickedButton) {
     ];
 
     buttons.forEach(button => {
-        button.element.classList.toggle(button.class, button.element === clickedButton);
-        if (button.element !== clickedButton) {
-            button.element.classList.remove(button.class);
+        if (button.element) {
+            console.log('Processing button:', button.element.id);
+            button.element.classList.toggle(button.class, button.element === clickedButton);
+            if (button.element !== clickedButton) {
+                button.element.classList.remove(button.class);
+            }
+        } else {
+            console.warn('Button element not found:', button);
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('lowButton').onclick = function () { changeColor(this); };
-    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
-    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
+    const lowButton = document.getElementById('lowButton');
+    const mediumButton = document.getElementById('mediumButton');
+    const urgentButton = document.getElementById('urgentButton');
+
+    if (lowButton && mediumButton && urgentButton) {
+        lowButton.onclick = () => changeColor(lowButton);
+        mediumButton.onclick = () => changeColor(mediumButton);
+        urgentButton.onclick = () => changeColor(urgentButton);
+    }
 });
 
 function addEventListenerDropDown() {

@@ -363,6 +363,7 @@ async function deleteContact(contactId) {
     contactInfos.innerHTML = '';
     await deleteUserContact(uid, contactId);
     await loadDataAfterChanges();
+    closeDialog();
 }
 
 

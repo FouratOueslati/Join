@@ -6,7 +6,6 @@ let todos = [];
 async function initBoard() {
     includeHTML();
     await displayOpenTasks();
-    displayNamesOfContacts();
     showLoggedUserInitials();
     removeSpecificColorFromDragArea();
 }
@@ -271,28 +270,23 @@ async function toggleSubtaskStatus(i, j) {
     let taskIds = Object.keys(tasks);
     let id = taskIds[i];
     let task = tasks[id];
-    await findAndUpdateSubtask(tasks, subtaskText.innerHTML, statusOfSubtask);
+    await updateSubtaskStatus(tasks, i, j, statusOfSubtask);
     await generateNumberOfSubtasks(i, task);
 }
 
 
-async function findAndUpdateSubtask(tasks, subtaskText, statusOfSubtask) {
-    const taskIds = Object.keys(tasks);
-    for (let taskIndex = 0; taskIndex < taskIds.length; taskIndex++) {
-        const taskId = taskIds[taskIndex];
-        let task = tasks[taskId];
-        let subtasks = task.subtasks;
-        const subtaskIds = Object.keys(subtasks);
-        for (let subtaskIndex = 0; subtaskIndex < subtaskIds.length; subtaskIndex++) {
-            const subtaskId = subtaskIds[subtaskIndex];
-            let subtask = subtasks[subtaskId];
-            if (subtaskText === subtask.text) {
-                subtask.status = statusOfSubtask ? 'done' : 'undone';
-                await updateSubtaskStatusInFirebase(subtask.status, taskId, subtaskId);
-            }
-        }
-    }
+async function updateSubtaskStatus(tasks, i, j, statusOfSubtask) {
+    let taskIds = Object.keys(tasks);
+    let taskId = taskIds[i];
+    let task = tasks[taskId];
+    let subtasks = task.subtasks;
+    let subtaskIds = Object.keys(subtasks);
+    let subtaskId = subtaskIds[j];
+    let subtask = subtasks[subtaskId];
+    subtask.status = statusOfSubtask ? 'done' : 'undone';
+    await updateSubtaskStatusInFirebase(subtask.status, taskId, subtaskId);
 }
+
 
 
 async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
@@ -539,7 +533,7 @@ function filterTask() {
         filterWithSearchTerm(search);
         document.querySelector('.display-none-a').style.display = "block";
     } else {
-        
+
     }
 }
 
@@ -570,17 +564,22 @@ async function deleteTask(i) {
 //New
 async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
+    const subtaskContent = document.getElementById(`subtasksContainer`);
     const task = todos[i].task;
-
+    const subtasks = task.subtasks;
 
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
+    for (let j = 0; j < subtasks.length; j++) {
+        const subtask = subtasks[j];
+        subtaskContent.innerHTML = generateSubtasksHtml(subtask, j);
+    }
     addEventListenerDropDown();
 
     const modal = document.getElementById(`myModal${i}`);
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             closeModal(modal);
         }

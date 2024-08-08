@@ -11,7 +11,7 @@ async function onloadFunction() {
     includeHTML();
     await loadSpecificUserDataFromLocalStorage();
     loadSubtasksFromLocalStorage();
-    displayNamesOfContacts();
+    await displayNamesOfContacts();
     showLoggedUserInitials();
 }
 

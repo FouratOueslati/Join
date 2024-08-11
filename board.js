@@ -501,21 +501,21 @@ function generateEditModalContent(task, i) {
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
-                <button onclick="changeColor(this)" id="urgentButton" type="button" class="button-prio">
-                    <div class="center">
-                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
-                    </div>
-                </button>
-                <button onclick="changeColor(this)" id="mediumButton" type="button" class="button-prio">
-                    <div class="center">
-                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
-                    </div>
-                </button>
-                <button onclick="changeColor(this)" id="lowButton" type="button" class="button-prio">
-                    <div class="center">
-                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
-                    </div>
-                </button>
+        <button onclick="changeColorEdit(this)" id="urgentButtonEdit" type="button" class="button-prio">
+            <div class="center">
+            <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
+            </div>
+        </button>
+        <button onclick="changeColorEdit(this)" id="mediumButtonEdit" type="button" class="button-prio">
+            <div class="center">
+            <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
+            </div>
+        </button>
+        <button onclick="changeColorEdit(this)" id="lowButtonEdit" type="button" class="button-prio">
+            <div class="center">
+            <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
+            </div>
+        </button>
             </div>
         </div>
 
@@ -547,18 +547,16 @@ async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
-
-    // Re-attach the event listeners after generating the content
     addEventListenerDropDown();
     changeColor(document.querySelector('.button-prio-selected'));
     onInputChangeEdit();
 }
 
-function changeColor(clickedButton) {
+function changeColorEdit(clickedButton) {
     const buttons = [
-        { element: document.getElementById('lowButton'), class: 'lowSelected' },
-        { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
-        { element: document.getElementById('urgentButton'), class: 'urgentSelected' }
+        { element: document.getElementById('lowButtonEdit'), class: 'lowSelected' },
+        { element: document.getElementById('mediumButtonEdit'), class: 'mediumSelected' },
+        { element: document.getElementById('urgentButtonEdit'), class: 'urgentSelected' }
     ];
 
     buttons.forEach(button => {
@@ -570,6 +568,7 @@ function changeColor(clickedButton) {
         }
     });
 }
+
 
 function addEventListenerDropDown() {
     const dropDowns = document.querySelectorAll('.drop-down');
@@ -620,22 +619,31 @@ function generateSubtasksEditHtml(subtasks, i) {
 function addSubtaskEdit(i) {
     let container = document.getElementById(`subtasksContainer${i}`);
     let subtaskText = document.getElementById('inputFieldSubtaskEdit').value.trim();
+
     if (subtaskText !== '') {
         let newSubtask = { text: subtaskText, status: 'pending' };
-        todos[i].task.subtasks.push(newSubtask);
+        if (editedSubtask !== null) {
+            todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, newSubtask);
+            editedSubtask = null; 
+        } else {
+            todos[i].task.subtasks.push(newSubtask);
+        }
+
         localStorage.setItem('todos', JSON.stringify(todos));
         container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
         document.getElementById('inputFieldSubtaskEdit').value = '';
     }
+
     onInputChangeEdit();
 }
 
+let editedSubtask = null;
+
 function editSubtaskEdit(taskIndex, subtaskIndex) {
     let subtaskDiv = document.getElementById(`subtask${taskIndex}-${subtaskIndex}`);
-    console.log(subtaskDiv);
     let text = subtaskDiv.innerHTML;
-    console.log(text, "this is text");
     document.getElementById('inputFieldSubtaskEdit').value = text;
+    editedSubtask = { taskIndex, subtaskIndex, text };
     todos[taskIndex].task.subtasks.splice(subtaskIndex, 1);
     localStorage.setItem('todos', JSON.stringify(todos));
     displaySubtasksEdit(taskIndex);
@@ -662,24 +670,26 @@ function onInputChangeEdit() {
 }
 
 function clearSubtaskInputEdit() {
-    let inpultField = document.getElementById('inputFieldSubtaskEdit');
-    inpultField.value = '';
+    let inputField = document.getElementById('inputFieldSubtaskEdit');
+    inputField.value = '';
+    if (editedSubtask !== null) {
+        todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, { text: editedSubtask.text, status: 'pending' });
+        localStorage.setItem('todos', JSON.stringify(todos));
+        displaySubtasksEdit(editedSubtask.taskIndex);
+        editedSubtask = null; 
+    }
+
     onInputChangeEdit();
 }
 
 function deleteSubtaskEdit(taskIndex, subtaskIndex) {
-    // Get the correct task's subtasks array
     let subtasks = todos[taskIndex].task.subtasks;
-    
-    // Remove the subtask at the specified index
     subtasks.splice(subtaskIndex, 1);
-    
-    // Save the updated todos array back to localStorage
     localStorage.setItem('todos', JSON.stringify(todos));
-    
-    // Update the subtasks display in the modal
     displaySubtasksEdit(taskIndex);
 }
+
+
 
 
 

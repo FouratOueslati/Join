@@ -21,10 +21,8 @@
 
     .aot-task-container {
         padding-left: 18px;
-        margin-top: 65px;
-        z-index: 888;
+        margin-top: 48px;
         width: 90%;
-        position: fixed;
         top: 0;
         background-color: #F6F7F8;
     }
@@ -34,7 +32,7 @@
         align-items: center;
         width: 100vw;
         flex-direction: column;
-        margin-top: 180px;
+        margin-top: 40px;
         height: 100vh;
     }
 

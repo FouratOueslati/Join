@@ -192,7 +192,6 @@ body {
     padding: 4px;
     width: 60%;
     color: white;
-    background-color: #0038FF;
 }
 
 .task-title {
@@ -260,7 +259,6 @@ body {
     padding: 4px;
     width: 40%;
     color: white;
-    background-color: #0038FF;
 }
 
 .title-opened {
@@ -412,6 +410,8 @@ body {
     margin-top: 4px;
     margin-bottom: 4px;
 }
+
+
 
 
 @media(max-width: 1300px) {

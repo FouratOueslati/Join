@@ -53,10 +53,12 @@ async function processTasks(containers) {
             const category = tasks[id]['dragCategory'];
             if (containers[category]) {
                 containers[category].innerHTML += getToDoTaskHtml(task, i);
+                setCategoryColor(i);
                 await getContactInitials(task.task.contacts, i);
                 todos.push(task);
                 await generateNumberOfSubtasks(i, task);
                 await generatePriorityImgUnopened(i, task);
+                updateLoadBar(i);
             }
         }
     }
@@ -67,12 +69,12 @@ function getToDoTaskHtml(task, i) {
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
-            <div class="category">${task['task']['category']}</div>
+            <div id="category${i}" class="category">${task['task']['category']}</div>
         </div>
         <div id="taskTitle${i}" class="task-title">${task['task']['name']}</div>
         <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
         <div class="subtasks-number-container">
-            <img class="load-bar" src="./img/filler.png">
+            <img id="loadBar${i}" class="load-bar">
             <div id="subtasksNumber${i}" class="subtasks">
             </div>
         </div>
@@ -92,8 +94,8 @@ function getToDoTaskHtml(task, i) {
 function generateModalContent(task, i) {
     return /*html*/`
         <div class="category-opened-container">
-            <div class="category-opened">${task['task']['category']}</div>
-            <img onclick="closeModal(document.getElementById('myModal${i}'))" src="./img/close.png">
+            <div id="categoryOpened${i}" class="category-opened">${task['task']['category']}</div>
+            <img onclick="closeModal(myModal${i})" src="./img/close.png">
         </div>
         <div id="openedTitle${i}" class="title-opened">${task['task']['name']}</div>
         <div class="description-opened">${task['task']['description']}</div>
@@ -104,8 +106,8 @@ function generateModalContent(task, i) {
         <div class="details-container">
             <span class="fine-written">Priority:</span>
             <div class="space-correct">
-            <div id="openedPriority${i}">${task['task']['priority']}</div>
-            <img id="priorityImg${i}">
+                <div id="openedPriority${i}">${task['task']['priority']}</div>
+                <img id="priorityImg${i}">
             </div>
         </div>
         <div class="assigned-to-container">
@@ -126,82 +128,6 @@ function generateModalContent(task, i) {
     `;
 }
 
-//New
-function generateEditModalContent(task, i) {
-    return /*html*/`
-        <div class="category-opened-container">
-            <div class="category-opened">${task.category}</div>
-            <img onclick="closeModal(document.getElementById('myModal${i}'))" src="./img/close.png">
-        </div>
-        <div class="modal-edit-content">
-            <label for="editTaskTitle${i}" class="margin-span">Title:</label>
-            <input id="taskTitle" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
-            
-            <label for="editTaskDescription${i}">Description:</label>
-            <textarea style="height: 80px;" id="taskDescription" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
-           
-            <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
-            <div class="inputs-flex">
-                <div class="drop-down">
-                    <div class="select">
-                        <span class="selected" id="selectContact">Search Contact</span>
-                        <div class="caret"></div>
-                    </div>
-                    <ul class="menu" id="contactList"></ul>
-                </div>
-                <div class="bubble-setup">
-                    <div id="contactsDisplayBubble" class="assigned-contacts-container"></div>
-                </div>
-            </div>
-
-            <label for="editTaskDate${i}" class="margin-span">Due date:</label>
-            <input id="date" type="date" class="task-input-field date" value="${task.date}">
-
-            <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
-            <div class="button-prio-width">
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="urgentButton" type="button" class="button-prio">
-                    <div class="center">
-                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
-                    </div>
-                </button>
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="mediumButton" type="button" class="button-prio">
-                    <div class="center">
-                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
-                    </div>
-                </button>
-                <button onclick="addPrioEventListeners(); changeColor(this)" id="lowButton" type="button" class="button-prio">
-                    <div class="center">
-                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
-                    </div>
-                </button>
-            </div>
-        </div>
-
-        <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
-        <div class="input-with-img">
-            <div style="display: flex; align-items: center; width: 100%;">
-                <input required placeholder="Add new subtask" class="task-input-with-img" oninput="onInputChange()" id="inputFieldSubtask">
-                <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
-            </div>
-            <div class="check-cross-position" id="closeOrAccept">
-                <button class="button-transparacy">
-                    <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
-                </button>
-                <button class="button-transparacy">
-                    <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="accept">
-                </button>
-            </div>
-        </div>
-        <div class="subtask-container" id="subtasksContainer">
-            ${generateSubtasksHtml(task.subtasks, i)}
-        </div>
-
-        <div class="edit-delete-task-container">
-            <button onclick="saveTask(${i})">Save</button>
-            <button onclick="deleteTask(${i})">Delete</button>
-        </div>
-    `;
-}
 
 function generateSubtasksHtml(subtasks, i) {
     if (!subtasks || subtasks.length === 0) return '';
@@ -217,7 +143,6 @@ function generateSubtasksHtml(subtasks, i) {
     }
     return result;
 }
-
 
 // DIESE FUNKTION MUSS ICH MIR NOCHMAL GENAUER ANSCHAUEN ES FUNKTIONIERT NUR DANN WENN MAN PAGE REFRESH MACHT
 async function generateNumberOfSubtasks(i, task) {
@@ -243,11 +168,28 @@ async function generatePriorityImgUnopened(i, task) {
 }
 
 
+function setCategoryColor(i) {
+    let categoryContainer = document.getElementById(`category${i}`);
+    if (categoryContainer.innerHTML === 'Technical Task') {
+        categoryContainer.style.backgroundColor = 'rgb(31, 215, 193)';
+    } else if (categoryContainer.innerHTML === 'User Story') {
+        categoryContainer.style.backgroundColor = 'rgb(0, 56, 255)';
+    }
+}
+
+function setCategoryColorOpened(i) {
+    let categoryContainerOpened = document.getElementById(`categoryOpened${i}`);
+    if (categoryContainerOpened.innerHTML === 'Technical Task') {
+        categoryContainerOpened.style.backgroundColor = 'rgb(31, 215, 193)';
+    } else if (categoryContainerOpened.innerHTML === 'User Story') {
+        categoryContainerOpened.style.backgroundColor = 'rgb(0, 56, 255)';
+    }
+}
+
 async function toggleSubtaskStatus(i, j) {
     let subtaskCheckbox = document.getElementById(`subtaskCheckbox(${i}, ${j})`);
     localStorage.setItem(`subtaskCheck(${i}, ${j})`, subtaskCheckbox.checked);
     let statusOfSubtask = JSON.parse(localStorage.getItem(`subtaskCheck(${i}, ${j})`));
-    let subtaskText = document.getElementById(`subtaskText(${i}, ${j})`);
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     let taskIds = Object.keys(tasks);
@@ -255,6 +197,7 @@ async function toggleSubtaskStatus(i, j) {
     let task = tasks[id];
     await updateSubtaskStatus(tasks, i, j, statusOfSubtask);
     await generateNumberOfSubtasks(i, task);
+    updateLoadBar(i);
 }
 
 
@@ -278,6 +221,24 @@ async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
     if (tasks[taskId] && tasks[taskId].subtasks[subtaskId]) {
         tasks[taskId].subtasks[subtaskId].status = status;
         await updateUserData(uid, userData);
+    }
+}
+
+function updateLoadBar(i) {
+    const loadBar = document.getElementById(`loadBar${i}`);
+    const subtaskNumber = document.getElementById(`subtasksNumber${i}`);
+    switch (subtaskNumber.innerHTML) {
+        case "1/2 Subtasks":
+            loadBar.src = "./img/Progress-Bar-half.png";
+            break;
+        case "0/2 Subtasks":
+        case "0/1 Subtasks":
+            loadBar.src = "./img/Progress-Bar-empty.png";
+            break;
+        case "2/2 Subtasks":
+        case "1/1 Subtasks":
+            loadBar.src = "./img/filler.png";
+            break;
     }
 }
 
@@ -305,6 +266,7 @@ async function zoomTaskInfo(i) {
     const modal = document.getElementById(`myModal${i}`);
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
+    setCategoryColorOpened(i);
     window.onclick = function (event) {
         if (event.target == modal) {
             closeModal(modal);
@@ -317,6 +279,7 @@ async function loadDataIntoModal(modalContent, data, i) {
     modalContent.innerHTML = generateModalContent(data, i);
 }
 
+
 async function showModal(modal) {
     modal.display = block;
     document.body.style.overflow = "hidden";
@@ -327,10 +290,12 @@ async function showModal(modal) {
     }
 }
 
+
 function closeModal(modal) {
     modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
+    displayOpenTasks(); 
 }
 
 
@@ -425,7 +390,7 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-/*
+
 function highlight() {
     document.querySelector('.drag-area').classList.add('drag-area-highlight');
 }
@@ -433,7 +398,7 @@ function highlight() {
 function removeHighlight() {
     document.querySelector('.drag-area').classList.remove('drag-area-highlight');
 }
-*/
+
 
 async function updateContainer(category) {
     const containerIdMap = {
@@ -482,6 +447,7 @@ function renderElements(category, containerId) {
             getContactInitials(element.task.contacts, i);
             generateNumberOfSubtasks(i, element);  // Ensure subtasks are generated
             generatePriorityImgUnopened(i, element);  // Ensure priority image is generated
+            updateLoadBar(i);
         }
     }
     removeSpecificColorFromDragArea();
@@ -545,15 +511,87 @@ async function deleteTask(i) {
 }
 
 //New
-async function editTask(i) {
+function generateEditModalContent(task, i) {
+    return /*html*/`
+        <div class="category-opened-container">
+            <div class="category-opened">${task.category}</div>
+            <img id="closeImg${i}" src="./img/close.png">
+        </div>
+        <div class="modal-edit-content">
+            <label for="editTaskTitle${i}" class="margin-span">Title:</label>
+            <input id="taskTitle" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
+            
+            <label for="editTaskDescription${i}">Description:</label>
+            <textarea style="height: 80px;" id="taskDescription" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
+           
+            <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
+            <div class="inputs-flex">
+                <div class="drop-down">
+                    <div class="select">
+                        <span class="selected" id="selectContact">Search Contact</span>
+                        <div class="caret"></div>
+                    </div>
+                    <ul class="menu" id="contactList"></ul>
+                </div>
+                <div class="bubble-setup">
+                    <div id="contactsDisplayBubble" class="assigned-contacts-container"></div>
+                </div>
+            </div>
+
+            <label for="editTaskDate${i}" class="margin-span">Due date:</label>
+            <input id="date" type="date" class="task-input-field date" value="${task.date}">
+
+            <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
+            <div class="button-prio-width">
+                <button onclick="changeColor(this)" id="urgentButton" type="button" class="button-prio">
+                    <div class="center">
+                        <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
+                    </div>
+                </button>
+                <button onclick="changeColor(this)" id="mediumButton" type="button" class="button-prio">
+                    <div class="center">
+                        <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
+                    </div>
+                </button>
+                <button onclick="changeColor(this)" id="lowButton" type="button" class="button-prio">
+                    <div class="center">
+                        <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
+        <div class="input-with-img">
+            <div style="display: flex; align-items: center; width: 100%;">
+                <input required placeholder="Add new subtask" class="task-input-with-img" oninput="onInputChange()" id="inputFieldSubtask">
+                <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+            </div>
+            <div class="check-cross-position" id="closeOrAccept">
+                <button class="button-transparacy">
+                    <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                </button>
+                <button class="button-transparacy">
+                    <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="check">
+                </button>
+            </div>
+        </div>
+        <div class="subtasks-opened" id="subtasksContainer ">
+            ${generateSubtasksEditHtml(task.subtasks, i)}
+        </div>
+        <div class="align-center justify-center">
+            <button class="button-dark" id="createTaskBtn" type="submit">Save Changes</button>
+        </div>
+    `;
+}
+
+async function editTask(i, clickedButton, index) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
-    
     const modal = document.getElementById(`myModal${i}`);
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
-
     window.onclick = function (event) {
         if (event.target == modal) {
             closeModal(modal);
@@ -561,10 +599,17 @@ async function editTask(i) {
     };
 
     addEventListenerDropDown();
+    //Not working
     changeColor(clickedButton);
+    //Not Working function in addTask.js
+    onInputChange();
+    addSubtask();
+    editSubtaskEdit(index);
 }
 
 function changeColor(clickedButton) {
+    console.log('Button clicked:', clickedButton.id);
+
     const buttons = [
         { element: document.getElementById('lowButton'), class: 'lowSelected' },
         { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
@@ -572,17 +617,28 @@ function changeColor(clickedButton) {
     ];
 
     buttons.forEach(button => {
-        button.element.classList.toggle(button.class, button.element === clickedButton);
-        if (button.element !== clickedButton) {
-            button.element.classList.remove(button.class);
+        if (button.element) {
+            console.log('Processing button:', button.element.id);
+            button.element.classList.toggle(button.class, button.element === clickedButton);
+            if (button.element !== clickedButton) {
+                button.element.classList.remove(button.class);
+            }
+        } else {
+            console.warn('Button element not found:', button);
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('lowButton').onclick = function () { changeColor(this); };
-    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
-    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
+    const lowButton = document.getElementById('lowButton');
+    const mediumButton = document.getElementById('mediumButton');
+    const urgentButton = document.getElementById('urgentButton');
+
+    if (lowButton && mediumButton && urgentButton) {
+        lowButton.onclick = () => changeColor(lowButton);
+        mediumButton.onclick = () => changeColor(mediumButton);
+        urgentButton.onclick = () => changeColor(urgentButton);
+    }
 });
 
 function addEventListenerDropDown() {
@@ -614,7 +670,56 @@ function addEventListenerDropDown() {
     });
 }
 
+function generateSubtasksEditHtml(subtasks, i) {
+    if (!subtasks || subtasks.length === 0) return '';
+    let result = '';
+    for (let j = 0; j < subtasks.length; j++) {
+        const subtask = subtasks[j];
+        result += /*html*/`
+        <div class="subtask-Txt">
+            <div id="subtask${i}-${j}">${subtask.text}</div>
+            <div class="delete-edit">
+                <img src="./addTaskImg/edit.svg" onclick="editSubtaskEdit(${i}, ${j})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${i}, ${j})">
+            </div>
+        </div>
+        `;
+    }
+    return result;
+}
 
+
+//New
+function editSubtaskEdit(taskIndex, subtaskIndex) {
+    let subtaskDiv = document.getElementById(`subtask${taskIndex}-${subtaskIndex}`);
+    if (subtaskDiv) {
+        let text = subtaskDiv.innerHTML;
+        document.getElementById('inputFieldSubtask').value = text;
+
+        // Optional: den Subtask löschen, sobald er bearbeitet wird.
+        deleteSubtask(taskIndex, subtaskIndex);
+
+        onInputChange();
+    } else {
+        console.error(`Element with ID subtask${taskIndex}-${subtaskIndex} not found.`);
+    }
+}
+
+function displaySubtasksEdit() {
+    const container = document.getElementById('subtasksContainer');
+    container.innerHTML = '';
+    subtasks.forEach((subtask, index) => {
+        let subtaskHTML = /*html*/`
+        <div class="subtask-Txt" id="subtask-Txt-${index}">
+            <div id="subtask${index}" class='test'>${subtask}</div>
+            <div class="delete-edit">
+                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${index})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${index})">
+            </div>
+        </div>`;
+        container.innerHTML += subtaskHTML;
+    });
+}
 
 
 

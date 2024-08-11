@@ -278,9 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded event fired');
     const dropDowns = document.querySelectorAll('.drop-down');
-    console.log('Found drop-down elements:', dropDowns);
     dropDowns.forEach(dropDown => {
         const select = dropDown.querySelector('.select');
         const caret = dropDown.querySelector('.caret');
@@ -308,3 +306,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+

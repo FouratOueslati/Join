@@ -64,7 +64,7 @@ body {
 .button-end-process-container {
     box-sizing: border-box;
     width: 80%;
-    height: 15%;
+    height: 10%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -144,7 +144,7 @@ body {
     display: flex;
     align-items: center;
     gap: 3px;
-    font-size: 20px;
+    font-size: clamp(1rem, 0.585rem + 1.329vi, 1.25rem);
 }
 
 .color-blue-button:hover {

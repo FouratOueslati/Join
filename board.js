@@ -564,52 +564,39 @@ function generateEditModalContent(task, i) {
         <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
         <div class="input-with-img">
             <div style="display: flex; align-items: center; width: 100%;">
-                <input required placeholder="Add new subtask" class="task-input-with-img" oninput="onInputChange()" id="inputFieldSubtask">
-                <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+                <input required placeholder="Add new subtask" class="task-input-with-img" oninput="onInputChangeEdit()" id="inputFieldSubtaskEdit">
+                <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImgEdit">
             </div>
-            <div class="check-cross-position" id="closeOrAccept">
+            <div class="check-cross-position" id="closeOrAcceptEdit">
                 <button class="button-transparacy">
-                    <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                    <img onclick="clearSubtaskInputEdit()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
                 </button>
                 <button class="button-transparacy">
-                    <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="check">
+                    <img onclick="addSubtaskEdit(${i})" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="check">
                 </button>
             </div>
         </div>
-        <div class="subtasks-opened" id="subtasksContainer ">
+        <div class="subtasks-opened" id="subtasksContainer${i}">
             ${generateSubtasksEditHtml(task.subtasks, i)}
         </div>
         <div class="align-center justify-center">
-            <button class="button-dark" id="createTaskBtn" type="submit">Save Changes</button>
+            <button class="button-dark" id="createTaskBtn" type="submit" onclick="saveTask(${i})">Save Changes</button>
         </div>
     `;
 }
 
-async function editTask(i, clickedButton, index) {
+async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
-    const modal = document.getElementById(`myModal${i}`);
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            closeModal(modal);
-        }
-    };
 
+    // Re-attach the event listeners after generating the content
     addEventListenerDropDown();
-    //Not working
-    changeColor(clickedButton);
-    //Not Working function in addTask.js
-    onInputChange();
-    addSubtask();
-    editSubtaskEdit(index);
+    changeColor(document.querySelector('.button-prio-selected'));
+    onInputChangeEdit();
 }
 
 function changeColor(clickedButton) {
-    console.log('Button clicked:', clickedButton.id);
-
     const buttons = [
         { element: document.getElementById('lowButton'), class: 'lowSelected' },
         { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
@@ -618,31 +605,15 @@ function changeColor(clickedButton) {
 
     buttons.forEach(button => {
         if (button.element) {
-            console.log('Processing button:', button.element.id);
             button.element.classList.toggle(button.class, button.element === clickedButton);
             if (button.element !== clickedButton) {
                 button.element.classList.remove(button.class);
             }
-        } else {
-            console.warn('Button element not found:', button);
         }
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const lowButton = document.getElementById('lowButton');
-    const mediumButton = document.getElementById('mediumButton');
-    const urgentButton = document.getElementById('urgentButton');
-
-    if (lowButton && mediumButton && urgentButton) {
-        lowButton.onclick = () => changeColor(lowButton);
-        mediumButton.onclick = () => changeColor(mediumButton);
-        urgentButton.onclick = () => changeColor(urgentButton);
-    }
-});
-
 function addEventListenerDropDown() {
-    // Dropdown event listeners
     const dropDowns = document.querySelectorAll('.drop-down');
     dropDowns.forEach(dropDown => {
         const select = dropDown.querySelector('.select');
@@ -680,7 +651,7 @@ function generateSubtasksEditHtml(subtasks, i) {
             <div id="subtask${i}-${j}">${subtask.text}</div>
             <div class="delete-edit">
                 <img src="./addTaskImg/edit.svg" onclick="editSubtaskEdit(${i}, ${j})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${i}, ${j})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtaskEdit(${i}, ${j})">
             </div>
         </div>
         `;
@@ -688,38 +659,70 @@ function generateSubtasksEditHtml(subtasks, i) {
     return result;
 }
 
+function addSubtaskEdit(i) {
+    let container = document.getElementById(`subtasksContainer${i}`);
+    let subtaskText = document.getElementById('inputFieldSubtaskEdit').value.trim();
+    if (subtaskText !== '') {
+        let newSubtask = { text: subtaskText, status: 'pending' };
+        todos[i].task.subtasks.push(newSubtask);
+        localStorage.setItem('todos', JSON.stringify(todos));
+        container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
+        document.getElementById('inputFieldSubtaskEdit').value = '';
+    }
+    onInputChangeEdit();
+}
 
-//New
 function editSubtaskEdit(taskIndex, subtaskIndex) {
     let subtaskDiv = document.getElementById(`subtask${taskIndex}-${subtaskIndex}`);
-    if (subtaskDiv) {
-        let text = subtaskDiv.innerHTML;
-        document.getElementById('inputFieldSubtask').value = text;
+    console.log(subtaskDiv);
+    let text = subtaskDiv.innerHTML;
+    console.log(text, "this is text");
+    document.getElementById('inputFieldSubtaskEdit').value = text;
+    todos[taskIndex].task.subtasks.splice(subtaskIndex, 1);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    displaySubtasksEdit(taskIndex);
+    onInputChangeEdit();
+}
 
-        // Optional: den Subtask löschen, sobald er bearbeitet wird.
-        deleteSubtask(taskIndex, subtaskIndex);
 
-        onInputChange();
+function displaySubtasksEdit(i) {
+    const container = document.getElementById(`subtasksContainer${i}`);
+    container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
+}
+
+function onInputChangeEdit() {
+    let subtaskImg = document.getElementById('plusImgEdit');
+    let subtaskButtons = document.getElementById('closeOrAcceptEdit');
+    let inputField = document.getElementById('inputFieldSubtaskEdit');
+    if (inputField.value.length > 0) {
+        subtaskImg.style.display = 'none';
+        subtaskButtons.style.display = 'block';
     } else {
-        console.error(`Element with ID subtask${taskIndex}-${subtaskIndex} not found.`);
+        subtaskImg.style.display = 'block';
+        subtaskButtons.style.display = 'none';
     }
 }
 
-function displaySubtasksEdit() {
-    const container = document.getElementById('subtasksContainer');
-    container.innerHTML = '';
-    subtasks.forEach((subtask, index) => {
-        let subtaskHTML = /*html*/`
-        <div class="subtask-Txt" id="subtask-Txt-${index}">
-            <div id="subtask${index}" class='test'>${subtask}</div>
-            <div class="delete-edit">
-                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${index})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${index})">
-            </div>
-        </div>`;
-        container.innerHTML += subtaskHTML;
-    });
+function clearSubtaskInputEdit() {
+    let inpultField = document.getElementById('inputFieldSubtaskEdit');
+    inpultField.value = '';
+    onInputChangeEdit();
 }
+
+function deleteSubtaskEdit(taskIndex, subtaskIndex) {
+    // Get the correct task's subtasks array
+    let subtasks = todos[taskIndex].task.subtasks;
+    
+    // Remove the subtask at the specified index
+    subtasks.splice(subtaskIndex, 1);
+    
+    // Save the updated todos array back to localStorage
+    localStorage.setItem('todos', JSON.stringify(todos));
+    
+    // Update the subtasks display in the modal
+    displaySubtasksEdit(taskIndex);
+}
+
 
 
 

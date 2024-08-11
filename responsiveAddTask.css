@@ -20,20 +20,21 @@
     }
 
     .aot-task-container {
-        padding-left: 18px;
-        margin-top: 48px;
+        margin-top: unset;
         width: 90%;
         top: 0;
         background-color: #F6F7F8;
     }
 
     .main-container-task-one-two {
-        margin-bottom: 100px;
+        margin-bottom: unset;
+        margin-top: unset;
         align-items: center;
         width: 100vw;
         flex-direction: column;
-        margin-top: 40px;
-        height: 100vh;
+        justify-content: flex-start;
+        height: unset;
+        overflow-x: scroll;
     }
 
     .add-task-set-up-one-container {
@@ -51,5 +52,22 @@
         padding-left: 12px;
         padding-right: 12px;
         background-color: #F6F7F8;
+        margin-bottom: unset;
+    }
+}
+
+@media (max-width: 800px) {
+    .main-container-task {
+        height: 84vh;
+        justify-content: space-between;
+    }
+
+    .add-task-set-up-two-container {
+        position: relative;
+        bottom: 16px;
+    }
+
+    .clear-button {
+        display: none;
     }
 }

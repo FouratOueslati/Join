@@ -27,6 +27,7 @@
 
 @media (max-width: 900px) {
     .add-new-contact {
+        
         transform: translateY(110%);
         transform: translateX(0);
     }

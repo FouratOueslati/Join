@@ -53,10 +53,12 @@ async function processTasks(containers) {
             const category = tasks[id]['dragCategory'];
             if (containers[category]) {
                 containers[category].innerHTML += getToDoTaskHtml(task, i);
+                setCategoryColor(i);
                 await getContactInitials(task.task.contacts, i);
                 todos.push(task);
                 await generateNumberOfSubtasks(i, task);
                 await generatePriorityImgUnopened(i, task);
+                updateLoadBar(i);
             }
         }
     }
@@ -67,12 +69,12 @@ function getToDoTaskHtml(task, i) {
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
-            <div class="category">${task['task']['category']}</div>
+            <div id="category${i}" class="category">${task['task']['category']}</div>
         </div>
         <div id="taskTitle${i}" class="task-title">${task['task']['name']}</div>
         <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
         <div class="subtasks-number-container">
-            <img class="load-bar" src="./img/filler.png">
+            <img id="loadBar${i}" class="load-bar">
             <div id="subtasksNumber${i}" class="subtasks">
             </div>
         </div>
@@ -92,8 +94,8 @@ function getToDoTaskHtml(task, i) {
 function generateModalContent(task, i) {
     return /*html*/`
         <div class="category-opened-container">
-            <div class="category-opened">${task['task']['category']}</div>
-            <img onclick="closeModal(document.getElementById('myModal${i}'))" src="./img/close.png">
+            <div id="categoryOpened${i}" class="category-opened">${task['task']['category']}</div>
+            <img onclick="closeModal(myModal${i})" src="./img/close.png">
         </div>
         <div id="openedTitle${i}" class="title-opened">${task['task']['name']}</div>
         <div class="description-opened">${task['task']['description']}</div>
@@ -104,8 +106,8 @@ function generateModalContent(task, i) {
         <div class="details-container">
             <span class="fine-written">Priority:</span>
             <div class="space-correct">
-            <div id="openedPriority${i}">${task['task']['priority']}</div>
-            <img id="priorityImg${i}">
+                <div id="openedPriority${i}">${task['task']['priority']}</div>
+                <img id="priorityImg${i}">
             </div>
         </div>
         <div class="assigned-to-container">
@@ -125,7 +127,6 @@ function generateModalContent(task, i) {
         </div>
     `;
 }
-
 
 
 function generateSubtasksHtml(subtasks, i) {
@@ -167,11 +168,28 @@ async function generatePriorityImgUnopened(i, task) {
 }
 
 
+function setCategoryColor(i) {
+    let categoryContainer = document.getElementById(`category${i}`);
+    if (categoryContainer.innerHTML === 'Technical Task') {
+        categoryContainer.style.backgroundColor = 'rgb(31, 215, 193)';
+    } else if (categoryContainer.innerHTML === 'User Story') {
+        categoryContainer.style.backgroundColor = 'rgb(0, 56, 255)';
+    }
+}
+
+function setCategoryColorOpened(i) {
+    let categoryContainerOpened = document.getElementById(`categoryOpened${i}`);
+    if (categoryContainerOpened.innerHTML === 'Technical Task') {
+        categoryContainerOpened.style.backgroundColor = 'rgb(31, 215, 193)';
+    } else if (categoryContainerOpened.innerHTML === 'User Story') {
+        categoryContainerOpened.style.backgroundColor = 'rgb(0, 56, 255)';
+    }
+}
+
 async function toggleSubtaskStatus(i, j) {
     let subtaskCheckbox = document.getElementById(`subtaskCheckbox(${i}, ${j})`);
     localStorage.setItem(`subtaskCheck(${i}, ${j})`, subtaskCheckbox.checked);
     let statusOfSubtask = JSON.parse(localStorage.getItem(`subtaskCheck(${i}, ${j})`));
-    let subtaskText = document.getElementById(`subtaskText(${i}, ${j})`);
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     let taskIds = Object.keys(tasks);
@@ -179,6 +197,7 @@ async function toggleSubtaskStatus(i, j) {
     let task = tasks[id];
     await updateSubtaskStatus(tasks, i, j, statusOfSubtask);
     await generateNumberOfSubtasks(i, task);
+    updateLoadBar(i);
 }
 
 
@@ -202,6 +221,24 @@ async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
     if (tasks[taskId] && tasks[taskId].subtasks[subtaskId]) {
         tasks[taskId].subtasks[subtaskId].status = status;
         await updateUserData(uid, userData);
+    }
+}
+
+function updateLoadBar(i) {
+    const loadBar = document.getElementById(`loadBar${i}`);
+    const subtaskNumber = document.getElementById(`subtasksNumber${i}`);
+    switch (subtaskNumber.innerHTML) {
+        case "1/2 Subtasks":
+            loadBar.src = "./img/Progress-Bar-half.png";
+            break;
+        case "0/2 Subtasks":
+        case "0/1 Subtasks":
+            loadBar.src = "./img/Progress-Bar-empty.png";
+            break;
+        case "2/2 Subtasks":
+        case "1/1 Subtasks":
+            loadBar.src = "./img/filler.png";
+            break;
     }
 }
 
@@ -229,6 +266,7 @@ async function zoomTaskInfo(i) {
     const modal = document.getElementById(`myModal${i}`);
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
+    setCategoryColorOpened(i);
     window.onclick = function (event) {
         if (event.target == modal) {
             closeModal(modal);
@@ -241,6 +279,7 @@ async function loadDataIntoModal(modalContent, data, i) {
     modalContent.innerHTML = generateModalContent(data, i);
 }
 
+
 async function showModal(modal) {
     modal.display = block;
     document.body.style.overflow = "hidden";
@@ -251,10 +290,12 @@ async function showModal(modal) {
     }
 }
 
+
 function closeModal(modal) {
     modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
+    displayOpenTasks(); 
 }
 
 
@@ -349,7 +390,7 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-/*
+
 function highlight() {
     document.querySelector('.drag-area').classList.add('drag-area-highlight');
 }
@@ -357,7 +398,7 @@ function highlight() {
 function removeHighlight() {
     document.querySelector('.drag-area').classList.remove('drag-area-highlight');
 }
-*/
+
 
 async function updateContainer(category) {
     const containerIdMap = {
@@ -406,6 +447,7 @@ function renderElements(category, containerId) {
             getContactInitials(element.task.contacts, i);
             generateNumberOfSubtasks(i, element);  // Ensure subtasks are generated
             generatePriorityImgUnopened(i, element);  // Ensure priority image is generated
+            updateLoadBar(i);
         }
     }
     removeSpecificColorFromDragArea();
@@ -473,7 +515,7 @@ function generateEditModalContent(task, i) {
     return /*html*/`
         <div class="category-opened-container">
             <div class="category-opened">${task.category}</div>
-            <img onclick="closeModal(document.getElementById('myModal${i}'))" src="./img/close.png">
+            <img id="closeImg${i}" src="./img/close.png">
         </div>
         <div class="modal-edit-content">
             <label for="editTaskTitle${i}" class="margin-span">Title:</label>

@@ -531,7 +531,7 @@ function generateEditModalContent(task, i) {
                         <span class="selected" id="selectContact">Search Contact</span>
                         <div class="caret"></div>
                     </div>
-                    <ul class="menu" id="contactList"></ul>
+                    <ul class="menu" id="contactListEdit"></ul>
                 </div>
                 <div class="bubble-setup">
                     <div id="contactsDisplayBubble" class="assigned-contacts-container"></div>
@@ -543,17 +543,17 @@ function generateEditModalContent(task, i) {
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
-        <button onclick="changeColorEdit(this)" id="urgentButtonEdit" type="button" class="button-prio">
+        <button onclick="changeColorEdit(this); addPrioEventListenersEdit()" id="urgentButtonEdit" type="button" class="button-prio">
             <div class="center">
             <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
             </div>
         </button>
-        <button onclick="changeColorEdit(this)" id="mediumButtonEdit" type="button" class="button-prio">
+        <button onclick="changeColorEdit(this) addPrioEventListenersEdit()" id="mediumButtonEdit" type="button" class="button-prio">
             <div class="center">
             <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
             </div>
         </button>
-        <button onclick="changeColorEdit(this)" id="lowButtonEdit" type="button" class="button-prio">
+        <button onclick="changeColorEdit(this) addPrioEventListenersEdit()" id="lowButtonEdit" type="button" class="button-prio">
             <div class="center">
             <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
             </div>
@@ -592,6 +592,67 @@ async function editTask(i) {
     addEventListenerDropDown();
     changeColor(document.querySelector('.button-prio-selected'));
     onInputChangeEdit();
+    displayNamesOfContactsEdit();
+}
+
+// displays contacts names die man wählen kann
+async function displayNamesOfContactsEdit() {
+    let containerContact = document.getElementById("contactListEdit");
+    containerContact.innerHTML = '';
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts;
+    if (contacts) {
+        const keys = Object.keys(contacts);
+        for (let i = 0; i < keys.length; i++) {
+            let contactId = keys[i];
+            let name = contacts[contactId]["name"];
+            let color = contacts[contactId]["backgroundcolor"];
+            let initials = getInitials(name);
+            containerContact.innerHTML += generateContactToChose(name, color, initials, i);
+        }
+    }
+}
+
+// generates HTML für die Funktion displayNamesOfContacts()
+function generateContactToChoseEdit(name, color, initials, i) {
+    return `
+    <div class="contact-boarder">
+        <div class="name-inicial">
+            <div class="circle-inicial" style="background: ${color}">
+                <div class="inicial-style">${initials}</div>
+            </div>
+            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
+        </div>
+        <div class="check-box-custom">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment()">
+        </div>
+    </div>
+    `;
+}
+
+function displayContactsForAssignmentEdit() {
+    let containerBubbleInitials = document.getElementById('contactsDisplayBuble');
+    containerBubbleInitials.innerHTML = '';
+    let checkboxes = document.querySelectorAll('.check-box-style');
+    for (let i = 0; i < checkboxes.length; i++) {
+        let checkbox = checkboxes[i];
+        if (checkbox.checked) {
+            let contactElement = checkbox.closest('.contact-boarder');
+            let initialsElement = contactElement.querySelector('.circle-inicial .inicial-style');
+            let circleElement = contactElement.querySelector('.circle-inicial');
+            let initials = initialsElement.innerText;
+            let color = circleElement.style.background;
+            containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, color);
+        }
+    }
+}
+
+function generateBubbleInitials(i, initials, color) {
+    return `
+    <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
+        <span class="inicial-style">${initials}</span>
+    </div>
+    `;
 }
 
 function changeColorEdit(clickedButton) {
@@ -731,7 +792,40 @@ function deleteSubtaskEdit(taskIndex, subtaskIndex) {
     displaySubtasksEdit(taskIndex);
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    addPrioEventListenersEdit();
+    addCategoryEventListenerEdit();
+});
 
+
+function addPrioEventListenersEdit() {
+    document.getElementById('urgentButtonEdit').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'Urgent');
+        console.log('U');
+    });
+
+    document.getElementById('mediumButtonEdit').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'Medium');
+        console.log('M');
+    });
+
+    document.getElementById('lowButtonEdit').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'Low');
+        console.log('L');
+    });
+}
+
+function addCategoryEventListenerEdit() {
+    document.querySelectorAll('#categoryMenu li').forEach(category => {
+        category.addEventListener('click', () => {
+            localStorage.setItem('selectedCategory', category.textContent.trim());
+        });
+    });
+}
+
+async function loadLastButtonClicked() {
+    const userData = await loadSpecificUserDataFromLocalStorage();
+}
 
 
 

@@ -292,10 +292,10 @@ async function showModal(modal) {
 
 
 function closeModal(modal) {
+    displayOpenTasks(); 
     modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
-    displayOpenTasks(); 
 }
 
 

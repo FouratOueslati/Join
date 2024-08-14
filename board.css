@@ -436,16 +436,22 @@ body {
         margin-bottom: 5%;
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: 8px;
+        overflow-y: auto;
+        padding: 3px;
     }
 
     .todo-class {
-        width: 200px;
+        min-width: 200px;
     }
     .modal-content {
         width: 35%;
         height: auto;
+    }
+
+    .open-tasks-container {
+        width: calc(100vw - 232px);
     }
 }
 
@@ -456,15 +462,21 @@ body {
 
     .board-position-lower {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
     }
     .modal-content {
-        width: 50%;
+        width: 65%;
         height: auto;
+        padding: 32px 24px;
     }
 
     .open-tasks-container {
         height: 80%;
+        width: 100vw;
+    }
+
+    .task-width {
+        width: 98%;
     }
 }
 

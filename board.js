@@ -824,9 +824,18 @@ function addCategoryEventListenerEdit() {
     });
 }
 
-async function loadLastButtonClicked() {
-    const userData = await loadSpecificUserDataFromLocalStorage();
+async function loadLastButtonClicked(i, task) {
+    const userData = await loadSpecificUserDataFromLocalStorage();  
+    const tasks = userData.tasks;  
+    for (const taskId in tasks) {
+        if (tasks.hasOwnProperty(taskId)) {
+            const taskObj = tasks[taskId];
+            console.log(taskObj.priority);
+        }
+    }
 }
+
+
 
 
 

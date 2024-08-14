@@ -25,7 +25,7 @@ body {
 .parent-Container-for-addTask-board {
     border-radius: 30px;
     background-color: white;
-    width: 50%;
+    width: 80%;
     box-sizing: border-box;
     height: 75%;
     display: flex;
@@ -45,6 +45,7 @@ body {
     height: 15%;
     display: flex;
     align-items: center;
+    margin-top: 24px;
 }
 
 .inputs-flex {
@@ -68,6 +69,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 24px;
 }
 
 .add-task-set-up-one-container {
@@ -118,16 +120,18 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 8px;
 }
 
 .button-prio {
     background-color: white;
     padding: 10px 15px 10px 15px;
-    width: 31%;
     border: 1px solid rgb(209, 209, 209);
     border: 1px solid rgb(209, 209, 209);
     border-radius: 10px;
     cursor: pointer;
+    width: clamp(7.25rem, 2.5vw + 6.469rem, 8.5rem);
+    gap: 8px;
 }
 
 .prio-photos {

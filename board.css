@@ -411,9 +411,6 @@ body {
     margin-bottom: 4px;
 }
 
-
-
-
 @media(max-width: 1300px) {
     .board-position-lower {
         flex-direction: column;

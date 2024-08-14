@@ -380,7 +380,7 @@ async function moveTo(category) {
         // den alten Container aktualisieren
         await updateContainer(currentCategory);
         // den neuen Container aktualisieren
-        await updateContainer(category);
+        await displayOpenTasks();
         removeSpecificColorFromDragArea();
     }
 }
@@ -588,6 +588,7 @@ function generateEditModalContent(task, i) {
 async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
+    console.log(task)
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
     addEventListenerDropDown();
     changeColor(document.querySelector('.button-prio-selected'));

@@ -8,6 +8,7 @@ async function initBoard() {
     await displayOpenTasks();
     showLoggedUserInitials();
     removeSpecificColorFromDragArea();
+    callTaskFromFirebase(i);
 }
 
 
@@ -519,10 +520,10 @@ function generateEditModalContent(task, i) {
         </div>
         <div class="modal-edit-content">
             <label for="editTaskTitle${i}" class="margin-span">Title:</label>
-            <input id="taskTitle" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
+            <input id="taskTitleEdit" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
             
             <label for="editTaskDescription${i}">Description:</label>
-            <textarea style="height: 80px;" id="taskDescription" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
+            <textarea style="height: 80px;" id="taskDescriptionEdit" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
            
             <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
             <div class="inputs-flex">
@@ -538,7 +539,8 @@ function generateEditModalContent(task, i) {
                 </div>
             </div>
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
-            <input id="date" type="date" class="task-input-field date" value="${task.date}">
+            <input id="dateEdit" type="date" class="task-input-field date" value="${task.date}">
+
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
         <button onclick="changeColorEdit(this); addPrioEventListenersEdit()" id="urgentButtonEdit" type="button" class="button-prio">
@@ -587,19 +589,10 @@ async function editTask(i) {
     let tasks = userData.tasks;
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
-    let title = task.name;
-    let description = task.description;
-    if (tasks) {
-        const keys = Object.keys(tasks);
-        for (let i = 0; i < keys.length; i++) {
-            let taskId = keys[i];
-            let TaskTitleInFirebase = tasks[taskId]["name"];
-            let taskDescriptionInFirebase = tasks[taskId]["description"];
-            if (TaskTitleInFirebase == title && taskDescriptionInFirebase == description) {
-                localStorage.setItem('toBeEditedTaskId', taskId);
-            }
-        }
-    }
+
+    // Rufe die callTaskFromFirebase-Funktion auf, um das Task-Key zu speichern
+    await callTaskFromFirebase(i);
+
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
     addEventListenerDropDown();
     changeColor(document.querySelector('.button-prio-selected'));
@@ -847,6 +840,90 @@ async function loadLastButtonClicked(i, task) {
         }
     }
 }
+
+
+//callTaskFromFirebase()
+async function callTaskFromFirebase(i) {
+    let userData = await loadSpecificUserDataFromLocalStorage();  
+    let taskInfo = userData.tasks;  
+    let keys = Object.keys(taskInfo);
+    let taskKey = keys[i];
+    console.log('Task key:', taskKey);
+    saveTaskKeyToLocalStorage(taskKey);  
+    let taskArray = taskInfo[taskKey];
+    console.log('Task array: ', taskArray);  
+    return taskKey;  
+}
+
+function saveTaskKeyToLocalStorage(taskKey) {
+    localStorage.setItem('currentTaskKey', taskKey);
+}
+
+async function saveTask(i) {
+    const taskKey = await callTaskFromFirebase(i);  
+    let userData = await loadSpecificUserDataFromLocalStorage();
+
+    const nameEdit = document.getElementById('taskTitleEdit').value; 
+    const desciptionEdit = document.getElementById('taskDescriptionEdit').value;
+    const dateEdit = document.getElementById('dateEdit').value;
+
+    let subtasksContainer = document.getElementById(`subtasksContainer${i}`);
+    let subtaskDivs = subtasksContainer.getElementsByClassName('subtask-Txt');
+    let subtasks = [];
+    for (let j = 0; j < subtaskDivs.length; j++) {
+        let subtaskText = subtaskDivs[j].querySelector(`#subtask${i}-${j}`).innerText;
+        subtasks.push({ text: subtaskText, status: 'undone' }); // Status kann angepasst werden, falls vorhanden
+    }
+
+    // **Kontakte auslesen und speichern**
+    let assignedContacts = [];
+    let bubbleInitials = document.getElementById('contactsDisplayBuble').getElementsByClassName('bubble-initial');
+    for (let k = 0; k < bubbleInitials.length; k++) {
+        let contactInitials = bubbleInitials[k].querySelector('.inicial-style').innerText;
+        let contact = getContactByInitials(contactInitials, userData.contacts);
+        if (contact) {
+            assignedContacts.push(contact);
+        }
+    }
+
+    // **Priorität auslesen und speichern**
+    let priority;
+    if (document.getElementById('urgentButtonEdit').classList.contains('urgentSelected')) {
+        priority = 'Urgent';
+    } else if (document.getElementById('mediumButtonEdit').classList.contains('mediumSelected')) {
+        priority = 'Medium';
+    } else if (document.getElementById('lowButtonEdit').classList.contains('lowSelected')) {
+        priority = 'Low';
+    }
+
+    // Task-Objekt aktualisieren
+    userData.tasks[taskKey] = {
+        name: nameEdit,
+        description: desciptionEdit,
+        date: dateEdit,
+        subtasks: subtasks,
+        contacts: assignedContacts,
+        priority: priority
+    };
+
+    // Aktualisierte Daten in Firebase speichern
+    await updateUserData(uid, userData); 
+    initBoard();
+}
+
+function getContactByInitials(initials, contacts) {
+    const keys = Object.keys(contacts);
+    for (let i = 0; i < keys.length; i++) {
+        let contact = contacts[keys[i]];
+        if (getInitials(contact.name) === initials) {
+            return contact;
+        }
+    }
+    return null;
+}
+
+
+
 
 
 

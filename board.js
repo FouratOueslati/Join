@@ -844,37 +844,84 @@ async function loadLastButtonClicked(i, task) {
 async function callTaskFromFirebase(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();  
     let taskInfo = userData.tasks;  
-    const keys = Object.keys(taskInfo);
-    const taskKey = keys[i];
+    let keys = Object.keys(taskInfo);
+    let taskKey = keys[i];
     console.log('Task key:', taskKey);
-
-    // Speichere das Task key im Local Storage
-    saveTaskKeyToLocalStorage(taskKey);
-
-    const task = taskInfo[taskKey];
-    console.log()
+    saveTaskKeyToLocalStorage(taskKey);  
+    let taskArray = taskInfo[taskKey];
+    console.log('Task array: ', taskArray);  
+    return taskKey;  
 }
 
 function saveTaskKeyToLocalStorage(taskKey) {
     localStorage.setItem('currentTaskKey', taskKey);
 }
 
-async function saveTaskToFirebase(taskKey, updatedTaskData) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    userData.tasks[taskKey] = updatedTaskData;
-    localStorage.setItem('userData', JSON.stringify(userData));
-}
-
 async function saveTask(i) {
-    await callTaskFromFirebase(i);
-    let nameEdit = document.getElementById('taskTitleEdit').innerHTML; 
-    let desciptionEdit = document.getElementById('taskDescriptionEdit').innerHTML;
-    let dateEdit = document.getElementById('dateEdit').innerHTML;
+    const taskKey = await callTaskFromFirebase(i);  
+    let userData = await loadSpecificUserDataFromLocalStorage();
 
-    let updateTask = {
-        name = nameEdit
+    const nameEdit = document.getElementById('taskTitleEdit').value; 
+    const desciptionEdit = document.getElementById('taskDescriptionEdit').value;
+    const dateEdit = document.getElementById('dateEdit').value;
+
+    let subtasksContainer = document.getElementById(`subtasksContainer${i}`);
+    let subtaskDivs = subtasksContainer.getElementsByClassName('subtask-Txt');
+    let subtasks = [];
+    for (let j = 0; j < subtaskDivs.length; j++) {
+        let subtaskText = subtaskDivs[j].querySelector(`#subtask${i}-${j}`).innerText;
+        subtasks.push({ text: subtaskText, status: 'undone' }); // Status kann angepasst werden, falls vorhanden
     }
+
+    // **Kontakte auslesen und speichern**
+    let assignedContacts = [];
+    let bubbleInitials = document.getElementById('contactsDisplayBuble').getElementsByClassName('bubble-initial');
+    for (let k = 0; k < bubbleInitials.length; k++) {
+        let contactInitials = bubbleInitials[k].querySelector('.inicial-style').innerText;
+        let contact = getContactByInitials(contactInitials, userData.contacts);
+        if (contact) {
+            assignedContacts.push(contact);
+        }
+    }
+
+    // **Priorität auslesen und speichern**
+    let priority;
+    if (document.getElementById('urgentButtonEdit').classList.contains('urgentSelected')) {
+        priority = 'Urgent';
+    } else if (document.getElementById('mediumButtonEdit').classList.contains('mediumSelected')) {
+        priority = 'Medium';
+    } else if (document.getElementById('lowButtonEdit').classList.contains('lowSelected')) {
+        priority = 'Low';
+    }
+
+    // Task-Objekt aktualisieren
+    userData.tasks[taskKey] = {
+        name: nameEdit,
+        description: desciptionEdit,
+        date: dateEdit,
+        subtasks: subtasks,
+        contacts: assignedContacts,
+        priority: priority
+    };
+
+    // Aktualisierte Daten in Firebase speichern
+    await updateUserData(uid, userData); 
+    initBoard();
 }
+
+function getContactByInitials(initials, contacts) {
+    const keys = Object.keys(contacts);
+    for (let i = 0; i < keys.length; i++) {
+        let contact = contacts[keys[i]];
+        if (getInitials(contact.name) === initials) {
+            return contact;
+        }
+    }
+    return null;
+}
+
+
+
 
 
 

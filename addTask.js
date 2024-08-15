@@ -38,14 +38,14 @@ async function displayNamesOfContacts() {
 function generateContactToChose(name, color, initials, i) {
     return `
     <div class="contact-boarder">
-        <div class="name-inicial">
-            <div class="circle-inicial" style="background: ${color}">
-                <div class="inicial-style">${initials}</div>
+        <div class="name-initial">
+            <div class="circle-initial" style="background: ${color}">
+                <div class="initial-style">${initials}</div>
             </div>
             <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
         </div>
         <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment()">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
         </div>
     </div>
     `;
@@ -72,8 +72,8 @@ function displayContactsForAssignment() {
         let checkbox = checkboxes[i];
         if (checkbox.checked) {
             let contactElement = checkbox.closest('.contact-boarder');
-            let initialsElement = contactElement.querySelector('.circle-inicial .inicial-style');
-            let circleElement = contactElement.querySelector('.circle-inicial');
+            let initialsElement = contactElement.querySelector('.circle-initial .initial-style');
+            let circleElement = contactElement.querySelector('.circle-initial');
             let initials = initialsElement.innerText;
             let color = circleElement.style.background;
             containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, color);
@@ -85,7 +85,7 @@ function displayContactsForAssignment() {
 function generateBubbleInitials(i, initials, color) {
     return `
     <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
-        <span class="inicial-style">${initials}</span>
+        <span class="initial-style">${initials}</span>
     </div>
     `;
 }
@@ -204,13 +204,13 @@ function addCategoryEventListener() {
         });
     });
 }
-/////////////////////////////////////////////////////////////////////////////////////
+
 // Kontakte wählen und im localStorage speichern
 function choseContactForAssignment(event) {
     const checkbox = event.target;
     const contactName = checkbox.getAttribute('data-name');
     const contactElement = checkbox.closest('.contact-boarder');
-    const color = contactElement.querySelector('.circle-inicial').style.background;
+    const color = contactElement.querySelector('.circle-initial').style.background;
     if (checkbox.checked) {
         if (!assignedContacts.some(contact => contact.name === contactName)) {
             assignedContacts.push({ name: contactName, backgroundcolor: color });
@@ -220,7 +220,7 @@ function choseContactForAssignment(event) {
     }
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
 }
-//////////////////////////////////////////////////////////////////////////////////////////
+
 // task adden
 async function addTask() {
     let taskTitle = document.getElementById('taskTitle').value;

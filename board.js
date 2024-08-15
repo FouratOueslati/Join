@@ -170,18 +170,18 @@ async function generatePriorityImgUnopened(i, task) {
 
 function setCategoryColor(i) {
     let categoryContainer = document.getElementById(`category${i}`);
-    if (categoryContainer.innerHTML === 'Technical Task') {
+    if (categoryContainer && categoryContainer.innerHTML === 'Technical Task') {
         categoryContainer.style.backgroundColor = 'rgb(31, 215, 193)';
-    } else if (categoryContainer.innerHTML === 'User Story') {
+    } else if (categoryContainer && categoryContainer.innerHTML === 'User Story') {
         categoryContainer.style.backgroundColor = 'rgb(0, 56, 255)';
     }
 }
 
 function setCategoryColorOpened(i) {
     let categoryContainerOpened = document.getElementById(`categoryOpened${i}`);
-    if (categoryContainerOpened.innerHTML === 'Technical Task') {
+    if (categoryContainerOpened && categoryContainerOpened.innerHTML === 'Technical Task') {
         categoryContainerOpened.style.backgroundColor = 'rgb(31, 215, 193)';
-    } else if (categoryContainerOpened.innerHTML === 'User Story') {
+    } else if (categoryContainerOpened && categoryContainerOpened.innerHTML === 'User Story') {
         categoryContainerOpened.style.backgroundColor = 'rgb(0, 56, 255)';
     }
 }
@@ -292,7 +292,7 @@ async function showModal(modal) {
 
 
 function closeModal(modal) {
-    displayOpenTasks(); 
+    displayOpenTasks();
     modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
@@ -379,8 +379,8 @@ async function moveTo(category) {
         todos[currentDraggedElement]['task']['dragCategory'] = category;
         // den alten Container aktualisieren
         await updateContainer(currentCategory);
-        // den neuen Container aktualisieren
         await displayOpenTasks();
+        // den neuen Container aktualisieren
         removeSpecificColorFromDragArea();
     }
 }
@@ -534,13 +534,11 @@ function generateEditModalContent(task, i) {
                     <ul class="menu" id="contactListEdit"></ul>
                 </div>
                 <div class="bubble-setup">
-                    <div id="contactsDisplayBubble" class="assigned-contacts-container"></div>
+                    <div id="contactsDisplayBubbleInEdit" class="assigned-contacts-container"></div>
                 </div>
             </div>
-
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
             <input id="date" type="date" class="task-input-field date" value="${task.date}">
-
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
         <button onclick="changeColorEdit(this); addPrioEventListenersEdit()" id="urgentButtonEdit" type="button" class="button-prio">
@@ -560,7 +558,6 @@ function generateEditModalContent(task, i) {
         </button>
             </div>
         </div>
-
         <label for="editTaskTitle${i}" class="margin-span">Subtask</label>
         <div class="input-with-img">
             <div style="display: flex; align-items: center; width: 100%;">
@@ -586,14 +583,29 @@ function generateEditModalContent(task, i) {
 }
 
 async function editTask(i) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
-    console.log(task)
+    let title = task.name;
+    let description = task.description;
+    if (tasks) {
+        const keys = Object.keys(tasks);
+        for (let i = 0; i < keys.length; i++) {
+            let taskId = keys[i];
+            let TaskTitleInFirebase = tasks[taskId]["name"];
+            let taskDescriptionInFirebase = tasks[taskId]["description"];
+            if (TaskTitleInFirebase == title && taskDescriptionInFirebase == description) {
+                localStorage.setItem('toBeEditedTaskId', taskId);
+            }
+        }
+    }
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
     addEventListenerDropDown();
     changeColor(document.querySelector('.button-prio-selected'));
     onInputChangeEdit();
     displayNamesOfContactsEdit();
+    displayAssignedContactsInEdit();
 }
 
 // displays contacts names die man wählen kann
@@ -618,9 +630,9 @@ async function displayNamesOfContactsEdit() {
 function generateContactToChoseEdit(name, color, initials, i) {
     return `
     <div class="contact-boarder">
-        <div class="name-inicial">
-            <div class="circle-inicial" style="background: ${color}">
-                <div class="inicial-style">${initials}</div>
+        <div class="name-initial">
+            <div class="circle-initial" style="background: ${color}">
+                <div class="initial-style">${initials}</div>
             </div>
             <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
         </div>
@@ -631,27 +643,28 @@ function generateContactToChoseEdit(name, color, initials, i) {
     `;
 }
 
-function displayContactsForAssignmentEdit() {
-    let containerBubbleInitials = document.getElementById('contactsDisplayBuble');
-    containerBubbleInitials.innerHTML = '';
-    let checkboxes = document.querySelectorAll('.check-box-style');
-    for (let i = 0; i < checkboxes.length; i++) {
-        let checkbox = checkboxes[i];
-        if (checkbox.checked) {
-            let contactElement = checkbox.closest('.contact-boarder');
-            let initialsElement = contactElement.querySelector('.circle-inicial .inicial-style');
-            let circleElement = contactElement.querySelector('.circle-inicial');
-            let initials = initialsElement.innerText;
-            let color = circleElement.style.background;
-            containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, color);
+async function displayAssignedContactsInEdit() {
+    let containerBubbleInitials = document.getElementById('contactsDisplayBubbleInEdit');
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let tasks = userData.tasks;
+    let taskId = localStorage.getItem('toBeEditedTaskId');
+    let toBeEditedTask = tasks[taskId];
+    let contacts = toBeEditedTask.contacts;
+    if (toBeEditedTask) {
+        for (let i = 0; i < contacts.length; i++) {
+            const contact = contacts[i];
+            let backgroundColor = contact.backgroundcolor;
+            let name = contact.name;
+            let initials = getInitials(name)
+            containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, backgroundColor);
         }
     }
 }
 
-function generateBubbleInitials(i, initials, color) {
+function generateBubbleInitials(i, initials, backgroundColor) {
     return `
-    <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
-        <span class="inicial-style">${initials}</span>
+    <div id="bubble${i}" class="bubble-initial" style="background: ${backgroundColor}">
+        <span class="initial-style">${initials}</span>
     </div>
     `;
 }
@@ -728,7 +741,7 @@ function addSubtaskEdit(i) {
         let newSubtask = { text: subtaskText, status: 'pending' };
         if (editedSubtask !== null) {
             todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, newSubtask);
-            editedSubtask = null; 
+            editedSubtask = null;
         } else {
             todos[i].task.subtasks.push(newSubtask);
         }
@@ -780,7 +793,7 @@ function clearSubtaskInputEdit() {
         todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, { text: editedSubtask.text, status: 'pending' });
         localStorage.setItem('todos', JSON.stringify(todos));
         displaySubtasksEdit(editedSubtask.taskIndex);
-        editedSubtask = null; 
+        editedSubtask = null;
     }
 
     onInputChangeEdit();
@@ -825,8 +838,8 @@ function addCategoryEventListenerEdit() {
 }
 
 async function loadLastButtonClicked(i, task) {
-    const userData = await loadSpecificUserDataFromLocalStorage();  
-    const tasks = userData.tasks;  
+    const userData = await loadSpecificUserDataFromLocalStorage();
+    const tasks = userData.tasks;
     for (const taskId in tasks) {
         if (tasks.hasOwnProperty(taskId)) {
             const taskObj = tasks[taskId];

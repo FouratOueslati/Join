@@ -8,6 +8,7 @@ async function initBoard() {
     await displayOpenTasks();
     showLoggedUserInitials();
     removeSpecificColorFromDragArea();
+    callTaskFromFirebase(i);
 }
 
 
@@ -519,10 +520,10 @@ function generateEditModalContent(task, i) {
         </div>
         <div class="modal-edit-content">
             <label for="editTaskTitle${i}" class="margin-span">Title:</label>
-            <input id="taskTitle" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
+            <input id="taskTitleEdit" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
             
             <label for="editTaskDescription${i}">Description:</label>
-            <textarea style="height: 80px;" id="taskDescription" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
+            <textarea style="height: 80px;" id="taskDescriptionEdit" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
            
             <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
             <div class="inputs-flex">
@@ -539,7 +540,7 @@ function generateEditModalContent(task, i) {
             </div>
 
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
-            <input id="date" type="date" class="task-input-field date" value="${task.date}">
+            <input id="dateEdit" type="date" class="task-input-field date" value="${task.date}">
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
@@ -588,6 +589,10 @@ function generateEditModalContent(task, i) {
 async function editTask(i) {
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
+
+    // Rufe die callTaskFromFirebase-Funktion auf, um das Task-Key zu speichern
+    await callTaskFromFirebase(i);
+
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
     addEventListenerDropDown();
     changeColor(document.querySelector('.button-prio-selected'));
@@ -831,6 +836,43 @@ async function loadLastButtonClicked(i, task) {
             const taskObj = tasks[taskId];
             console.log(taskObj.priority);
         }
+    }
+}
+
+
+//callTaskFromFirebase()
+async function callTaskFromFirebase(i) {
+    let userData = await loadSpecificUserDataFromLocalStorage();  
+    let taskInfo = userData.tasks;  
+    const keys = Object.keys(taskInfo);
+    const taskKey = keys[i];
+    console.log('Task key:', taskKey);
+
+    // Speichere das Task key im Local Storage
+    saveTaskKeyToLocalStorage(taskKey);
+
+    const task = taskInfo[taskKey];
+    console.log()
+}
+
+function saveTaskKeyToLocalStorage(taskKey) {
+    localStorage.setItem('currentTaskKey', taskKey);
+}
+
+async function saveTaskToFirebase(taskKey, updatedTaskData) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    userData.tasks[taskKey] = updatedTaskData;
+    localStorage.setItem('userData', JSON.stringify(userData));
+}
+
+async function saveTask(i) {
+    await callTaskFromFirebase(i);
+    let nameEdit = document.getElementById('taskTitleEdit').innerHTML; 
+    let desciptionEdit = document.getElementById('taskDescriptionEdit').innerHTML;
+    let dateEdit = document.getElementById('dateEdit').innerHTML;
+
+    let updateTask = {
+        name = nameEdit
     }
 }
 

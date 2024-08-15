@@ -113,6 +113,7 @@ a:hover {
 
 ::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
     border-radius: 4px;
     padding-right: 4px;
 }

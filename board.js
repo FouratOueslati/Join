@@ -381,7 +381,7 @@ async function moveTo(category) {
         // den alten Container aktualisieren
         await updateContainer(currentCategory);
         // den neuen Container aktualisieren
-        await updateContainer(category);
+        await displayOpenTasks();
         removeSpecificColorFromDragArea();
     }
 }

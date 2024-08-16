@@ -145,12 +145,23 @@ async function updateUserData(uid, userData) {
  * @param {object} contacts 
  */
 async function updateUserContacts(uid, contacts) {
-    await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacs.json`, {
+    await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacts.json`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(contacts)
+    });
+}
+
+
+async function updateUserTasks(uid, toBeEditedTaskId, task) {
+    await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${toBeEditedTaskId}.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task)
     });
 }
 

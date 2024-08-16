@@ -8,7 +8,6 @@ async function initBoard() {
     await displayOpenTasks();
     showLoggedUserInitials();
     removeSpecificColorFromDragArea();
-    callTaskFromFirebase(i);
 }
 
 
@@ -589,10 +588,26 @@ async function editTask(i) {
     let tasks = userData.tasks;
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
+    const contacts = todos[i]['task']['contacts'];
+    localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(contacts));
+    const dragCategory = todos[i]['task']["dragCategory"];
+    localStorage.setItem('toBeEditedDragCategory', JSON.stringify(dragCategory));
+    const category = todos[i]['task']["category"];
+    localStorage.setItem('toBeEditedCategory', JSON.stringify(category));
+    let title = task.name;
+    let description = task.description;
+    if (task) {
+        const keys = Object.keys(tasks);
+        for (let i = 0; i < keys.length; i++) {
+            const taskId = keys[i];
+            let taskTitleInFirebase = tasks[taskId]["name"]
+            let taskDescriptionInFirebase = tasks[taskId]["description"]
+            if (taskTitleInFirebase == title && taskDescriptionInFirebase == description) {
+                localStorage.setItem('toBeEditedTaskId', taskId);
+            }
 
-    // Rufe die callTaskFromFirebase-Funktion auf, um das Task-Key zu speichern
-    await callTaskFromFirebase(i);
-
+        }
+    }
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
     addEventListenerDropDown();
     changeColor(document.querySelector('.button-prio-selected'));
@@ -842,51 +857,28 @@ async function loadLastButtonClicked(i, task) {
 }
 
 
-//callTaskFromFirebase()
-async function callTaskFromFirebase(i) {
-    let userData = await loadSpecificUserDataFromLocalStorage();  
-    let taskInfo = userData.tasks;  
-    let keys = Object.keys(taskInfo);
-    let taskKey = keys[i];
-    console.log('Task key:', taskKey);
-    saveTaskKeyToLocalStorage(taskKey);  
-    let taskArray = taskInfo[taskKey];
-    console.log('Task array: ', taskArray);  
-    return taskKey;  
-}
-
-function saveTaskKeyToLocalStorage(taskKey) {
-    localStorage.setItem('currentTaskKey', taskKey);
-}
-
 async function saveTask(i) {
-    const taskKey = await callTaskFromFirebase(i);  
-    let userData = await loadSpecificUserDataFromLocalStorage();
-
-    const nameEdit = document.getElementById('taskTitleEdit').value; 
+    let newContacts;
+    let newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+    let toBeEditedAssignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || [];
+    if (newlyAssignedContacts.length > 0) {
+        newContacts = newlyAssignedContacts;
+    } else {
+        newContacts = toBeEditedAssignedContacts;
+    }
+    let toBeEditedTaskId = localStorage.getItem('toBeEditedTaskId');
+    let toBeEditedDragCategory = JSON.parse(localStorage.getItem('toBeEditedDragCategory'));
+    let toBeEditedCategory = JSON.parse(localStorage.getItem('toBeEditedCategory'));
+    const nameEdit = document.getElementById('taskTitleEdit').value;
     const desciptionEdit = document.getElementById('taskDescriptionEdit').value;
     const dateEdit = document.getElementById('dateEdit').value;
-
     let subtasksContainer = document.getElementById(`subtasksContainer${i}`);
     let subtaskDivs = subtasksContainer.getElementsByClassName('subtask-Txt');
     let subtasks = [];
     for (let j = 0; j < subtaskDivs.length; j++) {
         let subtaskText = subtaskDivs[j].querySelector(`#subtask${i}-${j}`).innerText;
-        subtasks.push({ text: subtaskText, status: 'undone' }); // Status kann angepasst werden, falls vorhanden
+        subtasks.push({ text: subtaskText, status: 'undone' });
     }
-
-    // **Kontakte auslesen und speichern**
-    let assignedContacts = [];
-    let bubbleInitials = document.getElementById('contactsDisplayBuble').getElementsByClassName('bubble-initial');
-    for (let k = 0; k < bubbleInitials.length; k++) {
-        let contactInitials = bubbleInitials[k].querySelector('.inicial-style').innerText;
-        let contact = getContactByInitials(contactInitials, userData.contacts);
-        if (contact) {
-            assignedContacts.push(contact);
-        }
-    }
-
-    // **Priorität auslesen und speichern**
     let priority;
     if (document.getElementById('urgentButtonEdit').classList.contains('urgentSelected')) {
         priority = 'Urgent';
@@ -895,21 +887,19 @@ async function saveTask(i) {
     } else if (document.getElementById('lowButtonEdit').classList.contains('lowSelected')) {
         priority = 'Low';
     }
-
-    // Task-Objekt aktualisieren
-    userData.tasks[taskKey] = {
+    task = {
         name: nameEdit,
         description: desciptionEdit,
         date: dateEdit,
+        contacts: newContacts,
+        category: toBeEditedCategory,
+        dragCategory: toBeEditedDragCategory,
         subtasks: subtasks,
-        contacts: assignedContacts,
         priority: priority
     };
-
-    // Aktualisierte Daten in Firebase speichern
-    await updateUserData(uid, userData); 
-    initBoard();
+    await updateUserTasks(uid, toBeEditedTaskId, task);
 }
+
 
 function getContactByInitials(initials, contacts) {
     const keys = Object.keys(contacts);

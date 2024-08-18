@@ -8,66 +8,58 @@
     }
 }
 
-@media (max-width: 800px) {
-    .seperate-container {
-        display: none;
-    }
-
-    .header-container {
-        z-index: 999;
-        position: fixed;
-        top: 0;
-    }
-
-    .aot-task-container {
-        margin-top: unset;
-        width: 90%;
-        top: 0;
-        background-color: #F6F7F8;
-    }
-
+@media (max-width: 900px) {
     .main-container-task-one-two {
         margin-bottom: unset;
         margin-top: unset;
-        align-items: center;
-        width: 100vw;
+        align-items: flex-start;
+        width: unset;
         flex-direction: column;
         justify-content: flex-start;
         height: unset;
         overflow-x: scroll;
-    }
-
-    .add-task-set-up-one-container {
-        width: 90%;
-    }
-
-    .add-task-set-up-two-container {
-        width: 90%;
+        padding: 0 16px;
     }
 
     .button-end-process-container {
         position: sticky;
         bottom: 10%;
-        width: 100%;
         padding-left: 12px;
         padding-right: 12px;
         background-color: #F6F7F8;
-        margin-bottom: unset;
-    }
-}
-
-@media (max-width: 800px) {
-    .main-container-task {
-        height: 84vh;
-        justify-content: space-between;
+        margin: unset;
     }
 
+    .add-task-set-up-one-container,
     .add-task-set-up-two-container {
-        position: relative;
-        bottom: 16px;
+        width: 100%;
+    }
+
+    .aot-task-container {
+        margin: 24px 16px 0;
+        width: unset;
+    }
+
+    .seperate-container {
+        display: none;
     }
 
     .clear-button {
         display: none;
     }
 }
+
+/* @media (max-width: 800px) {
+    .header-container {
+        z-index: 999;
+        position: fixed;
+        top: 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .add-task-set-up-two-container {
+        position: relative;
+        bottom: 16px;
+    }
+} */

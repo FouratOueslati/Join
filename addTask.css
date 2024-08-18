@@ -126,7 +126,7 @@ body {
     border-radius: 10px;
     cursor: pointer;
     gap: 8px;
-    min-width: 120px;
+    min-width: 80px;
 
 }
 
@@ -259,9 +259,10 @@ body {
     background: rgba(235, 234, 234, 0.87);
 }
 
-.menuOpen {
+.menu-open {
     display: block;
     opacity: 1;
+    min-height: 200px;
 }
 
 ::-webkit-scrollbar {

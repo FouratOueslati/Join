@@ -58,7 +58,7 @@
 .log-out-container {
     color: white;
     position: absolute;
-    top: 10%;
+    top: 100%;
     right: 2%;
     display: flex;
     flex-direction: column;

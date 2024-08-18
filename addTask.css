@@ -39,6 +39,27 @@ body {
     gap: 18px;
 }
 
+.added-to-board {
+    background-color: #2A3547;
+    color: white;
+    border-radius: 20px;
+    height: 74px;
+    position: absolute;
+    top: 45%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    justify-content: center;
+    gap: 16px;
+    font-size: 20px;
+}
+
+.added-to-board img {
+    width: 22px;
+    height: 26px;
+}
+
 .aot-task-container {
     width: 80%;
     height: 15%;
@@ -126,7 +147,7 @@ body {
     border-radius: 10px;
     cursor: pointer;
     gap: 8px;
-    min-width: 120px;
+    min-width: 88px;
 
 }
 
@@ -239,8 +260,7 @@ body {
     transition: 0.5s;
     z-index: 1;
     overflow-y: auto;
-    max-height: 80px;
-    max-height: 80px;
+    max-height: 164px;
 }
 
 .selectClicked {
@@ -259,9 +279,10 @@ body {
     background: rgba(235, 234, 234, 0.87);
 }
 
-.menuOpen {
+.menu-open {
     display: block;
     opacity: 1;
+    min-height: 200px;
 }
 
 ::-webkit-scrollbar {

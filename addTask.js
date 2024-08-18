@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         select.addEventListener('click', () => {
             select.classList.toggle('selectClicked');
             caret.classList.toggle('createRotate');
-            menu.classList.toggle('menuOpen');
+            menu.classList.toggle('menu-open');
         });
 
         options.forEach(option => {
@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 selected.innerText = option.innerText;
                 select.classList.remove('selectClicked');
                 caret.classList.remove('createRotate');
-                menu.classList.remove('menuOpen');
+                menu.classList.remove('menu-open');
                 options.forEach(option => {
                     option.classList.remove('active');
                 });

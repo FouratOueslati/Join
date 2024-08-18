@@ -16,7 +16,7 @@
         width: unset;
         flex-direction: column;
         justify-content: flex-start;
-        height: unset;
+        height: calc(100vh - 54%);
         overflow-x: scroll;
         padding: 0 16px;
     }

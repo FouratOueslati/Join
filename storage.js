@@ -2,12 +2,12 @@ const BASE_URL_USER_DATA = "https://join-211-default-rtdb.europe-west1.firebased
 
 
 /**
- * This function load usar data from URL
+ * This function load user data from URL
  * 
  * @param {string} path 
  * @returns {object}
  */
-async function loadUserData(path = "") {
+async function loadUserData(path = "users") {
     let response = await fetch(BASE_URL_USER_DATA + path + ".json");
     return await response.json();
 }
@@ -251,4 +251,30 @@ async function loadAllTasksFromStorage() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     return tasks;
+}
+
+
+async function postGuest(path = "users", data = {}) {
+    let name = 'Guest';
+    let email = 'guest@email.com';
+    let password = generateRandom10DigitNumber();
+    localStorage.setItem('loggedInGuest', JSON.stringify({ email: email, password: password }));
+    data = {
+        name: name,
+        email: email,
+        password: password,
+        urgentTasks: [],
+        mediaumTasks: [],
+        lowTasks: [],
+        contacts: [],
+    };
+    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+        method: "POST",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    await setLoggedInGuest(email, password);
+    return responseToJson = await response.json();
 }

@@ -4,6 +4,10 @@ async function logIn() {
     let data = await loadUserData("users");
     let users = Object.entries(data);
     let foundUser = users.find(([uid, u]) => u.email === email && u.password === password);
+    if (!foundUser) {
+        wrongPassword();
+        return null;
+    }
     let userUID = foundUser[0];
     await setLoggedInUser(userUID);
     let rememberMeCheckbox = document.getElementById('rememberMeCheckbox');
@@ -16,6 +20,17 @@ async function logIn() {
     }
     window.location.href = "summary.html";
     return userUID;
+}
+
+
+function wrongPassword() {
+    let wrongPasswordContainer = document.getElementById('wrongPasswordContainer');
+    if (wrongPasswordContainer) {
+        wrongPasswordContainer.classList.remove('d-none');
+        setTimeout(() => {
+            wrongPasswordContainer.classList.add('d-none');
+        }, 2000);
+    }
 }
 
 // for remeber me 
@@ -65,32 +80,6 @@ async function guestLogin() {
         await postGuest();
         window.location.href = "summary.html";
     }
-}
-
-
-async function postGuest(path = "users", data = {}) {
-    let name = 'Guest';
-    let email = 'guest@email.com';
-    let password = generateRandom10DigitNumber();
-    localStorage.setItem('loggedInGuest', JSON.stringify({ email: email, password: password }));
-    data = {
-        name: name,
-        email: email,
-        password: password,
-        urgentTasks: [],
-        mediaumTasks: [],
-        lowTasks: [],
-        contacts: [],
-    };
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-        method: "POST",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    await setLoggedInGuest(email, password);
-    return responseToJson = await response.json();
 }
 
 

@@ -3,7 +3,8 @@ body {
     font-family: "Inter", sans-serif;
 }
 
-.signup-successful-container {
+.signup-successful-container,
+.wrong-password-container {
     position: absolute;
     top: 0;
     right: 0;
@@ -27,6 +28,18 @@ body {
     width: 300px;
     transform: translateY(700%);
     transition: transform 1s ease-in-out;
+}
+
+.wrong-password {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    background-color: rgba(42, 54, 71, 1);
+    border-radius: 20px;
+    height: 70px;
+    width: 300px;
 }
 
 .transform {

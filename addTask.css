@@ -36,8 +36,28 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 18px;
+}
+
+.added-to-board {
+    background-color: #2A3547;
+    color: white;
+    border-radius: 20px;
+    height: 74px;
+    position: absolute;
+    top: 45%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    justify-content: center;
+    gap: 16px;
+    font-size: 20px;
+}
+
+.added-to-board img {
+    width: 22px;
+    height: 26px;
 }
 
 .aot-task-container {
@@ -45,7 +65,7 @@ body {
     height: 15%;
     display: flex;
     align-items: center;
-    margin-top: 24px;
+    margin: 24px 65px 0 74px;
 }
 
 .inputs-flex {
@@ -55,21 +75,18 @@ body {
 }
 
 .main-container-task-one-two {
-    height: 70%;
     display: flex;
-    justify-content: center;
-    width: 80%;
     gap: 32px;
+    padding: 0 65px 0 74px;
 }
 
 .button-end-process-container {
     box-sizing: border-box;
-    width: 80%;
     height: 10%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 24px;
+    margin: 124px 65px 24px 74px;
 }
 
 .add-task-set-up-one-container {
@@ -80,7 +97,6 @@ body {
 
 .seperate-container {
     background-color: rgb(209, 209, 209);
-    height: 80%;
     width: 1px;
 }
 
@@ -130,8 +146,9 @@ body {
     border: 1px solid rgb(209, 209, 209);
     border-radius: 10px;
     cursor: pointer;
-    width: clamp(7.25rem, 2.5vw + 6.469rem, 8.5rem);
     gap: 8px;
+    min-width: 88px;
+
 }
 
 .prio-photos {
@@ -243,8 +260,7 @@ body {
     transition: 0.5s;
     z-index: 1;
     overflow-y: auto;
-    max-height: 80px;
-    max-height: 80px;
+    max-height: 164px;
 }
 
 .selectClicked {
@@ -263,9 +279,10 @@ body {
     background: rgba(235, 234, 234, 0.87);
 }
 
-.menuOpen {
+.menu-open {
     display: block;
     opacity: 1;
+    min-height: 200px;
 }
 
 ::-webkit-scrollbar {
@@ -327,7 +344,7 @@ body {
 }
 
 /*JavaScript*/
-.name-inicial {
+.name-initial {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -341,7 +358,7 @@ body {
     align-items: center;
 }
 
-.circle-inicial {
+.circle-initial {
     width: 30px;
     height: 30px;
     border-radius: 16px;
@@ -350,12 +367,12 @@ body {
     align-items: center;
 }
 
-.inicial-style {
+.initial-style {
     color: white;
     font-size: 12px;
 }
 
-.inicial-centering {
+.initial-centering {
     display: flex;
     justify-content: center;
     align-items: center;

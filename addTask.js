@@ -1,7 +1,5 @@
 let subtaskCounter = 0;
-// dieses Array wird benötigt um die Contacts zu den Tasks hinzufügen zu können
 let assignedContacts = [];
-// dieses Array wird benötigt um die subtasks zu den Tasks hinzufügen zu können
 let subtasks = [];
 
 
@@ -38,15 +36,43 @@ async function displayNamesOfContacts() {
 function generateContactToChose(name, color, initials, i) {
     return `
     <div class="contact-boarder">
-        <div class="name-inicial">
-            <div class="circle-inicial" style="background: ${color}">
-                <div class="inicial-style">${initials}</div>
+        <div class="name-initial">
+            <div class="circle-initial" style="background: ${color}">
+                <div class="initial-style">${initials}</div>
             </div>
             <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
         </div>
         <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment()">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
         </div>
+    </div>
+    `;
+}
+
+
+// displays contacts names die man gewählt hat
+function displayContactsForAssignment() {
+    let containerBubbleInitials = document.getElementById('contactsDisplayBubble');
+    containerBubbleInitials.innerHTML = '';
+    let checkboxes = document.querySelectorAll('.check-box-style');
+    for (let i = 0; i < checkboxes.length; i++) {
+        let checkbox = checkboxes[i];
+        if (checkbox.checked) {
+            let contactElement = checkbox.closest('.contact-boarder');
+            let initialsElement = contactElement.querySelector('.circle-initial .initial-style');
+            let circleElement = contactElement.querySelector('.circle-initial');
+            let initials = initialsElement.innerText;
+            let color = circleElement.style.backgroundColor;
+            containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, color);
+        }
+    }
+}
+
+// generates HTML für die Funktion DisplayContactsForAssignment()
+function generateBubbleInitials(i, initials, color) {
+    return `
+    <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
+        <span class="initial-style">${initials}</span>
     </div>
     `;
 }
@@ -61,33 +87,6 @@ function getInitials(name) {
         }
     }
     return upperChars;
-}
-
-// displays contacts names die man gewählt hat
-function displayContactsForAssignment() {
-    let containerBubbleInitials = document.getElementById('contactsDisplayBuble');
-    containerBubbleInitials.innerHTML = '';
-    let checkboxes = document.querySelectorAll('.check-box-style');
-    for (let i = 0; i < checkboxes.length; i++) {
-        let checkbox = checkboxes[i];
-        if (checkbox.checked) {
-            let contactElement = checkbox.closest('.contact-boarder');
-            let initialsElement = contactElement.querySelector('.circle-inicial .inicial-style');
-            let circleElement = contactElement.querySelector('.circle-inicial');
-            let initials = initialsElement.innerText;
-            let color = circleElement.style.background;
-            containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, color);
-        }
-    }
-}
-
-// generates HTML für die Funktion DisplayContactsForAssignment()
-function generateBubbleInitials(i, initials, color) {
-    return `
-    <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
-        <span class="inicial-style">${initials}</span>
-    </div>
-    `;
 }
 
 // updates Inputfield des subtasks
@@ -123,6 +122,7 @@ function addSubtask() {
         </div>`;
         container.innerHTML += subtaskHTML;
         document.getElementById('inputFieldSubtask').value = '';
+        clearSubtaskInput();
     }
 }
 
@@ -204,13 +204,13 @@ function addCategoryEventListener() {
         });
     });
 }
-/////////////////////////////////////////////////////////////////////////////////////
+
 // Kontakte wählen und im localStorage speichern
 function choseContactForAssignment(event) {
     const checkbox = event.target;
     const contactName = checkbox.getAttribute('data-name');
     const contactElement = checkbox.closest('.contact-boarder');
-    const color = contactElement.querySelector('.circle-inicial').style.background;
+    const color = contactElement.querySelector('.circle-initial').style.background;
     if (checkbox.checked) {
         if (!assignedContacts.some(contact => contact.name === contactName)) {
             assignedContacts.push({ name: contactName, backgroundcolor: color });
@@ -219,13 +219,16 @@ function choseContactForAssignment(event) {
         assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
     }
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
+    displayContactsForAssignment();
 }
-//////////////////////////////////////////////////////////////////////////////////////////
+
 // task adden
 async function addTask() {
-    let taskTitle = document.getElementById('taskTitle').value;
-    let taskDescription = document.getElementById('taskDescription').value;
-    let date = document.getElementById('date').value;
+    let taskTitle = document.getElementById('taskTitle');
+    let taskDescription = document.getElementById('taskDescription');
+    let assignedContactsContainer = document.getElementById('contactsDisplayBubble');
+    let subtasksContainer = document.getElementById('subtasksContainer');
+    let date = document.getElementById('date');
     let contacts = JSON.parse(localStorage.getItem('contacts'));
     let subtasks = JSON.parse(localStorage.getItem('subtasks'));
     let lastClickedButton = localStorage.getItem('lastClickedButton');
@@ -241,9 +244,9 @@ async function addTask() {
         }
     }
     let task = {
-        name: taskTitle,
-        description: taskDescription,
-        date: date,
+        name: taskTitle.value,
+        description: taskDescription.value,
+        date: date.value,
         priority: lastClickedButton,
         category: selectedCategory,
         contacts: contacts,
@@ -252,8 +255,17 @@ async function addTask() {
     };
     await postTask('/users/' + uid + '/tasks', task);
     localStorage.removeItem('dragCategory');
-    displayOpenTasks();
-    closeAddTaskInBoard();
+    localStorage.removeItem('subtasks');
+    localStorage.removeItem('lastClickedButton');
+    taskTitle.value = '';
+    taskDescription.value = '';
+    assignedContactsContainer.innerHTML = '';
+    date.value = '';
+    subtasksContainer.innerHTML = '';
+    if (window.location.pathname.includes('board.html')) {
+        displayOpenTasks();
+        closeAddTaskInBoard();
+    }
 }
 
 //Changes button colors
@@ -290,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
         select.addEventListener('click', () => {
             select.classList.toggle('selectClicked');
             caret.classList.toggle('createRotate');
-            menu.classList.toggle('menuOpen');
+            menu.classList.toggle('menu-open');
         });
 
         options.forEach(option => {
@@ -298,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 selected.innerText = option.innerText;
                 select.classList.remove('selectClicked');
                 caret.classList.remove('createRotate');
-                menu.classList.remove('menuOpen');
+                menu.classList.remove('menu-open');
                 options.forEach(option => {
                     option.classList.remove('active');
                 });

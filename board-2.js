@@ -59,7 +59,7 @@ function addEventListenerDropDown() {
         select.addEventListener('click', () => {
             select.classList.toggle('selectClicked');
             caret.classList.toggle('createRotate');
-            menu.classList.toggle('menuOpen');
+            menu.classList.toggle('menu-open');
         });
 
         options.forEach(option => {
@@ -67,7 +67,7 @@ function addEventListenerDropDown() {
                 selected.innerText = option.innerText;
                 select.classList.remove('selectClicked');
                 caret.classList.remove('createRotate');
-                menu.classList.remove('menuOpen');
+                menu.classList.remove('menu-open');
                 options.forEach(opt => opt.classList.remove('active'));
                 option.classList.add('active');
             });
@@ -210,23 +210,6 @@ function generateEditModalContent(task, i) {
         <div class="align-center justify-center">
             <button class="button-dark" id="createTaskBtn" type="submit" onclick="saveTask(${i})">Save Changes</button>
         </div>
-    `;
-}
-
-// generates HTML für die Funktion displayNamesOfContacts()
-function generateContactToChoseEdit(name, color, initials, i) {
-    return `
-    <div class="contact-boarder">
-        <div class="name-initial">
-            <div class="circle-initial" style="background: ${color}">
-                <div class="initial-style">${initials}</div>
-            </div>
-            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
-        </div>
-        <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment()">
-        </div>
-    </div>
     `;
 }
 

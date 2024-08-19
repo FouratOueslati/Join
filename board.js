@@ -312,18 +312,26 @@ function addSubtaskEdit(i) {
     let subtaskText = document.getElementById('inputFieldSubtaskEdit').value.trim();
     if (subtaskText !== '') {
         let newSubtask = { text: subtaskText, status: 'pending' };
-        if (editedSubtask !== null) {
-            todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, newSubtask);
-            editedSubtask = null;
-        } else {
-            todos[i].task.subtasks.push(newSubtask);
+        if (todos[i]) {
+            if (!todos[i].task) {
+                todos[i].task = { subtasks: [] };
+            } if (!Array.isArray(todos[i].task.subtasks)) {
+                todos[i].task.subtasks = [];
+            }
+            if (editedSubtask !== null) {
+                todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, newSubtask);
+                editedSubtask = null;
+            } else {
+                todos[i].task.subtasks.push(newSubtask);
+            }
+            localStorage.setItem('todos', JSON.stringify(todos));
+            container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
+            document.getElementById('inputFieldSubtaskEdit').value = '';
         }
-        localStorage.setItem('todos', JSON.stringify(todos));
-        container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
-        document.getElementById('inputFieldSubtaskEdit').value = '';
     }
     onInputChangeEdit();
 }
+
 
 
 function editSubtaskEdit(taskIndex, subtaskIndex) {

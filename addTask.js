@@ -1,7 +1,5 @@
 let subtaskCounter = 0;
-// dieses Array wird benötigt um die Contacts zu den Tasks hinzufügen zu können
 let assignedContacts = [];
-// dieses Array wird benötigt um die subtasks zu den Tasks hinzufügen zu können
 let subtasks = [];
 
 
@@ -51,21 +49,10 @@ function generateContactToChose(name, color, initials, i) {
     `;
 }
 
-//  contacts initials generieren
-function getInitials(name) {
-    let upperChars = "";
-    let words = name.split(" ");
-    for (let word of words) {
-        if (word.length > 0) {
-            upperChars += word[0].toUpperCase();
-        }
-    }
-    return upperChars;
-}
 
 // displays contacts names die man gewählt hat
 function displayContactsForAssignment() {
-    let containerBubbleInitials = document.getElementById('contactsDisplayBuble');
+    let containerBubbleInitials = document.getElementById('contactsDisplayBubble');
     containerBubbleInitials.innerHTML = '';
     let checkboxes = document.querySelectorAll('.check-box-style');
     for (let i = 0; i < checkboxes.length; i++) {
@@ -75,7 +62,7 @@ function displayContactsForAssignment() {
             let initialsElement = contactElement.querySelector('.circle-initial .initial-style');
             let circleElement = contactElement.querySelector('.circle-initial');
             let initials = initialsElement.innerText;
-            let color = circleElement.style.background;
+            let color = circleElement.style.backgroundColor;
             containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, color);
         }
     }
@@ -88,6 +75,18 @@ function generateBubbleInitials(i, initials, color) {
         <span class="initial-style">${initials}</span>
     </div>
     `;
+}
+
+//  contacts initials generieren
+function getInitials(name) {
+    let upperChars = "";
+    let words = name.split(" ");
+    for (let word of words) {
+        if (word.length > 0) {
+            upperChars += word[0].toUpperCase();
+        }
+    }
+    return upperChars;
 }
 
 // updates Inputfield des subtasks
@@ -123,6 +122,7 @@ function addSubtask() {
         </div>`;
         container.innerHTML += subtaskHTML;
         document.getElementById('inputFieldSubtask').value = '';
+        clearSubtaskInput();
     }
 }
 
@@ -219,13 +219,16 @@ function choseContactForAssignment(event) {
         assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
     }
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
+    displayContactsForAssignment();
 }
 
 // task adden
 async function addTask() {
-    let taskTitle = document.getElementById('taskTitle').value;
-    let taskDescription = document.getElementById('taskDescription').value;
-    let date = document.getElementById('date').value;
+    let taskTitle = document.getElementById('taskTitle');
+    let taskDescription = document.getElementById('taskDescription');
+    let assignedContactsContainer = document.getElementById('contactsDisplayBubble');
+    let subtasksContainer = document.getElementById('subtasksContainer');
+    let date = document.getElementById('date');
     let contacts = JSON.parse(localStorage.getItem('contacts'));
     let subtasks = JSON.parse(localStorage.getItem('subtasks'));
     let lastClickedButton = localStorage.getItem('lastClickedButton');
@@ -241,9 +244,9 @@ async function addTask() {
         }
     }
     let task = {
-        name: taskTitle,
-        description: taskDescription,
-        date: date,
+        name: taskTitle.value,
+        description: taskDescription.value,
+        date: date.value,
         priority: lastClickedButton,
         category: selectedCategory,
         contacts: contacts,
@@ -252,8 +255,17 @@ async function addTask() {
     };
     await postTask('/users/' + uid + '/tasks', task);
     localStorage.removeItem('dragCategory');
-    displayOpenTasks();
-    closeAddTaskInBoard();
+    localStorage.removeItem('subtasks');
+    localStorage.removeItem('lastClickedButton');
+    taskTitle.value = '';
+    taskDescription.value = '';
+    assignedContactsContainer.innerHTML = '';
+    date.value = '';
+    subtasksContainer.innerHTML = '';
+    if (window.location.pathname.includes('board.html')) {
+        displayOpenTasks();
+        closeAddTaskInBoard();
+    }
 }
 
 //Changes button colors

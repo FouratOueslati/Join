@@ -870,10 +870,9 @@ async function saveTask(i) {
     let subtasks = [];
     for (let j = 0; j < subtaskDivs.length; j++) {
         let subtaskText = subtaskDivs[j].querySelector(`#subtask${i}-${j}`).innerText;
-        subtasks.push({ text: subtaskText, status: 'undone' }); // Status kann angepasst werden, falls vorhanden
+        subtasks.push({ text: subtaskText, status: 'undone' }); 
     }
 
-    // **Kontakte auslesen und speichern**
     let assignedContacts = [];
     let bubbleInitials = document.getElementById('contactsDisplayBuble').getElementsByClassName('bubble-initial');
     for (let k = 0; k < bubbleInitials.length; k++) {
@@ -884,7 +883,6 @@ async function saveTask(i) {
         }
     }
 
-    // **Priorität auslesen und speichern**
     let priority;
     if (document.getElementById('urgentButtonEdit').classList.contains('urgentSelected')) {
         priority = 'Urgent';
@@ -894,7 +892,6 @@ async function saveTask(i) {
         priority = 'Low';
     }
 
-    // Task-Objekt aktualisieren
     userData.tasks[taskKey] = {
         name: nameEdit,
         description: desciptionEdit,
@@ -903,10 +900,8 @@ async function saveTask(i) {
         contacts: assignedContacts,
         priority: priority
     };
-
-    // Aktualisierte Daten in Firebase speichern
+ 
     await updateUserData(uid, userData); 
-    initBoard();
 }
 
 function getContactByInitials(initials, contacts) {

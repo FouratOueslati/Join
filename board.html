@@ -25,7 +25,8 @@
 <body onload="initBoard(); onloadFunction()">
     <div onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
         <div onclick="doNotClose(event)" id="addTaskPopUp" class="parent-Container-for-addTask-board addTask-window">
-            <div class="main-container-task">
+            <div class="main-container-task">  
+                <div class="overflow-y">          
                 <div class="aot-task-container">
                     <div class="add-task-title">Add Task</div>
                 </div>
@@ -148,6 +149,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <div class="tools-container" w3-include-html="./templates/bluebar.html"></div>
     <div class="content-container-board">

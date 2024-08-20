@@ -22,16 +22,6 @@ body {
     justify-content: center;
 }
 
-.parent-Container-for-addTask-board {
-    border-radius: 30px;
-    background-color: white;
-    width: 80%;
-    box-sizing: border-box;
-    height: 75%;
-    display: flex;
-    justify-content: center;
-}
-
 .main-container-task {
     width: 100%;
     display: flex;
@@ -421,3 +411,37 @@ body {
 .urgentSelected {
     background-color: rgb(255,61,0);
 }
+
+@media(max-width: 900px) {
+    .main-container-task-one-two  {
+        gap: 0px;
+        padding: 0px;
+    }
+    .add-task-set-up-one-container {
+        width: 80%;
+    }
+    .add-task-set-up-two-container {
+        width: 80%;
+    }
+    .color-white-button {
+        display: none;
+    }
+    .aot-task-container {
+        margin: 0px;
+    }
+}
+
+@media(max-width: 500px) {
+   .button-prio-width {
+        gap: 1px;
+   }
+   .button-end-process-container {
+        flex-direction: column;
+   }
+}
+
+@media(max-width: 350px) {
+    .button-prio-width {
+        flex-wrap: wrap;
+    }
+ }

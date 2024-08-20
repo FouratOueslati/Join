@@ -404,6 +404,16 @@ body {
     display: none;
 }
 
+.parent-Container-for-addTask-board {
+    border-radius: 30px;
+    background-color: white;
+    width: 80%;
+    box-sizing: border-box;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+}
+
 /* Edit task New*/
 .modal-edit-content {
     display: flex;
@@ -413,6 +423,19 @@ body {
 .margin-span {
     margin-top: 4px;
     margin-bottom: 4px;
+}
+
+.overflow-y {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-right: 24px;
+    
+    margin-left: 24px;
+} 
+
+::-webkit-scrollbar-thumb {
+    background: white;
+    background-color: white;
 }
 
 @media(max-width: 1300px) {
@@ -481,6 +504,20 @@ body {
     }
 }
 
+@media(max-width: 900px) {
+    .main-container-task-one-two {
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-container-task-one-two  {
+        gap: 0px;
+    }
+    .aot-task-container {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 @media(max-width: 700px) {
     .input-with-img-board {
         display: none;
@@ -515,4 +552,13 @@ body {
     .display-none {
         display: none;
     }
+}
+
+@media(max-width: 500px) {
+    .parent-Container-for-addTask-board {
+        width: 100%;
+    }
+   .button-prio-width {
+    gap: 1px;
+   }
 }

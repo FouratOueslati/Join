@@ -316,7 +316,6 @@ body {
 }
 
 .check-cross-position {
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;

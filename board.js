@@ -102,7 +102,8 @@ function generatePriorityImgOpened(i) {
 
 function openAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
-    addTask.classList.remove('d-none'); addTask.classList.add('addTask-container-background');
+    addTask.classList.remove('d-none'); 
+    addTask.classList.add('addTask-container-background');
     let addTaskWindow = document.getElementById('addTaskPopUp');
     addTaskWindow.classList.add('bring-out-addTask-window');
 }

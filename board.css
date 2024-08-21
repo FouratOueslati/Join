@@ -173,14 +173,14 @@ body {
     background-color: white;
     border-color: transparent;
     border-radius: 20px;
-    width: 100%;
+    width: 200px;
     height: auto;
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
 }
 
-/*.todo-class:hover {
+/* .todo-class:hover {
     transform: rotate(3deg);
-}*/
+} */
 
 .task-category {
     box-sizing: border-box;
@@ -412,6 +412,7 @@ body {
     height: 75%;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 /* Edit task New*/
@@ -423,14 +424,6 @@ body {
 .margin-span {
     margin-top: 4px;
     margin-bottom: 4px;
-}
-
-.overflow-y {
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-right: 24px;
-    
-    margin-left: 24px;
 } 
 
 .button-dark {

@@ -19,6 +19,13 @@
         height: calc(100vh - 54%);
         overflow-x: scroll;
         padding: 0 16px;
+        margin: unset;
+    }
+
+    .main-container-task-one-two-small {
+        flex-direction: column;
+        margin: 0 48px !important;
+        gap: unset !important;
     }
 
     .button-end-process-container {
@@ -32,12 +39,18 @@
 
     .add-task-set-up-one-container,
     .add-task-set-up-two-container {
-        width: 100%;
+        width: 100% !important;
     }
 
     .aot-task-container {
         margin: 24px 16px 0;
         width: unset;
+    }
+
+    .aot-task-container-small {
+        width: unset;
+        height: unset;
+        margin: 32px 0 32px 32px;
     }
 
     .seperate-container {
@@ -48,18 +61,3 @@
         display: none;
     }
 }
-
-/* @media (max-width: 800px) {
-    .header-container {
-        z-index: 999;
-        position: fixed;
-        top: 0;
-    }
-}
-
-@media (max-width: 800px) {
-    .add-task-set-up-two-container {
-        position: relative;
-        bottom: 16px;
-    }
-} */

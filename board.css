@@ -248,6 +248,7 @@ body {
     border: 1px solid #888;
     width: 30%;
     height: auto;
+    height: 75%;
 }
 
 .category-opened-container{
@@ -438,6 +439,10 @@ body {
 ::-webkit-scrollbar-thumb {
     background: white;
     background-color: white;
+}
+
+.scroll-y {
+    overflow-y: auto;
 }
 
 @media(max-width: 1300px) {

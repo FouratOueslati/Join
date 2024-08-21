@@ -147,6 +147,7 @@ function generateEditModalContent(task, i) {
             <div class="category-opened">${task.category}</div>
             <img id="closeImg${i}" src="./img/close.png">
         </div>
+        <div class="scroll-y">
         <div class="modal-edit-content">
             <label for="editTaskTitle${i}" class="margin-span">Title:</label>
             <input id="taskTitleEdit" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">

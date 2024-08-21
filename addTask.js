@@ -266,7 +266,19 @@ async function addTask() {
         displayOpenTasks();
         closeAddTaskInBoard();
     }
+    showConfirmationTask();
 }
+
+
+function showConfirmationTask() {
+    let addedToBoard = document.getElementById('addedToBoard');
+    addedToBoard.classList.remove('d-none');
+    setTimeout(() => {
+        addedToBoard.classList.add('d-none');
+        window.location.href = 'board.html';
+    }, 1500);
+}
+
 
 //Changes button colors
 function changeColor(clickedButton) {

@@ -58,25 +58,35 @@ body {
     margin: 24px 65px 0 74px;
 }
 
+.aot-task-container-small {
+    margin: 24px 0 32px 46px;
+}
+
 .inputs-flex {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.main-container-task-one-two {
+.main-container-task-one-two,
+.main-container-task-one-two-small {
     display: flex;
     gap: 32px;
-    padding: 0 65px 0 74px;
+    margin: 0 65px 0 74px;
 }
 
-.button-end-process-container {
+.button-end-process-container,
+.button-end-process-container-small {
     box-sizing: border-box;
     height: 10%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 124px 65px 24px 74px;
+}
+
+.button-end-process-container-small {
+    margin: 55px 65px 64px 74px; 
 }
 
 .add-task-set-up-one-container {
@@ -411,7 +421,7 @@ body {
 .urgentSelected {
     background-color: rgb(255,61,0);
 }
-
+/* 
 @media(max-width: 900px) {
     .main-container-task-one-two  {
         gap: 0px;
@@ -444,4 +454,4 @@ body {
     .button-prio-width {
         flex-wrap: wrap;
     }
- }
+ } */

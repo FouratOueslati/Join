@@ -412,6 +412,7 @@ body {
     height: 75%;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 /* Edit task New*/
@@ -423,14 +424,6 @@ body {
 .margin-span {
     margin-top: 4px;
     margin-bottom: 4px;
-}
-
-.overflow-y {
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-right: 24px;
-    
-    margin-left: 24px;
 } 
 
 ::-webkit-scrollbar-thumb {

@@ -102,8 +102,7 @@ function generatePriorityImgOpened(i) {
 
 function openAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
-    addTask.classList.remove('d-none'); 
-    addTask.classList.add('addTask-container-background');
+    addTask.classList.remove('d-none'); addTask.classList.add('addTask-container-background');
     let addTaskWindow = document.getElementById('addTaskPopUp');
     addTaskWindow.classList.add('bring-out-addTask-window');
 }
@@ -456,21 +455,7 @@ async function saveTask(i) {
         subtasks: subtasks,
         priority: newPriority
     };
-
-    // Aktualisierte Daten in Firebase speichern
-    await updateUserData(uid, userData); 
-    initBoard();
-}
-
-function getContactByInitials(initials, contacts) {
-    const keys = Object.keys(contacts);
-    for (let i = 0; i < keys.length; i++) {
-        let contact = contacts[keys[i]];
-        if (getInitials(contact.name) === initials) {
-            return contact;
-        }
-    }
-    return null;
+    await updateUserTasks(uid, toBeEditedTaskId, task);
 }
 
 

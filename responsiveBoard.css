@@ -1,0 +1,124 @@
+@media(max-width: 1300px) {
+    .board-position-lower {
+        flex-direction: column;
+    }
+
+    .board-task-set-up {
+        display: flex;
+        gap: 8px;
+        margin-top: 5%;
+    }
+
+    .task-width {
+        width: 90%;
+        height: auto;
+        display: flex;
+    }
+
+    .drag-area {
+        margin-top: 3%;
+        margin-bottom: 5%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-y: auto;
+        padding: 3px;
+    }
+
+    .todo-class {
+        min-width: 200px;
+    }
+    .modal-content {
+        width: 35%;
+        height: auto;
+    }
+
+    .open-tasks-container {
+        width: calc(100vw - 232px);
+    }
+}
+
+@media(max-width: 1025px) {
+    .content-container-board {
+        margin-left: 0px;
+    }
+
+    .board-position-lower {
+        display: flex;
+        align-items: flex-start;
+    }
+    .modal-content {
+        width: 65%;
+        height: auto;
+        padding: 32px 24px;
+    }
+
+    .open-tasks-container {
+        height: 80%;
+        width: 100vw;
+    }
+
+    .task-width {
+        width: 98%;
+    }
+}
+
+@media(max-width: 900px) {
+    .main-container-task-one-two {
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-container-task-one-two  {
+        gap: 0px;
+    }
+    .aot-task-container {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media(max-width: 700px) {
+    .input-with-img-board {
+        display: none;
+    }
+
+    .input-with-img-smal-screem {
+        width: 296px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        display: flex;
+        border: 1px solid rgb(209, 209, 209);
+    }
+
+    .seperate-line {
+        margin-top: 3px;
+    }
+
+    .input-with-img-smal-scren {
+        width: 296px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        display: flex;
+        border: 1px solid rgb(209, 209, 209);
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .add-task-button {
+        padding: 12px 12px;
+    }
+
+    .display-none {
+        display: none;
+    }
+}
+
+@media(max-width: 500px) {
+    .parent-Container-for-addTask-board {
+        width: 100%;
+    }
+   .button-prio-width {
+    gap: 1px;
+   }
+}

@@ -385,6 +385,8 @@ body {
     cursor: pointer;
     width: 95%;
     margin: 2px;
+    display: flex;
+    gap: 8px;
 }
 
 .subtask-Txt:hover {

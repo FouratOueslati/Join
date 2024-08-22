@@ -197,7 +197,7 @@
                         <span class="txt-svg-cetering">To do <img id="toDo" onclick="openAddTaskInBoard()"
                                 class="txt-svg-centering" src="./boardImg/add.svg"></span>
                         <div>
-                            <div class="drag-area borat-task-set-up " id="toDoTasks" ondrop="moveTo('todo')"
+                            <div class="drag-area board-task-set-up " id="toDoTasks" ondrop="moveTo('todo')"
                                 ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
 
                             </div>
@@ -209,7 +209,7 @@
                         <span class="txt-svg-cetering">In progress <img id="inProgress" onclick="openAddTaskInBoard()"
                                 class="txt-svg-centering" src="./boardImg/add.svg"></span>
                         <div>
-                            <div class="drag-area borat-task-set-up " id="inProgressTasks" ondrop="moveTo('inprogress')"
+                            <div class="drag-area board-task-set-up " id="inProgressTasks" ondrop="moveTo('inprogress')"
                                 ondragleave="removeHighlight('inprogress')"
                                 ondragover="allowDrop(event); highlight('inprogress')">
                             </div>
@@ -222,7 +222,7 @@
                                 onclick="openAddTaskInBoard()" class="txt-svg-centering"
                                 src="./boardImg/add.svg"></span>
                         <div>
-                            <div class="drag-area borat-task-set-up " id="feedbackTasks"
+                            <div class="drag-area board-task-set-up " id="feedbackTasks"
                                 ondrop="moveTo('awaitfeedback')" ondragleave="removeHighlight('awaitfeedback')"
                                 ondragover="allowDrop(event); highlight('awaitfeedback')"></div>
                         </div>
@@ -232,7 +232,7 @@
                     <div>
                         <span class="txt-svg-cetering">Done</span>
                         <div>
-                            <div class="drag-area borat-task-set-up " id="done" ondrop="moveTo('done')"
+                            <div class="drag-area board-task-set-up " id="done" ondrop="moveTo('done')"
                                 ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                             </div>
                         </div>

@@ -209,7 +209,7 @@ function generateEditModalContent(task, i) {
             ${generateSubtasksEditHtml(task.subtasks, i)}
         </div>
         <div class="align-center justify-center">
-            <button class="button-dark" id="createTaskBtn" type="submit" onclick="saveTask(${i})">Save Changes</button>
+            <button class="button-dark" id="createTaskBtn" type="submit" onclick="saveTask(${i})">OK <img src="./img/check.png"></button>
         </div>
     `;
 }

@@ -96,9 +96,9 @@ function onInputChange() {
     let inputField = document.getElementById('inputFieldSubtask');
     if (inputField.value.length > 0) {
         subtaskImg.style.display = 'none';
-        subtaskButtons.style.display = 'block';
+        subtaskButtons.style.display = 'flex';
     } else {
-        subtaskImg.style.display = 'block';
+        subtaskImg.style.display = 'flex';
         subtaskButtons.style.display = 'none';
     }
 }

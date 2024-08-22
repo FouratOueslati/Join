@@ -326,10 +326,11 @@ body {
 }
 
 .check-cross-position {
+    width: 80px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-left: 21%;
     display: none;
 }
 

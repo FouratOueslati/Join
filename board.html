@@ -29,7 +29,7 @@
     <div onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
         <div onclick="doNotClose(event)" id="addTaskPopUp" class="parent-Container-for-addTask-board addTask-window">
             <div class="main-container-task">
-                <div>
+                <div class="scroll-y">
                     <div class="aot-task-container-small">
                         <div class="add-task-title">Add Task</div>
                     </div>
@@ -122,14 +122,18 @@
                                                 <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
                                             </div>
                                             <div class="check-cross-position" id="closeOrAccept">
+                                            <div>
                                                 <button class="button-transparacy">
                                                     <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg"
                                                         class="subtaskButtons" alt="close">
                                                 </button>
+                                            </div>   
+                                            <div>
                                                 <button class="button-transparacy">
                                                     <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg"
                                                         class="subtaskButtons" alt="accept">
                                                 </button>
+                                            </div>
                                             </div>
                                         </div>
                                         <div class="subtask-container" id="subtasksContainer"></div>

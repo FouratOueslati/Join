@@ -85,24 +85,39 @@ async function displayInitialsAndContacts() {
 }
 
 // wird eins drüber aufgerufen dass die obere Funktion funktioniert
+
+// function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
+//     const keys = Object.keys(contacts);
+//     for (let i = 0; i < keys.length; i++) {
+//         let contactId = keys[i];
+//         let contact = contacts[contactId];
+//         let name = contact.name;
+//         let email = contact.email;
+//         let color = contact.backgroundcolor;
+//         let spaceIndex = name.indexOf(' ');
+//         let firstName = name.split(' ')[0];
+//         let lastName = name.split(' ')[1] || '';
+//         let firstLetterOfName = name.charAt(0);
+//         let firstLetterOfLastName = name.charAt(spaceIndex + 1);
+//         if (contactInitial.innerHTML === firstLetterOfName) {
+//             contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
+//             showColorForContact(i, color);
+//         }
+//     }
+// }
+
 function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
-    const keys = Object.keys(contacts);
-    for (let i = 0; i < keys.length; i++) {
-        let contactId = keys[i];
-        let contact = contacts[contactId];
-        let name = contact.name;
-        let email = contact.email;
-        let color = contact.backgroundcolor;
-        let spaceIndex = name.indexOf(' ');
-        let firstName = name.split(' ')[0];
-        let lastName = name.split(' ')[1] || '';
-        let firstLetterOfName = name.charAt(0);
-        let firstLetterOfLastName = name.charAt(spaceIndex + 1);
+    Object.keys(contacts).forEach((contactId, i) => {
+        const { name, email, backgroundcolor: color } = contacts[contactId];
+        const [firstName, lastName = ''] = name.split(' ');
+        const firstLetterOfName = name.charAt(0);
+        const firstLetterOfLastName = lastName.charAt(0);
+
         if (contactInitial.innerHTML === firstLetterOfName) {
             contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
             showColorForContact(i, color);
         }
-    }
+    });
 }
 
 
@@ -232,6 +247,7 @@ function openAddNewContact() {
  */
 function closeDialog() {
     document.getElementById('dialogNewEditContact').classList.add('d-none');
+    document.getElementById('editDeleteMenuBox').classList.add('d-none');
 }
 
 // öffnet das Fentser um Kontakte zu editieren
@@ -364,6 +380,7 @@ async function createNewContact(i) {
     postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
+    openContact(i);
 }
 
 

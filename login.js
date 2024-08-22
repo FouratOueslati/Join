@@ -15,11 +15,25 @@ async function logIn() {
     localStorage.setItem('rememberMe', rememberMe ? 'true' : 'false');
     if (rememberMe) {
         localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
-    } else {
-        localStorage.removeItem('loggedInUser');
     }
     window.location.href = "summary.html";
     return userUID;
+}
+
+
+async function guestLogin() {
+    setLoggedInGuest('guest@email.com', '1110448388');
+    let guest = JSON.parse(localStorage.getItem('loggedInGuest'));
+    let email = document.getElementById('loginEmail');
+    let password = document.getElementById('loginPassword');
+    if (guest) {
+        let emailLocalStorage = guest.email;
+        let passworLocalStorage = guest.password;
+        email.value = emailLocalStorage;
+        password.value = passworLocalStorage;
+        await setLoggedInGuest(emailLocalStorage, passworLocalStorage);
+        window.location.href = "summary.html";
+    }
 }
 
 
@@ -62,31 +76,4 @@ ${firstLetterOfName}${firstLetterOfLastName}
 
 function toggleMenu() {
     document.getElementById('menu').classList.toggle('d-none');
-}
-
-
-async function guestLogin() {
-    let guest = JSON.parse(localStorage.getItem('loggedInGuest'));
-    let email = document.getElementById('loginEmail');
-    let password = document.getElementById('loginPassword');
-    if (guest && guest.email === 'guest@email.com') {
-        let emailLocalStorage = guest.email;
-        let passworLocalStorage = guest.password;
-        email.value = emailLocalStorage;
-        password.value = passworLocalStorage;
-        await setLoggedInGuest(emailLocalStorage, passworLocalStorage);
-        window.location.href = "summary.html";
-    } else {
-        await postGuest();
-        window.location.href = "summary.html";
-    }
-}
-
-
-function generateRandom10DigitNumber() {
-    let randomNumber = Math.floor(Math.random() * 10000000000).toString();
-    while (randomNumber.length < 10) {
-        randomNumber = '0' + randomNumber;
-    }
-    return randomNumber;
 }

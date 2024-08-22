@@ -13,6 +13,16 @@ async function loadUserData(path = "users") {
 }
 
 
+async function setLoggedInGuest(email, password) {
+    let data = await loadUserData("users");
+    let users = Object.entries(data);
+    let foundUser = users.find(([uid, u]) => u.email === email && u.password === password);
+    let userUID = foundUser[0];
+    localStorage.setItem('loggedInGuest', JSON.stringify({ email: email, password: password }));
+    await setLoggedInUser(userUID);
+}
+
+
 /**
  * This function load user date and save in the local storage
  * 
@@ -31,17 +41,6 @@ async function setLoggedInUser(uid) {
 }
 
 
-async function setLoggedInGuest(email, password) {
-    localStorage.removeItem('uid');
-    localStorage.removeItem('data');
-    let data = await loadUserData("users");
-    let users = Object.entries(data);
-    let foundUser = users.find(([uid, u]) => u.email === email && u.password === password);
-    let userUID = foundUser[0];
-    await setLoggedInUser(userUID);
-}
-
-
 /**
  * This function recall the id of a user from the loacal storage
  * 
@@ -50,7 +49,6 @@ async function setLoggedInGuest(email, password) {
 function getLoggedInUser() {
     return localStorage.getItem('uid');
 }
-
 
 /**
  * This function load the specific user data of the logged in user from the local storage
@@ -251,30 +249,4 @@ async function loadAllTasksFromStorage() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     return tasks;
-}
-
-
-async function postGuest(path = "users", data = {}) {
-    let name = 'Guest';
-    let email = 'guest@email.com';
-    let password = generateRandom10DigitNumber();
-    localStorage.setItem('loggedInGuest', JSON.stringify({ email: email, password: password }));
-    data = {
-        name: name,
-        email: email,
-        password: password,
-        urgentTasks: [],
-        mediaumTasks: [],
-        lowTasks: [],
-        contacts: [],
-    };
-    let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-        method: "POST",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    await setLoggedInGuest(email, password);
-    return responseToJson = await response.json();
 }

@@ -391,26 +391,36 @@ function updateLoadBar(i) {
 
 
 function filterTask() {
-    let search = document.getElementById('search').value.toLowerCase().slice(0, 3);
+    let clickHere = document.getElementById('clickHere');
+    let search = document.getElementById('search').value.toLowerCase();
     if (search.length >= 3) {
-        filterWithSearchTerm(search);
-        document.querySelector('.display-none-a').style.display = "block";
-    } else {
-
+        clickHere.classList.remove('display-none-a');
+        filterWithSearchTerm(search.slice(0, 3));
+        document.getElementById('search').value = '';
     }
 }
 
 
 function filterWithSearchTerm(searchTerm) {
     for (let i = 0; i < todos.length; i++) {
-        let taskTitle = document.getElementById(`taskTitle${i}`).textContent.toLocaleLowerCase().slice(0, 3);
+        let taskTitleElement = document.getElementById(`taskTitle${i}`);
         let taskCard = document.getElementById(`task${i}`);
-        if (taskTitle.includes(searchTerm)) {
-            taskCard.style.display = 'block';
-        } else {
-            taskCard.style.display = 'none';
+        if (taskTitleElement && taskCard) {
+            let taskTitle = taskTitleElement.innerHTML.toLowerCase().slice(0, 3);
+            if (taskTitle.includes(searchTerm)) {
+                taskCard.style.display = 'block';
+            } else {
+                taskCard.style.display = 'none';
+            }
         }
     }
+}
+
+
+function clearClickHere() {
+    let clickHere = document.getElementById('clickHere');
+    clickHere.classList.add('display-none-a');
+    displayOpenTasks();
 }
 
 

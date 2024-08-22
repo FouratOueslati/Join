@@ -83,7 +83,7 @@ body {
     justify-content: center;
     border-radius: 30px;
     gap: 34px;
-    font-size: 20px;
+    font-size: 16px;
     background-color: #FFFFFF;
     box-shadow: 0px 0px 4px 0px #0000001A;
 }
@@ -105,7 +105,7 @@ body {
 
 .todos-number-container {
     font-weight: 600;
-    font-size: 64px;
+    font-size: clamp(2.375rem, -1.318rem + 5.909vi, 4rem);
 }
 
 .urgent-todo-container {
@@ -165,7 +165,7 @@ body {
     justify-content: center;
     border-radius: 30px;
     gap: 34px;
-    font-size: 20px;
+    font-size: 16px;
     background-color: #FFFFFF;
     box-shadow: 0px 0px 4px 0px #0000001A;
 }

@@ -112,9 +112,16 @@ a:hover {
         align-items: stretch;
     }
 
+    .tools-box {
+        height: 100%;
+        align-items: center;
+    }
+
     .menu-tools-container {
         flex-direction: row;
         justify-content: space-evenly;
+        height: 100%;
+        align-items: center;
     }
 
     .menu-tool {
@@ -122,12 +129,11 @@ a:hover {
         justify-content: center;
         align-items: center;
         gap: 8px;
-        
+        height: 90%;
+        font-size: clamp(0.875rem, 0.75rem + 0.4vi, 1rem);
+        width: 86px;
+        border-radius: 20px;
     }
-
-    /* .menu-tool:hover {
-        font-size: unset;
-    } */
 
     .menu-img {
         height: 24px;

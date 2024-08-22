@@ -13,68 +13,66 @@ function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, f
 
 function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i, contactId) {
     return `
-    <div>
-        <div class="edit-delete-contact">
-                <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
-            <div class="full-name">
-                <div id="nameOfContact">${name}</div>
-                <div class="edit-delete-box">
-                        <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
-                        <img onclick="deleteContact('${contactId}')" src="./img/delete_contact.png">
-                 </div>
+        <div>
+            <div class="edit-delete-contact">
+                    <div id="contactsInitialsBig${i}" class="shorts-name-big">${firstLetterOfName}${firstLetterOfSurname}</div>
+                <div class="full-name">
+                    <div id="nameOfContact">${name}</div>
+                    <div class="edit-delete-box">
+                            <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
+                            <img onclick="deleteContact('${contactId}')" src="./img/delete_contact.png">
+                    </div>
+                </div>
+            </div>
+         <div class="contact-information">Contact Information</div>
+            <div class="email-phone-box">
+                <div class="email-phone-headline">Email</div>
+                <div id="emailOfContact" class="email-phone join">${email}</div>
+                <div class="email-phone-headline">Phone</div>
+                <div id="numberOfContact" class="email-phone">${number}</div>
             </div>
         </div>
-        <div class="contact-information">Contact Information</div>
-        <div class="email-phone-box">
-            <div class="email-phone-headline">Email</div>
-            <div id="emailOfContact" class="email-phone join">${email}</div>
-            <div class="email-phone-headline">Phone</div>
-            <div id="numberOfContact" class="email-phone">${number}</div>
-        </div>
-    </div>
     `;
 }
 
 
 function getAddNewContactHtml() {
     return `
-    <div onclick="doNotClose(event)" id="addNewContact" class="add-new-contact">
-                <div class="add-contact-left">
-                    <div>
-                        <img src="./img/Capa 3.png">
-                        <div class="add-new-contact-headline">Add contact</div>
-                        <div class="text-contact">Tasks are better width a team!</div>
-                        <div class="blue-seperator-contact"></div>
-                    </div>
+        <div onclick="doNotClose(event)" id="addNewContact" class="add-new-contact">
+            <div class="add-contact-left">
+                <div>
+                    <img src="./img/Capa 3.png">
+                    <div class="add-new-contact-headline">Add contact</div>
+                    <div class="text-contact">Tasks are better width a team!</div>
+                    <div class="blue-seperator-contact"></div>
                 </div>
-                <div class="add-contact-right">
-                    <div class="close-add-contact">
-                        <img src="./img/close.png" onclick="closeDialog()">
-                    </div>
-                    <div class="contact-box-right">
-                        <img src="./img/Group 13.png" class="contact-img">
-                        <div class="data-box">
-                            <form onsubmit="createNewContact()"; return false class="add-contact-data">
-                                <input id="name" placeholder="Name" type="text" required class="name-input">
-                                <input id="email" placeholder="Email" type="email" required class="email-input email-input-edit">
-                                <input id="number" placeholder="Phone" type="text" required class="phone-input">
-                            
+            </div>
+            <div class="add-contact-right">
+                <div class="close-add-contact">
+                    <img src="./img/close.png" onclick="closeDialog()">
+                </div>
+                <div class="contact-box-right">
+                    <img src="./img/Group 13.png" class="contact-img">
+                    <div class="data-box">
+                        <form onsubmit="createNewContact()" ; return false class="add-contact-data">
+                            <input id="name" placeholder="Name" type="text" required class="name-input">
+                            <input id="email" placeholder="Email" type="email" required class="email-input email-input-edit">
+                            <input id="number" placeholder="Phone" type="text" required class="phone-input">
                             <div class="close-create-button">
                                 <button class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
                                     <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg"></div>
                                 </button>
                                 <button class="color-blue-button">
-                                    <div class="button-txt-img">Create Contact <img src="./addTaskImg/check.svg"
-                                            class="check-svg">
+                                    <div class="button-txt-img">Create Contact
+                                        <img src="./addTaskImg/check.svg" class="check-svg">
                                     </div>
                                 </button>
-                                </form>
-                                <div id="newColor" class="shorts-name d-none"></div>
-                            </div>
-                        </div>
+                        </form>
+                        <div id="newColor" class="shorts-name d-none"></div>
                     </div>
                 </div>
             </div>
+        </div>
     `;
 }
 
@@ -117,7 +115,7 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
 
 
 function getEditContactHtmlMobileView(name, email, number, contactId) {
-return `
+    return `
         <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
             <div class="add-contact-left">
                 <div>

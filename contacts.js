@@ -366,7 +366,7 @@ async function saveEditContact(contactId) {
  * 
  * @param {*} i 
  */
-async function createNewContact(i) {
+async function createNewContact() {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
@@ -380,7 +380,7 @@ async function createNewContact(i) {
     postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
-    openContact(i);
+    openContact();
 }
 
 
@@ -399,6 +399,7 @@ async function deleteContact(contactId) {
     await deleteUserContact(uid, contactId);
     await loadDataAfterChanges();
     closeDialog();
+    contactBigContainer.innerHTML = '';
 }
 
 async function deleteContactMobileView(contactId) {
@@ -421,6 +422,7 @@ async function deleteContactMobileView(contactId) {
     await deleteUserContact(uid, ToBeDeletedContactId);
     await loadDataAfterChanges();
     closeDialog();
+    closeContactMobile();
 }
 
 

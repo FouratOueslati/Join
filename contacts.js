@@ -341,6 +341,7 @@ async function saveEditContact(contactId) {
     await loadDataAfterChanges();
     document.getElementById('dialogNewEditContact').classList.add('d-none');
     closeDialog();
+    location.reload();
 }
 
 

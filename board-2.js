@@ -420,8 +420,39 @@ function startDragging(id) {
 
 async function moveTo(category) {
     todos[currentDraggedElement]['task']['dragCategory'] = category;
-    await updateContainer(category);
-    await displayOpenTasks();
+    await updateDragCategoryInFirebase(category, todos[currentDraggedElement].id);
+    removeTaskFromContainer(currentDraggedElement);
+    addTaskToContainer(currentDraggedElement, category);
+    await displayOpenTasks()
+}
+
+
+function removeTaskFromContainer(index) {
+    const taskElement = document.getElementById(`task-${index}`);
+    if (taskElement) {
+        taskElement.remove();
+    }
+}
+
+
+function addTaskToContainer(index, category) {
+    const containerIdMap = {
+        'todo': 'toDoTasks',
+        'inprogress': 'inProgressTasks',
+        'awaitfeedback': 'feedbackTasks',
+        'done': 'done'
+    };
+    const containerId = containerIdMap[category];
+    const container = document.getElementById(containerId);
+    if (container) {
+        container.classList.remove('drag-area-no-elements');
+        container.classList.add('drag-area-has-elements');
+        container.innerHTML += getToDoTaskHtml(todos[index], index);
+        getContactInitials(todos[index].task.contacts, index);
+        generateNumberOfSubtasks(index, todos[index]);
+        generatePriorityImgUnopened(index, todos[index]);
+        updateLoadBar(index);
+    }
 }
 
 

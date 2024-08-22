@@ -129,22 +129,6 @@ function limitText(containerId, wordLimit) {
     }
 }
 
-
-async function updateContainer(category) {
-    const containerIdMap = {
-        'todo': 'toDoTasks',
-        'inprogress': 'inProgressTasks',
-        'awaitfeedback': 'feedbackTasks',
-        'done': 'done'
-    };
-    const containerId = containerIdMap[category];
-    if (containerId) {
-        document.getElementById(containerId).innerHTML = "";
-        await updateElements(category);
-        renderElements(category, containerId);
-    }
-}
-
 // Elemente in Firebase basierend auf der übergebenen category aktualisieren
 async function updateElements(category) {
     for (let i = 0; i < todos.length; i++) {
@@ -162,23 +146,6 @@ async function updateDragCategoryInFirebase(newDragCategory, taskId) {
     if (tasks[taskId]) {
         tasks[taskId].dragCategory = newDragCategory;
         await updateUserData(uid, userData);
-    }
-}
-
-//  HTML basierend auf der übergebenen category  rendern und sie dem spezifizierten Container anzufügen
-function renderElements(category, containerId) {
-    for (let i = 0; i < todos.length; i++) {
-        const element = todos[i];
-        if (element.task.dragCategory === category) {
-            const container = document.getElementById(containerId);
-            container.classList.remove('drag-area-no-elements');
-            container.classList.add('drag-area-has-elements');
-            container.innerHTML += getToDoTaskHtml(element, i);
-            getContactInitials(element.task.contacts, i);
-            generateNumberOfSubtasks(i, element);  // Ensure subtasks are generated
-            generatePriorityImgUnopened(i, element);  // Ensure priority image is generated
-            updateLoadBar(i);
-        }
     }
 }
 

@@ -169,11 +169,11 @@ body {
 
 .todo-class {
     margin-bottom: 12px;
-    padding: 12px;
+    padding: 16px;
     background-color: white;
     border-color: transparent;
     border-radius: 20px;
-    width: 200px;
+    max-width: 350px;
     height: auto;
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
 }
@@ -192,9 +192,12 @@ body {
 .category {
     display: flex;
     justify-content: center;
-    border-radius: 10px;
-    padding: 4px;
-    width: 60%;
+    border-radius: 8px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-right: 18px;
+    padding-left: 18px;
+    width: auto;
     color: white;
 }
 
@@ -246,9 +249,10 @@ body {
     background-color: #fefefe;
     padding: 32px;
     border: 1px solid #888;
-    width: 30%;
     height: auto;
-    height: 75%;
+    width: 20%;
+    height: 70%;
+    max-height: 600px;
 }
 
 .category-opened-container{
@@ -431,11 +435,16 @@ body {
     background-color: rgb(42, 54, 71);
     border: 1px solid rgb(209, 209, 209);
     color: white;
-    padding: 8px 8px 8px 8px;
+    padding: 12px 8px 8px 12px;
     cursor: pointer;
     border-radius: 10px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     float: right;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -454,7 +463,7 @@ body {
         flex-direction: column;
     }
 
-    .borat-task-set-up {
+    .board-task-set-up {
         display: flex;
         gap: 8px;
         margin-top: 5%;

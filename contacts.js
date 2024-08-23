@@ -85,12 +85,19 @@ async function displayInitialsAndContacts() {
 }
 
 
+/**
+ * This function sorted the contacts by firstname
+ * 
+ * @param {object} contacts 
+ * @param {string} contactInitial 
+ * @param {HTMLElement} contactsContainer 
+ */
 function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
     Object.keys(contacts).forEach((contactId, i) => {
-        const { name, email, backgroundcolor: color } = contacts[contactId];
-        const [firstName, lastName = ''] = name.split(' ');
-        const firstLetterOfName = name.charAt(0);
-        const firstLetterOfLastName = lastName.charAt(0);
+        let { name, email, backgroundcolor: color } = contacts[contactId];
+        let [firstName, lastName = ''] = name.split(' ');
+        let firstLetterOfName = name.charAt(0);
+        let firstLetterOfLastName = lastName.charAt(0);
 
         if (contactInitial.innerHTML === firstLetterOfName) {
             contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
@@ -103,7 +110,7 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
 /**
  * This function shows the color for the contact
  * 
- * @param {string} i 
+ * @param {number} i 
  * @param {string} color 
  */
 function showColorForContact(i, color) {
@@ -125,22 +132,20 @@ async function findIndexOf(contactId) {
 }
 
 
-// öffnet das Kontakt
+/**
+ * This function loads the contacts with all the informations and displays them
+ * 
+ * @param {number} i 
+ */
 async function openContact(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
-    const keys = Object.keys(contacts);
-    let contactId = keys[i];
-    let contact = contacts[contactId];
-    let firstLetterOfName = document.getElementById(`contactsInitials${i}`).innerHTML.charAt(0);
-    let firstLetterOfSurname = document.getElementById(`contactsInitials${i}`).innerHTML.charAt(1);
-    let name = contact.name;
-    let email = contact.email;
-    let number = contact.number;
-    let color = contact.backgroundcolor;
+    let contactId = Object.keys(contacts)[i];
+    let { name, email, number, backgroundcolor: color } = contacts[contactId];
+    let initialsElement = document.getElementById(`contactsInitials${i}`).innerHTML;
+    let [firstLetterOfName, firstLetterOfSurname] = initialsElement.split('');
     let contactInfos = document.getElementById('contactInfos');
-    contactInfos.innerHTML = '';
-    contactInfos.innerHTML += getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i, contactId);
+    contactInfos.innerHTML = getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i, contactId);
     showColorForBigContact(i, color);
     openContactChangeBgColor(i);
 }
@@ -174,10 +179,10 @@ function changeBgColor(contactData) {
 
 
 /**
- * This function show the random color for the selected contact
+ * This function displays the random color for the selected contact
  * 
  * 
- * @param {string} i 
+ * @param {number} i 
  * @param {string} color 
  */
 function showColorForBigContact(i, color) {
@@ -229,28 +234,28 @@ function closeDialog() {
     document.getElementById('editDeleteMenuBox').classList.add('d-none');
 }
 
-// öffnet das Fentser um Kontakte zu editieren
+
+/**
+ * This funcion loads all the informations of an contact to edit it
+ * 
+ * @param {number} i 
+ */
 async function openEditContact(i) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let contacts = userData.contacts; // Extrahiert die Kontakte aus den geladenen Daten
-    const keys = Object.keys(contacts); // Holt die Schlüssel des contacts-Objekts
-    let contactId = keys[i]; // Wählt die Kontakt-ID basierend auf dem Index i
-    let contact = contacts[contactId]; // Wählt den Kontakt basierend auf der Kontakt-ID aus
-    let { name, email, number, backgroundcolor } = contact || {};
+    let { contacts } = await loadSpecificUserDataFromLocalStorage();
+    let contactId = Object.keys(contacts)[i];
+    let { name, email, number, backgroundcolor } = contacts[contactId] || {};
     let dialogEditContact = document.getElementById('dialogNewEditContact');
-    let spaceIndex = name.indexOf(' ');
-    let firstLetterOfName = name.charAt(0);
-    let firstLetterOfLastName = spaceIndex !== -1 ? name.charAt(spaceIndex + 1) : ''; // Stellt sicher, dass das Leerzeichen gefunden wurde
+    let [firstLetterOfName, firstLetterOfLastName] = name ? [name.charAt(0), name.split(' ')[1] || ''] : ['', ''];
     dialogEditContact.innerHTML = getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, contactId);
-    document.getElementById('dialogNewEditContact').classList.remove('d-none');
-    let editContact = document.getElementById('editNewContact');
+    dialogEditContact.classList.remove('d-none');
     let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${contactId}`);
     contactInitialBig.style.backgroundColor = backgroundcolor;
     setTimeout(() => {
-        editContact.style.transform = "translateX(0)";
+        document.getElementById('editNewContact').style.transform = "translateX(0)";
     }, 50);
     await loadDataAfterChanges();
 }
+
 
 async function editOpenedContactInMobileView() {
     let ToBeEditedContactId;
@@ -318,7 +323,7 @@ function openEditSmallMenu() {
 /**
  * This function save the changes of the editet contact
  * 
- * @param {*} contactId 
+ * @param {string} contactId 
  */
 async function saveEditContact(contactId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -343,9 +348,10 @@ async function saveEditContact(contactId) {
 /**
  * This function create and save an new contact
  * 
- * @param {*} i 
+ * @param {number} i 
  */
 async function createNewContact() {
+    debugger
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
@@ -408,7 +414,7 @@ async function deleteContactMobileView(contactId) {
 /**
  * This function get the data of a contact to edit them
  * 
- * @param {string} i 
+ * @param {number} i 
  */
 async function getEditContact(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -450,17 +456,10 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
 /**
  * This function show the menu to edit or delete a contact
  * 
- * @param {*} i 
+ * @param {number} i 
  */
 
 function showEditDeleteMenuBox(contactId) {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
     editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml(contactId);
-}
-
-function getEditDeleteMenuBoxHtml(contactId) {
-    return `
-    <button onclick="editOpenedContactInMobileView()"><img src="./img/edit_contacts.png"></button>
-    <button onclick="deleteContactMobileView(${contactId})"><img src="./img/delete_contact.png"></button>
-    `
 }

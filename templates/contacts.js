@@ -151,4 +151,9 @@ function getEditContactHtmlMobileView(name, email, number, contactId) {
 }
 
 
-
+function getEditDeleteMenuBoxHtml(contactId) {
+    return `
+    <button onclick="editOpenedContactInMobileView()"><img src="./img/edit_contacts.png"></button>
+    <button onclick="deleteContactMobileView(${contactId})"><img src="./img/delete_contact.png"></button>
+    `
+}

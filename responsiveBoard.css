@@ -120,5 +120,6 @@
     }
    .button-prio-width {
     gap: 1px;
+    flex-wrap: wrap;
    }
 }

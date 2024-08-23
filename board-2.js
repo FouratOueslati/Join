@@ -142,10 +142,11 @@ function generateModalContent(task, i) {
 
 
 function generateEditModalContent(task, i) {
+    const modalId = `myModal${i}`;
     return /*html*/`
         <div class="category-opened-container">
             <div class="category-opened">${task.category}</div>
-            <img id="closeImg${i}" src="./img/close.png" onclick="closeModal(modal)">
+            <img id="closeImg${i}" src="./img/close.png"  onclick="closeModalEdit(document.getElementById('${modalId}'))">
         </div>
         <div class="scroll-y">
         <div class="modal-edit-content">
@@ -212,6 +213,13 @@ function generateEditModalContent(task, i) {
             <button class="button-dark" id="createTaskBtn" type="submit" onclick="saveTask(${i})">OK <img src="./img/check.png"></button>
         </div>
     `;
+}
+
+function closeModalEdit(modal) {
+    displayOpenTasks();
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+    window.onclick = null;
 }
 
 

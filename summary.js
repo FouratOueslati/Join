@@ -107,6 +107,8 @@ async function loadInProgressTasks() {
         inProgressTasksNumber.innerHTML = '0';
     }
 }
+
+
 /**
  * This function load the number of tasks in the category feedback of an user an show them
  */

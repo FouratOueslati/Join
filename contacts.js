@@ -82,6 +82,17 @@ async function displayInitialsAndContacts() {
             displayContactsByInitial(contacts, contactInitial, contactsContainer);
         }
     }
+    displayOwnDatas();
+}
+
+async function displayOwnDatas() {
+    let ownDatas = await loadSpecificUserDataFromLocalStorage();
+    let name = ownDatas.name;
+    let email = ownDatas.email;
+    let [firstName, lastName = ''] = name.split(' ');
+    let firstLetterOfName = firstName.charAt(0);
+    let firstLetterOfLastName = lastName.charAt(0);
+    console.log(name, email, firstName, lastName, firstLetterOfName, firstLetterOfLastName);
 }
 
 

@@ -30,7 +30,7 @@ a:hover {
 .help_legal_privacy {
     display: flex;
     flex-direction: column;
-    padding-left: 96px;
+    padding:  0 96px;
     height: 100%;
 }
 
@@ -48,10 +48,6 @@ a:hover {
     width: 100%;
     height: 100px;
     margin: 110px 32px 32px 0;
-}
-
-.arrow-left {
-    padding-right: 96px;
 }
 
 .arrow-left:hover {
@@ -111,6 +107,13 @@ a:hover {
     justify-content: center;
 }
 
+.legal-policy-box {
+    height: 35px;
+    width: 100%;
+}
+
+
+
 ::-webkit-scrollbar {
     width: 4px;
     height: 4px;
@@ -140,6 +143,34 @@ h4 {
     margin: 0;
 }
 
+p, h2, h3, ul, li {
+    margin: 8px 0;
+}
+
+.no-margin {
+    margin: unset;
+}
+
+.update {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 8px;
+}
+
+.h4-privacy-policy {
+    margin-top: 16px;
+}
+
+.content-privacy-policy {
+    height: 100%;
+    overflow-x: auto;
+    padding-right: 12px;
+}
+
+.margin-bottom {
+    margin-bottom: 12px;
+}
+
 @media (max-width: 1024px) {
     .parent-container {
         width: 100vw;
@@ -163,10 +194,6 @@ h4 {
 
     .join-360 {
         font-size: 38px;
-    }
-
-    .arrow-left {
-        padding: unset;
     }
 
     .text-help {

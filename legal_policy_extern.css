@@ -1,0 +1,16 @@
+.help-container,
+.tools-box {
+    display: none;
+}
+
+@media(max-width:1024px) {
+    .tools-container {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .parent-container {
+        height: calc(100vh - 92px)
+    }
+}

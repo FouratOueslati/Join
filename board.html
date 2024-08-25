@@ -151,7 +151,7 @@
                                 <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg">
                                 </div>
                             </button>
-                            <button onclick="addTask()" id="addTaskButton" type="button" class="color-blue-button">
+                            <button onclick="validateAndAddTask()"id="addTaskButton" type="button" class="color-blue-button">
                                 <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
                                         class="check-svg">
                                 </div>
@@ -171,7 +171,7 @@
                 <h1>Board</h1>
                 <div class="find-task-button-and-input">
                     <div class="input-with-img-board">
-                        <input class="find-task-input" placeholder="Find Task" id="search" minlength="4">
+                        <input class="find-task-input" placeholder="Find Task" id="search" minlength="4" onchange="filterTask()">
                         <div class="seperate-line"></div>
                         <img src="./boardImg/search.svg" class="input-svg" onclick="filterTask()">
                     </div>
@@ -190,6 +190,7 @@
 
             <div id="clickHere" class="display-none-a">
                 <a onclick="clearClickHere()" class="back-button">reset search</a>
+                <b id="taskCount">0</b> tasks found
             </div>
 
             <div class="board-position-lower">
@@ -200,9 +201,9 @@
                         <div>
                             <div class="drag-area board-task-set-up " id="toDoTasks" ondrop="moveTo('todo')"
                                 ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
-
-                            </div>
+                                <div class="drag-area-text">No Task</div>                               </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="task-width">
@@ -212,7 +213,7 @@
                         <div>
                             <div class="drag-area board-task-set-up " id="inProgressTasks" ondrop="moveTo('inprogress')"
                                 ondragleave="removeHighlight('inprogress')"
-                                ondragover="allowDrop(event); highlight('inprogress')">
+                                ondragover="allowDrop(event); highlight('inprogress');">
                             </div>
                         </div>
                     </div>
@@ -225,7 +226,7 @@
                         <div>
                             <div class="drag-area board-task-set-up " id="feedbackTasks"
                                 ondrop="moveTo('awaitfeedback')" ondragleave="removeHighlight('awaitfeedback')"
-                                ondragover="allowDrop(event); highlight('awaitfeedback')"></div>
+                                ondragover="allowDrop(event); highlight('awaitfeedback')">No task</div>
                         </div>
                     </div>
                 </div>
@@ -234,7 +235,7 @@
                         <span class="txt-svg-cetering">Done</span>
                         <div>
                             <div class="drag-area board-task-set-up " id="done" ondrop="moveTo('done')"
-                                ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
+                                ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">No task
                             </div>
                         </div>
                     </div>

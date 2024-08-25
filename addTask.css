@@ -389,6 +389,7 @@ body {
     margin: 2px;
     display: flex;
     gap: 8px;
+    justify-content: space-between;
 }
 
 .subtask-Txt:hover {
@@ -414,7 +415,16 @@ body {
     gap: 8px;
 }
 
-/* Button change colors */
+.subtask-Txt .delete-edit {
+    opacity: 0; 
+    transition: opacity 0.2s ease; 
+}
+
+.subtask-Txt:hover .delete-edit {
+    opacity: 1; 
+}
+
+
 .lowSelected {
     background-color:  rgb(122,226,41);
 }

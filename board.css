@@ -420,6 +420,11 @@ body {
     overflow: hidden;
 }
 
+.drag-area-text {
+    display: flex;
+    z-index: 1;
+}
+
 /* Edit task New*/
 .modal-edit-content {
     display: flex;

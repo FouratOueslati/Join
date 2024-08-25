@@ -401,34 +401,57 @@ function updateLoadBar(i) {
 function filterTask() {
     let clickHere = document.getElementById('clickHere');
     let search = document.getElementById('search').value.toLowerCase();
+
     if (search.length >= 3) {
         clickHere.classList.remove('display-none-a');
         filterWithSearchTerm(search.slice(0, 3));
-        document.getElementById('search').value = '';
+        document.getElementById('search').value = ''; 
+        removeSpecificColorFromDragArea();
+    } else if (search.length === 0) {
+        clearClickHere();
+        removeSpecificColorFromDragArea(); 
     }
 }
 
 
+
 function filterWithSearchTerm(searchTerm) {
+    let matchingTaskCount = 0; // Initialize a counter for matching tasks
+
     for (let i = 0; i < todos.length; i++) {
         let taskTitleElement = document.getElementById(`taskTitle${i}`);
         let taskCard = document.getElementById(`task${i}`);
+        
         if (taskTitleElement && taskCard) {
             let taskTitle = taskTitleElement.innerHTML.toLowerCase().slice(0, 3);
             if (taskTitle.includes(searchTerm)) {
                 taskCard.style.display = 'block';
+                matchingTaskCount++; // Increment counter if a task matches
             } else {
                 taskCard.style.display = 'none';
             }
         }
     }
+
+    // Update the <b> element with the count of matching tasks
+    document.getElementById('taskCount').innerText = matchingTaskCount;
 }
 
 
 function clearClickHere() {
     let clickHere = document.getElementById('clickHere');
     clickHere.classList.add('display-none-a');
-    displayOpenTasks();
+
+    // Show all tasks again
+    for (let i = 0; i < todos.length; i++) {
+        let taskCard = document.getElementById(`task${i}`);
+        if (taskCard) {
+            taskCard.style.display = 'block';
+        }
+    }
+
+    // Reset the task count in the <b> element
+    document.getElementById('taskCount').innerText = '0';
 }
 
 
@@ -445,11 +468,15 @@ async function moveTo(category) {
     await displayOpenTasks()
 }
 
-
 function removeTaskFromContainer(index) {
-    const taskElement = document.getElementById(`task-${index}`);
+    const taskElement = document.getElementById(`task${index}`);
     if (taskElement) {
         taskElement.remove();
+        const container = taskElement.parentElement;
+        if (container && container.children.length === 0) {
+            const noTaskMessage = container.querySelector('.drag-area-text');
+            if (noTaskMessage) noTaskMessage.style.display = 'block';
+        }
     }
 }
 
@@ -466,6 +493,9 @@ function addTaskToContainer(index, category) {
     if (container) {
         container.classList.remove('drag-area-no-elements');
         container.classList.add('drag-area-has-elements');
+        const noTaskMessage = container.querySelector('.drag-area-text');
+        if (noTaskMessage) noTaskMessage.style.display = 'none';
+
         container.innerHTML += getToDoTaskHtml(todos[index], index);
         getContactInitials(todos[index].task.contacts, index);
         generateNumberOfSubtasks(index, todos[index]);
@@ -474,11 +504,23 @@ function addTaskToContainer(index, category) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const containers = document.querySelectorAll('.drag-area');
+    containers.forEach(container => {
+        const tasks = container.querySelectorAll('.todo-class');
+        const noTaskMessage = container.querySelector('.drag-area-text');
+        if (tasks.length === 0 && noTaskMessage) {
+            noTaskMessage.style.display = 'block';
+        } else if (noTaskMessage) {
+            noTaskMessage.style.display = 'none';
+        }
+    });
+});
+
 
 function allowDrop(ev) {
     ev.preventDefault();
 }
-
 
 function highlight() {
     document.querySelector('.drag-area').classList.add('drag-area-highlight');

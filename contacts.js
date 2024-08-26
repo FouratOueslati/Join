@@ -379,7 +379,6 @@ async function createNewContact() {
     postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
-    openSuccessInfo();
 }
 
 

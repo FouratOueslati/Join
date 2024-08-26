@@ -84,14 +84,30 @@ async function postUser(path = "users", data = {}) {
     setTimeout(() => {
         window.location.href = "index.html";
     }, 1500);
+    if (password.value === confirmedPassword.value) {
+        let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
+            method: "POST",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        });
+        return responseToJson = await response.json();
+    } else {
+        alert("passwords don't match")
+    }
 }
 
-async function createOwnContact(name, email) { // Entferne Contact aus den Parametern
-    let color = getRandomColor();
-    let contact = { name: name, email: email, backgroundcolor: color };
 
-    await postContacts('/users/' + uid + '/contacts', contact); // Warten auf das Posten des Kontakts
-    await loadDataAfterChanges(); // Sicherstellen, dass die Daten aktualisiert werden
-
-    return contact; // Optional zurückgeben oder einfach nichts zurückgeben
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.main-container-signup');
+    const button = document.querySelector('.sign-up-button');
+    
+    form.addEventListener('input', () => {
+        button.disabled = !form.checkValidity();
+    });
+    
+    form.addEventListener('change', () => {
+        button.disabled = !form.checkValidity();
+    });
+});

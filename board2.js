@@ -151,10 +151,10 @@ function generateEditModalContent(task, i) {
         <div class="scroll-y">
         <div class="modal-edit-content">
             <label for="editTaskTitle${i}" class="margin-span">Title:</label>
-            <input id="taskTitleEdit" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
+            <input id="taskTitleEdit${i}" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
             
             <label for="editTaskDescription${i}">Description:</label>
-            <textarea style="height: 80px;" id="taskDescriptionEdit" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
+            <textarea style="height: 80px;" id="taskDescriptionEdit${i}" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
            
             <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
             <div class="inputs-flex">
@@ -170,7 +170,7 @@ function generateEditModalContent(task, i) {
                 </div>
             </div>
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
-            <input id="dateEdit" type="date" class="task-input-field date" value="${task.date}">
+            <input id="dateEdit${i}" type="date" class="task-input-field date" value="${task.date}">
 
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
@@ -401,7 +401,6 @@ function updateLoadBar(i) {
 function filterTask() {
     let clickHere = document.getElementById('clickHere');
     let search = document.getElementById('search').value.toLowerCase();
-
     if (search.length >= 3) {
         clickHere.classList.remove('display-none-a');
         filterWithSearchTerm(search.slice(0, 3));

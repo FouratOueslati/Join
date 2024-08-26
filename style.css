@@ -88,12 +88,7 @@ body {
 }
 
 .background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
+    height: 100vh;
     background-color: #F6F7F8;
     display: flex;
     gap: 35px;
@@ -330,11 +325,11 @@ body {
     gap: 16px;
 }
 
-.privacy_policy_extern {
+.privacy-policy-extern {
     text-decoration: unset;
     color: #A8A8A8;
 }
 
-.privacy_policy_extern:hover {
+.privacy-policy-extern:hover {
     color: #29ABE2;
 }

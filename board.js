@@ -41,7 +41,12 @@ async function processTasks(containers) {
                 container.innerHTML += getToDoTaskHtml(task, i);
                 setCategoryColor(i);
                 await getContactInitials(taskData.contacts, i);
-                todos.push(task);
+                const existingIndex = todos.findIndex(t => t.id === id);
+                if (existingIndex !== -1) {
+                    todos[existingIndex] = task;
+                } else {
+                    todos.push(task);
+                }
                 await generateNumberOfSubtasks(i, task);
                 await generatePriorityImgUnopened(i, task);
                 updateLoadBar(i);
@@ -174,12 +179,12 @@ function removeSpecificColorFromDragArea() {
 function displayAllTasks() {
     let taskContainers = document.querySelectorAll('.drag-area');
     taskContainers.forEach(container => {
-        container.innerHTML = ''; 
+        container.innerHTML = '';
         todos.forEach((task, index) => {
-            addTaskToContainer(index, task.status); 
+            addTaskToContainer(index, task.status);
         });
     });
-    removeSpecificColorFromDragArea(); 
+    removeSpecificColorFromDragArea();
 }
 
 async function deleteTask(i) {
@@ -193,13 +198,18 @@ async function deleteTask(i) {
 }
 
 
+const emptyArray = [];
 async function editTask(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     const modalContentEdit = document.getElementById(`modal${i}`);
     const task = todos[i]['task'];
     const contacts = todos[i]['task']['contacts'];
-    localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(contacts));
+    if (contacts) {
+        localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(contacts));
+    } else {
+        localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(emptyArray));
+    }
     const dragCategory = todos[i]['task']["dragCategory"];
     localStorage.setItem('toBeEditedDragCategory', JSON.stringify(dragCategory));
     const category = todos[i]['task']["category"];
@@ -256,7 +266,7 @@ async function displayAssignedContactsInEdit() {
     let taskId = localStorage.getItem('toBeEditedTaskId');
     let toBeEditedTask = tasks[taskId];
     let contacts = toBeEditedTask.contacts;
-    if (toBeEditedTask) {
+    if (toBeEditedTask && contacts) {
         for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
             let backgroundColor = contact.backgroundcolor;
@@ -366,9 +376,9 @@ function deleteSubtaskEdit(taskIndex, subtaskIndex) {
 
 
 function getTaskContacts() {
-    const newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
-    const toBeEditedAssignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || [];
     let newContacts;
+    const newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || '[]';
+    const toBeEditedAssignedContacts = (localStorage.getItem('toBeEditedAssignedContacts')) || '[]';
     if (newlyAssignedContacts.length > 0) {
         newContacts = newlyAssignedContacts;
     } else {
@@ -404,9 +414,9 @@ function getTaskSubtasks(i) {
 
 
 function getTaskDetails(i) {
-    const nameEdit = document.getElementById('taskTitleEdit').value;
-    const descriptionEdit = document.getElementById('taskDescriptionEdit').value;
-    const dateEdit = document.getElementById('dateEdit').value;
+    const nameEdit = document.getElementById(`taskTitleEdit${i}`).value;
+    const descriptionEdit = document.getElementById(`taskDescriptionEdit${i}`).value;
+    const dateEdit = document.getElementById(`dateEdit${i}`).value;
     let details = {};
     if (nameEdit && descriptionEdit && dateEdit) {
         details = { nameEdit, descriptionEdit, dateEdit };
@@ -434,6 +444,7 @@ async function saveTask(i) {
         priority: newPriority
     };
     await updateUserTasks(uid, toBeEditedTaskId, task);
+    await displayOpenTasks();
 }
 
 function validateAndAddTask() {

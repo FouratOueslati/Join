@@ -15,15 +15,8 @@
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="responsiveAddTask.css">
     <link rel="stylesheet" href="responsiveBoard.css">
-    <link rel="stylesheet" href="legal_privacy.css">
+    <link rel="stylesheet" href="legalPrivacy.css">
     <link rel="stylesheet" href="addTask.css">
-    <script src="board.js"></script>
-    <script src="board-2.js"></script>
-    <script src="addTask.js"></script>
-    <script src="include.js"></script>
-    <script src="storage.js"></script>
-    <script src="logout.js"></script>
-    <script src="./templates/topbar.js"></script>
 </head>
 
 <body onload="initBoard(); onloadFunction()">
@@ -151,7 +144,8 @@
                                 <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg">
                                 </div>
                             </button>
-                            <button onclick="validateAndAddTask()"id="addTaskButton" type="button" class="color-blue-button">
+                            <button onclick="validateAndAddTask()" id="addTaskButton" type="button"
+                                class="color-blue-button">
                                 <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
                                         class="check-svg">
                                 </div>
@@ -171,7 +165,8 @@
                 <h1>Board</h1>
                 <div class="find-task-button-and-input">
                     <div class="input-with-img-board">
-                        <input class="find-task-input" placeholder="Find Task" id="search" minlength="4" onchange="filterTask()">
+                        <input class="find-task-input" placeholder="Find Task" id="search" minlength="4"
+                            onchange="filterTask()">
                         <div class="seperate-line"></div>
                         <img src="./boardImg/search.svg" class="input-svg" onclick="filterTask()">
                     </div>
@@ -201,7 +196,8 @@
                         <div>
                             <div class="drag-area board-task-set-up " id="toDoTasks" ondrop="moveTo('todo')"
                                 ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
-                                <div class="drag-area-text">No Task</div>                               </div>
+                                <div class="drag-area-text">No Task</div>
+                            </div>
                         </div>
 
                     </div>
@@ -235,7 +231,8 @@
                         <span class="txt-svg-cetering">Done</span>
                         <div>
                             <div class="drag-area board-task-set-up " id="done" ondrop="moveTo('done')"
-                                ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">No task
+                                ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
+                                No task
                             </div>
                         </div>
                     </div>
@@ -245,5 +242,11 @@
     </div>
     </div>
 </body>
-
+<script src="board.js"></script>
+<script src="board2.js"></script>
+<script src="addTask.js"></script>
+<script src="include.js"></script>
+<script src="storage.js"></script>
+<script src="logout.js"></script>
+<script src="./templates/topbar.js"></script>
 </html>

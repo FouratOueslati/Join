@@ -411,6 +411,10 @@ async function deleteContact(contactId) {
         if (contact === contactId)
             userData.contacts.splice(contactId, 1);
     }
+    for (let j = 0; j < tasksKeys.length; j++) {
+        let contactTasks = tasksKeys[j];
+        userData.
+    }
     await deleteUserContact(uid, contactId);
     await loadDataAfterChanges();
     closeDialog();

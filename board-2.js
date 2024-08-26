@@ -401,6 +401,7 @@ function filterTask() {
 }
 
 
+
 function filterWithSearchTerm(searchTerm) {
     for (let i = 0; i < todos.length; i++) {
         let taskTitleElement = document.getElementById(`taskTitle${i}`);

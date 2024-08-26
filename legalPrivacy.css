@@ -27,7 +27,7 @@ a:hover {
     font-size: 16px;
 }
 
-.help_legal_privacy {
+.help-legal-privacy {
     display: flex;
     flex-direction: column;
     padding:  0 96px;
@@ -39,7 +39,7 @@ a:hover {
 
 }
 
-.help_legal_privacy-headline {
+.help-legal-privacy-headline {
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -182,12 +182,12 @@ p, h2, h3, ul, li {
         display: none;
     }
 
-    .help_legal_privacy {
+    .help-legal-privacy {
         padding: 0 16px;
         width: 90%;
     }
 
-    .help_legal_privacy-headline {
+    .help-legal-privacy-headline {
         margin: 48px 32px 32px 0;
         height: unset;
     }

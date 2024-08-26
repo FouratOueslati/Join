@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href=" font.css">
     <link rel="stylesheet" href="signupLoginResponsive.css">
-    <link rel="stylesheet" href="legal_policy_guest.css">
+    <link rel="stylesheet" href="legalPolicyGuest.css">
     <script src="storage.js"></script>
     <script src="signup.js"></script>
     <title>Sign up</title>
@@ -25,20 +25,19 @@
                 <input id="name" placeholder="Name" type="text" required class="name-input">
                 <input id="email" placeholder="Email" type="email" required class="email-input">
                 <input id="password" placeholder="Password" type="password" required class="password-input">
-                <input id="confirmedPassword" placeholder="Confirm Password" type="password" required
-                    class="password-input">
+                <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input">
             </div>
             <div class="accept-policy-container">
-                <input class="rectangle" type="checkbox" required>
+                <input id="acceptPolicy" class="rectangle" type="checkbox" required>
                 <div>
-                    <div class="accept-text">I accept the<a href="#" class="policy-link"> Privacy policy</a></div>
+                    <div class="accept-text">I accept the <a href="#" class="policy-link">Privacy policy</a></div>
                 </div>
             </div>
-            <button class="sign-up-button">Sign up</button>
-        </form>
+            <button class="sign-up-button" type="submit" disabled>Sign up</button>
+        </form>        
         <div class="legal-privacy-container">
-            <a href="privacy_policy_extern.html" class="privacy_policy_extern">Privacy policy</a>
-            <a href="legal_notice_extern.html" class="privacy_policy_extern">Legal notice</a>
+            <a href="privacyPolicyPxtern.html" class="privacy-policy-extern">Privacy policy</a>
+            <a href="legalNoticeExtern.html" class="privacy-policy-extern">Legal notice</a>
         </div>
     </div>
     <div id="successfull-container" class="signup-successful-container d-none">

@@ -31,3 +31,17 @@ async function postUser(path = "users", data = {}) {
         alert("passwords don't match")
     }
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.main-container-signup');
+    const button = document.querySelector('.sign-up-button');
+    
+    form.addEventListener('input', () => {
+        button.disabled = !form.checkValidity();
+    });
+    
+    form.addEventListener('change', () => {
+        button.disabled = !form.checkValidity();
+    });
+});

@@ -270,14 +270,14 @@ async function addTask() {
 }
 
 
-function showConfirmationTask() {
+/*function showConfirmationTask() {
     let addedToBoard = document.getElementById('addedToBoard');
     addedToBoard.classList.remove('d-none');
     setTimeout(() => {
         addedToBoard.classList.add('d-none');
         window.location.href = 'board.html';
     }, 1500);
-}
+}*/
 
 
 //Changes button colors
@@ -330,4 +330,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+});
+
+
+const subtaskInput = document.getElementById('inputFieldSubtask');
+subtaskInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        addSubtask();
+    }
 });

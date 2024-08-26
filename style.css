@@ -330,11 +330,11 @@ body {
     gap: 16px;
 }
 
-.privacy_policy_extern {
+.privacy-policy-extern {
     text-decoration: unset;
     color: #A8A8A8;
 }
 
-.privacy_policy_extern:hover {
+.privacy-policy-extern:hover {
     color: #29ABE2;
 }

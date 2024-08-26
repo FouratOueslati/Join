@@ -82,9 +82,7 @@ function showLoggedUserInitials() {
     let firstLetterOfName = name.charAt(0);
     let firstLetterOfLastName = name.charAt(spaceIndex + 1);
     let roundContainer = document.getElementById('userInitialsRoundContainer');
-    roundContainer.innerHTML = `
-${firstLetterOfName}${firstLetterOfLastName}
-`;
+    roundContainer.innerHTML = `${firstLetterOfName}${firstLetterOfLastName}`;
 }
 
 

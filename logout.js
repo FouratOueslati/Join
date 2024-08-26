@@ -9,7 +9,7 @@ async function logOut() {
         let name = data.name;
         if (name === 'Guest') {
             localStorage.removeItem('contacts');
-            window.location.href = "login.html";
+            window.location.href = "index.html";
         } else {
             let Data = await loadUserData("users");
             let users = Object.entries(Data);
@@ -19,7 +19,7 @@ async function logOut() {
             localStorage.removeItem('data');
             localStorage.removeItem('contacts');
             await setLoggedInUser(userUID);
-            window.location.href = "login.html";
+            window.location.href = "index.html";
         }
     }
 }

@@ -67,27 +67,28 @@ function displayInitialsFilter() {
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let contacts = userData.contacts;
+    let ownDatas = userData;
     for (let j = 0; j < displayedLetters.length; j++) {
         for (let j = 0; j < displayedLetters.length; j++) {
             let contactInitial = document.getElementById(`initialLetter${j}`);
             let contactsContainer = document.getElementById(`contactsContainer${j}`);
             contactsContainer.innerHTML = '';
-            displayContactsByInitial(contacts, contactInitial, contactsContainer);
+            displayContactsByInitial(contacts, contactInitial, contactsContainer, ownDatas);
         }
     }
-    displayOwnDatas();
 }
 
 
-async function displayOwnDatas() {
-    let ownDatas = await loadSpecificUserDataFromLocalStorage();
-    let name = ownDatas.name;
-    let email = ownDatas.email;
-    let [firstName, lastName = ''] = name.split(' ');
-    let firstLetterOfName = firstName.charAt(0);
-    let firstLetterOfLastName = lastName.charAt(0);
-    console.log(name, email, firstName, lastName, firstLetterOfName, firstLetterOfLastName);
-}
+// async function displayOwnDatas() {
+//     let ownDatas = await loadSpecificUserDataFromLocalStorage();
+//     let name = ownDatas.name;
+//     let email = ownDatas.email;
+//     let [firstName, lastName = ''] = name.split(' ');
+//     let firstLetterOfName = firstName.charAt(0);
+//     let firstLetterOfLastName = lastName.charAt(0);
+//     let contactsContainer = document.getElementById('contactsContainer');
+//     contactsContainer.innerHTML += getContactsContainerHtml(firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
+// }
 
 
 /**
@@ -103,7 +104,6 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
         let [firstName, lastName = ''] = name.split(' ');
         let firstLetterOfName = name.charAt(0);
         let firstLetterOfLastName = lastName.charAt(0);
-
         if (contactInitial.innerHTML === firstLetterOfName) {
             contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
             showColorForContact(i, color);
@@ -205,7 +205,7 @@ function showColorForBigContact(i, color) {
  */
 function getRandomColor() {
     let newColor = document.getElementById('newColor');
-    let symbols = "89ABCDEF";
+    let symbols = "789ABCDEF";
     let color = "#";
     for (let i = 0; i < 6; i++) {
         color += symbols[Math.floor(Math.random() * symbols.length)];

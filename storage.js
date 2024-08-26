@@ -13,6 +13,13 @@ async function loadUserData(path = "users") {
 }
 
 
+/**
+ * This function load userdata, check the datas and if the user exist
+ * it save the datas in local storage and put the status to logged in
+ * 
+ * @param {string} email 
+ * @param {string} password 
+ */
 async function setLoggedInGuest(email, password) {
     let data = await loadUserData("users");
     let users = Object.entries(data);
@@ -50,6 +57,7 @@ function getLoggedInUser() {
     return localStorage.getItem('uid');
 }
 
+
 /**
  * This function load the specific user data of the logged in user from the local storage
  * 
@@ -66,6 +74,7 @@ async function loadSpecificUserDataFromLocalStorage() {
     const userData = await response.json();
     return userData;
 }
+
 
 /**
  * This function load the tasks of an user width low category
@@ -84,6 +93,7 @@ async function getLowTasks() {
     return lowTasks;
 }
 
+
 /**
  * This function load the tasks of an user width medium category
  * 
@@ -100,6 +110,7 @@ async function getMediumTasks() {
     console.log(mediumTasks)
     return mediumTasks;
 }
+
 
 /**
  * This function load the tasks of an user width urgent category
@@ -152,7 +163,13 @@ async function updateUserContacts(uid, contacts) {
     });
 }
 
-
+/**
+ * This function update the tasks of the user at the external storage
+ * 
+ * @param {string} uid 
+ * @param {string} toBeEditedTaskId 
+ * @param {object} task 
+ */
 async function updateUserTasks(uid, toBeEditedTaskId, task) {
     await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${toBeEditedTaskId}.json`, {
         method: 'PUT',
@@ -162,6 +179,7 @@ async function updateUserTasks(uid, toBeEditedTaskId, task) {
         body: JSON.stringify(task)
     });
 }
+
 
 /**
  * This function delete the user contacts at the external storage
@@ -180,6 +198,7 @@ async function deleteUserContact(uid, contactId) {
     return response.json();
 }
 
+
 /**
  * This function delete the user tasks at the external storage
  * 
@@ -196,6 +215,7 @@ async function deleteUserTask(uid, taskId) {
     });
     return response.json();
 }
+
 
 /**
  * This function edit the contacts of an user
@@ -239,6 +259,7 @@ function postTask(path = "", data = {}) {
         body: JSON.stringify(data)
     })
 }
+
 
 /**
  * This function load the tasks of an user from the local storage

@@ -11,6 +11,18 @@ function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, f
 }
 
 
+function displayInitialsFilterHtml(j, displayedLetter) {
+    return `
+        <div class="initial-box">
+            <div id="initialLetter${j}" class="initial-letter">${displayedLetter}</div>
+            <div class="separator"></div>
+        </div>
+        <div id="contactsContainer${j}">
+        </div>
+    `
+}
+
+
 function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i, contactId) {
     return `
         <div>
@@ -151,4 +163,9 @@ function getEditContactHtmlMobileView(name, email, number, contactId) {
 }
 
 
-
+function getEditDeleteMenuBoxHtml(contactId) {
+    return `
+    <button onclick="editOpenedContactInMobileView()"><img src="./img/edit_contacts.png"></button>
+    <button onclick="deleteContactMobileView(${contactId})"><img src="./img/delete_contact.png"></button>
+    `
+}

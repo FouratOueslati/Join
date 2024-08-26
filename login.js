@@ -21,6 +21,9 @@ async function logIn() {
 }
 
 
+/**
+ * This function load saved datas, logged the guest user in and forward to the summary
+ */
 async function guestLogin() {
     setLoggedInGuest('guest@email.com', '1110448388');
     let guest = JSON.parse(localStorage.getItem('loggedInGuest'));
@@ -37,6 +40,9 @@ async function guestLogin() {
 }
 
 
+/**
+ * This function show an information if the entered password is wrong
+ */
 function wrongPassword() {
     let wrongPasswordContainer = document.getElementById('wrongPasswordContainer');
     if (wrongPasswordContainer) {
@@ -47,7 +53,10 @@ function wrongPassword() {
     }
 }
 
-// for remeber me 
+
+/**
+ * This function remember the login datas of an user and save them for the next login
+ */
 document.addEventListener('DOMContentLoaded', function () {
     let rememberMeCheckbox = document.getElementById('rememberMeCheckbox');
     let rememberMe = localStorage.getItem('rememberMe') === 'true';
@@ -61,6 +70,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
+/**
+ * This function show the initals of the logged in user
+ */
 function showLoggedUserInitials() {
     let data = localStorage.getItem('data');
     let dataAsText = JSON.parse(data);
@@ -74,6 +87,10 @@ ${firstLetterOfName}${firstLetterOfLastName}
 `;
 }
 
+
+/**
+ * This function toggle the menu for hide or visible
+ */
 function toggleMenu() {
     document.getElementById('menu').classList.toggle('d-none');
 }

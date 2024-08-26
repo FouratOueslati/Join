@@ -1,3 +1,6 @@
+/**
+ * This function displays the initials of the logged in user
+ */
 function showLoggedUserInitials() {
     let data = localStorage.getItem('data');
     let dataAsText = JSON.parse(data);
@@ -15,11 +18,17 @@ function showLoggedUserInitials() {
 }
 
 
+/**
+ * This function hide or display the menu
+ */
 function toggleMenu() {
     document.getElementById('menu').classList.toggle('d-none');
 }
 
-// die Funktion sorgt dafür dass die Initials erst nach dem Laden des benötigten Element erfolgt.
+
+/**
+ * This function loads the initials after the DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', function () {
     includeHTML();
 });

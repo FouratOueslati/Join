@@ -58,6 +58,7 @@ async function loadSpecificUserDataFromLocalStorage() {
     return userData;
 }
 
+
 /**
  * This function load the tasks of an user width low category
  * 
@@ -75,6 +76,7 @@ async function getLowTasks() {
     return lowTasks;
 }
 
+
 /**
  * This function load the tasks of an user width medium category
  * 
@@ -91,6 +93,7 @@ async function getMediumTasks() {
     console.log(mediumTasks)
     return mediumTasks;
 }
+
 
 /**
  * This function load the tasks of an user width urgent category
@@ -143,6 +146,7 @@ async function updateUserContacts(uid, contacts) {
     });
 }
 
+
 /**
  * This function delete the user contacts at the external storage
  * 
@@ -160,6 +164,7 @@ async function deleteUserContact(uid, contactId) {
     return response.json();
 }
 
+
 /**
  * This function delete the user tasks at the external storage
  * 
@@ -176,6 +181,7 @@ async function deleteUserTask(uid, taskId) {
     });
     return response.json();
 }
+
 
 /**
  * This function edit the contacts of an user
@@ -219,6 +225,7 @@ function postTask(path = "", data = {}) {
         body: JSON.stringify(data)
     })
 }
+
 
 /**
  * This function load the tasks of an user from the local storage

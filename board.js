@@ -158,6 +158,7 @@ function removeSpecificColorFromDragArea() {
     ];
     let classHasElements = 'drag-area-has-elements';
     let classNoElements = 'drag-area-no-elements';
+
     for (let i = 0; i < containers.length; i++) {
         let container = containers[i];
         container.classList.remove(classHasElements);
@@ -170,6 +171,16 @@ function removeSpecificColorFromDragArea() {
     }
 }
 
+function displayAllTasks() {
+    let taskContainers = document.querySelectorAll('.drag-area');
+    taskContainers.forEach(container => {
+        container.innerHTML = ''; 
+        todos.forEach((task, index) => {
+            addTaskToContainer(index, task.status); 
+        });
+    });
+    removeSpecificColorFromDragArea(); 
+}
 
 async function deleteTask(i) {
     let taskTitle = document.getElementById(`openedTitle${i}`).innerHTML;
@@ -423,6 +434,32 @@ async function saveTask(i) {
         priority: newPriority
     };
     await updateUserTasks(uid, toBeEditedTaskId, task);
+}
+
+function validateAndAddTask() {
+    const taskTitle = document.getElementById('taskTitle');
+    const date = document.getElementById('date');
+    const categoryContainer = document.getElementById('selectCategoryContainer');
+    const category = document.getElementById('selectCategory');
+    taskTitle.style.borderColor = '';
+    date.style.borderColor = '';
+    categoryContainer.style.borderColor = '';
+    let isValid = true;
+    if (taskTitle.value.trim().length < 4) {
+        taskTitle.style.borderColor = 'red';
+        isValid = false;
+    }
+    if (!date.value) {
+        date.style.borderColor = 'red';
+        isValid = false;
+    }
+    if (category.textContent === 'Select task category') {
+        categoryContainer.style.borderColor = 'red';
+        isValid = false;
+    }
+    if (isValid) {
+        addTask();
+    }
 }
 
 

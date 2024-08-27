@@ -81,26 +81,26 @@ function getToDoTaskHtml(task, i) {
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
-            <div id="category${i}" class="category">${task['task']['category']}</div>
+            <div id="category${i}" class="category">${task.task.category}</div>
         </div>
-        <div id="taskTitle${i}" class="task-title">${task['task']['name']}</div>
-        <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
+        <div id="taskTitle${i}" class="task-title">${task.task.name}</div>
+        <div id="description${i}" class="task-description">${task.task.description}</div>
         <div class="subtasks-number-container">
             <img id="loadBar${i}" class="load-bar">
-            <div id="subtasksNumber${i}" class="subtasks">
-            </div>
+            <div id="subtasksNumber${i}" class="subtasks"></div>
         </div>
         <div class="initials-and-priority-container">
-          <div class="initials-container" id="initialsContainer${i}"></div>
-          <img id="priorityImgUnopened${i}">
+            <div class="initials-container" id="initialsContainer${i}"></div>
+            <img id="priorityImgUnopened${i}">
         </div>
         <div id="myModal${i}" class="modal">
             <div id="modal${i}" class="modal-content">
-              ${generateModalContent(task, i)}
+                ${generateModalContent(task, i)}
             </div>
         </div>
     </div>`;
 }
+
 
 
 function generateModalContent(task, i) {

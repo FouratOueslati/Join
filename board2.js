@@ -30,7 +30,6 @@ function addPrioEventListenersEdit() {
         mediumContainer.addEventListener('click', () => {
             localStorage.setItem('lastClickedButton', 'Medium');
         });
-
         lowContainer.addEventListener('click', () => {
             localStorage.setItem('lastClickedButton', 'Low');
         });

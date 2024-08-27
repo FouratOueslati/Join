@@ -132,13 +132,15 @@ async function loadFeedbackTasks() {
 
 
 /**
- * This function load the specific user name ofe the user and show the greet
+ * This function load the specific user name of the user and show the greet
  */
 async function greetUser() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let userNameContainer = document.getElementById('userNameContainer');
     if (userData.name !== 'Guest') {
         userNameContainer.innerHTML = userData.name;
+    } else {
+        userNameContainer.innerHTML = 'Guest';
     }
     document.getElementById('greeting').innerHTML = getDayTime();
 }

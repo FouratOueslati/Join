@@ -422,7 +422,6 @@ body {
 
 .drag-area-text {
     display: flex;
-    z-index: 1;
 }
 
 /* Edit task New*/

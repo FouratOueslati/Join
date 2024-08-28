@@ -204,14 +204,20 @@ function showColorForBigContact(i, color) {
  * @returns {string}
  */
 function getRandomColor() {
+    let ownBackgroundColor;
     let newColor = document.getElementById('newColor');
     let symbols = "789ABCDEF";
     let color = "#";
     for (let i = 0; i < 6; i++) {
         color += symbols[Math.floor(Math.random() * symbols.length)];
     }
-    newColor.style.backgroundColor = color;
-    return color;
+    if (newColor) {
+        newColor.style.backgroundColor = color;
+        return color;
+    } else {
+        ownBackgroundColor = color;
+        return ownBackgroundColor;
+    }
 }
 
 
@@ -355,7 +361,8 @@ async function saveEditContact(contactId) {
     const editedEmail = document.getElementById(`editEmail${contactId}`).value;
     const editedPhone = document.getElementById(`editNumber${contactId}`).value;
     const background = userData.contacts[contactId]['backgroundcolor']
-    userData.contacts[contactId] = {name: editedName, email: editedEmail, number: editedPhone, backgroundcolor: background
+    userData.contacts[contactId] = {
+        name: editedName, email: editedEmail, number: editedPhone, backgroundcolor: background
     };
     await updateUserData(uid, userData);
     await loadDataAfterChanges();
@@ -375,7 +382,7 @@ async function createNewContact() {
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
     let color = getRandomColor();
-    let contact = {name: name, email: email, number: number, backgroundcolor: color};
+    let contact = { name: name, email: email, number: number, backgroundcolor: color };
     postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
@@ -409,10 +416,6 @@ async function deleteContact(contactId) {
         let contact = keys[i]
         if (contact === contactId)
             userData.contacts.splice(contactId, 1);
-    }
-    for (let j = 0; j < tasksKeys.length; j++) {
-        let contactTasks = tasksKeys[j];
-        userData.
     }
     await deleteUserContact(uid, contactId);
     await loadDataAfterChanges();

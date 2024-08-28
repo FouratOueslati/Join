@@ -109,7 +109,7 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                         <div class="add-contact-data">
                             <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
                             <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-input-edit" value="${email}">
-                            <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
+                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" required class="phone-input" value="${number}">
                         </div>
                         <div class="close-create-button">
                             <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">

@@ -14,7 +14,10 @@ async function onloadFunction() {
     showLoggedUserInitials();
 }
 
-// displays contacts names die man wählen kann
+
+/**
+ * This function displays the name of contacts to use for the tasks
+ */
 async function displayNamesOfContacts() {
     let containerContact = document.getElementById("contactList");
     containerContact.innerHTML = '';
@@ -31,6 +34,7 @@ async function displayNamesOfContacts() {
         }
     }
 }
+
 
 // generates HTML für die Funktion displayNamesOfContacts()
 function generateContactToChose(name, color, initials, i) {
@@ -50,7 +54,9 @@ function generateContactToChose(name, color, initials, i) {
 }
 
 
-// displays contacts names die man gewählt hat
+/**
+ * This function displays the contacts selected in the task
+ */
 function displayContactsForAssignment() {
     let containerBubbleInitials = document.getElementById('contactsDisplayBubble');
     containerBubbleInitials.innerHTML = '';
@@ -68,6 +74,7 @@ function displayContactsForAssignment() {
     }
 }
 
+
 // generates HTML für die Funktion DisplayContactsForAssignment()
 function generateBubbleInitials(i, initials, color) {
     return `
@@ -77,7 +84,13 @@ function generateBubbleInitials(i, initials, color) {
     `;
 }
 
-//  contacts initials generieren
+
+/**
+ * This function generate the initials of the contacts
+ * 
+ * @param {string} name 
+ * @returns {string}
+ */
 function getInitials(name) {
     let upperChars = "";
     let words = name.split(" ");
@@ -89,7 +102,10 @@ function getInitials(name) {
     return upperChars;
 }
 
-// updates Inputfield des subtasks
+
+/**
+ * This function checked whether something was entered into the input field to show or hide buttons
+ */
 function onInputChange() {
     let subtaskImg = document.getElementById('plusImg');
     let subtaskButtons = document.getElementById('closeOrAccept');
@@ -104,7 +120,9 @@ function onInputChange() {
 }
 
 
-// fügt Subtaks hinzu
+/**
+ * This function add subtasks to the tasks
+ */
 function addSubtask() {
     let container = document.getElementById('subtasksContainer');
     let subtask = document.getElementById('inputFieldSubtask').value;
@@ -112,21 +130,17 @@ function addSubtask() {
         subtaskCounter++;
         subtasks.push(subtask);
         localStorage.setItem('subtasks', JSON.stringify(subtasks));
-        let subtaskHTML = /*html*/`
-        <div class="subtask-Txt" id="subtask-Txt-${subtaskCounter}">
-            <div id="subtask${subtaskCounter}">${subtask}</div>
-            <div class="delete-edit">
-                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${subtaskCounter})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${subtaskCounter})">
-            </div>
-        </div>`;
-        container.innerHTML += subtaskHTML;
+        let subtaskHTML = addSubtaskHtml();
+        container.innerHTML += subtaskHTML();
         document.getElementById('inputFieldSubtask').value = '';
         clearSubtaskInput();
     }
 }
 
-// loads subtask vom localStorage dass sie nicht verloren onload
+
+/**
+ * This function load the subtasks from local storage
+ */
 function loadSubtasksFromLocalStorage() {
     let savedSubtasks = localStorage.getItem('subtasks');
     if (savedSubtasks) {
@@ -136,31 +150,37 @@ function loadSubtasksFromLocalStorage() {
     }
 }
 
-// displays die subtasks vom localStorage
+
+/**
+ * This function displays the subtasks
+ */
 function displaySubtasks() {
     const container = document.getElementById('subtasksContainer');
     container.innerHTML = '';
     subtasks.forEach((subtask, index) => {
-        let subtaskHTML = /*html*/`
-        <div class="subtask-Txt" id="subtask-Txt-${index}">
-            <div id="subtask${index}">${subtask}</div>
-            <div class="delete-edit">
-                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${index})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${index})">
-            </div>
-        </div>`;
+        let subtaskHTML = displaySubtasksHtml();
         container.innerHTML += subtaskHTML;
     });
 }
 
-// Function to delete a subtask
+
+/**
+ * This function delete the subtasks
+ * 
+ * @param {number} index 
+ */
 function deleteSubtask(index) {
     subtasks.splice(index, 1);
     localStorage.setItem('subtasks', JSON.stringify(subtasks));
     displaySubtasks();
 }
 
-// um subtasks zu editieren
+
+/**
+ * This function edit the subtasks
+ * 
+ * @param {number} index 
+ */
 function editSubtask(index) {
     let subtaskDiv = document.getElementById(`subtask${index}`);
     let text = subtaskDiv.innerHTML;
@@ -170,33 +190,45 @@ function editSubtask(index) {
 }
 
 
+/**
+ * This function empties the input field after saving the task
+ */
 function clearSubtaskInput() {
     let inpultField = document.getElementById('inputFieldSubtask');
     inpultField.value = '';
     onInputChange();
 }
 
-// AB HIER EVENTLISTENER FÜR DIE PRIO!!!!
+
+/**
+ * This function executes the addPrioEventListeners and addCategoryEventListener functions
+ * only after the full html element has loaded
+ */
 document.addEventListener('DOMContentLoaded', (event) => {
     addPrioEventListeners();
     addCategoryEventListener();
 });
 
 
+/**
+ * This function save the priority of te task in local storage
+ */
 function addPrioEventListeners() {
     document.getElementById('urgentButton').addEventListener('click', () => {
         localStorage.setItem('lastClickedButton', 'Urgent');
     });
-
     document.getElementById('mediumButton').addEventListener('click', () => {
         localStorage.setItem('lastClickedButton', 'Medium');
     });
-
     document.getElementById('lowButton').addEventListener('click', () => {
         localStorage.setItem('lastClickedButton', 'Low');
     });
 }
 
+
+/**
+ * This function saves the task category in local storage
+ */
 function addCategoryEventListener() {
     document.querySelectorAll('#categoryMenu li').forEach(category => {
         category.addEventListener('click', () => {
@@ -205,7 +237,12 @@ function addCategoryEventListener() {
     });
 }
 
-// Kontakte wählen und im localStorage speichern
+
+/**
+ * This function saves the selected contacts in local storage and display them in task
+ * 
+ * @param {object} event 
+ */
 function choseContactForAssignment(event) {
     const checkbox = event.target;
     const contactName = checkbox.getAttribute('data-name');
@@ -280,14 +317,17 @@ async function addTask() {
 }*/
 
 
-//Changes button colors
+/**
+ * This function changes the color of priority buttons
+ * 
+ * @param {object} clickedButton 
+ */
 function changeColor(clickedButton) {
     const buttons = [
         { element: document.getElementById('lowButton'), class: 'lowSelected' },
         { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
         { element: document.getElementById('urgentButton'), class: 'urgentSelected' }
     ];
-
     buttons.forEach(button => {
         button.element.classList.toggle(button.class, button.element === clickedButton);
         if (button.element !== clickedButton) {
@@ -296,11 +336,16 @@ function changeColor(clickedButton) {
     });
 }
 
+
+/**
+ * This function changes the color of the priority buttons and save the selected priority
+ */
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('lowButton').onclick = function () { changeColor(this); };
     document.getElementById('mediumButton').onclick = function () { changeColor(this); };
     document.getElementById('urgentButton').onclick = function () { changeColor(this); };
 });
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const dropDowns = document.querySelectorAll('.drop-down');
@@ -333,6 +378,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/**
+ * This function allows saving the input from the subtask using the enter key
+ */
 const subtaskInput = document.getElementById('inputFieldSubtask');
 subtaskInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {

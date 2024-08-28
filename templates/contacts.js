@@ -66,7 +66,7 @@ function getAddNewContactHtml() {
                 <div class="contact-box-right">
                     <img src="./img/Group 13.png" class="contact-img">
                     <div class="data-box">
-                        <form onsubmit="createNewContact()" ; return false class="add-contact-data">
+                        <div class="add-contact-data">
                             <input id="name" placeholder="Name" type="text" required class="name-input">
                             <input id="email" placeholder="Email" type="email" required class="email-input email-input-edit">
                             <input id="number" placeholder="Phone" type="text" required class="phone-input">
@@ -74,12 +74,12 @@ function getAddNewContactHtml() {
                                 <button class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
                                     <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg"></div>
                                 </button>
-                                <button class="color-blue-button">
+                                <button onclick="createNewContact()" class="color-blue-button">
                                     <div class="button-txt-img">Create Contact
                                         <img src="./addTaskImg/check.svg" class="check-svg">
                                     </div>
                                 </button>
-                        </form>
+                        </div>
                         <div id="newColor" class="shorts-name d-none"></div>
                     </div>
                 </div>

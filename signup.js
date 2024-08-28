@@ -1,49 +1,64 @@
-async function postUser(path = "users", data = {}) {
-    let number = '';
+async function signUp(path = "users") {
+    let { name, email, password, confirmedPassword, color } = getUserData();
+    if (password !== confirmedPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
+    let data = createUserObject(name, email, password);
+    let responseToJson = await postUser(path, data);
+    if (responseToJson) {
+        let userUID = responseToJson.name;
+        let userData = await setSignedUpUser(userUID);
+        if (userData) {
+            await createOwnContact(name, email, '', color, userUID);
+            document.getElementById('successfull-container').classList.remove('d-none');
+            document.getElementById('succesfull-signup').classList.add('transform');
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1500);
+        }
+    }
+}
+
+
+
+function getUserData() {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
     let confirmedPassword = document.getElementById('confirmedPassword').value;
     let color = getRandomColor();
-    let contact = await createOwnContact(name, email, number, color);
-    data = {
+    return {
+        name: name,
+        email: email,
+        password: password,
+        confirmedPassword: confirmedPassword,
+        color: color
+    };
+}
+
+
+function createUserObject(name, email, password) {
+    return {
         name: name,
         email: email,
         password: password,
         urgentTasks: [],
         mediumTasks: [],
         lowTasks: [],
-        contacts: [contact],
+        contacts: []
     };
-    document.getElementById('successfull-container').classList.remove('d-none');
-    document.getElementById('succesfull-signup').classList.add('transform');
-    setTimeout(() => {
-        window.location.href = "index.html";
-    }, 1500);
-    if (password === confirmedPassword) {
-        let response = await fetch(BASE_URL_USER_DATA + path + ".json", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-        let responseToJson = await response.json();
-        return responseToJson;
-    } else {
-        alert("Passwords don't match");
-    }
 }
 
 
-async function createOwnContact(name, email, number, color) {
-    let contact = { 
-        name: name, 
-        email: email, 
-        number: number, 
-        backgroundColor: color 
+async function createOwnContact(name, email, number, color, uid) {
+    let contact = {
+        name: name,
+        email: email,
+        number: number,
+        backgroundColor: color
     };
-    await postContacts('/users/' + uid + '/contacts', contact);
+    await postContacts(`/users/${uid}/contacts`, contact);
     return contact;
 }
 
@@ -60,11 +75,3 @@ document.addEventListener('DOMContentLoaded', () => {
         button.disabled = !form.checkValidity();
     });
 });
-
-
-function generateUID() {
-    return 'xxxxxxxxyxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}

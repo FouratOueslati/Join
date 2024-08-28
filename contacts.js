@@ -378,12 +378,14 @@ async function saveEditContact(contactId) {
  * @param {number} i 
  */
 async function createNewContact() {
+    debugger
+    let uid = localStorage.getItem('uid');
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
     let color = getRandomColor();
     let contact = { name: name, email: email, number: number, backgroundcolor: color };
-    postContacts('/users/' + uid + '/contacts', contact)
+    await postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
 }

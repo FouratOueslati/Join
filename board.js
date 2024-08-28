@@ -10,7 +10,7 @@ async function initBoard() {
     showLoggedUserInitials();
 }
 
-
+//No task feature implement 
 async function displayOpenTasks() {
     const containers = {
         'todo': document.getElementById('toDoTasks'),

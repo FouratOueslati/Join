@@ -30,7 +30,6 @@ function addPrioEventListenersEdit() {
         mediumContainer.addEventListener('click', () => {
             localStorage.setItem('lastClickedButton', 'Medium');
         });
-
         lowContainer.addEventListener('click', () => {
             localStorage.setItem('lastClickedButton', 'Low');
         });
@@ -415,8 +414,7 @@ function filterTask() {
 
 
 function filterWithSearchTerm(searchTerm) {
-    let matchingTaskCount = 0; // Initialize a counter for matching tasks
-
+    let matchingTaskCount = 0; 
     for (let i = 0; i < todos.length; i++) {
         let taskTitleElement = document.getElementById(`taskTitle${i}`);
         let taskCard = document.getElementById(`task${i}`);
@@ -425,14 +423,12 @@ function filterWithSearchTerm(searchTerm) {
             let taskTitle = taskTitleElement.innerHTML.toLowerCase().slice(0, 3);
             if (taskTitle.includes(searchTerm)) {
                 taskCard.style.display = 'block';
-                matchingTaskCount++; // Increment counter if a task matches
+                matchingTaskCount++; 
             } else {
                 taskCard.style.display = 'none';
             }
         }
     }
-
-    // Update the <b> element with the count of matching tasks
     document.getElementById('taskCount').innerText = matchingTaskCount;
 }
 
@@ -440,16 +436,12 @@ function filterWithSearchTerm(searchTerm) {
 function clearClickHere() {
     let clickHere = document.getElementById('clickHere');
     clickHere.classList.add('display-none-a');
-
-    // Show all tasks again
     for (let i = 0; i < todos.length; i++) {
         let taskCard = document.getElementById(`task${i}`);
         if (taskCard) {
             taskCard.style.display = 'block';
         }
     }
-
-    // Reset the task count in the <b> element
     document.getElementById('taskCount').innerText = '0';
 }
 

@@ -18,32 +18,13 @@ async function displayOpenTasks() {
         'awaitfeedback': document.getElementById('feedbackTasks'),
         'done': document.getElementById('done')
     };
-
-    // Clear all containers before processing tasks
     for (let key in containers) {
-        containers[key].innerHTML = ''; // Clear container content
+        containers[key].innerHTML = '';
     }
-
-    await processTasks(containers); // Process tasks and add them to containers
+    await processTasks(containers);
     removeSpecificColorFromDragArea();
 }
 
-async function processTasks(containers) {
-    const tasks = getTasks(); // Assuming you have a function that retrieves tasks
-
-    tasks.forEach((task, i) => {
-        const taskHtml = getToDoTaskHtml(task, i);
-        const taskElement = document.getElementById(`task${i}`);
-        
-        // Check if the task already exists in the container
-        if (!taskElement) {
-            containers[task['status']].insertAdjacentHTML('beforeend', taskHtml);
-            console.log(`Task ${i} generated in ${task['status']} container.`);
-        } else {
-            console.log(`Task ${i} already exists in ${task['status']} container.`);
-        }
-    });
-}
 
 async function processTasks(containers) {
     const userData = await loadSpecificUserDataFromLocalStorage();

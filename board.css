@@ -153,6 +153,10 @@ body {
     border: 1px dashed black;
 }
 
+.no-task::after {
+    content: "No task";
+}
+
 .drag-are-full {
     width: 100%;
     min-height: 32px;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +8,25 @@
     <link rel="stylesheet" href=" font.css">
     <link rel="stylesheet" href="signupLoginResponsive.css">
     <link rel="stylesheet" href="legalPolicyGuest.css">
-    <script src="storage.js"></script>
-    <script src="signup.js"></script>
-    <script src="contacts.js"></script>
     <title>Sign up</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
+
 <body>
     <div class="background">
         <div>
             <a href="index.html"><img class="arrow-left-line" src="./img/arrow-left-line.png"></a>
             <img class="join-icon-signup" src="./img/Capa 2.png">
         </div>
-        <form onsubmit="postUser('/users'); return false;" class="main-container-signup">
+        <form onsubmit="signUp('/users'); return false;" class="main-container-signup">
             <div class="signup-headline">Sign up</div>
             <div class="blue-seperator"></div>
             <div class="data-container">
                 <input id="name" placeholder="Name" type="text" required class="name-input">
                 <input id="email" placeholder="Email" type="email" required class="email-input">
                 <input id="password" placeholder="Password" type="password" required class="password-input">
-                <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input">
+                <input id="confirmedPassword" placeholder="Confirm Password" type="password" required
+                    class="password-input">
             </div>
             <div class="accept-policy-container">
                 <input id="acceptPolicy" class="rectangle" type="checkbox" required>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <button class="sign-up-button" type="submit" disabled>Sign up</button>
-        </form>        
+        </form>
         <div class="legal-privacy-container">
             <a href="privacyPolicyPxtern.html" class="privacy-policy-extern">Privacy policy</a>
             <a href="legalNoticeExtern.html" class="privacy-policy-extern">Legal notice</a>
@@ -45,4 +45,9 @@
         <div id="succesfull-signup" class="succesfull-signup">You signed up successfully</div>
     </div>
 </body>
+<script src="storage.js"></script>
+<script src="signup.js"></script>
+<script src="contacts.js"></script>
+<script src="./templates/contacts.js"></script>
+
 </html>

@@ -13,6 +13,20 @@ async function loadUserData(path = "users") {
 }
 
 
+async function postUser(path, data) {
+    let response = await fetch(`${BASE_URL_USER_DATA}/${path}.json`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+    let responseToJson = await response.json();
+    return responseToJson;
+}
+
+
+
 /**
  * This function load userdata, check the datas and if the user exist
  * it save the datas in local storage and put the status to logged in
@@ -45,6 +59,19 @@ async function setLoggedInUser(uid) {
     const userData = await response.json();
     localStorage.setItem('uid', uid);
     localStorage.setItem('data', JSON.stringify(userData));
+    return userData;
+}
+
+
+async function setSignedUpUser(uid) {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    const userData = await response.json();
+    return userData;
 }
 
 

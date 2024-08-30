@@ -163,6 +163,7 @@ function removeSpecificColorFromDragArea() {
     ];
     let classHasElements = 'drag-area-has-elements';
     let classNoElements = 'drag-area-no-elements';
+    let noTaskTitle = 'no-task';
 
     for (let i = 0; i < containers.length; i++) {
         let container = containers[i];
@@ -170,8 +171,10 @@ function removeSpecificColorFromDragArea() {
         container.classList.remove(classNoElements);
         if (container && container.querySelector('div')) {
             container.classList.add(classHasElements);
+            container.classList.remove(noTaskTitle);
         } else {
             container.classList.add(classNoElements);
+            container.classList.add(noTaskTitle);
         }
     }
 }

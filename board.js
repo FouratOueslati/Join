@@ -378,7 +378,7 @@ function deleteSubtaskEdit(taskIndex, subtaskIndex) {
 function getTaskContacts() {
     let newContacts;
     const newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || '[]';
-    const toBeEditedAssignedContacts = (localStorage.getItem('toBeEditedAssignedContacts')) || '[]';
+    const toBeEditedAssignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || '[]';
     if (newlyAssignedContacts.length > 0) {
         newContacts = newlyAssignedContacts;
     } else {
@@ -425,6 +425,34 @@ function getTaskDetails(i) {
 }
 
 
+function showCheckedContacts() {
+    let assignedContactsJson = localStorage.getItem('toBeEditedAssignedContacts');
+    if (!assignedContactsJson) {
+        return;
+    }
+    let assignedContacts = JSON.parse(assignedContactsJson);
+    let assignedContactNames = assignedContacts.map(contact => contact.name);
+    let contacts = document.querySelectorAll('[id^="contact-"]');
+    let checkboxes = document.querySelectorAll('[id^="checkbox"]');
+    let contactCheckboxMap = {};
+    contacts.forEach(contact => {
+        let contactName = contact.innerHTML.trim();
+        let contactIndex = contact.id.split('-')[1];
+        contactCheckboxMap[contactIndex] = contactName;
+    });
+    checkboxes.forEach(checkbox => {
+        let checkboxIndex = checkbox.id.replace('checkbox', '');
+        let contactName = contactCheckboxMap[checkboxIndex];
+
+        if (contactName) {
+            checkbox.checked = assignedContactNames.includes(contactName);
+        } else {
+            checkbox.checked = false;
+        }
+    });
+}
+
+
 async function saveTask(i) {
     const toBeEditedTaskId = localStorage.getItem('toBeEditedTaskId');
     const toBeEditedDragCategory = JSON.parse(localStorage.getItem('toBeEditedDragCategory'));
@@ -445,6 +473,7 @@ async function saveTask(i) {
     };
     await updateUserTasks(uid, toBeEditedTaskId, task);
     await displayOpenTasks();
+    localStorage.removeItem('contacts');
 }
 
 function validateAndAddTask() {

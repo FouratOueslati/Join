@@ -294,6 +294,7 @@ async function addTask() {
     localStorage.removeItem('dragCategory');
     localStorage.removeItem('subtasks');
     localStorage.removeItem('lastClickedButton');
+    localStorage.removeItem('contacts');
     taskTitle.value = '';
     taskDescription.value = '';
     assignedContactsContainer.innerHTML = '';
@@ -307,14 +308,14 @@ async function addTask() {
 }
 
 
-/*function showConfirmationTask() {
+function showConfirmationTask() {
     let addedToBoard = document.getElementById('addedToBoard');
     addedToBoard.classList.remove('d-none');
     setTimeout(() => {
         addedToBoard.classList.add('d-none');
         window.location.href = 'board.html';
     }, 1500);
-}*/
+}
 
 
 /**

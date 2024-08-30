@@ -24,9 +24,6 @@ async function postUser(path, data) {
     let responseToJson = await response.json();
     return responseToJson;
 }
-
-
-
 /**
  * This function load userdata, check the datas and if the user exist
  * it save the datas in local storage and put the status to logged in

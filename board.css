@@ -153,8 +153,19 @@ body {
     border: 1px dashed black;
 }
 
+.position-relative {
+    position: relative;
+}
+
 .no-task::after {
     content: "No task";
+    color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    margin: auto;
 }
 
 .drag-are-full {

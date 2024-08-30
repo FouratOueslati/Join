@@ -193,7 +193,7 @@
                     <div>
                         <span class="txt-svg-cetering">To do <img id="toDo" onclick="openAddTaskInBoard()"
                                 class="txt-svg-centering" src="./boardImg/add.svg"></span>
-                        <div>
+                        <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="toDoTasks" ondrop="moveTo('todo')"
                                 ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
                             </div>
@@ -205,8 +205,8 @@
                     <div>
                         <span class="txt-svg-cetering">In progress <img id="inProgress" onclick="openAddTaskInBoard()"
                                 class="txt-svg-centering" src="./boardImg/add.svg"></span>
-                        <div>
-                            <div class="drag-area board-task-set-up " id="inProgressTasks" ondrop="moveTo('inprogress')"
+                        <div class="position-relative">
+                            <div class="drag-area board-task-set-up no-task" id="inProgressTasks" ondrop="moveTo('inprogress')"
                                 ondragleave="removeHighlight('inprogress')"
                                 ondragover="allowDrop(event); highlight('inprogress');">
                             </div>
@@ -218,8 +218,8 @@
                         <span class="txt-svg-cetering">Await feedback <img id="awaitFeedback"
                                 onclick="openAddTaskInBoard()" class="txt-svg-centering"
                                 src="./boardImg/add.svg"></span>
-                        <div>
-                            <div class="drag-area board-task-set-up " id="feedbackTasks"
+                        <div class="position-relative">
+                            <div class="drag-area board-task-set-up no-task" id="feedbackTasks"
                                 ondrop="moveTo('awaitfeedback')" ondragleave="removeHighlight('awaitfeedback')"
                                 ondragover="allowDrop(event); highlight('awaitfeedback')"> 
                             </div>
@@ -229,8 +229,8 @@
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">Done</span>
-                        <div>
-                            <div class="drag-area board-task-set-up " id="done" ondrop="moveTo('done')"
+                        <div class="position-relative">
+                            <div class="drag-area board-task-set-up no-task" id="done" ondrop="moveTo('done')"
                                 ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                             </div>
                         </div>

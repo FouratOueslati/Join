@@ -326,6 +326,8 @@ function setCategoryColor(i) {
         categoryContainer.style.backgroundColor = 'rgb(31, 215, 193)';
     } else if (categoryContainer && categoryContainer.innerHTML === 'User Story') {
         categoryContainer.style.backgroundColor = 'rgb(0, 56, 255)';
+    } else if (categoryContainer && categoryContainer.innerHTML === 'Design') {
+        categoryContainer.style.backgroundColor = 'rgb(255,211,155)';
     }
 }
 
@@ -336,6 +338,8 @@ function setCategoryColorOpened(i) {
         categoryContainerOpened.style.backgroundColor = 'rgb(31, 215, 193)';
     } else if (categoryContainerOpened && categoryContainerOpened.innerHTML === 'User Story') {
         categoryContainerOpened.style.backgroundColor = 'rgb(0, 56, 255)';
+    } else if (categoryContainerOpened && categoryContainerOpened.innerHTML === 'Design') {
+        categoryContainerOpened.style.backgroundColor = 'rgb(255,211,155)';
     }
 }
 

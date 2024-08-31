@@ -122,4 +122,8 @@
     gap: 1px;
     flex-wrap: wrap;
    }
+
+   .details-container {
+    gap: 12px;
+   }
 }

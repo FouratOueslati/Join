@@ -30,27 +30,9 @@ async function displayNamesOfContacts() {
             let name = contacts[contactId]["name"];
             let color = contacts[contactId]["backgroundcolor"];
             let initials = getInitials(name);
-            containerContact.innerHTML += generateContactToChose(name, color, initials, i);
+            containerContact.innerHTML += generateContactToChoseHtml(name, color, initials, i);
         }
     }
-}
-
-
-// generates HTML für die Funktion displayNamesOfContacts()
-function generateContactToChose(name, color, initials, i) {
-    return `
-    <div class="contact-boarder">
-        <div class="name-initial">
-            <div class="circle-initial" style="background: ${color}">
-                <div class="initial-style">${initials}</div>
-            </div>
-            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
-        </div>
-        <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
-        </div>
-    </div>
-    `;
 }
 
 
@@ -69,17 +51,23 @@ function displayContactsForAssignment() {
             let circleElement = contactElement.querySelector('.circle-initial');
             let initials = initialsElement.innerText;
             let color = circleElement.style.backgroundColor;
-            containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, color);
+            containerBubbleInitials.innerHTML += generateBubbleInitialsHtml(i, initials, color);
         }
     }
 }
 
-
-// generates HTML für die Funktion DisplayContactsForAssignment()
-function generateBubbleInitials(i, initials, color) {
+function generateContactToChoseHtml(name, color, initials, i) {
     return `
-    <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
-        <span class="initial-style">${initials}</span>
+    <div class="contact-boarder">
+        <div class="name-initial">
+            <div class="circle-initial" style="background: ${color}">
+                <div class="initial-style">${initials}</div>
+            </div>
+            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
+        </div>
+        <div class="check-box-custom">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
+        </div>
     </div>
     `;
 }
@@ -259,47 +247,80 @@ function choseContactForAssignment(event) {
     displayContactsForAssignment();
 }
 
-// task adden
+
+/**
+ * This function retrieves datas from local storage and creates an object with data
+ */
 async function addTask() {
-    let taskTitle = document.getElementById('taskTitle');
-    let taskDescription = document.getElementById('taskDescription');
-    let assignedContactsContainer = document.getElementById('contactsDisplayBubble');
-    let subtasksContainer = document.getElementById('subtasksContainer');
-    let date = document.getElementById('date');
-    let contacts = JSON.parse(localStorage.getItem('contacts'));
-    let subtasks = JSON.parse(localStorage.getItem('subtasks'));
-    let lastClickedButton = localStorage.getItem('lastClickedButton');
-    let selectedCategory = localStorage.getItem('selectedCategory');
-    let dragCategory = localStorage.getItem('dragCategory');
-    let subtasksArray = [];
-    if (subtasks) {
-        for (let i = 0; i < subtasks.length; i++) {
-            subtasksArray.push({
-                text: subtasks[i],
-                status: "undone"
-            });
-        }
-    }
-    let task = {
-        name: taskTitle.value,
-        description: taskDescription.value,
-        date: date.value,
-        priority: lastClickedButton,
-        category: selectedCategory,
-        contacts: contacts,
+    const taskTitle = document.getElementById('taskTitle');
+    const taskDescription = document.getElementById('taskDescription');
+    const assignedContactsContainer = document.getElementById('contactsDisplayBubble');
+    const subtasksContainer = document.getElementById('subtasksContainer');
+    const date = document.getElementById('date');
+    const contacts = JSON.parse(localStorage.getItem('contacts'));
+    const subtasks = JSON.parse(localStorage.getItem('subtasks'));
+    const lastClickedButton = localStorage.getItem('lastClickedButton');
+    const selectedCategory = localStorage.getItem('selectedCategory');
+    const dragCategory = localStorage.getItem('dragCategory');
+    const task = createTaskObject(taskTitle.value, taskDescription.value, date.value, lastClickedButton, selectedCategory, contacts, subtasks);
+    await handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer, dragCategory);
+}
+
+
+/**
+ * This function create an array for the subtasks
+ * 
+ * @param {object} subtasks 
+ * @returns {object}
+ */
+function createSubtasksArray(subtasks) {
+    if (!subtasks) return [];
+    return subtasks.map(subtask => ({
+        text: subtask,
+        status: "undone"
+    }));
+}
+
+
+/**
+ * This function creates an object for the tasks with the required parameters
+ * 
+ * @param {string} name 
+ * @param {string} description 
+ * @param {number} date 
+ * @param {string} priority 
+ * @param {string} category 
+ * @param {object} contacts 
+ * @param {string} subtasks 
+ * @returns 
+ */
+function createTaskObject(name, description, date, priority, category, contacts, subtasks) {
+    const subtasksArray = createSubtasksArray(subtasks);
+    return {
+        name,
+        description,
+        date,
+        priority,
+        category,
+        contacts,
         subtasks: subtasksArray,
-        dragCategory: dragCategory || "todo"
+        dragCategory: localStorage.getItem('dragCategory') || "todo"
     };
+}
+
+
+/**
+ * This function post the task to the server, reset the form, updates the tasks and shows
+ * a confirmation for creating the task
+ * 
+ * @param {object} task 
+ * @param {object} assignedContactsContainer 
+ * @param {number} date 
+ * @param {string} subtasksContainer 
+ */
+async function handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer) {
     await postTask('/users/' + uid + '/tasks', task);
-    localStorage.removeItem('dragCategory');
-    localStorage.removeItem('subtasks');
-    localStorage.removeItem('lastClickedButton');
-    localStorage.removeItem('contacts');
-    taskTitle.value = '';
-    taskDescription.value = '';
-    assignedContactsContainer.innerHTML = '';
-    date.value = '';
-    subtasksContainer.innerHTML = '';
+    resetForm(assignedContactsContainer, date, subtasksContainer);
     if (window.location.pathname.includes('board.html')) {
         displayOpenTasks();
         closeAddTaskInBoard();
@@ -308,6 +329,28 @@ async function addTask() {
 }
 
 
+/**
+ * This function reset the form so the user can create a new task
+ * 
+ * @param {object} assignedContactsContainer 
+ * @param {number} date 
+ * @param {string} subtasksContainer 
+ */
+function resetForm(assignedContactsContainer, date, subtasksContainer) {
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('taskDescription').value = '';
+    assignedContactsContainer.innerHTML = '';
+    date.value = '';
+    subtasksContainer.innerHTML = '';
+    localStorage.removeItem('dragCategory');
+    localStorage.removeItem('subtasks');
+    localStorage.removeItem('lastClickedButton');
+}
+
+
+/**
+ * This function shows the user a confirmation that the task has been created
+ */
 function showConfirmationTask() {
     let addedToBoard = document.getElementById('addedToBoard');
     addedToBoard.classList.remove('d-none');
@@ -348,6 +391,34 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/**
+ * This function add a click event listener to each option on dropdown menus
+ * 
+ * @param {element} options 
+ * @param {element} select 
+ * @param {element} caret 
+ * @param {element} menu 
+ * @param {element} selected 
+ */
+function addOptionListeners(options, select, caret, menu, selected) {
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            selected.innerText = option.innerText;
+            select.classList.remove('selectClicked');
+            caret.classList.remove('createRotate');
+            menu.classList.remove('menu-open');
+            options.forEach(opt => {
+                opt.classList.remove('active');
+            });
+            option.classList.add('active');
+        });
+    });
+}
+
+
+/**
+ * This function initialized all drop down menus when is loading
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const dropDowns = document.querySelectorAll('.drop-down');
     dropDowns.forEach(dropDown => {
@@ -356,25 +427,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const menu = dropDown.querySelector('.menu');
         const options = dropDown.querySelectorAll('.menu li');
         const selected = dropDown.querySelector('.selected');
-
         select.addEventListener('click', () => {
             select.classList.toggle('selectClicked');
             caret.classList.toggle('createRotate');
             menu.classList.toggle('menu-open');
         });
-
-        options.forEach(option => {
-            option.addEventListener('click', () => {
-                selected.innerText = option.innerText;
-                select.classList.remove('selectClicked');
-                caret.classList.remove('createRotate');
-                menu.classList.remove('menu-open');
-                options.forEach(option => {
-                    option.classList.remove('active');
-                });
-                option.classList.add('active');
-            });
-        });
+        addOptionListeners(options, select, caret, menu, selected);
     });
 });
 

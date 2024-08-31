@@ -524,5 +524,3 @@ function highlight() {
 function removeHighlight() {
     document.querySelector('.drag-area').classList.remove('drag-area-highlight');
 }
-
-

@@ -10,7 +10,9 @@ async function initBoard() {
     showLoggedUserInitials();
 }
 
-//No task feature implement 
+/**
+ * This function displays the tasks
+ */
 async function displayOpenTasks() {
     const containers = {
         'todo': document.getElementById('toDoTasks'),
@@ -26,6 +28,35 @@ async function displayOpenTasks() {
 }
 
 
+/**
+ * This function gets all the data to load the tasks in the processTasks() function
+ * 
+ * @param {element} container 
+ * @param {element} task 
+ * @param {number} i 
+ * @param {element} taskData 
+ */
+async function handleTaskInContainer(container, task, i, taskData) {
+    container.innerHTML += getToDoTaskHtml(task, i);
+    setCategoryColor(i);
+    await getContactInitials(taskData.contacts, i);
+    const existingIndex = todos.findIndex(t => t.id === task.id);
+    if (existingIndex !== -1) {
+        todos[existingIndex] = task;
+    } else {
+        todos.push(task);
+    }
+    await generateNumberOfSubtasks(i, task);
+    await generatePriorityImgUnopened(i, task);
+    updateLoadBar(i);
+}
+
+
+/**
+ * This function loads all the data and information and displays it in the tasks
+ * 
+ * @param {element} containers 
+ */
 async function processTasks(containers) {
     const userData = await loadSpecificUserDataFromLocalStorage();
     const tasks = userData.tasks;
@@ -38,24 +69,18 @@ async function processTasks(containers) {
             const category = taskData['dragCategory'];
             const container = containers[category];
             if (container) {
-                container.innerHTML += getToDoTaskHtml(task, i);
-                setCategoryColor(i);
-                await getContactInitials(taskData.contacts, i);
-                const existingIndex = todos.findIndex(t => t.id === id);
-                if (existingIndex !== -1) {
-                    todos[existingIndex] = task;
-                } else {
-                    todos.push(task);
-                }
-                await generateNumberOfSubtasks(i, task);
-                await generatePriorityImgUnopened(i, task);
-                updateLoadBar(i);
+                await handleTaskInContainer(container, task, i, taskData);
             }
         }
     }
 }
 
 
+/**
+ * This function opens a larger view of the task
+ * 
+ * @param {number} i 
+ */
 async function zoomTaskInfo(i) {
     const modal = document.getElementById(`myModal${i}`);
     modal.style.display = "flex";
@@ -70,6 +95,11 @@ async function zoomTaskInfo(i) {
 }
 
 
+/**
+ * This function close the larger viwe of the task
+ * 
+ * @param {string} modal 
+ */
 function closeModal(modal) {
     displayOpenTasks();
     modal.style.display = "none";
@@ -77,7 +107,13 @@ function closeModal(modal) {
     window.onclick = null;
 }
 
-// zeigt die Initialien der Kontakte an
+
+/**
+ * This function displays the initials of the contacts in the tasks
+ * 
+ * @param {object} contacts 
+ * @param {number} i 
+ */
 async function getContactInitials(contacts, i) {
     let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
     contactInitialsContainer.innerHTML = '';
@@ -92,6 +128,11 @@ async function getContactInitials(contacts, i) {
 }
 
 
+/**
+ * This function change an image when priority is selected
+ * 
+ * @param {number} i 
+ */
 function generatePriorityImgOpened(i) {
     let priority = document.getElementById(`openedPriority${i}`);
     let img = document.getElementById(`priorityImg${i}`);
@@ -105,6 +146,10 @@ function generatePriorityImgOpened(i) {
 }
 
 
+/**
+ * This function opena a window for adding a task in another interface
+ */
+
 function openAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
     addTask.classList.remove('d-none'); addTask.classList.add('addTask-container-background');
@@ -113,6 +158,9 @@ function openAddTaskInBoard() {
 }
 
 
+/**
+ * This function close the window for adding a task in another interface
+ */
 function closeAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
     addTask.classList.add('d-none');
@@ -121,7 +169,13 @@ function closeAddTaskInBoard() {
     localStorage.removeItem('dragCategory');
 }
 
-// limitiert den Text des Description
+
+/**
+ * This function limits the words in the small view of the tasks
+ * 
+ * @param {string} containerId 
+ * @param {number} wordLimit 
+ */
 function limitText(containerId, wordLimit) {
     var container = document.getElementById(containerId);
     if (container) {
@@ -133,7 +187,13 @@ function limitText(containerId, wordLimit) {
     }
 }
 
-// Elemente in Firebase basierend auf der übergebenen category aktualisieren
+
+/**
+ * This function updates of the drag catagory in the tasks
+ * 
+ * @param {element} category 
+ */
+
 async function updateElements(category) {
     for (let i = 0; i < todos.length; i++) {
         const element = todos[i];
@@ -143,7 +203,14 @@ async function updateElements(category) {
     }
 }
 
-// speichert die Änderung der dragCategory in Firebase
+
+/**
+ * This function updates the catagories in local storage
+ * 
+ * @param {*} newDragCategory 
+ * @param {*} taskId 
+ */
+
 async function updateDragCategoryInFirebase(newDragCategory, taskId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
@@ -504,13 +571,3 @@ function validateAndAddTask() {
         addTask();
     }
 }
-
-
-
-
-
-
-
-
-
-

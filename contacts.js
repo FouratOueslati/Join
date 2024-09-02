@@ -252,6 +252,7 @@ function closeDialog() {
  * @param {number} i 
  */
 async function openEditContact(i) {
+    debugger
     let { contacts } = await loadSpecificUserDataFromLocalStorage();
     let contactId = Object.keys(contacts)[i];
     let { name, email, number, backgroundcolor } = contacts[contactId] || {};
@@ -261,6 +262,7 @@ async function openEditContact(i) {
     dialogEditContact.classList.remove('d-none');
     let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${contactId}`);
     contactInitialBig.style.backgroundColor = backgroundcolor;
+    contactInitialBig.innerHTML = `${firstLetterOfName}${firstLetterOfLastName.charAt(0)}`;
     setTimeout(() => {
         document.getElementById('editNewContact').style.transform = "translateX(0)";
     }, 50);
@@ -378,7 +380,6 @@ async function saveEditContact(contactId) {
  * @param {number} i 
  */
 async function createNewContact() {
-    debugger
     let uid = localStorage.getItem('uid');
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
@@ -388,22 +389,37 @@ async function createNewContact() {
     await postContacts('/users/' + uid + '/contacts', contact)
     await loadDataAfterChanges();
     closeDialog();
+    openSuccessfullInfo();
+    document.getElementById('contactInfos').innerHTML = '';
 }
 
 
 /**
  * This function show the information that the user save a new contact
  */
-function openSuccessInfo() {
+function openSuccessfullInfo() {
     let successBox = document.getElementById('successBox');
+    let successMessage = document.getElementById('successMessage');
     successBox.classList.remove('d-none');
-    successBox.style.transform = "translateX(50%)";
     setTimeout(() => {
-        successBox.style.transform = "translateX(10%)";
-    }, 50);
+        successMessage.style.transform = "translateY(0%)";
+    }, 2000);
     setTimeout(() => {
         successBox.classList.add('d-none');
-    }, 900);
+    }, 2000);
+}
+
+
+function openSuccessfullDeleteInfo() {
+    let successDeleteBox = document.getElementById('successDeleteBox');
+    let successDeleteMessage = document.getElementById('successDeleteMessage');
+    successDeleteBox.classList.remove('d-none');
+    setTimeout(() => {
+        successDeleteMessage.style.transform = "translateY(0%)";
+    }, 2000);
+    setTimeout(() => {
+        successDeleteBox.classList.add('d-none');
+    }, 2000);
 }
 
 
@@ -416,15 +432,36 @@ async function deleteContact(contactId) {
     const keys = Object.keys(contacts);
     for (let i = 0; i < keys.length; i++) {
         let contact = keys[i]
-        if (contact === contactId)
+        if (contact === contactId) {
             userData.contacts.splice(contactId, 1);
+        }
     }
     await deleteUserContact(uid, contactId);
+    openSuccessfullDeleteInfo();
     await loadDataAfterChanges();
     closeDialog();
-    contactBigContainer.innerHTML = '';
+    document.getElementById('contactInfos').innerHTML = '';
 }
 
+
+/*async function deleteContactInTask(contact) {
+    debugger
+    let uid = localStorage.getItem('uid');
+    let userData = await loadSpecificUserDataFromLocalStorage()
+    let tasks = userData.tasks;
+    for (let j = 0; j < tasks.length; j++) {
+        const task = tasks[j];
+        const contactsInTask = task.contacts;
+        for (let k = 0; k < contactsInTask.length; k++) {
+            const singleContactInTask = contactsInTask[k];
+            console.log(singleContactInTask)
+            if (contact.name === singleContactInTask.name) {
+                task.contacts.splice(singleContactInTask, 1);
+            }
+        }
+    }
+    await deleteUserContactInTask(uid, task, singleContactInTask)
+}*/
 
 /**
  * This function delete contacts in the mobile view
@@ -438,9 +475,13 @@ async function deleteContactMobileView() {
         await deleteUserContact(uid, ToBeDeletedContactId);
         await loadDataAfterChanges();
         closeDialog();
+        openSuccessfullDeleteInfo();
         closeContactMobile();
+        document.getElementById('contactInfos').innerHTML = '';
     }
 }
+
+
 
 
 /**

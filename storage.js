@@ -24,9 +24,6 @@ async function postUser(path, data) {
     let responseToJson = await response.json();
     return responseToJson;
 }
-
-
-
 /**
  * This function load userdata, check the datas and if the user exist
  * it save the datas in local storage and put the status to logged in
@@ -217,6 +214,17 @@ async function updateUserTasks(uid, toBeEditedTaskId, task) {
  */
 async function deleteUserContact(uid, contactId) {
     const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacts/${contactId}.json`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return response.json();
+}
+
+
+async function deleteUserContactInTask(uid, taskKey, k) {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${taskKey}/contacts/${k}.json`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'

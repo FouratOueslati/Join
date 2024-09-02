@@ -159,7 +159,7 @@ function generateEditModalContent(task, i) {
             <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
             <div class="inputs-flex">
                 <div class="drop-down">
-                    <div class="select">
+                    <div onclick="showCheckedContacts()"  class="select">
                         <span class="selected" id="selectContact">Search Contact</span>
                         <div class="caret"></div>
                     </div>
@@ -277,7 +277,7 @@ function generateSubtasksHtml(subtasks, i) {
 }
 
 
-function generateBubbleInitials(i, initials, backgroundColor) {
+function generateBubbleInitialsHtml(i, initials, backgroundColor) {
     return `
     <div id="bubble${i}" class="bubble-initial" style="background: ${backgroundColor}">
         <span class="initial-style">${initials}</span>
@@ -327,6 +327,8 @@ function setCategoryColor(i) {
         categoryContainer.style.backgroundColor = 'rgb(31, 215, 193)';
     } else if (categoryContainer && categoryContainer.innerHTML === 'User Story') {
         categoryContainer.style.backgroundColor = 'rgb(0, 56, 255)';
+    } else if (categoryContainer && categoryContainer.innerHTML === 'Design') {
+        categoryContainer.style.backgroundColor = 'rgb(255,211,155)';
     }
 }
 
@@ -337,6 +339,8 @@ function setCategoryColorOpened(i) {
         categoryContainerOpened.style.backgroundColor = 'rgb(31, 215, 193)';
     } else if (categoryContainerOpened && categoryContainerOpened.innerHTML === 'User Story') {
         categoryContainerOpened.style.backgroundColor = 'rgb(0, 56, 255)';
+    } else if (categoryContainerOpened && categoryContainerOpened.innerHTML === 'Design') {
+        categoryContainerOpened.style.backgroundColor = 'rgb(255,211,155)';
     }
 }
 
@@ -414,16 +418,16 @@ function filterTask() {
 
 
 function filterWithSearchTerm(searchTerm) {
-    let matchingTaskCount = 0; 
+    let matchingTaskCount = 0;
     for (let i = 0; i < todos.length; i++) {
         let taskTitleElement = document.getElementById(`taskTitle${i}`);
         let taskCard = document.getElementById(`task${i}`);
-        
+
         if (taskTitleElement && taskCard) {
             let taskTitle = taskTitleElement.innerHTML.toLowerCase().slice(0, 3);
             if (taskTitle.includes(searchTerm)) {
                 taskCard.style.display = 'block';
-                matchingTaskCount++; 
+                matchingTaskCount++;
             } else {
                 taskCard.style.display = 'none';
             }
@@ -520,5 +524,3 @@ function highlight() {
 function removeHighlight() {
     document.querySelector('.drag-area').classList.remove('drag-area-highlight');
 }
-
-

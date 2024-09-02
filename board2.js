@@ -411,6 +411,9 @@ function filterTask() {
         clickHere.classList.remove('display-none-a');
         filterWithSearchTerm(search.slice(0, 3));
         removeSpecificColorFromDragArea();
+    }  else if (search.length === 0) {
+        clearClickHere();
+        removeSpecificColorFromDragArea(); 
     }
 }
 

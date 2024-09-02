@@ -56,7 +56,7 @@ async function createOwnContact(name, email, number, color, uid) {
         name: name,
         email: email,
         number: number,
-        backgroundColor: color
+        backgroundcolor: color
     };
     await postContacts(`/users/${uid}/contacts`, contact);
     return contact;

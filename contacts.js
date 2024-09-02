@@ -252,6 +252,7 @@ function closeDialog() {
  * @param {number} i 
  */
 async function openEditContact(i) {
+    debugger
     let { contacts } = await loadSpecificUserDataFromLocalStorage();
     let contactId = Object.keys(contacts)[i];
     let { name, email, number, backgroundcolor } = contacts[contactId] || {};
@@ -261,6 +262,7 @@ async function openEditContact(i) {
     dialogEditContact.classList.remove('d-none');
     let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${contactId}`);
     contactInitialBig.style.backgroundColor = backgroundcolor;
+    contactInitialBig.innerHTML = `${firstLetterOfName}${firstLetterOfLastName.charAt(0)}`;
     setTimeout(() => {
         document.getElementById('editNewContact').style.transform = "translateX(0)";
     }, 50);

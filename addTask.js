@@ -118,8 +118,7 @@ function addSubtask() {
         subtaskCounter++;
         subtasks.push(subtask);
         localStorage.setItem('subtasks', JSON.stringify(subtasks));
-        let subtaskHTML = addSubtaskHtml();
-        container.innerHTML += subtaskHTML();
+        container.innerHTML += addSubtaskHtml(subtaskCounter, subtask);
         document.getElementById('inputFieldSubtask').value = '';
         clearSubtaskInput();
     }
@@ -146,8 +145,8 @@ function displaySubtasks() {
     const container = document.getElementById('subtasksContainer');
     container.innerHTML = '';
     subtasks.forEach((subtask, index) => {
-        let subtaskHTML = displaySubtasksHtml();
-        container.innerHTML += subtaskHTML;
+        let subtaskHtml = displaySubtasksHtml(index, subtask);
+        container.innerHTML += subtaskHtml;
     });
 }
 

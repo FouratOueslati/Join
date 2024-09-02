@@ -276,7 +276,7 @@ function generateSubtasksHtml(subtasks, i) {
 }
 
 
-function generateBubbleInitials(i, initials, backgroundColor) {
+function generateBubbleInitialsHtml(i, initials, backgroundColor) {
     return `
     <div id="bubble${i}" class="bubble-initial" style="background: ${backgroundColor}">
         <span class="initial-style">${initials}</span>

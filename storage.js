@@ -223,6 +223,17 @@ async function deleteUserContact(uid, contactId) {
 }
 
 
+async function deleteUserContactInTask(uid, taskKey, k) {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${taskKey}/contacts/${k}.json`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return response.json();
+}
+
+
 /**
  * This function delete the user tasks at the external storage
  * 

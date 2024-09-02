@@ -44,8 +44,6 @@
                         </div>
                     </div>
                     <div id="contactBigContainer" class="contact-big-container">
-                        <div class="success-box d-none" id="successBox">Contact succesfully created</div>
-                        <button onclick="openSuccessInfo()">test</button>
                         <div id="contactHeadline" class="contact-headline">
                             <div class="fat-contacts-headline">Contacts</div>
                             <div class="seperator-and-text-container">
@@ -61,11 +59,18 @@
             </div>
         </div>
     </div>
+    <div class="success-box d-none" id="successBox">
+        <div class="success-message" id="successMessage">Contact succesfully created</div>
+    </div>
+    <div class="success-delete-box d-none" id="successDeleteBox">
+        <div class="success-delete-message" id="successDeleteMessage">Contact succesfully deleted</div>
+    </div>
 </body>
 <script src="include.js"></script>
-    <script src="./templates/topbar.js"></script>
-    <script src="storage.js"></script>
-    <script src="contacts.js"></script>
-    <script src="./templates/contacts.js"></script>
-    <script src="logout.js"></script>
+<script src="./templates/topbar.js"></script>
+<script src="storage.js"></script>
+<script src="contacts.js"></script>
+<script src="./templates/contacts.js"></script>
+<script src="logout.js"></script>
+
 </html>

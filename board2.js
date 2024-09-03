@@ -1,4 +1,7 @@
-////////////////////EventListeners//////////////////////////////////////////
+/**
+ * The functions addDragCategoryEventListeners(), addPrioEventListenersEdit() and
+ * addCategoryEventListenerEdit() sare only tartet when all elemnts are loaded
+ */
 document.addEventListener('DOMContentLoaded', (event) => {
     addDragCategoryEventListeners();
     addPrioEventListenersEdit();
@@ -6,6 +9,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
+/**
+ * This function adds a click event listener to drag and drop the tasks
+ * 
+ */
 function addDragCategoryEventListeners() {
     document.getElementById('awaitFeedback').addEventListener('click', () => {
         localStorage.setItem('dragCategory', 'awaitfeedback');
@@ -19,6 +26,9 @@ function addDragCategoryEventListeners() {
 }
 
 
+/**
+ * This function adds a click event listener to select and save a priority
+ */
 function addPrioEventListenersEdit() {
     let urgentContainer = document.getElementById('urgentButtonEdit');
     let mediumContainer = document.getElementById('mediumButtonEdit');
@@ -38,6 +48,10 @@ function addPrioEventListenersEdit() {
 }
 
 
+/**
+ * This function adds a click event listener to list elements to save the selected category 
+ * in local storage
+ */
 function addCategoryEventListenerEdit() {
     document.querySelectorAll('#categoryMenu li').forEach(category => {
         category.addEventListener('click', () => {
@@ -215,6 +229,12 @@ function generateEditModalContent(task, i) {
     `;
 }
 
+
+/**
+ * This function closes the larger view of an open task
+ * 
+ * @param {Element} modal 
+ */
 function closeModalEdit(modal) {
     displayOpenTasks();
     modal.style.display = "none";
@@ -223,6 +243,13 @@ function closeModalEdit(modal) {
 }
 
 
+/**
+ * This function generate the names and initials of the contacts in an html element to display them
+ * 
+ * @param {object} contacts 
+ * @param {number} i 
+ * @returns {object}
+ */
 function generateContactInitialsAndNamesHtml(contacts, i) {
     if (!contacts || contacts.length === 0) return '';
     let result = '';
@@ -242,6 +269,13 @@ function generateContactInitialsAndNamesHtml(contacts, i) {
 }
 
 
+/**
+ * This function generate icons for the subtasks so that they can be edited and displays them
+ * 
+ * @param {string} subtasks 
+ * @param {number} i 
+ * @returns {Element}
+ */
 function generateSubtasksEditHtml(subtasks, i) {
     if (!subtasks || subtasks.length === 0) return '';
     let result = '';
@@ -261,6 +295,13 @@ function generateSubtasksEditHtml(subtasks, i) {
 }
 
 
+/**
+ * This function generate the subtasks in an html element to display them
+ * 
+ * @param {element} subtasks 
+ * @param {number} i 
+ * @returns {element}
+ */
 function generateSubtasksHtml(subtasks, i) {
     if (!subtasks || subtasks.length === 0) return '';
     let result = '';
@@ -308,6 +349,12 @@ async function generateNumberOfSubtasks(i, task) {
 }
 
 
+/**
+ * This function adds an icon corresponding to the selected priority of the task
+ * 
+ * @param {number} i 
+ * @param {element} task 
+ */
 async function generatePriorityImgUnopened(i, task) {
     const img = document.getElementById(`priorityImgUnopened${i}`);
     let priority = task.task.priority;
@@ -321,6 +368,11 @@ async function generatePriorityImgUnopened(i, task) {
 }
 
 
+/**
+ * This function sets the background color for the selected category
+ * 
+ * @param {number} i 
+ */
 function setCategoryColor(i) {
     let categoryContainer = document.getElementById(`category${i}`);
     if (categoryContainer && categoryContainer.innerHTML === 'Technical Task') {
@@ -333,6 +385,12 @@ function setCategoryColor(i) {
 }
 
 
+/**
+ * This function displays the background color for the selected category in the larger view 
+ * of the task
+ * 
+ * @param {number} i 
+ */
 function setCategoryColorOpened(i) {
     let categoryContainerOpened = document.getElementById(`categoryOpened${i}`);
     if (categoryContainerOpened && categoryContainerOpened.innerHTML === 'Technical Task') {
@@ -345,6 +403,12 @@ function setCategoryColorOpened(i) {
 }
 
 
+/**
+ * This function toggle the status of the subtask
+ * 
+ * @param {number} i 
+ * @param {number} j 
+ */
 async function toggleSubtaskStatus(i, j) {
     let subtaskCheckbox = document.getElementById(`subtaskCheckbox(${i}, ${j})`);
     localStorage.setItem(`subtaskCheck(${i}, ${j})`, subtaskCheckbox.checked);
@@ -360,6 +424,14 @@ async function toggleSubtaskStatus(i, j) {
 }
 
 
+/**
+ * This function updates the status of subtask
+ * 
+ * @param {object} tasks 
+ * @param {number} i 
+ * @param {number} j 
+ * @param {*element} statusOfSubtask 
+ */
 async function updateSubtaskStatus(tasks, i, j, statusOfSubtask) {
     let taskIds = Object.keys(tasks);
     let taskId = taskIds[i];
@@ -373,6 +445,13 @@ async function updateSubtaskStatus(tasks, i, j, statusOfSubtask) {
 }
 
 
+/**
+ * This function updates the subtask status in external storage
+ * 
+ * @param {element} status 
+ * @param {number} taskId 
+ * @param {number} subtaskId 
+ */
 async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
@@ -383,6 +462,11 @@ async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
 }
 
 
+/**
+ * This function updates the loadingbar
+ * 
+ * @param {number} i 
+ */
 function updateLoadBar(i) {
     const loadBar = document.getElementById(`loadBar${i}`);
     const subtaskNumber = document.getElementById(`subtasksNumber${i}`);
@@ -402,11 +486,13 @@ function updateLoadBar(i) {
 }
 
 
+/**
+ * This function filters searched tasks
+ */
 function filterTask() {
     let clickHere = document.getElementById('clickHere');
     let searchInput = document.getElementById('search');
     let search = searchInput.value.toLowerCase();
-    
     if (search.length >= 3) {
         clickHere.classList.remove('display-none-a');
         filterWithSearchTerm(search.slice(0, 3));
@@ -418,8 +504,11 @@ function filterTask() {
 }
 
 
-
-
+/**
+ * This function displays searched tasks based on words entered
+ * 
+ * @param {string} searchTerm 
+ */
 function filterWithSearchTerm(searchTerm) {
     let matchingTaskCount = 0;
     for (let i = 0; i < todos.length; i++) {
@@ -440,6 +529,9 @@ function filterWithSearchTerm(searchTerm) {
 }
 
 
+/**
+ * This function clears the serach input and displays all tasks
+ */
 function clearClickHere() {
     let clickHere = document.getElementById('clickHere');
     clickHere.classList.add('display-none-a');
@@ -453,11 +545,21 @@ function clearClickHere() {
 }
 
 
+/**
+ * This function manages the drag and drop state
+ * 
+ * @param {number} id 
+ */
 function startDragging(id) {
     currentDraggedElement = id;
 }
 
 
+/**
+ * This function allows tasks can be postponed
+ * 
+ * @param {element} category 
+ */
 async function moveTo(category) {
     todos[currentDraggedElement]['task']['dragCategory'] = category;
     await updateDragCategoryInFirebase(category, todos[currentDraggedElement].id);
@@ -466,6 +568,12 @@ async function moveTo(category) {
     await displayOpenTasks()
 }
 
+
+/**
+ * This function allows tasks to be remove from a container
+ * 
+ * @param {number} index 
+ */
 function removeTaskFromContainer(index) {
     const taskElement = document.getElementById(`task${index}`);
     if (taskElement) {
@@ -479,6 +587,53 @@ function removeTaskFromContainer(index) {
 }
 
 
+// function addTaskToContainer(index, category) {
+//     const containerIdMap = {
+//         'todo': 'toDoTasks',
+//         'inprogress': 'inProgressTasks',
+//         'awaitfeedback': 'feedbackTasks',
+//         'done': 'done'
+//     };
+//     const containerId = containerIdMap[category];
+//     const container = document.getElementById(containerId);
+//     if (container) {
+//         container.classList.remove('drag-area-no-elements');
+//         container.classList.add('drag-area-has-elements');
+//         const noTaskMessage = container.querySelector('.drag-area-text');
+//         if (noTaskMessage) noTaskMessage.style.display = 'none';
+//         container.innerHTML += getToDoTaskHtml(todos[index], index);
+//         getContactInitials(todos[index].task.contacts, index);
+//         generateNumberOfSubtasks(index, todos[index]);
+//         generatePriorityImgUnopened(index, todos[index]);
+//         updateLoadBar(index);
+//     }
+// }
+
+
+/**
+ * This function update the drag and drop container and displays the tasks or information
+ * 
+ * @param {element} container 
+ */
+function updateContainerClasses(container) {
+    if (container) {
+        container.classList.remove('drag-area-no-elements');
+        container.classList.add('drag-area-has-elements');
+
+        const noTaskMessage = container.querySelector('.drag-area-text');
+        if (noTaskMessage) {
+            noTaskMessage.style.display = 'none';
+        }
+    }
+}
+
+
+/**
+ * This function allows tasks to be added to a container
+ * 
+ * @param {number} index 
+ * @param {element} category 
+ */
 function addTaskToContainer(index, category) {
     const containerIdMap = {
         'todo': 'toDoTasks',
@@ -488,12 +643,8 @@ function addTaskToContainer(index, category) {
     };
     const containerId = containerIdMap[category];
     const container = document.getElementById(containerId);
+    updateContainerClasses(container);
     if (container) {
-        container.classList.remove('drag-area-no-elements');
-        container.classList.add('drag-area-has-elements');
-        const noTaskMessage = container.querySelector('.drag-area-text');
-        if (noTaskMessage) noTaskMessage.style.display = 'none';
-
         container.innerHTML += getToDoTaskHtml(todos[index], index);
         getContactInitials(todos[index].task.contacts, index);
         generateNumberOfSubtasks(index, todos[index]);
@@ -502,6 +653,10 @@ function addTaskToContainer(index, category) {
     }
 }
 
+
+/**
+ * This function checks the drag and drop container and displays the tasks or information
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const containers = document.querySelectorAll('.drag-area');
     containers.forEach(container => {
@@ -516,14 +671,27 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/**
+ * This function makes it possible to drag and drop tasks into a container
+ * 
+ * @param {*} ev 
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+
+/**
+ * This function adds a highlight (background) to the drag and drop container
+ */
 function highlight() {
     document.querySelector('.drag-area').classList.add('drag-area-highlight');
 }
 
+
+/**
+ * This function removes a highlight (background) from the drag and drop container
+ */
 function removeHighlight() {
     document.querySelector('.drag-area').classList.remove('drag-area-highlight');
 }

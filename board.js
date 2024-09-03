@@ -149,7 +149,6 @@ function generatePriorityImgOpened(i) {
 /**
  * This function opena a window for adding a task in another interface
  */
-
 function openAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
     addTask.classList.remove('d-none'); addTask.classList.add('addTask-container-background');
@@ -193,7 +192,6 @@ function limitText(containerId, wordLimit) {
  * 
  * @param {element} category 
  */
-
 async function updateElements(category) {
     for (let i = 0; i < todos.length; i++) {
         const element = todos[i];
@@ -210,7 +208,6 @@ async function updateElements(category) {
  * @param {*} newDragCategory 
  * @param {*} taskId 
  */
-
 async function updateDragCategoryInFirebase(newDragCategory, taskId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
@@ -221,6 +218,35 @@ async function updateDragCategoryInFirebase(newDragCategory, taskId) {
 }
 
 
+// function removeSpecificColorFromDragArea() {
+//     let containers = [
+//         document.getElementById('toDoTasks'),
+//         document.getElementById('inProgressTasks'),
+//         document.getElementById('feedbackTasks'),
+//         document.getElementById('done')
+//     ];
+//     let classHasElements = 'drag-area-has-elements';
+//     let classNoElements = 'drag-area-no-elements';
+//     let noTaskTitle = 'no-task';
+
+//     for (let i = 0; i < containers.length; i++) {
+//         let container = containers[i];
+//         container.classList.remove(classHasElements);
+//         container.classList.remove(classNoElements);
+//         if (container && container.querySelector('div')) {
+//             container.classList.add(classHasElements);
+//             container.classList.remove(noTaskTitle);
+//         } else {
+//             container.classList.add(classNoElements);
+//             container.classList.add(noTaskTitle);
+//         }
+//     }
+// }
+
+
+/**
+ * This function gets the container id's to change the background after drag and drop
+ */
 function removeSpecificColorFromDragArea() {
     let containers = [
         document.getElementById('toDoTasks'),
@@ -228,10 +254,19 @@ function removeSpecificColorFromDragArea() {
         document.getElementById('feedbackTasks'),
         document.getElementById('done')
     ];
+    updateContainerClasses(containers);
+}
+
+
+/**
+ * This function change the backrground after dragging and dropping the tasks
+ * 
+ * @param {object} containers 
+ */
+function updateContainerClasses(containers) {
     let classHasElements = 'drag-area-has-elements';
     let classNoElements = 'drag-area-no-elements';
     let noTaskTitle = 'no-task';
-
     for (let i = 0; i < containers.length; i++) {
         let container = containers[i];
         container.classList.remove(classHasElements);
@@ -246,6 +281,10 @@ function removeSpecificColorFromDragArea() {
     }
 }
 
+
+/**
+ * This function displays all tasks on board
+ */
 function displayAllTasks() {
     let taskContainers = document.querySelectorAll('.drag-area');
     taskContainers.forEach(container => {
@@ -257,6 +296,12 @@ function displayAllTasks() {
     removeSpecificColorFromDragArea();
 }
 
+
+/**
+ * Thias function delete the tasks
+ * 
+ * @param {number} i 
+ */
 async function deleteTask(i) {
     let taskTitle = document.getElementById(`openedTitle${i}`).innerHTML;
     let taskIndex = todos.findIndex(todo => taskTitle === todo.task.name);
@@ -310,7 +355,9 @@ async function editTask(i) {
 }
 
 
-// displays contacts names die man wählen kann
+/**
+ * This function displays the contacts and initials that can be selected for the tasks
+ */
 async function displayNamesOfContactsEdit() {
     let containerContact = document.getElementById("contactListEdit");
     containerContact.innerHTML = '';
@@ -329,6 +376,9 @@ async function displayNamesOfContactsEdit() {
 }
 
 
+/**
+ * This function dsiplays the assigned contacts in editing view
+ */
 async function displayAssignedContactsInEdit() {
     let containerBubbleInitials = document.getElementById('contactsDisplayBubbleInEdit');
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -348,6 +398,11 @@ async function displayAssignedContactsInEdit() {
 }
 
 
+/**
+ * This function changes the color of the selected priority button
+ * 
+ * @param {element} clickedButton 
+ */
 function changeColorEdit(clickedButton) {
     const buttons = [
         { element: document.getElementById('lowButtonEdit'), class: 'lowSelected' },
@@ -391,7 +446,12 @@ function addSubtaskEdit(i) {
 }
 
 
-
+/**
+ * This function edit the subtasks and saves them in local storage
+ * 
+ * @param {number} taskIndex 
+ * @param {number} subtaskIndex 
+ */
 function editSubtaskEdit(taskIndex, subtaskIndex) {
     let subtaskDiv = document.getElementById(`subtask${taskIndex}-${subtaskIndex}`);
     let text = subtaskDiv.innerHTML;
@@ -404,26 +464,20 @@ function editSubtaskEdit(taskIndex, subtaskIndex) {
 }
 
 
+/**
+ * This function dispays the edited subtask
+ * 
+ * @param {number} i 
+ */
 function displaySubtasksEdit(i) {
     const container = document.getElementById(`subtasksContainer${i}`);
     container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
 }
 
 
-function onInputChangeEdit() {
-    let subtaskImg = document.getElementById('plusImgEdit');
-    let subtaskButtons = document.getElementById('closeOrAcceptEdit');
-    let inputField = document.getElementById('inputFieldSubtaskEdit');
-    if (inputField.value.length > 0) {
-        subtaskImg.style.display = 'none';
-        subtaskButtons.style.display = 'block';
-    } else {
-        subtaskImg.style.display = 'block';
-        subtaskButtons.style.display = 'none';
-    }
-}
-
-
+/**
+ * This function deletes the input field for the subtask
+ */
 function clearSubtaskInputEdit() {
     let inputField = document.getElementById('inputFieldSubtaskEdit');
     inputField.value = '';
@@ -437,6 +491,12 @@ function clearSubtaskInputEdit() {
 }
 
 
+/**
+ * Thias function delete the subtask
+ * 
+ * @param {number} taskIndex 
+ * @param {number} subtaskIndex 
+ */
 function deleteSubtaskEdit(taskIndex, subtaskIndex) {
     let subtasks = todos[taskIndex].task.subtasks;
     subtasks.splice(subtaskIndex, 1);
@@ -445,6 +505,11 @@ function deleteSubtaskEdit(taskIndex, subtaskIndex) {
 }
 
 
+/**
+ * This function get the assigned contacts to save them
+ * 
+ * @returns {object}
+ */
 function getTaskContacts() {
     let newContacts;
     const newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || '[]';
@@ -458,6 +523,11 @@ function getTaskContacts() {
 }
 
 
+/**
+ * This function gets the assigned priority for saving
+ * 
+ * @returns {element}
+ */
 function getTaskPriority() {
     const priority = localStorage.getItem('lastClickedButton');
     const toBeEditedPriority = localStorage.getItem('toBeEditedPriority');
@@ -471,6 +541,12 @@ function getTaskPriority() {
 }
 
 
+/**
+ * This function gets the assigned subtask for saving
+ * 
+ * @param {number} i 
+ * @returns {string}
+ */
 function getTaskSubtasks(i) {
     const subtasksContainer = document.getElementById(`subtasksContainer${i}`);
     const subtaskDivs = subtasksContainer.getElementsByClassName('subtask-Txt');
@@ -483,6 +559,12 @@ function getTaskSubtasks(i) {
 }
 
 
+/**
+ * This function gets the details of the task (description, name and date) for saving
+ * 
+ * @param {number} i 
+ * @returns {string, number}
+ */
 function getTaskDetails(i) {
     const nameEdit = document.getElementById(`taskTitleEdit${i}`).value;
     const descriptionEdit = document.getElementById(`taskDescriptionEdit${i}`).value;

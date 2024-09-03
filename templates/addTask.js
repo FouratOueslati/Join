@@ -24,47 +24,22 @@ function displaySubtasksHtml(index, subtask) {
 }
 
 
-// function generateContactToChoseHtml(name, color, initials, i) {
-//     return `
-//     <div class="contact-boarder">
-//         <div class="name-initial">
-//             <div class="circle-initial" style="background: ${color}">
-//                 <div class="initial-style">${initials}</div>
-//             </div>
-//             <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
-//         </div>
-//         <div class="check-box-custom">
-//             <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
-//         </div>
-//     </div>
-//     `;
-// }
+ function generateContactToChoseHtml(name, color, initials, i) {
+     return `
+     <div class="contact-boarder">
+         <div class="name-initial">
+             <div class="circle-initial" style="background: ${color}">
+                 <div class="initial-style">${initials}</div>
+             </div>
+             <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
+         </div>
+         <div class="check-box-custom">
+             <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
+         </div>
+     </div>
+     `;
+ }
 
-
-function generateBubbleInitialsHtml(i, initials, color) {
-    return `
-    <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
-        <span class="initial-style">${initials}</span>
-    </div>
-    `;
-}
-
-
-function generateContactToChoseHtml(name, color, initials, i) {
-    return `
-    <div class="contact-boarder">
-        <div class="name-initial">
-            <div class="circle-initial" style="background: ${color}">
-                <div class="initial-style">${initials}</div>
-            </div>
-            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
-        </div>
-        <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
-        </div>
-    </div>
-    `;
-}
 
 function generateBubbleInitialsHtml(i, initials, color) {
     return `

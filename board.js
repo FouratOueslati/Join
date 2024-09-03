@@ -349,7 +349,7 @@ async function editTask(i) {
     addEventListenerDropDown();
     addPrioEventListenersEdit();
     changeColor(document.querySelector('.button-prio-selected'));
-    onInputChangeEdit();
+    //onInputChangeEdit();
     displayNamesOfContactsEdit();
     displayAssignedContactsInEdit();
 }
@@ -370,7 +370,7 @@ async function displayNamesOfContactsEdit() {
             let name = contacts[contactId]["name"];
             let color = contacts[contactId]["backgroundcolor"];
             let initials = getInitials(name);
-            containerContact.innerHTML += generateContactToChose(name, color, initials, i);
+            containerContact.innerHTML += generateContactToChoseHtml(name, color, initials, i);
         }
     }
 }
@@ -392,7 +392,7 @@ async function displayAssignedContactsInEdit() {
             let backgroundColor = contact.backgroundcolor;
             let name = contact.name;
             let initials = getInitials(name)
-            containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, backgroundColor);
+            containerBubbleInitials.innerHTML += generateBubbleInitialsHtml(i, initials, backgroundColor);
         }
     }
 }

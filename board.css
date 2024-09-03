@@ -394,6 +394,19 @@ body {
     border: 1px dashed rgb(246, 247, 249);
 }
 
+.progress {
+    border-radius: 30px;
+    background: #F4F4F4;
+    width: 200px;
+    height: 10px;
+}
+
+.progress-bar {
+    border-radius: 30px;
+    background: #4589FF;
+    height: inherit;
+}
+
 .drag-area-no-elements {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 10px;

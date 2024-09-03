@@ -28,7 +28,6 @@ async function displayNamesOfContacts() {
         for (let i = 0; i < keys.length; i++) {
             let contactId = keys[i];
             let name = contacts[contactId]["name"];
-            console.log(name)
             let color = contacts[contactId]["backgroundcolor"];
             let initials = getInitials(name);
             containerContact.innerHTML += generateContactToChoseHtml(name, color, initials, i);

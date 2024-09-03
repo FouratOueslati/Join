@@ -100,7 +100,9 @@ function getToDoTaskHtml(task, i) {
         <div id="taskTitle${i}" class="task-title">${task['task']['name']}</div>
         <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
         <div class="subtasks-number-container">
-            <img id="loadBar${i}" class="load-bar">
+            <div id="loadBarContainer${i}"  class="progress">
+            <div id="loadBar${i}" class="progress-bar"></div>
+            </div>
             <div id="subtasksNumber${i}" class="subtasks">
             </div>
         </div>
@@ -461,29 +463,28 @@ async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
     }
 }
 
-
 /**
- * This function updates the loadingbar
+ * This function updates the loadbar
  * 
  * @param {number} i 
  */
 function updateLoadBar(i) {
+    const loadBarContainer = document.getElementById(`loadBarContainer${i}`);
     const loadBar = document.getElementById(`loadBar${i}`);
     const subtaskNumber = document.getElementById(`subtasksNumber${i}`);
-    switch (subtaskNumber.innerHTML) {
-        case "1/2 Subtasks":
-            loadBar.src = "./img/Progress-Bar-half.png";
-            break;
-        case "0/2 Subtasks":
-        case "0/1 Subtasks":
-            loadBar.src = "./img/Progress-Bar-empty.png";
-            break;
-        case "2/2 Subtasks":
-        case "1/1 Subtasks":
-            loadBar.src = "./img/filler.png";
-            break;
+    const subtaskText = subtaskNumber.innerHTML;
+    const match = subtaskText.match(/(\d+)\/(\d+) Subtasks/);
+    if (match) {
+        const completedSubtasks = parseInt(match[1], 10);
+        const totalSubtasks = parseInt(match[2], 10);
+        const percentage = (completedSubtasks / totalSubtasks) * 100;
+        loadBar.style.width = `${percentage}%`;
+    } else {
+        loadBarContainer.style.display = 'none';
+        loadBar.style.width = '0%';
     }
 }
+
 
 
 /**
@@ -497,9 +498,9 @@ function filterTask() {
         clickHere.classList.remove('display-none-a');
         filterWithSearchTerm(search.slice(0, 3));
         removeSpecificColorFromDragArea();
-    }  else if (search.length === 0) {
+    } else if (search.length === 0) {
         clearClickHere();
-        removeSpecificColorFromDragArea(); 
+        removeSpecificColorFromDragArea();
     }
 }
 
@@ -587,27 +588,27 @@ function removeTaskFromContainer(index) {
 }
 
 
- function addTaskToContainer(index, category) {
-     const containerIdMap = {
-         'todo': 'toDoTasks',
-         'inprogress': 'inProgressTasks',
-         'awaitfeedback': 'feedbackTasks',
-         'done': 'done'
-     };
-     const containerId = containerIdMap[category];
-     const container = document.getElementById(containerId);
-     if (container) {
-         container.classList.remove('drag-area-no-elements');
-         container.classList.add('drag-area-has-elements');
-         const noTaskMessage = container.querySelector('.drag-area-text');
-         if (noTaskMessage) noTaskMessage.style.display = 'none';
-         container.innerHTML += getToDoTaskHtml(todos[index], index);
-         getContactInitials(todos[index].task.contacts, index);
-         generateNumberOfSubtasks(index, todos[index]);
-         generatePriorityImgUnopened(index, todos[index]);
-         updateLoadBar(index);
-     }
- }
+function addTaskToContainer(index, category) {
+    const containerIdMap = {
+        'todo': 'toDoTasks',
+        'inprogress': 'inProgressTasks',
+        'awaitfeedback': 'feedbackTasks',
+        'done': 'done'
+    };
+    const containerId = containerIdMap[category];
+    const container = document.getElementById(containerId);
+    if (container) {
+        container.classList.remove('drag-area-no-elements');
+        container.classList.add('drag-area-has-elements');
+        const noTaskMessage = container.querySelector('.drag-area-text');
+        if (noTaskMessage) noTaskMessage.style.display = 'none';
+        container.innerHTML += getToDoTaskHtml(todos[index], index);
+        getContactInitials(todos[index].task.contacts, index);
+        generateNumberOfSubtasks(index, todos[index]);
+        generatePriorityImgUnopened(index, todos[index]);
+        updateLoadBar(index);
+    }
+}
 
 
 /**

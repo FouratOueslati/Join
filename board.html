@@ -207,8 +207,8 @@
                         <span class="txt-svg-cetering">In progress <img id="inProgress" onclick="openAddTaskInBoard()"
                                 class="txt-svg-centering" src="./boardImg/add.svg"></span>
                         <div class="position-relative">
-                            <div class="drag-area board-task-set-up no-task" id="inProgressTasks" ondrop="moveTo('inprogress')"
-                                ondragleave="removeHighlight('inprogress')"
+                            <div class="drag-area board-task-set-up no-task" id="inProgressTasks"
+                                ondrop="moveTo('inprogress')" ondragleave="removeHighlight('inprogress')"
                                 ondragover="allowDrop(event); highlight('inprogress');">
                             </div>
                         </div>
@@ -222,7 +222,7 @@
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="feedbackTasks"
                                 ondrop="moveTo('awaitfeedback')" ondragleave="removeHighlight('awaitfeedback')"
-                                ondragover="allowDrop(event); highlight('awaitfeedback')"> 
+                                ondragover="allowDrop(event); highlight('awaitfeedback')">
                             </div>
                         </div>
                     </div>
@@ -242,12 +242,13 @@
     </div>
     </div>
 </body>
-<script src="board.js"></script>
-<script src="board2.js"></script>
-<script src="addTask.js"></script>
 <script src="include.js"></script>
 <script src="storage.js"></script>
 <script src="logout.js"></script>
+<script src="board.js"></script>
+<script src="board2.js"></script>
+<script src="addTask.js"></script>
 <script src="./templates/topbar.js"></script>
 <script src="./templates/addTask.js"></script>
+
 </html>

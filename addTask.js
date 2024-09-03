@@ -95,6 +95,7 @@ function getInitials(name) {
 }
 
 
+
 /**
  * This function checked whether something was entered into the input field to show or hide buttons
  */

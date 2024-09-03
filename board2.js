@@ -587,27 +587,27 @@ function removeTaskFromContainer(index) {
 }
 
 
-// function addTaskToContainer(index, category) {
-//     const containerIdMap = {
-//         'todo': 'toDoTasks',
-//         'inprogress': 'inProgressTasks',
-//         'awaitfeedback': 'feedbackTasks',
-//         'done': 'done'
-//     };
-//     const containerId = containerIdMap[category];
-//     const container = document.getElementById(containerId);
-//     if (container) {
-//         container.classList.remove('drag-area-no-elements');
-//         container.classList.add('drag-area-has-elements');
-//         const noTaskMessage = container.querySelector('.drag-area-text');
-//         if (noTaskMessage) noTaskMessage.style.display = 'none';
-//         container.innerHTML += getToDoTaskHtml(todos[index], index);
-//         getContactInitials(todos[index].task.contacts, index);
-//         generateNumberOfSubtasks(index, todos[index]);
-//         generatePriorityImgUnopened(index, todos[index]);
-//         updateLoadBar(index);
-//     }
-// }
+ function addTaskToContainer(index, category) {
+     const containerIdMap = {
+         'todo': 'toDoTasks',
+         'inprogress': 'inProgressTasks',
+         'awaitfeedback': 'feedbackTasks',
+         'done': 'done'
+     };
+     const containerId = containerIdMap[category];
+     const container = document.getElementById(containerId);
+     if (container) {
+         container.classList.remove('drag-area-no-elements');
+         container.classList.add('drag-area-has-elements');
+         const noTaskMessage = container.querySelector('.drag-area-text');
+         if (noTaskMessage) noTaskMessage.style.display = 'none';
+         container.innerHTML += getToDoTaskHtml(todos[index], index);
+         getContactInitials(todos[index].task.contacts, index);
+         generateNumberOfSubtasks(index, todos[index]);
+         generatePriorityImgUnopened(index, todos[index]);
+         updateLoadBar(index);
+     }
+ }
 
 
 /**
@@ -615,17 +615,16 @@ function removeTaskFromContainer(index) {
  * 
  * @param {element} container 
  */
-function updateContainerClasses(container) {
+/*function updateContainerClasses(container) {
     if (container) {
         container.classList.remove('drag-area-no-elements');
         container.classList.add('drag-area-has-elements');
-
         const noTaskMessage = container.querySelector('.drag-area-text');
         if (noTaskMessage) {
             noTaskMessage.style.display = 'none';
         }
     }
-}
+}*/
 
 
 /**
@@ -634,7 +633,7 @@ function updateContainerClasses(container) {
  * @param {number} index 
  * @param {element} category 
  */
-function addTaskToContainer(index, category) {
+/*function addTaskToContainer(index, category) {
     const containerIdMap = {
         'todo': 'toDoTasks',
         'inprogress': 'inProgressTasks',
@@ -651,7 +650,7 @@ function addTaskToContainer(index, category) {
         generatePriorityImgUnopened(index, todos[index]);
         updateLoadBar(index);
     }
-}
+}*/
 
 
 /**

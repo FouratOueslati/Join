@@ -434,6 +434,7 @@ async function deleteContact(contactId) {
         let contact = keys[i]
         if (contact === contactId) {
             userData.contacts.splice(contactId, 1);
+            deleteContactInTask(contact);
         }
     }
     await deleteUserContact(uid, contactId);

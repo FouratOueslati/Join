@@ -81,8 +81,9 @@ function createUserObject(name, email, password) {
  * @returns {object}
  */
 async function createOwnContact(name, email, number, color, uid) {
+    const you = " (you)"
     let contact = {
-        name: name + "(You)",
+        name: name + (you),
         email: email,
         number: number,
         backgroundcolor: color

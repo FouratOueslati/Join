@@ -390,3 +390,16 @@ function setCategoryColor(i) {
         categoryContainer.style.backgroundColor = 'rgb(255,211,155)';
     }
 }
+
+function onInputChangeEdit() {
+    let subtaskImg = document.getElementById('plusImgEdit');
+    let subtaskButtons = document.getElementById('closeOrAcceptEdit');
+    let inputField = document.getElementById('inputFieldSubtaskEdit');
+    if (inputField.value.length > 0) {
+        subtaskImg.style.display = 'none';
+        subtaskButtons.style.display = 'flex';
+    } else {
+        subtaskImg.style.display = 'flex';
+        subtaskButtons.style.display = 'none';
+    }
+}

@@ -1,3 +1,9 @@
+/**
+ * This function check the entered user data and if user name and password are correct,
+ *  the user is logged in
+ * 
+ * @returns 
+ */
 async function logIn() {
     let email = document.getElementById('loginEmail').value;
     let password = document.getElementById('loginPassword').value;
@@ -91,4 +97,17 @@ function showLoggedUserInitials() {
  */
 function toggleMenu() {
     document.getElementById('menu').classList.toggle('d-none');
+}
+
+
+/**
+ * This fuction displays or hide the entered password
+ */
+function togglePassword() {
+    let password = document.getElementById('loginPassword');
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
 }

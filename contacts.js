@@ -62,7 +62,7 @@ function displayInitialsFilter() {
 
 
 /**
- * This function shows all existing contacts
+ * This function displays all existing contacts
  */
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -77,18 +77,6 @@ async function displayInitialsAndContacts() {
         }
     }
 }
-
-
-// async function displayOwnDatas() {
-//     let ownDatas = await loadSpecificUserDataFromLocalStorage();
-//     let name = ownDatas.name;
-//     let email = ownDatas.email;
-//     let [firstName, lastName = ''] = name.split(' ');
-//     let firstLetterOfName = firstName.charAt(0);
-//     let firstLetterOfLastName = lastName.charAt(0);
-//     let contactsContainer = document.getElementById('contactsContainer');
-//     contactsContainer.innerHTML += getContactsContainerHtml(firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
-// }
 
 
 /**
@@ -113,7 +101,7 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
 
 
 /**
- * This function shows the color for the contact
+ * This function displays the color for the contact
  * 
  * @param {number} i 
  * @param {string} color 
@@ -125,7 +113,7 @@ function showColorForContact(i, color) {
 
 
 /**
- * This function load specific user datas, extracted and return the contact id
+ * This function loads specific user datas, extracted and return the contact id
  * 
  * @param {string} contactId 
  * @returns {string}
@@ -170,7 +158,7 @@ function openContactChangeBgColor(i) {
 
 
 /**
- * This function change the background color of a selected contact
+ * This function changes the background color of a selected contact
  * 
  * @param {string} contactData 
  */
@@ -186,7 +174,6 @@ function changeBgColor(contactData) {
 /**
  * This function displays the random color for the selected contact
  * 
- * 
  * @param {number} i 
  * @param {string} color 
  */
@@ -199,7 +186,7 @@ function showColorForBigContact(i, color) {
 
 
 /**
- * This function generate a random color
+ * This function generates a random color
  * 
  * @returns {string}
  */
@@ -222,7 +209,7 @@ function getRandomColor() {
 
 
 /**
- * This function open a new window to add a new contact
+ * This function opens a new window to add a new contact
  */
 function openAddNewContact() {
     let dialogEditContact = document.getElementById('dialogNewEditContact');
@@ -238,7 +225,7 @@ function openAddNewContact() {
 
 
 /**
- * This function close the window for add a new contact
+ * This function closes the window for add a new contact
  */
 function closeDialog() {
     document.getElementById('dialogNewEditContact').classList.add('d-none');
@@ -271,7 +258,7 @@ async function openEditContact(i) {
 
 
 /**
- * This function open a menu to edit contacts
+ * This function opens a menu to edit contacts
  */
 async function editOpenedContactInMobileView() {
     const dialogEditContact = document.getElementById('dialogNewEditContact');

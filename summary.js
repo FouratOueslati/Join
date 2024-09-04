@@ -26,6 +26,9 @@ async function loadAllTasks() {
 }
 
 
+/**
+ * This function load the number of taks in the category done of an user and displays them
+ */
 async function loadDoneTasks() {
     let doneTasksNumber = document.getElementById('doneNumber');
     let tasks = await loadAllTasksFromStorage();
@@ -44,8 +47,9 @@ async function loadDoneTasks() {
     }
 }
 
+
 /**
- * This function load the number of taks in the category urgent of an user an show them
+ * This function load the number of taks in the category urgent of an user and displays them
  */
 async function loadUrgentTasksNumber() {
     let urgentTasksNumber = document.getElementById('urgentTasksNumber');
@@ -65,10 +69,10 @@ async function loadUrgentTasksNumber() {
     }
 }
 
+
 /**
- * This function load the number of tasks in the category to do of an user an show them
+ * This function load the number of tasks in the category to do of an user and displays them
  */
-// Bitte Funktion prüfen
 async function loadToDoTasks() {
     let toDoTasksNumber = document.getElementById('toDosNumber');
     let tasks = await loadAllTasksFromStorage();
@@ -87,8 +91,9 @@ async function loadToDoTasks() {
     }
 }
 
+
 /**
- * This function load the number of tasks in the category progress of an user an show them
+ * This function load the number of tasks in the category progress of an user and displays them
  */
 async function loadInProgressTasks() {
     let inProgressTasksNumber = document.getElementById('inProgressNumber');
@@ -110,7 +115,7 @@ async function loadInProgressTasks() {
 
 
 /**
- * This function load the number of tasks in the category feedback of an user an show them
+ * This function load the number of tasks in the category feedback of an user and displays them
  */
 async function loadFeedbackTasks() {
     let feedbackTasksNumber = document.getElementById('feedbackNumber');
@@ -132,7 +137,7 @@ async function loadFeedbackTasks() {
 
 
 /**
- * This function load the specific user name of the user and show the greet
+ * This function load the specific user name of the user and displays the greet
  */
 async function greetUser() {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -146,6 +151,12 @@ async function greetUser() {
 }
 
 
+/**
+ * This function determines the current time and selects the right greeting gretting
+ * 
+ * @param {number} dayTime 
+ * @returns 
+ */
 function greetDayTime(dayTime) {
     if (dayTime < 10) {
         return 'Good Morning,'
@@ -158,8 +169,9 @@ function greetDayTime(dayTime) {
     }
 }
 
+
 /**
- * This function get the current time of the day for the matching greeting
+ * This function get the current time for the matching greeting
  * 
  * @returns 
  */

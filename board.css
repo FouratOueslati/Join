@@ -180,6 +180,7 @@ body {
 
 .drag-area-highlight {
     background-color: rgba(0, 0, 0, 0.2);
+    height: 200%;
 }
 
 .todo-class {

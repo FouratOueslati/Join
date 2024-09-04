@@ -107,3 +107,25 @@ document.addEventListener('DOMContentLoaded', () => {
         button.disabled = !form.checkValidity();
     });
 });
+
+
+/**
+ * This fuction displays or hide the entered password
+ */
+function togglePassword() {
+    let password = document.getElementById('password');
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
+  }
+
+  function toggleConfirmedPassword() {
+    let password = document.getElementById('confirmedPassword');
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
+  }

@@ -96,7 +96,7 @@ async function zoomTaskInfo(i) {
 
 
 /**
- * This function close the larger viwe of the task
+ * This function closes the larger viwe of the task
  * 
  * @param {string} modal 
  */
@@ -129,25 +129,31 @@ async function getContactInitials(contacts, i) {
 
 
 /**
- * This function change an image when priority is selected
+ * This function changes an image when priority is selected
  * 
  * @param {number} i 
  */
 function generatePriorityImgOpened(i) {
-    let priority = document.getElementById(`openedPriority${i}`);
-    let img = document.getElementById(`priorityImg${i}`);
-    if (priority && priority.innerHTML === 'Medium') {
-        img.src = "./addTaskImg/mediu.svg";
-    } else if (priority && priority.innerHTML === 'Low') {
-        img.src = "./addTaskImg/low.svg";
-    } else if (priority && priority.innerHTML === 'Urgent') {
-        img.src = "./addTaskImg/high.svg";
+    const priority = document.getElementById(`openedPriority${i}`);
+    const img = document.getElementById(`priorityImg${i}`);
+    if (!img) return;
+    let imgSrc = "./addTaskImg/low.svg";
+    if (priority) {
+        switch (priority.innerHTML) {
+            case 'Medium':
+                imgSrc = "./addTaskImg/mediu.svg";
+                break;
+            case 'Urgent':
+                imgSrc = "./addTaskImg/high.svg";
+                break;
+        }
     }
+    img.src = imgSrc;
 }
 
 
 /**
- * This function opena a window for adding a task in another interface
+ * This function opens a window for adding a task in another interface
  */
 function openAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
@@ -158,7 +164,7 @@ function openAddTaskInBoard() {
 
 
 /**
- * This function close the window for adding a task in another interface
+ * This function closes the window for adding a task in another interface
  */
 function closeAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
@@ -218,32 +224,6 @@ async function updateDragCategoryInFirebase(newDragCategory, taskId) {
 }
 
 
-// function removeSpecificColorFromDragArea() {
-//     let containers = [
-//         document.getElementById('toDoTasks'),
-//         document.getElementById('inProgressTasks'),
-//         document.getElementById('feedbackTasks'),
-//         document.getElementById('done')
-//     ];
-//     let classHasElements = 'drag-area-has-elements';
-//     let classNoElements = 'drag-area-no-elements';
-//     let noTaskTitle = 'no-task';
-
-//     for (let i = 0; i < containers.length; i++) {
-//         let container = containers[i];
-//         container.classList.remove(classHasElements);
-//         container.classList.remove(classNoElements);
-//         if (container && container.querySelector('div')) {
-//             container.classList.add(classHasElements);
-//             container.classList.remove(noTaskTitle);
-//         } else {
-//             container.classList.add(classNoElements);
-//             container.classList.add(noTaskTitle);
-//         }
-//     }
-// }
-
-
 /**
  * This function gets the container id's to change the background after drag and drop
  */
@@ -259,7 +239,7 @@ function removeSpecificColorFromDragArea() {
 
 
 /**
- * This function change the backrground after dragging and dropping the tasks
+ * This function changes the backrground after dragging and dropping the tasks
  * 
  * @param {object} containers 
  */
@@ -298,7 +278,7 @@ function displayAllTasks() {
 
 
 /**
- * Thias function delete the tasks
+ * Thias function deletes the tasks
  * 
  * @param {number} i 
  */
@@ -314,6 +294,12 @@ async function deleteTask(i) {
 
 
 const emptyArray = [];
+
+/**
+ * This function saves the changes to an edited task and displays them
+ * 
+ * @param {number} i 
+ */
 async function editTask(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
@@ -349,9 +335,9 @@ async function editTask(i) {
     addEventListenerDropDown();
     addPrioEventListenersEdit();
     changeColor(document.querySelector('.button-prio-selected'));
-    onInputChangeEdit();
     displayNamesOfContactsEdit();
     displayAssignedContactsInEdit();
+    onInputChangeEdit();
 }
 
 
@@ -370,7 +356,7 @@ async function displayNamesOfContactsEdit() {
             let name = contacts[contactId]["name"];
             let color = contacts[contactId]["backgroundcolor"];
             let initials = getInitials(name);
-            containerContact.innerHTML += generateContactToChose(name, color, initials, i);
+            containerContact.innerHTML += generateContactToChoseHtml(name, color, initials, i);
         }
     }
 }
@@ -392,264 +378,7 @@ async function displayAssignedContactsInEdit() {
             let backgroundColor = contact.backgroundcolor;
             let name = contact.name;
             let initials = getInitials(name)
-            containerBubbleInitials.innerHTML += generateBubbleInitials(i, initials, backgroundColor);
+            containerBubbleInitials.innerHTML += generateBubbleInitialsHtml(i, initials, backgroundColor);
         }
-    }
-}
-
-
-/**
- * This function changes the color of the selected priority button
- * 
- * @param {element} clickedButton 
- */
-function changeColorEdit(clickedButton) {
-    const buttons = [
-        { element: document.getElementById('lowButtonEdit'), class: 'lowSelected' },
-        { element: document.getElementById('mediumButtonEdit'), class: 'mediumSelected' },
-        { element: document.getElementById('urgentButtonEdit'), class: 'urgentSelected' }
-    ];
-    buttons.forEach(button => {
-        if (button.element) {
-            button.element.classList.toggle(button.class, button.element === clickedButton);
-            if (button.element !== clickedButton) {
-                button.element.classList.remove(button.class);
-            }
-        }
-    });
-}
-
-
-function addSubtaskEdit(i) {
-    let container = document.getElementById(`subtasksContainer${i}`);
-    let subtaskText = document.getElementById('inputFieldSubtaskEdit').value.trim();
-    if (subtaskText !== '') {
-        let newSubtask = { text: subtaskText, status: 'pending' };
-        if (todos[i]) {
-            if (!todos[i].task) {
-                todos[i].task = { subtasks: [] };
-            } if (!Array.isArray(todos[i].task.subtasks)) {
-                todos[i].task.subtasks = [];
-            }
-            if (editedSubtask !== null) {
-                todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, newSubtask);
-                editedSubtask = null;
-            } else {
-                todos[i].task.subtasks.push(newSubtask);
-            }
-            localStorage.setItem('todos', JSON.stringify(todos));
-            container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
-            document.getElementById('inputFieldSubtaskEdit').value = '';
-        }
-    }
-    onInputChangeEdit();
-}
-
-
-/**
- * This function edit the subtasks and saves them in local storage
- * 
- * @param {number} taskIndex 
- * @param {number} subtaskIndex 
- */
-function editSubtaskEdit(taskIndex, subtaskIndex) {
-    let subtaskDiv = document.getElementById(`subtask${taskIndex}-${subtaskIndex}`);
-    let text = subtaskDiv.innerHTML;
-    document.getElementById('inputFieldSubtaskEdit').value = text;
-    editedSubtask = { taskIndex, subtaskIndex, text };
-    todos[taskIndex].task.subtasks.splice(subtaskIndex, 1);
-    localStorage.setItem('todos', JSON.stringify(todos));
-    displaySubtasksEdit(taskIndex);
-    onInputChangeEdit();
-}
-
-
-/**
- * This function dispays the edited subtask
- * 
- * @param {number} i 
- */
-function displaySubtasksEdit(i) {
-    const container = document.getElementById(`subtasksContainer${i}`);
-    container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
-}
-
-
-/**
- * This function deletes the input field for the subtask
- */
-function clearSubtaskInputEdit() {
-    let inputField = document.getElementById('inputFieldSubtaskEdit');
-    inputField.value = '';
-    if (editedSubtask !== null) {
-        todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, { text: editedSubtask.text, status: 'pending' });
-        localStorage.setItem('todos', JSON.stringify(todos));
-        displaySubtasksEdit(editedSubtask.taskIndex);
-        editedSubtask = null;
-    }
-    onInputChangeEdit();
-}
-
-
-/**
- * Thias function delete the subtask
- * 
- * @param {number} taskIndex 
- * @param {number} subtaskIndex 
- */
-function deleteSubtaskEdit(taskIndex, subtaskIndex) {
-    let subtasks = todos[taskIndex].task.subtasks;
-    subtasks.splice(subtaskIndex, 1);
-    localStorage.setItem('todos', JSON.stringify(todos));
-    displaySubtasksEdit(taskIndex);
-}
-
-
-/**
- * This function get the assigned contacts to save them
- * 
- * @returns {object}
- */
-function getTaskContacts() {
-    let newContacts;
-    const newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || '[]';
-    const toBeEditedAssignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || '[]';
-    if (newlyAssignedContacts.length > 0) {
-        newContacts = newlyAssignedContacts;
-    } else {
-        newContacts = toBeEditedAssignedContacts;
-    }
-    return newContacts;
-}
-
-
-/**
- * This function gets the assigned priority for saving
- * 
- * @returns {element}
- */
-function getTaskPriority() {
-    const priority = localStorage.getItem('lastClickedButton');
-    const toBeEditedPriority = localStorage.getItem('toBeEditedPriority');
-    let newPriority;
-    if (toBeEditedPriority === priority) {
-        newPriority = toBeEditedPriority;
-    } else {
-        newPriority = priority;
-    }
-    return newPriority;
-}
-
-
-/**
- * This function gets the assigned subtask for saving
- * 
- * @param {number} i 
- * @returns {string}
- */
-function getTaskSubtasks(i) {
-    const subtasksContainer = document.getElementById(`subtasksContainer${i}`);
-    const subtaskDivs = subtasksContainer.getElementsByClassName('subtask-Txt');
-    const subtasks = [];
-    for (let j = 0; j < subtaskDivs.length; j++) {
-        const subtaskText = subtaskDivs[j].querySelector(`#subtask${i}-${j}`).innerText;
-        subtasks.push({ text: subtaskText, status: 'undone' });
-    }
-    return subtasks;
-}
-
-
-/**
- * This function gets the details of the task (description, name and date) for saving
- * 
- * @param {number} i 
- * @returns {string, number}
- */
-function getTaskDetails(i) {
-    const nameEdit = document.getElementById(`taskTitleEdit${i}`).value;
-    const descriptionEdit = document.getElementById(`taskDescriptionEdit${i}`).value;
-    const dateEdit = document.getElementById(`dateEdit${i}`).value;
-    let details = {};
-    if (nameEdit && descriptionEdit && dateEdit) {
-        details = { nameEdit, descriptionEdit, dateEdit };
-    }
-    return details;
-}
-
-
-function showCheckedContacts() {
-    let assignedContactsJson = localStorage.getItem('toBeEditedAssignedContacts');
-    if (!assignedContactsJson) {
-        return;
-    }
-    let assignedContacts = JSON.parse(assignedContactsJson);
-    let assignedContactNames = assignedContacts.map(contact => contact.name);
-    let contacts = document.querySelectorAll('[id^="contact-"]');
-    let checkboxes = document.querySelectorAll('[id^="checkbox"]');
-    let contactCheckboxMap = {};
-    contacts.forEach(contact => {
-        let contactName = contact.innerHTML.trim();
-        let contactIndex = contact.id.split('-')[1];
-        contactCheckboxMap[contactIndex] = contactName;
-    });
-    checkboxes.forEach(checkbox => {
-        let checkboxIndex = checkbox.id.replace('checkbox', '');
-        let contactName = contactCheckboxMap[checkboxIndex];
-
-        if (contactName) {
-            checkbox.checked = assignedContactNames.includes(contactName);
-        } else {
-            checkbox.checked = false;
-        }
-    });
-}
-
-
-async function saveTask(i) {
-    const toBeEditedTaskId = localStorage.getItem('toBeEditedTaskId');
-    const toBeEditedDragCategory = JSON.parse(localStorage.getItem('toBeEditedDragCategory'));
-    const toBeEditedCategory = JSON.parse(localStorage.getItem('toBeEditedCategory'));
-    const newContacts = getTaskContacts();
-    const newPriority = getTaskPriority();
-    const { nameEdit, descriptionEdit, dateEdit } = getTaskDetails(i);
-    const subtasks = getTaskSubtasks(i);
-    const task = {
-        name: nameEdit,
-        description: descriptionEdit,
-        date: dateEdit,
-        contacts: newContacts,
-        category: toBeEditedCategory,
-        dragCategory: toBeEditedDragCategory,
-        subtasks: subtasks,
-        priority: newPriority
-    };
-    await updateUserTasks(uid, toBeEditedTaskId, task);
-    await displayOpenTasks();
-    localStorage.removeItem('contacts');
-}
-
-function validateAndAddTask() {
-    const taskTitle = document.getElementById('taskTitle');
-    const date = document.getElementById('date');
-    const categoryContainer = document.getElementById('selectCategoryContainer');
-    const category = document.getElementById('selectCategory');
-    taskTitle.style.borderColor = '';
-    date.style.borderColor = '';
-    categoryContainer.style.borderColor = '';
-    let isValid = true;
-    if (taskTitle.value.trim().length < 4) {
-        taskTitle.style.borderColor = 'red';
-        isValid = false;
-    }
-    if (!date.value) {
-        date.style.borderColor = 'red';
-        isValid = false;
-    }
-    if (category.textContent === 'Select task category') {
-        categoryContainer.style.borderColor = 'red';
-        isValid = false;
-    }
-    if (isValid) {
-        addTask();
     }
 }

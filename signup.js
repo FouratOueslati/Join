@@ -1,5 +1,12 @@
+/**
+ * This function createa an user object with all the data and if the password is correct 
+ * the user is registered and can log in
+ * 
+ * @param {string} path 
+ * @returns 
+ */
 async function signUp(path = "users") {
-    let { name, email, password, confirmedPassword, color } = getUserData();
+    let {name, email, password, confirmedPassword, color} = getUserData();
     if (password !== confirmedPassword) {
         alert("Passwords do not match.");
         return;
@@ -21,7 +28,11 @@ async function signUp(path = "users") {
 }
 
 
-
+/**
+ * This function get all the entered user data
+ * 
+ * @returns {object}
+ */
 function getUserData() {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
@@ -38,6 +49,14 @@ function getUserData() {
 }
 
 
+/**
+ * This function create an object with the user data
+ * 
+ * @param {string} name 
+ * @param {string} email 
+ * @param {string} password 
+ * @returns {object}
+ */
 function createUserObject(name, email, password) {
     return {
         name: name,
@@ -51,9 +70,19 @@ function createUserObject(name, email, password) {
 }
 
 
+/**
+ * This function create an object with my own user data
+ * 
+ * @param {string} name 
+ * @param {string} email 
+ * @param {number} number 
+ * @param {string} color 
+ * @param {string} uid 
+ * @returns {object}
+ */
 async function createOwnContact(name, email, number, color, uid) {
     let contact = {
-        name: name,
+        name: name + "(You)",
         email: email,
         number: number,
         backgroundcolor: color
@@ -63,6 +92,9 @@ async function createOwnContact(name, email, number, color, uid) {
 }
 
 
+/**
+ * This function is responsible that the form works
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.main-container-signup');
     const button = document.querySelector('.sign-up-button');
@@ -75,3 +107,25 @@ document.addEventListener('DOMContentLoaded', () => {
         button.disabled = !form.checkValidity();
     });
 });
+
+
+/**
+ * This fuction displays or hide the entered password
+ */
+function togglePassword() {
+    let password = document.getElementById('password');
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
+  }
+
+  function toggleConfirmedPassword() {
+    let password = document.getElementById('confirmedPassword');
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
+  }

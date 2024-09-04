@@ -16,6 +16,11 @@ body {
     align-items: center;
 }
 
+h1 {
+    font-size: clamp(2.938rem, 0.938rem + 3.125vi, 3.75rem);
+
+}
+
 .content-container-board {
     height: 100vh;
     width: 100%;
@@ -85,6 +90,13 @@ body {
 
 .input-with-img-smal-scren {
     display: none;
+}
+
+.click-here-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
 
 .board-position-lower {
@@ -393,6 +405,19 @@ body {
 .drag-area-has-elements {
     background-color: rgb(246, 247, 249);
     border: 1px dashed rgb(246, 247, 249);
+}
+
+.progress {
+    border-radius: 30px;
+    background: #F4F4F4;
+    width: 200px;
+    height: 10px;
+}
+
+.progress-bar {
+    border-radius: 30px;
+    background: #4589FF;
+    height: inherit;
 }
 
 .drag-area-no-elements {

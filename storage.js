@@ -13,6 +13,13 @@ async function loadUserData(path = "users") {
 }
 
 
+/**
+ * This function saves the user data in external storage
+ * 
+ * @param {string} path 
+ * @param {object} data 
+ * @returns {object}
+ */
 async function postUser(path, data) {
     let response = await fetch(`${BASE_URL_USER_DATA}/${path}.json`, {
         method: "POST",
@@ -24,6 +31,8 @@ async function postUser(path, data) {
     let responseToJson = await response.json();
     return responseToJson;
 }
+
+
 /**
  * This function load userdata, check the datas and if the user exist
  * it save the datas in local storage and put the status to logged in
@@ -60,6 +69,12 @@ async function setLoggedInUser(uid) {
 }
 
 
+/**
+ * This function get the datas of the signed up user from external storage
+ * 
+ * @param {string} uid 
+ * @returns 
+ */
 async function setSignedUpUser(uid) {
     const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}.json`, {
         method: 'GET',
@@ -83,7 +98,7 @@ function getLoggedInUser() {
 
 
 /**
- * This function load the specific user data of the logged in user from the local storage
+ * This function loads the specific user data of the logged in user from the local storage
  * 
  * @returns {object}
  */
@@ -101,7 +116,7 @@ async function loadSpecificUserDataFromLocalStorage() {
 
 
 /**
- * This function load the tasks of an user width low category
+ * This function loads the tasks of an user width low category
  * 
  * @returns {object}
  */
@@ -119,7 +134,7 @@ async function getLowTasks() {
 
 
 /**
- * This function load the tasks of an user width medium category
+ * This function loads the tasks of an user width medium category
  * 
  * @returns {object}
  */
@@ -137,7 +152,7 @@ async function getMediumTasks() {
 
 
 /**
- * This function load the tasks of an user width urgent category
+ * This function loads the tasks of an user width urgent category
  * 
  * @returns {object}
  */
@@ -155,7 +170,7 @@ async function getUrgentTasks() {
 
 
 /**
- * This function update the user datas at the external storage
+ * This function updates the user datas at the external storage
  * 
  * @param {string} uid 
  * @param {object} userData 
@@ -172,7 +187,7 @@ async function updateUserData(uid, userData) {
 
 
 /**
- * This function update the user contacts at the external storage
+ * This function updates the user contacts at the external storage
  * 
  * @param {string} uid 
  * @param {object} contacts 
@@ -187,8 +202,9 @@ async function updateUserContacts(uid, contacts) {
     });
 }
 
+
 /**
- * This function update the tasks of the user at the external storage
+ * This function updates the tasks of the user at the external storage
  * 
  * @param {string} uid 
  * @param {string} toBeEditedTaskId 
@@ -206,7 +222,7 @@ async function updateUserTasks(uid, toBeEditedTaskId, task) {
 
 
 /**
- * This function delete the user contacts at the external storage
+ * This function deletes the user contacts at the external storage
  * 
  * @param {string} uid 
  * @param {object} contactId 
@@ -223,6 +239,14 @@ async function deleteUserContact(uid, contactId) {
 }
 
 
+/**
+ * This function deletes the removed user contact from tasks
+ * 
+ * @param {string} uid 
+ * @param {number} taskKey 
+ * @param {number} k 
+ * @returns 
+ */
 async function deleteUserContactInTask(uid, taskKey, k) {
     const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${taskKey}/contacts/${k}.json`, {
         method: 'DELETE',
@@ -235,7 +259,7 @@ async function deleteUserContactInTask(uid, taskKey, k) {
 
 
 /**
- * This function delete the user tasks at the external storage
+ * This function deletes the user tasks at the external storage
  * 
  * @param {string} uid 
  * @param {object} taskId 
@@ -253,7 +277,7 @@ async function deleteUserTask(uid, taskId) {
 
 
 /**
- * This function edit the contacts of an user
+ * This function edits the contacts of an user
  * 
  * @param {string} path 
  * @param {object} data 
@@ -271,7 +295,7 @@ function postContacts(path = "", data = {}) {
 
 
 /**
- * This function delete the datas of the logged in user at the local storage and logged out the user
+ * This function deletes the datas of the logged in user at the local storage and logged out the user
  */
 function clearLoggedInUser() {
     localStorage.removeItem('uid');
@@ -279,7 +303,7 @@ function clearLoggedInUser() {
 
 
 /**
- * This function edit the tasks of an user
+ * This function edits the tasks of an user
  * 
  * @param {string} path 
  * @param {object} data 
@@ -297,7 +321,7 @@ function postTask(path = "", data = {}) {
 
 
 /**
- * This function load the tasks of an user from the local storage
+ * This function loads the tasks of an user from the local storage
  * 
  * @returns {object}
  */

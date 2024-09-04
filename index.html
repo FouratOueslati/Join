@@ -8,8 +8,6 @@
     <link rel="stylesheet" href=" font.css">
     <link rel="stylesheet" href="signupLoginResponsive.css">
     <link rel="stylesheet" href="keyframes.css">
-    <script src="storage.js"></script>
-    <script src="login.js"></script>
     <title>Log in</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
@@ -27,7 +25,7 @@
             <div class="blue-seperator"></div>
             <div class="data-container">
                 <input id="loginEmail" placeholder="Email" required class="email-input" type="email">
-                <input id="loginPassword" placeholder="Password" required class="password-input" type="password">
+                <input id="loginPassword" onclick="togglePassword()" placeholder="Password" required class="password-input" type="password">
                 <div class="remember-container">
                     <input type="checkbox" id="rememberMeCheckbox" class="rectangle">
                     <label for="rememberMeCheckbox" class="remember-text">Remember me</label>
@@ -48,5 +46,7 @@
         </div>
     </div>
 </body>
+<script src="storage.js"></script>
+<script src="login.js"></script>
 
 </html>

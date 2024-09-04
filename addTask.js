@@ -28,7 +28,6 @@ async function displayNamesOfContacts() {
         for (let i = 0; i < keys.length; i++) {
             let contactId = keys[i];
             let name = contacts[contactId]["name"];
-            console.log(name)
             let color = contacts[contactId]["backgroundcolor"];
             let initials = getInitials(name);
             containerContact.innerHTML += generateContactToChoseHtml(name, color, initials, i);
@@ -75,7 +74,7 @@ function generateContactToChoseHtml(name, color, initials, i) {
 
 
 /**
- * This function generate the initials of the contacts
+ * This function generates the initials of the contacts
  * 
  * @param {string} name 
  * @returns {string}
@@ -113,7 +112,7 @@ function onInputChange() {
 
 
 /**
- * This function add subtasks to the tasks
+ * This function adds subtasks to the tasks
  */
 function addSubtask() {
     let container = document.getElementById('subtasksContainer');
@@ -130,7 +129,7 @@ function addSubtask() {
 
 
 /**
- * This function load the subtasks from local storage
+ * This function loads the subtasks from local storage
  */
 function loadSubtasksFromLocalStorage() {
     let savedSubtasks = localStorage.getItem('subtasks');
@@ -156,7 +155,7 @@ function displaySubtasks() {
 
 
 /**
- * This function delete the subtasks
+ * This function deletes the subtasks
  * 
  * @param {number} index 
  */
@@ -168,7 +167,7 @@ function deleteSubtask(index) {
 
 
 /**
- * This function edit the subtasks
+ * This function edits the subtasks
  * 
  * @param {number} index 
  */
@@ -202,9 +201,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 /**
- * This function save the priority of te task in local storage
+ * This function saves the priority of te task in local storage
  */
 function addPrioEventListeners() {
+    localStorage.setItem('lastClickedButton', 'Low');
     document.getElementById('urgentButton').addEventListener('click', () => {
         localStorage.setItem('lastClickedButton', 'Urgent');
     });
@@ -271,7 +271,7 @@ async function addTask() {
 
 
 /**
- * This function create an array for the subtasks
+ * This function creates an array for the subtasks
  * 
  * @param {object} subtasks 
  * @returns {object}
@@ -310,142 +310,3 @@ function createTaskObject(name, description, date, priority, category, contacts,
         dragCategory: localStorage.getItem('dragCategory') || "todo"
     };
 }
-
-
-/**
- * This function post the task to the server, reset the form, updates the tasks and shows
- * a confirmation for creating the task
- * 
- * @param {object} task 
- * @param {object} assignedContactsContainer 
- * @param {number} date 
- * @param {string} subtasksContainer 
- */
-async function handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer) {
-    await postTask('/users/' + uid + '/tasks', task);
-    resetForm(assignedContactsContainer, date, subtasksContainer);
-    if (window.location.pathname.includes('board.html')) {
-        displayOpenTasks();
-        closeAddTaskInBoard();
-    }
-    showConfirmationTask();
-}
-
-
-/**
- * This function reset the form so the user can create a new task
- * 
- * @param {object} assignedContactsContainer 
- * @param {number} date 
- * @param {string} subtasksContainer 
- */
-function resetForm(assignedContactsContainer, date, subtasksContainer) {
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDescription').value = '';
-    assignedContactsContainer.innerHTML = '';
-    date.value = '';
-    subtasksContainer.innerHTML = '';
-    localStorage.removeItem('dragCategory');
-    localStorage.removeItem('subtasks');
-    localStorage.removeItem('lastClickedButton');
-}
-
-
-/**
- * This function shows the user a confirmation that the task has been created
- */
-function showConfirmationTask() {
-    let addedToBoard = document.getElementById('addedToBoard');
-    addedToBoard.classList.remove('d-none');
-    setTimeout(() => {
-        addedToBoard.classList.add('d-none');
-        window.location.href = 'board.html';
-    }, 1500);
-}
-
-
-/**
- * This function changes the color of priority buttons
- * 
- * @param {object} clickedButton 
- */
-function changeColor(clickedButton) {
-    const buttons = [
-        { element: document.getElementById('lowButton'), class: 'lowSelected' },
-        { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
-        { element: document.getElementById('urgentButton'), class: 'urgentSelected' }
-    ];
-    buttons.forEach(button => {
-        button.element.classList.toggle(button.class, button.element === clickedButton);
-        if (button.element !== clickedButton) {
-            button.element.classList.remove(button.class);
-        }
-    });
-}
-
-
-/**
- * This function changes the color of the priority buttons and save the selected priority
- */
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('lowButton').onclick = function () { changeColor(this); };
-    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
-    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
-});
-
-
-/**
- * This function add a click event listener to each option on dropdown menus
- * 
- * @param {element} options 
- * @param {element} select 
- * @param {element} caret 
- * @param {element} menu 
- * @param {element} selected 
- */
-function addOptionListeners(options, select, caret, menu, selected) {
-    options.forEach(option => {
-        option.addEventListener('click', () => {
-            selected.innerText = option.innerText;
-            select.classList.remove('selectClicked');
-            caret.classList.remove('createRotate');
-            menu.classList.remove('menu-open');
-            options.forEach(opt => {
-                opt.classList.remove('active');
-            });
-            option.classList.add('active');
-        });
-    });
-}
-
-
-/**
- * This function initialized all drop down menus when is loading
- */
-document.addEventListener('DOMContentLoaded', () => {
-    const dropDowns = document.querySelectorAll('.drop-down');
-    dropDowns.forEach(dropDown => {
-        const select = dropDown.querySelector('.select');
-        const caret = dropDown.querySelector('.caret');
-        const menu = dropDown.querySelector('.menu');
-        const options = dropDown.querySelectorAll('.menu li');
-        const selected = dropDown.querySelector('.selected');
-        select.addEventListener('click', () => {
-            select.classList.toggle('selectClicked');
-            caret.classList.toggle('createRotate');
-            menu.classList.toggle('menu-open');
-        });
-        addOptionListeners(options, select, caret, menu, selected);
-    });
-});
-
-
-/**
- * This function allows saving the input from the subtask using the enter key
- */
-const subtaskInput = document.getElementById('inputFieldSubtask');
-subtaskInput.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        addSubtask();
-    }
-});

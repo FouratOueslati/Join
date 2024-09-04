@@ -383,7 +383,7 @@ function setCategoryColor(i) {
     } else if (categoryContainer && categoryContainer.innerHTML === 'User Story') {
         categoryContainer.style.backgroundColor = 'rgb(0, 56, 255)';
     } else if (categoryContainer && categoryContainer.innerHTML === 'Design') {
-        categoryContainer.style.backgroundColor = 'rgb(255,211,155)';
+        categoryContainer.style.backgroundColor = 'rgb(240, 199, 146)';
     }
 }
 

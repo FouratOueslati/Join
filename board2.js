@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 /**
  * This function adds a click event listener to drag and drop the tasks
- * 
  */
 function addDragCategoryEventListeners() {
     document.getElementById('awaitFeedback').addEventListener('click', () => {
@@ -61,6 +60,9 @@ function addCategoryEventListenerEdit() {
 }
 
 
+/**
+ * This function adds drop down event listener to different elements
+ */
 function addEventListenerDropDown() {
     const dropDowns = document.querySelectorAll('.drop-down');
     dropDowns.forEach(dropDown => {
@@ -69,13 +71,11 @@ function addEventListenerDropDown() {
         const menu = dropDown.querySelector('.menu');
         const options = dropDown.querySelectorAll('.menu li');
         const selected = dropDown.querySelector('.selected');
-
         select.addEventListener('click', () => {
             select.classList.toggle('selectClicked');
             caret.classList.toggle('createRotate');
             menu.classList.toggle('menu-open');
         });
-
         options.forEach(option => {
             option.addEventListener('click', () => {
                 selected.innerText = option.innerText;
@@ -88,9 +88,8 @@ function addEventListenerDropDown() {
         });
     });
 }
+
 ////////////////////EventListeners//////////////////////////////////////////
-
-
 function getToDoTaskHtml(task, i) {
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
@@ -168,10 +167,8 @@ function generateEditModalContent(task, i) {
         <div class="modal-edit-content">
             <label for="editTaskTitle${i}" class="margin-span">Title:</label>
             <input id="taskTitleEdit${i}" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
-            
             <label for="editTaskDescription${i}">Description:</label>
             <textarea style="height: 80px;" id="taskDescriptionEdit${i}" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
-           
             <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
             <div class="inputs-flex">
                 <div class="drop-down">
@@ -187,7 +184,6 @@ function generateEditModalContent(task, i) {
             </div>
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
             <input id="dateEdit${i}" type="date" class="task-input-field date" value="${task.date}">
-
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
         <button onclick="changeColorEdit(this);" id="urgentButtonEdit" type="button" class="button-prio">
@@ -230,7 +226,7 @@ function generateEditModalContent(task, i) {
         </div>
     `;
 }
-
+////////////////////EventListeners//////////////////////////////////////////
 
 /**
  * This function closes the larger view of an open task
@@ -246,7 +242,7 @@ function closeModalEdit(modal) {
 
 
 /**
- * This function generate the names and initials of the contacts in an html element to display them
+ * This function generates the names and initials of the contacts in an html element to display them
  * 
  * @param {object} contacts 
  * @param {number} i 
@@ -272,7 +268,7 @@ function generateContactInitialsAndNamesHtml(contacts, i) {
 
 
 /**
- * This function generate icons for the subtasks so that they can be edited and displays them
+ * This function generates icons for the subtasks so that they can be edited and displays them
  * 
  * @param {string} subtasks 
  * @param {number} i 
@@ -298,7 +294,7 @@ function generateSubtasksEditHtml(subtasks, i) {
 
 
 /**
- * This function generate the subtasks in an html element to display them
+ * This function generates the subtasks in an html element to display them
  * 
  * @param {element} subtasks 
  * @param {number} i 
@@ -320,15 +316,13 @@ function generateSubtasksHtml(subtasks, i) {
 }
 
 
-function generateBubbleInitialsHtml(i, initials, backgroundColor) {
-    return `
-    <div id="bubble${i}" class="bubble-initial" style="background: ${backgroundColor}">
-        <span class="initial-style">${initials}</span>
-    </div>
-    `;
-}
-
-
+/**
+ * This function searches for the correct contact based on the initials
+ * 
+ * @param {string} initials 
+ * @param {object} contacts 
+ * @returns 
+ */
 function getContactByInitials(initials, contacts) {
     const keys = Object.keys(contacts);
     for (let i = 0; i < keys.length; i++) {
@@ -340,7 +334,14 @@ function getContactByInitials(initials, contacts) {
     return null;
 }
 
-// DIESE FUNKTION MUSS ICH MIR NOCHMAL GENAUER ANSCHAUEN ES FUNKTIONIERT NUR DANN WENN MAN PAGE REFRESH MACHT
+
+/**
+ * This function displays the numbers of subtasks in a task
+ * 
+ * @param {number} i 
+ * @param {object} task 
+ * @returns 
+ */
 async function generateNumberOfSubtasks(i, task) {
     const subtasksNumber = document.getElementById(`subtasksNumber${i}`);
     if (!subtasksNumber || !task.task || !Array.isArray(task.task.subtasks)) return;
@@ -432,7 +433,7 @@ async function toggleSubtaskStatus(i, j) {
  * @param {object} tasks 
  * @param {number} i 
  * @param {number} j 
- * @param {*element} statusOfSubtask 
+ * @param {element} statusOfSubtask 
  */
 async function updateSubtaskStatus(tasks, i, j, statusOfSubtask) {
     let taskIds = Object.keys(tasks);
@@ -543,6 +544,7 @@ function clearClickHere() {
         }
     }
     document.getElementById('taskCount').innerText = '0';
+    document.getElementById('search').value = '';
 }
 
 
@@ -588,6 +590,12 @@ function removeTaskFromContainer(index) {
 }
 
 
+/**
+ * This function assigns the tasks to the correct catergories and displays them
+ * 
+ * @param {number} index 
+ * @param {element} category 
+ */
 function addTaskToContainer(index, category) {
     const containerIdMap = {
         'todo': 'toDoTasks',
@@ -612,49 +620,6 @@ function addTaskToContainer(index, category) {
 
 
 /**
- * This function update the drag and drop container and displays the tasks or information
- * 
- * @param {element} container 
- */
-/*function updateContainerClasses(container) {
-    if (container) {
-        container.classList.remove('drag-area-no-elements');
-        container.classList.add('drag-area-has-elements');
-        const noTaskMessage = container.querySelector('.drag-area-text');
-        if (noTaskMessage) {
-            noTaskMessage.style.display = 'none';
-        }
-    }
-}*/
-
-
-/**
- * This function allows tasks to be added to a container
- * 
- * @param {number} index 
- * @param {element} category 
- */
-/*function addTaskToContainer(index, category) {
-    const containerIdMap = {
-        'todo': 'toDoTasks',
-        'inprogress': 'inProgressTasks',
-        'awaitfeedback': 'feedbackTasks',
-        'done': 'done'
-    };
-    const containerId = containerIdMap[category];
-    const container = document.getElementById(containerId);
-    updateContainerClasses(container);
-    if (container) {
-        container.innerHTML += getToDoTaskHtml(todos[index], index);
-        getContactInitials(todos[index].task.contacts, index);
-        generateNumberOfSubtasks(index, todos[index]);
-        generatePriorityImgUnopened(index, todos[index]);
-        updateLoadBar(index);
-    }
-}*/
-
-
-/**
  * This function checks the drag and drop container and displays the tasks or information
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -674,8 +639,9 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * This function makes it possible to drag and drop tasks into a container
  * 
- * @param {*} ev 
+ * @param {event} ev 
  */
+
 function allowDrop(ev) {
     ev.preventDefault();
 }

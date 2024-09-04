@@ -1,3 +1,8 @@
+/**
+ * This function loads an external HTML document into an existing HTML document
+ * 
+ * @returns ends the function
+ */
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
     /* Loop through a collection of all HTML elements: */
@@ -26,8 +31,12 @@ function includeHTML() {
     }
   }
 
-  // stops propagation
-  function doNotClose(event) {
-    event.stopPropagation();
-}
 
+/**
+ * This function stops an event so that some views are not closed when entered
+ * 
+ * @param {object} event 
+ */
+function doNotClose(event) {
+  event.stopPropagation();
+}

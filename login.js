@@ -1,3 +1,9 @@
+/**
+ * This function check the entered user data and if user name and password are correct,
+ *  the user is logged in
+ * 
+ * @returns 
+ */
 async function logIn() {
     let email = document.getElementById('loginEmail').value;
     let password = document.getElementById('loginPassword').value;

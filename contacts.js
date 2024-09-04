@@ -62,7 +62,7 @@ function displayInitialsFilter() {
 
 
 /**
- * This function shows all existing contacts
+ * This function displays all existing contacts
  */
 async function displayInitialsAndContacts() {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -77,18 +77,6 @@ async function displayInitialsAndContacts() {
         }
     }
 }
-
-
-// async function displayOwnDatas() {
-//     let ownDatas = await loadSpecificUserDataFromLocalStorage();
-//     let name = ownDatas.name;
-//     let email = ownDatas.email;
-//     let [firstName, lastName = ''] = name.split(' ');
-//     let firstLetterOfName = firstName.charAt(0);
-//     let firstLetterOfLastName = lastName.charAt(0);
-//     let contactsContainer = document.getElementById('contactsContainer');
-//     contactsContainer.innerHTML += getContactsContainerHtml(firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
-// }
 
 
 /**
@@ -113,7 +101,7 @@ function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
 
 
 /**
- * This function shows the color for the contact
+ * This function displays the color for the contact
  * 
  * @param {number} i 
  * @param {string} color 
@@ -125,7 +113,7 @@ function showColorForContact(i, color) {
 
 
 /**
- * This function load specific user datas, extracted and return the contact id
+ * This function loads specific user datas, extracted and return the contact id
  * 
  * @param {string} contactId 
  * @returns {string}
@@ -170,7 +158,7 @@ function openContactChangeBgColor(i) {
 
 
 /**
- * This function change the background color of a selected contact
+ * This function changes the background color of a selected contact
  * 
  * @param {string} contactData 
  */
@@ -186,7 +174,6 @@ function changeBgColor(contactData) {
 /**
  * This function displays the random color for the selected contact
  * 
- * 
  * @param {number} i 
  * @param {string} color 
  */
@@ -199,7 +186,7 @@ function showColorForBigContact(i, color) {
 
 
 /**
- * This function generate a random color
+ * This function generates a random color
  * 
  * @returns {string}
  */
@@ -222,7 +209,7 @@ function getRandomColor() {
 
 
 /**
- * This function open a new window to add a new contact
+ * This function opens a new window to add a new contact
  */
 function openAddNewContact() {
     let dialogEditContact = document.getElementById('dialogNewEditContact');
@@ -238,7 +225,7 @@ function openAddNewContact() {
 
 
 /**
- * This function close the window for add a new contact
+ * This function closes the window for add a new contact
  */
 function closeDialog() {
     document.getElementById('dialogNewEditContact').classList.add('d-none');
@@ -271,7 +258,7 @@ async function openEditContact(i) {
 
 
 /**
- * This function open a menu to edit contacts
+ * This function opens a menu to edit contacts
  */
 async function editOpenedContactInMobileView() {
     const dialogEditContact = document.getElementById('dialogNewEditContact');
@@ -307,7 +294,7 @@ function findContactIdByEmailToEdit(contacts, email) {
 
 
 /**
- * This function display the contacts in mobile view under a screenwidth of 900px
+ * This function displays the contacts in mobile view under a screenwidth of 900px
  * 
  * @param {number} i 
  */
@@ -329,7 +316,7 @@ function openContactMobile(i) {
 
 
 /**
- * This function hide the mobile fiew of the contacts
+ * This function hides the mobile fiew of the contacts
  */
 function closeContactMobile() {
     let contactBigContainer = document.getElementById('contactBigContainer');
@@ -344,7 +331,7 @@ function closeContactMobile() {
 
 
 /**
- * This function open a menu to edit contacts in the mobile view
+ * This function opens a menu to edit contacts in the mobile view
  */
 function openEditSmallMenu() {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
@@ -353,7 +340,7 @@ function openEditSmallMenu() {
 
 
 /**
- * This function save the changes of the editet contact
+ * This function saves the changes of the editet contact
  * 
  * @param {string} contactId 
  */
@@ -375,7 +362,7 @@ async function saveEditContact(contactId) {
 
 
 /**
- * This function create and save an new contact
+ * This function creates and save a new contact
  * 
  * @param {number} i 
  */
@@ -395,7 +382,7 @@ async function createNewContact() {
 
 
 /**
- * This function show the information that the user save a new contact
+ * This function displays the information that the user save a new contact
  */
 function openSuccessfullInfo() {
     let successBox = document.getElementById('successBox');
@@ -410,6 +397,9 @@ function openSuccessfullInfo() {
 }
 
 
+/**
+ * This function displays the information that the user has been deleted
+ */
 function openSuccessfullDeleteInfo() {
     let successDeleteBox = document.getElementById('successDeleteBox');
     let successDeleteMessage = document.getElementById('successDeleteMessage');
@@ -424,7 +414,7 @@ function openSuccessfullDeleteInfo() {
 
 
 /**
- * This function delete an existing contact
+ * This function deletes an existing contact
  * 
  * @param {string} contactId 
  */
@@ -445,27 +435,8 @@ async function deleteContact(contactId) {
 }
 
 
-/*async function deleteContactInTask(contact) {
-    debugger
-    let uid = localStorage.getItem('uid');
-    let userData = await loadSpecificUserDataFromLocalStorage()
-    let tasks = userData.tasks;
-    for (let j = 0; j < tasks.length; j++) {
-        const task = tasks[j];
-        const contactsInTask = task.contacts;
-        for (let k = 0; k < contactsInTask.length; k++) {
-            const singleContactInTask = contactsInTask[k];
-            console.log(singleContactInTask)
-            if (contact.name === singleContactInTask.name) {
-                task.contacts.splice(singleContactInTask, 1);
-            }
-        }
-    }
-    await deleteUserContactInTask(uid, task, singleContactInTask)
-}*/
-
 /**
- * This function delete contacts in the mobile view
+ * This function deletes contacts in the mobile view
  */
 async function deleteContactMobileView() {
     let email = document.getElementById('emailOfContact').innerHTML;
@@ -483,10 +454,8 @@ async function deleteContactMobileView() {
 }
 
 
-
-
 /**
- * This function get the informations to delete contacts width the fuction deleteContactMobileView()
+ * This function gets the informations to delete contacts width the fuction deleteContactMobileView()
  * 
  * @param {object} contacts 
  * @param {string} email 
@@ -505,7 +474,7 @@ function findContactIdByEmailToDelete(contacts, email) {
 
 
 /**
- * This function get the data of a contact to edit them
+ * This function gets the data of a contact to edit it
  * 
  * @param {number} i 
  */
@@ -524,7 +493,7 @@ async function getEditContact(i) {
 
 
 /**
- * This function get the entered datas to save and update them
+ * This function gets the entered datas to save and update it
  * 
  * @param {string} contactId 
  * @param {string} name 
@@ -547,7 +516,7 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
 
 
 /**
- * This function show the menu to edit or delete a contact
+ * This function displays the menu to edit or delete a contact
  * 
  * @param {number} i 
  */

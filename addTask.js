@@ -74,7 +74,7 @@ function generateContactToChoseHtml(name, color, initials, i) {
 
 
 /**
- * This function generate the initials of the contacts
+ * This function generates the initials of the contacts
  * 
  * @param {string} name 
  * @returns {string}
@@ -92,7 +92,6 @@ function getInitials(name) {
     }
     return upperChars;
 }
-
 
 
 /**
@@ -113,7 +112,7 @@ function onInputChange() {
 
 
 /**
- * This function add subtasks to the tasks
+ * This function adds subtasks to the tasks
  */
 function addSubtask() {
     let container = document.getElementById('subtasksContainer');
@@ -130,7 +129,7 @@ function addSubtask() {
 
 
 /**
- * This function load the subtasks from local storage
+ * This function loads the subtasks from local storage
  */
 function loadSubtasksFromLocalStorage() {
     let savedSubtasks = localStorage.getItem('subtasks');
@@ -156,7 +155,7 @@ function displaySubtasks() {
 
 
 /**
- * This function delete the subtasks
+ * This function deletes the subtasks
  * 
  * @param {number} index 
  */
@@ -168,7 +167,7 @@ function deleteSubtask(index) {
 
 
 /**
- * This function edit the subtasks
+ * This function edits the subtasks
  * 
  * @param {number} index 
  */
@@ -202,7 +201,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 /**
- * This function save the priority of te task in local storage
+ * This function saves the priority of te task in local storage
  */
 function addPrioEventListeners() {
     document.getElementById('urgentButton').addEventListener('click', () => {
@@ -271,7 +270,7 @@ async function addTask() {
 
 
 /**
- * This function create an array for the subtasks
+ * This function creates an array for the subtasks
  * 
  * @param {object} subtasks 
  * @returns {object}

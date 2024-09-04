@@ -2,7 +2,7 @@ const BASE_URL_USER_DATA = "https://join-211-default-rtdb.europe-west1.firebased
 
 
 /**
- * This function load usar data from URL
+ * This function load user data from URL
  * 
  * @param {string} path 
  * @returns {object}
@@ -14,7 +14,7 @@ async function loadUserData(path = "") {
 
 
 /**
- * This function load user date and save in the local storage
+ * This function load user date and saves it to local storage
  * 
  * @param {string} uid 
  */

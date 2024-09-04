@@ -96,7 +96,7 @@ async function zoomTaskInfo(i) {
 
 
 /**
- * This function close the larger viwe of the task
+ * This function closes the larger viwe of the task
  * 
  * @param {string} modal 
  */
@@ -129,7 +129,7 @@ async function getContactInitials(contacts, i) {
 
 
 /**
- * This function change an image when priority is selected
+ * This function changes an image when priority is selected
  * 
  * @param {number} i 
  */
@@ -147,7 +147,7 @@ function generatePriorityImgOpened(i) {
 
 
 /**
- * This function opena a window for adding a task in another interface
+ * This function opens a window for adding a task in another interface
  */
 function openAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
@@ -158,7 +158,7 @@ function openAddTaskInBoard() {
 
 
 /**
- * This function close the window for adding a task in another interface
+ * This function closes the window for adding a task in another interface
  */
 function closeAddTaskInBoard() {
     let addTask = document.getElementById('addTaskContainerInBoard');
@@ -218,32 +218,6 @@ async function updateDragCategoryInFirebase(newDragCategory, taskId) {
 }
 
 
-// function removeSpecificColorFromDragArea() {
-//     let containers = [
-//         document.getElementById('toDoTasks'),
-//         document.getElementById('inProgressTasks'),
-//         document.getElementById('feedbackTasks'),
-//         document.getElementById('done')
-//     ];
-//     let classHasElements = 'drag-area-has-elements';
-//     let classNoElements = 'drag-area-no-elements';
-//     let noTaskTitle = 'no-task';
-
-//     for (let i = 0; i < containers.length; i++) {
-//         let container = containers[i];
-//         container.classList.remove(classHasElements);
-//         container.classList.remove(classNoElements);
-//         if (container && container.querySelector('div')) {
-//             container.classList.add(classHasElements);
-//             container.classList.remove(noTaskTitle);
-//         } else {
-//             container.classList.add(classNoElements);
-//             container.classList.add(noTaskTitle);
-//         }
-//     }
-// }
-
-
 /**
  * This function gets the container id's to change the background after drag and drop
  */
@@ -259,7 +233,7 @@ function removeSpecificColorFromDragArea() {
 
 
 /**
- * This function change the backrground after dragging and dropping the tasks
+ * This function changes the backrground after dragging and dropping the tasks
  * 
  * @param {object} containers 
  */
@@ -298,7 +272,7 @@ function displayAllTasks() {
 
 
 /**
- * Thias function delete the tasks
+ * Thias function deletes the tasks
  * 
  * @param {number} i 
  */
@@ -314,6 +288,12 @@ async function deleteTask(i) {
 
 
 const emptyArray = [];
+
+/**
+ * This function saves the changes to an edited task and displays them
+ * 
+ * @param {number} i 
+ */
 async function editTask(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
@@ -420,6 +400,11 @@ function changeColorEdit(clickedButton) {
 }
 
 
+/**
+ * This function saves the changes to an edited subtask and displays them
+ * 
+ * @param {number} i 
+ */
 function addSubtaskEdit(i) {
     let container = document.getElementById(`subtasksContainer${i}`);
     let subtaskText = document.getElementById('inputFieldSubtaskEdit').value.trim();
@@ -577,6 +562,11 @@ function getTaskDetails(i) {
 }
 
 
+/**
+ * This function displays the selected contacts in a large view of a task
+ * 
+ * @returns {object}
+ */
 function showCheckedContacts() {
     let assignedContactsJson = localStorage.getItem('toBeEditedAssignedContacts');
     if (!assignedContactsJson) {
@@ -605,6 +595,11 @@ function showCheckedContacts() {
 }
 
 
+/**
+ * This function saves and displays all changes to a task
+ * 
+ * @param {number} i 
+ */
 async function saveTask(i) {
     const toBeEditedTaskId = localStorage.getItem('toBeEditedTaskId');
     const toBeEditedDragCategory = JSON.parse(localStorage.getItem('toBeEditedDragCategory'));
@@ -628,6 +623,10 @@ async function saveTask(i) {
     localStorage.removeItem('contacts');
 }
 
+
+/**
+ * This function validates the entered changes bevore saving
+ */
 function validateAndAddTask() {
     const taskTitle = document.getElementById('taskTitle');
     const date = document.getElementById('date');

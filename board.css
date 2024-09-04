@@ -87,6 +87,13 @@ body {
     display: none;
 }
 
+.click-here-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
 .board-position-lower {
     width: 90%;
     height: 70%;

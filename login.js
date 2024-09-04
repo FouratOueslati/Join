@@ -98,3 +98,16 @@ function showLoggedUserInitials() {
 function toggleMenu() {
     document.getElementById('menu').classList.toggle('d-none');
 }
+
+
+/**
+ * This fuction displays or hide the entered password
+ */
+function togglePassword() {
+    let password = document.getElementById('loginPassword');
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
+}

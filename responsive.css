@@ -197,7 +197,6 @@
         animation: backgroundAnimationResponsive ease-in-out 2000ms;
         animation-fill-mode: forwards;
         background-color: #2A3647;
-        height: 100vh;
     }
 
     .todos-box {

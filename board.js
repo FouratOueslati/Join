@@ -141,7 +141,7 @@ function generatePriorityImgOpened(i) {
     if (priority) {
         switch (priority.innerHTML) {
             case 'Medium':
-                imgSrc = "./addTaskImg/mediu.svg";
+                imgSrc = "./addTaskImg/medium.svg";
                 break;
             case 'Urgent':
                 imgSrc = "./addTaskImg/high.svg";

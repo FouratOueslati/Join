@@ -193,7 +193,7 @@ function generateEditModalContent(task, i) {
         </button>
         <button onclick="changeColorEdit(this);" id="mediumButtonEdit" type="button" class="button-prio">
             <div class="center">
-            <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
+            <div class="button-txt-img">Medium <img src="./addTaskImg/medium.svg" class="prio-photos"></div>
             </div>
         </button>
         <button onclick="changeColorEdit(this);" id="lowButtonEdit" type="button" class="button-prio">
@@ -365,7 +365,7 @@ async function generatePriorityImgUnopened(i, task) {
     let imgSrc = "./addTaskImg/low.svg";
     switch (priority) {
         case 'Medium':
-            imgSrc = "./addTaskImg/mediu.svg";
+            imgSrc = "./addTaskImg/medium.svg";
             break;
         case 'Urgent':
             imgSrc = "./addTaskImg/high.svg";

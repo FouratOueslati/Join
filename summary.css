@@ -88,6 +88,28 @@ body {
     box-shadow: 0px 0px 4px 0px #0000001A;
 }
 
+.icon-box {
+    height: 69px;
+    width: 69px;
+    background-color: #2A3647;
+    border-radius: 69px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo:hover .icon-box {
+    background-color: #FFFFFF;
+}
+
+.todo:hover .icon-vector {
+    stroke: #2A3647;
+}
+
+.todo:hover .icon-edit {
+    fill: #2A3647;
+}
+
 .color-black {
     color: black;
 }

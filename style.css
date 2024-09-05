@@ -59,6 +59,7 @@ body {
     position: absolute;
     top: 40%;
     left: 47%;
+    z-index: 10;
 }
 
 .intro-img-responsive {
@@ -70,6 +71,7 @@ body {
     position: absolute;
     top: 40%;
     left: 47%;
+    z-index: 10;
 }
 
 .join-icon-signup {

@@ -279,8 +279,8 @@ body {
     color: rgba(168, 168, 168, 1);
 }
 
-.remember-me-checkbox,
-.accept-policy-checkbox {
+.accept-policy-checkbox,
+.remember-me-checkbox {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -294,20 +294,20 @@ body {
     display: inline-block;
 }
 
-.remember-me-checkbox,
-.accept-policy-checkbox:checked {
+.accept-policy-checkbox:checked,
+.remember-me-checkbox:checked {
     background-color: white;
     border: 2px solid #2A3647;
 }
 
-.remember-me-checkbox,
-.accept-policy-checkbox:checked::after {
+.accept-policy-checkbox:checked::after,
+.remember-me-checkbox:checked::after {
     content: "";
     position: absolute;
     bottom: 2px;
-    left: 6px;
+    left: 4px;
     width: 6px;
-    height: 15px;
+    height: 10px;
     border: solid #2A3647;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);

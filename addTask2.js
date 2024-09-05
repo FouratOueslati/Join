@@ -116,14 +116,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const menu = dropDown.querySelector('.menu');
         const options = dropDown.querySelectorAll('.menu li');
         const selected = dropDown.querySelector('.selected');
-        select.addEventListener('click', () => {
+        select.addEventListener('click', (event) => {
+            event.stopPropagation();
             select.classList.toggle('selectClicked');
             caret.classList.toggle('createRotate');
             menu.classList.toggle('menu-open');
         });
         addOptionListeners(options, select, caret, menu, selected);
+        document.addEventListener('click', (event) => {
+            if (!dropDown.contains(event.target)) {
+                select.classList.remove('selectClicked');
+                caret.classList.remove('createRotate');
+                menu.classList.remove('menu-open');
+            }
+        });
     });
 });
+
+
+// this function closes the drop down menu when you click on the body
+function addOptionListeners(options, select, caret, menu, selected) {
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            selected.textContent = option.textContent;
+            select.classList.remove('selectClicked');
+            caret.classList.remove('createRotate');
+            menu.classList.remove('menu-open');
+        });
+    });
+}
 
 
 /**
@@ -134,6 +155,20 @@ subtaskInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         addSubtask();
     }
+});
+
+
+ // Function to format the current date as YYYY-MM-DD
+ function getTodayDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('date');
+    dateInput.setAttribute('min', getTodayDate());
 });
 
 

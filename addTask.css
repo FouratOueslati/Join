@@ -86,7 +86,7 @@ body {
 }
 
 .button-end-process-container-small {
-    margin: 55px 65px 64px 74px; 
+    margin: 55px 65px 64px 74px;
 }
 
 .add-task-set-up-one-container {
@@ -344,7 +344,6 @@ body {
     border: transparent;
 }
 
-/*JavaScript*/
 .name-initial {
     display: flex;
     align-items: center;
@@ -354,9 +353,17 @@ body {
 }
 
 .contact-boarder {
+    margin-bottom: 2px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.contact-boarder:hover {
+    background-color: lightgrey;
 }
 
 .circle-initial {
@@ -366,6 +373,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 2px solid white;
 }
 
 .initial-style {
@@ -379,8 +387,35 @@ body {
     align-items: center;
 }
 
-.check-box-style {
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
     background-color: white;
+    border: 2px solid #2A3647;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #2A3647;
+    border: 2px solid white;
+}
+
+input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 6px;
+    width: 6px;
+    height: 15px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 
 .subtask-Txt {
@@ -416,24 +451,27 @@ body {
 }
 
 .subtask-Txt .delete-edit {
-    opacity: 0; 
-    transition: opacity 0.2s ease; 
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 .subtask-Txt:hover .delete-edit {
-    opacity: 1; 
+    opacity: 1;
 }
 
 
 .lowSelected {
-    background-color:  rgb(122,226,41);
+    background-color: rgb(122, 226, 41);
 }
+
 .mediumSelected {
-    background-color: rgb(255,168,0);
+    background-color: rgb(255, 168, 0);
 }
+
 .urgentSelected {
-    background-color: rgb(255,61,0);
+    background-color: rgb(255, 61, 0);
 }
+
 /* 
 @media(max-width: 900px) {
     .main-container-task-one-two  {

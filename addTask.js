@@ -58,19 +58,20 @@ function displayContactsForAssignment() {
 
 function generateContactToChoseHtml(name, color, initials, i) {
     return `
-    <div class="contact-boarder">
+    <label id="contactToChose${i}" class="contact-boarder">
         <div class="name-initial">
             <div class="circle-initial" style="background: ${color}">
                 <div class="initial-style">${initials}</div>
             </div>
-            <li id="contact-${i}" data-name="${name}" class="contact-item">${name}</li>
+            <li id="contact-${i}" data-name="${name}">${name}</li>
         </div>
         <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event)">
+            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event, ${i})">
         </div>
-    </div>
+    </label>
     `;
 }
+
 
 
 /**
@@ -204,7 +205,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
  * This function saves the priority of te task in local storage
  */
 function addPrioEventListeners() {
-    localStorage.setItem('lastClickedButton', 'Low');
+    localStorage.setItem('lastClickedButton', 'Medium');
     document.getElementById('urgentButton').addEventListener('click', () => {
         localStorage.setItem('lastClickedButton', 'Urgent');
     });
@@ -234,22 +235,26 @@ function addCategoryEventListener() {
  * 
  * @param {object} event 
  */
-function choseContactForAssignment(event) {
+function choseContactForAssignment(event, i) {
     const checkbox = event.target;
+    const contactToChose = document.getElementById(`contactToChose${i}`);
     const contactName = checkbox.getAttribute('data-name');
     const contactElement = checkbox.closest('.contact-boarder');
     const color = contactElement.querySelector('.circle-initial').style.background;
     if (checkbox.checked) {
         if (!assignedContacts.some(contact => contact.name === contactName)) {
             assignedContacts.push({ name: contactName, backgroundcolor: color });
+            contactToChose.style.backgroundColor = "#2A3647";
+            contactToChose.style.color = "white";
         }
     } else {
         assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
+        contactToChose.style.backgroundColor = "";
+        contactToChose.style.color = "";
     }
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
     displayContactsForAssignment();
 }
-
 
 /**
  * This function retrieves datas from local storage and creates an object with data

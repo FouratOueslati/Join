@@ -86,7 +86,7 @@ body {
 }
 
 .button-end-process-container-small {
-    margin: 55px 65px 64px 74px; 
+    margin: 55px 65px 64px 74px;
 }
 
 .add-task-set-up-one-container {
@@ -153,7 +153,7 @@ body {
 }
 
 .prio-photos {
-    width: 16px;
+    width: 20px;
 }
 
 .center {
@@ -213,7 +213,6 @@ body {
     display: flex;
 }
 
-/*DropDown*/
 .drop-down {
     position: relative;
 }
@@ -305,7 +304,6 @@ body {
     border-radius: 4px;
 }
 
-/* Subtask */
 .input-with-img {
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
@@ -344,7 +342,6 @@ body {
     border: transparent;
 }
 
-/*JavaScript*/
 .name-initial {
     display: flex;
     align-items: center;
@@ -416,55 +413,51 @@ body {
 }
 
 .subtask-Txt .delete-edit {
-    opacity: 0; 
-    transition: opacity 0.2s ease; 
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 .subtask-Txt:hover .delete-edit {
-    opacity: 1; 
+    opacity: 1;
 }
-
 
 .lowSelected {
-    background-color:  rgb(122,226,41);
-}
-.mediumSelected {
-    background-color: rgb(255,168,0);
-}
-.urgentSelected {
-    background-color: rgb(255,61,0);
-}
-/* 
-@media(max-width: 900px) {
-    .main-container-task-one-two  {
-        gap: 0px;
-        padding: 0px;
-    }
-    .add-task-set-up-one-container {
-        width: 80%;
-    }
-    .add-task-set-up-two-container {
-        width: 80%;
-    }
-    .color-white-button {
-        display: none;
-    }
-    .aot-task-container {
-        margin: 0px;
-    }
+    background-color: rgb(122, 226, 41);
+    color: #FFFFFF;
+
 }
 
-@media(max-width: 500px) {
-   .button-prio-width {
-        gap: 1px;
-   }
-   .button-end-process-container {
-        flex-direction: column;
-   }
+.mediumSelected {
+    background-color: rgb(255, 168, 0);
+    color: #FFFFFF;
+
+}
+
+.urgentSelected {
+    background-color: rgb(255, 61, 0);
+    color: #FFFFFF;
+}
+
+.button-prio svg .urgentSelected {
+    fill: #FF3D00;
+}
+
+.button-prio svg .mediumSelected {
+    fill: rgb(255, 168, 0);
+}
+
+.button-prio svg .lowSelected {
+    fill: rgb(122, 226, 41);
+}
+
+.button-prio.urgentSelected svg .urgentSelected,
+.button-prio.mediumSelected svg .mediumSelected,
+.button-prio.lowSelected svg .lowSelected {
+    fill: #FFFFFF;
 }
 
 @media(max-width: 350px) {
     .button-prio-width {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
- } */
+}

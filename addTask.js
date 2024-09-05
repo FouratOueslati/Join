@@ -66,7 +66,7 @@ function generateContactToChoseHtml(name, color, initials, i) {
             <li id="contact-${i}" data-name="${name}">${name}</li>
         </div>
         <div class="check-box-custom">
-            <input id="checkbox${i}" type="checkbox" class="check-box-style" data-name="${name}" onchange="choseContactForAssignment(event, ${i})">
+            <input id="checkbox${i}" type="checkbox" class="assign-contact-checkbox" data-name="${name}" onchange="choseContactForAssignment(event, ${i})">
         </div>
     </label>
     `;

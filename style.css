@@ -279,12 +279,38 @@ body {
     color: rgba(168, 168, 168, 1);
 }
 
-.rectangle {
+.remember-me-checkbox,
+.accept-policy-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     width: 16px;
     height: 16px;
-    border-radius: 3px;
-    border: 2px solid rgba(42, 54, 71, 1);
-    accent-color: rgba(41, 171, 226, 1);
+    background-color: white;
+    border: 2px solid #2A3647;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.remember-me-checkbox,
+.accept-policy-checkbox:checked {
+    background-color: white;
+    border: 2px solid #2A3647;
+}
+
+.remember-me-checkbox,
+.accept-policy-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 6px;
+    width: 6px;
+    height: 15px;
+    border: solid #2A3647;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 
 .policy-link {

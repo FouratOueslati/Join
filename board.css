@@ -7,6 +7,37 @@ body {
     overflow-x: hidden;
 }
 
+.subtask-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border: 2px solid #2A3647;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.subtask-checkbox:checked {
+    background-color: white;
+    border: 2px solid #2A3647;
+}
+
+.subtask-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 6px;
+    width: 6px;
+    height: 15px;
+    border: solid #2A3647;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
 .aot {
     width: 90%;
     height: 20%;
@@ -379,13 +410,6 @@ h1 {
     gap: 12px;
 }
 
-.subtask-checkbox {
-    width: 16px;
-    height: 16px;
-    border-radius: 3px;
-    border: 21px solid rgba(42, 54, 71, 1);
-    accent-color: rgba(41, 171, 226, 1);
-}
 
 .task-description {
     display: -webkit-box;

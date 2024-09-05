@@ -8,6 +8,37 @@ body {
     box-sizing: border-box;
 }
 
+.assign-contact-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border: 2px solid #2A3647;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.assign-contact-checkbox:checked {
+    background-color: #2A3647;
+    border: 2px solid white;
+}
+
+.assign-contact-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 6px;
+    width: 6px;
+    height: 15px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
 .content-container {
     height: 100vh;
     width: calc(100vw - 232px);
@@ -383,37 +414,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 16px;
-    height: 16px;
-    background-color: white;
-    border: 2px solid #2A3647;
-    border-radius: 4px;
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-}
-
-input[type="checkbox"]:checked {
-    background-color: #2A3647;
-    border: 2px solid white;
-}
-
-input[type="checkbox"]:checked::after {
-    content: "";
-    position: absolute;
-    bottom: 2px;
-    left: 6px;
-    width: 6px;
-    height: 15px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
 }
 
 .subtask-Txt {

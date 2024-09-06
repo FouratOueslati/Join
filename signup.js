@@ -111,22 +111,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /**
- * This fuction displays or hide the entered password
+ * This fuction displays or hide the entered password and places the curser where it was entered
  */
-function togglePassword() {
-    let password = document.getElementById('password');
-    if (password.type === "password") {
-      password.type = "text";
+function togglePassword(inputId) {
+    let passwordInput = document.getElementById(inputId);
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordInput.style.background = 'url(./img/visibility.png)';
     } else {
-      password.type = "password";
+        passwordInput.type = "password";
+        passwordInput.style.background = 'url(./img/visibility_off.png)';
     }
-  }
-
-  function toggleConfirmedPassword() {
-    let password = document.getElementById('confirmedPassword');
-    if (password.type === "password") {
-      password.type = "text";
-    } else {
-      password.type = "password";
-    }
-  }
+    setTimeout(() => {
+        const length = passwordInput.value.length;
+        passwordInput.setSelectionRange(length, length);
+    }, 0);
+}

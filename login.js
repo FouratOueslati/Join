@@ -101,13 +101,19 @@ function toggleMenu() {
 
 
 /**
- * This fuction displays or hide the entered password
+ * This fuction displays or hide the entered password and places the curser where it was entered
  */
-function togglePassword() {
-    let password = document.getElementById('loginPassword');
-    if (password.type === "password") {
-      password.type = "text";
+function togglePassword(inputId) {
+    let passwordInput = document.getElementById(inputId);
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordInput.style.background = 'url(./img/visibility.png)';
     } else {
-      password.type = "password";
+        passwordInput.type = "password";
+        passwordInput.style.background = 'url(./img/visibility_off.png)';
     }
+    setTimeout(() => {
+        const length = passwordInput.value.length;
+        passwordInput.setSelectionRange(length, length);
+    }, 0);
 }

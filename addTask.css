@@ -156,6 +156,10 @@ body {
     font-family: 'Inter';
 }
 
+.task-input-field:focus .input-with-img {
+    border: solid green 2px;
+}
+
 .add-task-set-up-two {
     width: 100%;
     display: flex;

@@ -233,8 +233,8 @@ body {
     padding-left: 21px;
     padding-right: 21px;
     background: url('./img/lock.png');
-    background-repeat: no-repeat;
-    background-position: 93%;
+    background-repeat: no-repeat !important;
+    background-position: 93% !important;
     font-weight: 400;
     font-size: 20px;
 }

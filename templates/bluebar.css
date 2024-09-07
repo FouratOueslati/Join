@@ -88,7 +88,9 @@ a:hover {
     cursor: pointer;
 }
 
-
+.d-none {
+    display: none;
+}
 
 @media (max-width: 1024px) {
     .join-icon {

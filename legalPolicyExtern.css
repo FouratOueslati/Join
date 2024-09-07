@@ -1,6 +1,11 @@
 .help-container,
-.tools-box {
+.tools-box,
+.policy-container {
     display: none;
+}
+
+.extern {
+    display: flex;
 }
 
 @media(max-width:1024px) {

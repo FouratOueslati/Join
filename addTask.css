@@ -156,10 +156,6 @@ body {
     font-family: 'Inter';
 }
 
-.task-input-field:focus .input-with-img {
-    border: solid green 2px;
-}
-
 .add-task-set-up-two {
     width: 100%;
     display: flex;
@@ -346,6 +342,10 @@ body {
     border: 1px solid rgb(209, 209, 209);
     display: flex;
     align-items: center;
+}
+
+.input-with-img:focus-within {
+    border: solid 2px black;
 }
 
 .task-input-with-img {

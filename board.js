@@ -356,9 +356,31 @@ async function displayNamesOfContactsEdit() {
             let name = contacts[contactId]["name"];
             let color = contacts[contactId]["backgroundcolor"];
             let initials = getInitials(name);
-            containerContact.innerHTML += generateContactToChoseHtml(name, color, initials, i);
+            containerContact.innerHTML += generateContactToChoseInEditTaskHtml(name, color, initials, i);
         }
     }
+}
+
+
+function choseContactForAssignmentEditTask(event, i) {
+    const checkbox = event.target;
+    const contactToChose = document.getElementById(`contactToChoseInEditTask${i}`);
+    const contactName = checkbox.getAttribute('data-name-edittask');
+    const contactElement = checkbox.closest('.contact-boarder-edittask');
+    const color = contactElement.querySelector('.circle-initial-edittask').style.background;
+    let assignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || [];
+    if (checkbox.checked) {
+        if (!assignedContacts.some(contact => contact.name === contactName)) {
+            assignedContacts.push({ name: contactName, backgroundcolor: color });
+            contactToChose.style.backgroundColor = "#2A3647";
+            contactToChose.style.color = "white";
+        }
+    } else {
+        assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
+        contactToChose.style.backgroundColor = "";
+        contactToChose.style.color = "";
+    }
+    localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(assignedContacts));
 }
 
 

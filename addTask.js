@@ -113,6 +113,23 @@ function generateContactToChoseHtml(name, color, initials, i) {
 }
 
 
+function generateContactToChoseInEditTaskHtml(name, color, initials, i) {
+    return `
+    <label id="contactToChoseInEditTask${i}" class="contact-boarder-edittask">
+        <div class="name-initial">
+            <div class="circle-initial-edittask" style="background: ${color}">
+                <div class="initial-style">${initials}</div>
+            </div>
+            <li id="contactInEditTask-${i}" data-name-edittask="${name}">${name}</li>
+        </div>
+        <div class="check-box-custom">
+            <input id="checkboxInEditTask${i}" type="checkbox" class="assign-contact-checkbox-edittask" data-name-edittask="${name}" onchange="choseContactForAssignmentEditTask(event, ${i})">
+        </div>
+    </label>
+    `;
+}
+
+
 function generateBubbleInitialsHtml(i, initials, color) {
     return `
     <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
@@ -266,7 +283,7 @@ function choseContactForAssignment(event, i) {
         contactToChose.style.backgroundColor = "";
         contactToChose.style.color = "";
     }
-    localStorage.setItem('contacts', JSON.stringify(assignedContacts));
+    localStorage.setItem('contactsAssignedToTask', JSON.stringify(assignedContacts));
     displayContactsForAssignment();
 }
 
@@ -277,7 +294,7 @@ function choseContactForAssignment(event, i) {
 function displayContactsForAssignment() {
     let containerBubbleInitials = document.getElementById('contactsDisplayBubble');
     containerBubbleInitials.innerHTML = '';
-    let checkboxes = document.querySelectorAll('.assign-contact-checkbox');
+    let checkboxes = document.querySelectorAll('.assign-contact-checkbox-edittask');
     console.log(checkboxes)
     for (let i = 0; i < checkboxes.length; i++) {
         let checkbox = checkboxes[i];
@@ -302,7 +319,7 @@ async function addTask() {
     const assignedContactsContainer = document.getElementById('contactsDisplayBubble');
     const subtasksContainer = document.getElementById('subtasksContainer');
     const date = document.getElementById('date');
-    const contacts = JSON.parse(localStorage.getItem('contacts'));
+    const contacts = JSON.parse(localStorage.getItem('contactsAssignedToTask'));
     const subtasks = JSON.parse(localStorage.getItem('subtasks'));
     const lastClickedButton = localStorage.getItem('lastClickedButton');
     const selectedCategory = localStorage.getItem('selectedCategory');

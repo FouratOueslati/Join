@@ -128,13 +128,8 @@ function deleteSubtaskEdit(taskIndex, subtaskIndex) {
  */
 function getTaskContacts() {
     let newContacts;
-    const newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
     const toBeEditedAssignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || [];
-    if (newlyAssignedContacts.length > 0) {
-        newContacts = newlyAssignedContacts;
-    } else {
-        newContacts = toBeEditedAssignedContacts;
-    }
+    newContacts = toBeEditedAssignedContacts;
     return newContacts;
 }
 
@@ -185,8 +180,8 @@ function showCheckedContacts() {
     }
     let assignedContacts = JSON.parse(assignedContactsJson);
     let assignedContactNames = assignedContacts.map(contact => contact.name);
-    let contacts = document.querySelectorAll('[id^="contact-"]');
-    let checkboxes = document.querySelectorAll('[id^="checkbox"]');
+    let contacts = document.querySelectorAll('[id^="contactInEditTask-"]');
+    let checkboxes = document.querySelectorAll('[id^="checkboxInEditTask"]');
     let contactCheckboxMap = {};
     contacts.forEach(contact => {
         let contactName = contact.innerHTML.trim();
@@ -194,7 +189,7 @@ function showCheckedContacts() {
         contactCheckboxMap[contactIndex] = contactName;
     });
     checkboxes.forEach(checkbox => {
-        let checkboxIndex = checkbox.id.replace('checkbox', '');
+        let checkboxIndex = checkbox.id.replace('checkboxInEditTask', '');
         let contactName = contactCheckboxMap[checkboxIndex];
         if (contactName) {
             checkbox.checked = assignedContactNames.includes(contactName);

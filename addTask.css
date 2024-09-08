@@ -386,7 +386,7 @@ body {
     margin-bottom: 2px;
 }
 
-.contact-boarder {
+.contact-boarder, .contact-boarder-edittask {
     margin-bottom: 2px;
     display: flex;
     justify-content: space-between;
@@ -396,11 +396,12 @@ body {
     border-radius: 6px;
 }
 
-.contact-boarder:hover {
+.contact-boarder:hover,
+.contact-boarder-edittask:hover {
     background-color: lightgrey;
 }
 
-.circle-initial {
+.circle-initial, .circle-initial-edittask {
     width: 30px;
     height: 30px;
     border-radius: 16px;

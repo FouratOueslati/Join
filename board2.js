@@ -226,7 +226,6 @@ function generateEditModalContent(task, i) {
         </div>
     `;
 }
-////////////////////EventListeners//////////////////////////////////////////
 
 /**
  * This function closes the larger view of an open task

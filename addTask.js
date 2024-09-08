@@ -95,6 +95,7 @@ function displayContactsForAssignment() {
     }
 }
 
+
 function generateContactToChoseHtml(name, color, initials, i) {
     return `
     <label id="contactToChose${i}" class="contact-boarder">
@@ -110,7 +111,6 @@ function generateContactToChoseHtml(name, color, initials, i) {
     </label>
     `;
 }
-
 
 
 /**

@@ -245,5 +245,3 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('date');
     dateInput.setAttribute('min', getTodayDate());
 });
-
-

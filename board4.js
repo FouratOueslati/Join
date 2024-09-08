@@ -144,9 +144,6 @@ function getTaskContacts() {
 }
 
 
-
-
-
 /**
  * This function gets the assigned priority for saving
  * 
@@ -183,6 +180,11 @@ function getTaskSubtasks(i) {
 }
 
 
+/**
+ * This function updates the status of the checkbox based on saved contacts in local storage
+ * 
+ * @returns no return
+ */
 function showCheckedContacts() {
     let assignedContactsJson = localStorage.getItem('toBeEditedAssignedContacts');
     if (!assignedContactsJson) {
@@ -257,6 +259,9 @@ function getTaskDetails(i) {
 }
 
 
+/**
+ * This function checks wether all required fields are filled in to add a new task
+ */
 function validateAndAddTask() {
     const taskTitle = document.getElementById('taskTitle');
     const date = document.getElementById('date');

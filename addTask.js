@@ -16,6 +16,45 @@ async function onloadFunction() {
 
 
 /**
+ * This function executes the addPrioEventListeners and addCategoryEventListener functions
+ * only after the full html element has loaded
+ */
+document.addEventListener('DOMContentLoaded', (event) => {
+    addPrioEventListeners();
+    addCategoryEventListener();
+});
+
+
+/**
+ * This function saves the priority of te task in local storage
+ */
+function addPrioEventListeners() {
+    localStorage.setItem('lastClickedButton', 'Medium');
+    document.getElementById('urgentButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'Urgent');
+    });
+    document.getElementById('mediumButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'Medium');
+    });
+    document.getElementById('lowButton').addEventListener('click', () => {
+        localStorage.setItem('lastClickedButton', 'Low');
+    });
+}
+
+
+/**
+ * This function saves the task category in local storage
+ */
+function addCategoryEventListener() {
+    document.querySelectorAll('#categoryMenu li').forEach(category => {
+        category.addEventListener('click', () => {
+            localStorage.setItem('selectedCategory', category.textContent.trim());
+        });
+    });
+}
+
+
+/**
  * This function displays the name of contacts to use for the tasks
  */
 async function displayNamesOfContacts() {
@@ -56,7 +95,6 @@ function displayContactsForAssignment() {
     }
 }
 
-
 function generateContactToChoseHtml(name, color, initials, i) {
     return `
     <label id="contactToChose${i}" class="contact-boarder">
@@ -72,6 +110,7 @@ function generateContactToChoseHtml(name, color, initials, i) {
     </label>
     `;
 }
+
 
 
 /**
@@ -95,20 +134,29 @@ function getInitials(name) {
 }
 
 
-/**
- * This function checked whether something was entered into the input field to show or hide buttons
- */
-function onInputChange() {
-    let subtaskImg = document.getElementById('plusImg');
-    let subtaskButtons = document.getElementById('closeOrAccept');
-    let inputField = document.getElementById('inputFieldSubtask');
-    if (inputField.value.length > 0) {
-        subtaskImg.style.display = 'none';
-        subtaskButtons.style.display = 'flex';
-    } else {
-        subtaskImg.style.display = 'flex';
-        subtaskButtons.style.display = 'none';
-    }
+function generateContactToChoseHtml(name, color, initials, i) {
+    return `
+    <label id="contactToChose${i}" class="contact-boarder">
+        <div class="name-initial">
+            <div class="circle-initial" style="background: ${color}">
+                <div class="initial-style">${initials}</div>
+            </div>
+            <li id="contact-${i}" data-name="${name}">${name}</li>
+        </div>
+        <div class="check-box-custom">
+            <input id="checkbox${i}" type="checkbox" class="assign-contact-checkbox" data-name="${name}" onchange="choseContactForAssignment(event, ${i})">
+        </div>
+    </label>
+    `;
+}
+
+
+function generateBubbleInitialsHtml(i, initials, color) {
+    return `
+    <div id="bubble${i}" class="bubble-initial" style="background: ${color}">
+        <span class="initial-style">${initials}</span>
+    </div>
+    `;
 }
 
 
@@ -126,6 +174,19 @@ function addSubtask() {
         document.getElementById('inputFieldSubtask').value = '';
         clearSubtaskInput();
     }
+}
+
+
+function addSubtaskHtml(subtaskCounter, subtask) {
+    return `
+        <div class="subtask-Txt" id="subtask-Txt-${subtaskCounter}">
+            <div id="subtask${subtaskCounter}">${subtask}</div>
+            <div class="delete-edit">
+                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${subtaskCounter})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${subtaskCounter})">
+            </div>
+        </div>
+    `;
 }
 
 
@@ -156,18 +217,6 @@ function displaySubtasks() {
 
 
 /**
- * This function deletes the subtasks
- * 
- * @param {number} index 
- */
-function deleteSubtask(index) {
-    subtasks.splice(index, 1);
-    localStorage.setItem('subtasks', JSON.stringify(subtasks));
-    displaySubtasks();
-}
-
-
-/**
  * This function edits the subtasks
  * 
  * @param {number} index 
@@ -192,41 +241,44 @@ function clearSubtaskInput() {
 
 
 /**
- * This function executes the addPrioEventListeners and addCategoryEventListener functions
- * only after the full html element has loaded
+ * This function deletes the subtasks
+ * 
+ * @param {number} index 
  */
-document.addEventListener('DOMContentLoaded', (event) => {
-    addPrioEventListeners();
-    addCategoryEventListener();
-});
-
-
-/**
- * This function saves the priority of te task in local storage
- */
-function addPrioEventListeners() {
-    localStorage.setItem('lastClickedButton', 'Medium');
-    document.getElementById('urgentButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'Urgent');
-    });
-    document.getElementById('mediumButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'Medium');
-    });
-    document.getElementById('lowButton').addEventListener('click', () => {
-        localStorage.setItem('lastClickedButton', 'Low');
-    });
+function deleteSubtask(index) {
+    subtasks.splice(index, 1);
+    localStorage.setItem('subtasks', JSON.stringify(subtasks));
+    displaySubtasks();
 }
 
 
 /**
- * This function saves the task category in local storage
+ * This function checked whether something was entered into the input field to show or hide buttons
  */
-function addCategoryEventListener() {
-    document.querySelectorAll('#categoryMenu li').forEach(category => {
-        category.addEventListener('click', () => {
-            localStorage.setItem('selectedCategory', category.textContent.trim());
-        });
-    });
+function onInputChange() {
+    let subtaskImg = document.getElementById('plusImg');
+    let subtaskButtons = document.getElementById('closeOrAccept');
+    let inputField = document.getElementById('inputFieldSubtask');
+    if (inputField.value.length > 0) {
+        subtaskImg.style.display = 'none';
+        subtaskButtons.style.display = 'flex';
+    } else {
+        subtaskImg.style.display = 'flex';
+        subtaskButtons.style.display = 'none';
+    }
+}
+
+
+function displaySubtasksHtml(index, subtask) {
+    return `
+        <div class="subtask-Txt" id="subtask-Txt-${index}">
+            <div id="subtask${index}">${subtask}</div>
+            <div class="delete-edit">
+                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${index})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${index})">
+            </div>
+        </div>
+    `;
 }
 
 
@@ -256,7 +308,6 @@ function choseContactForAssignment(event, i) {
     displayContactsForAssignment();
 }
 
-
 /**
  * This function retrieves datas from local storage and creates an object with data
  */
@@ -277,17 +328,22 @@ async function addTask() {
 
 
 /**
- * This function creates an array for the subtasks
+ * This function post the task to the server, reset the form, updates the tasks and shows
+ * a confirmation for creating the task
  * 
- * @param {object} subtasks 
- * @returns {object}
+ * @param {object} task 
+ * @param {object} assignedContactsContainer 
+ * @param {number} date 
+ * @param {string} subtasksContainer 
  */
-function createSubtasksArray(subtasks) {
-    if (!subtasks) return [];
-    return subtasks.map(subtask => ({
-        text: subtask,
-        status: "undone"
-    }));
+async function handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer) {
+    await postTask('/users/' + uid + '/tasks', task);
+    resetForm(assignedContactsContainer, date, subtasksContainer);
+    if (window.location.pathname.includes('board.html')) {
+        displayOpenTasks();
+        closeAddTaskInBoard();
+    }
+    showConfirmationTask();
 }
 
 
@@ -315,4 +371,19 @@ function createTaskObject(name, description, date, priority, category, contacts,
         subtasks: subtasksArray,
         dragCategory: localStorage.getItem('dragCategory') || "todo"
     };
+}
+
+
+/**
+ * This function creates an array for the subtasks
+ * 
+ * @param {object} subtasks 
+ * @returns {object}
+ */
+function createSubtasksArray(subtasks) {
+    if (!subtasks) return [];
+    return subtasks.map(subtask => ({
+        text: subtask,
+        status: "undone"
+    }));
 }

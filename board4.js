@@ -133,8 +133,8 @@ function deleteSubtaskEdit(taskIndex, subtaskIndex) {
  */
 function getTaskContacts() {
     let newContacts;
-    const newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || '[]';
-    const toBeEditedAssignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || '[]';
+    const newlyAssignedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+    const toBeEditedAssignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || [];
     if (newlyAssignedContacts.length > 0) {
         newContacts = newlyAssignedContacts;
     } else {
@@ -142,6 +142,9 @@ function getTaskContacts() {
     }
     return newContacts;
 }
+
+
+
 
 
 /**
@@ -180,29 +183,6 @@ function getTaskSubtasks(i) {
 }
 
 
-/**
- * This function gets the details of the task (description, name and date) for saving
- * 
- * @param {number} i 
- * @returns {string, number}
- */
-function getTaskDetails(i) {
-    const nameEdit = document.getElementById(`taskTitleEdit${i}`).value;
-    const descriptionEdit = document.getElementById(`taskDescriptionEdit${i}`).value;
-    const dateEdit = document.getElementById(`dateEdit${i}`).value;
-    let details = {};
-    if (nameEdit && descriptionEdit && dateEdit) {
-        details = { nameEdit, descriptionEdit, dateEdit };
-    }
-    return details;
-}
-
-
-/**
- * This function actuality the status of checkboxes based on the saved contacts in local storage
- * 
- * @returns no return
- */
 function showCheckedContacts() {
     let assignedContactsJson = localStorage.getItem('toBeEditedAssignedContacts');
     if (!assignedContactsJson) {
@@ -236,13 +216,13 @@ function showCheckedContacts() {
  * @param {number} i 
  */
 async function saveTask(i) {
+    const { nameEdit, descriptionEdit, dateEdit } = getTaskDetails(i);
+    const subtasks = getTaskSubtasks(i);
+    const newContacts = getTaskContacts();
+    const newPriority = getTaskPriority();
     const toBeEditedTaskId = localStorage.getItem('toBeEditedTaskId');
     const toBeEditedDragCategory = JSON.parse(localStorage.getItem('toBeEditedDragCategory'));
     const toBeEditedCategory = JSON.parse(localStorage.getItem('toBeEditedCategory'));
-    const newContacts = getTaskContacts();
-    const newPriority = getTaskPriority();
-    const { nameEdit, descriptionEdit, dateEdit } = getTaskDetails(i);
-    const subtasks = getTaskSubtasks(i);
     const task = {
         name: nameEdit,
         description: descriptionEdit,
@@ -260,8 +240,23 @@ async function saveTask(i) {
 
 
 /**
- * This function checks the input of an user to see if requiered fields are filled out
+ * This function gets the details of the task (description, name and date) for saving
+ * 
+ * @param {number} i 
+ * @returns {string, number}
  */
+function getTaskDetails(i) {
+    const nameEdit = document.getElementById(`taskTitleEdit${i}`).value;
+    const descriptionEdit = document.getElementById(`taskDescriptionEdit${i}`).value;
+    const dateEdit = document.getElementById(`dateEdit${i}`).value;
+    let details = {};
+    if (nameEdit && descriptionEdit && dateEdit) {
+        details = { nameEdit, descriptionEdit, dateEdit };
+    }
+    return details;
+}
+
+
 function validateAndAddTask() {
     const taskTitle = document.getElementById('taskTitle');
     const date = document.getElementById('date');

@@ -247,8 +247,8 @@ async function deleteUserContact(uid, contactId) {
  * @param {number} k 
  * @returns 
  */
-async function deleteUserContactInTask(uid, taskKey, k) {
-    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${taskKey}/contacts/${k}.json`, {
+async function deleteUserContactInTask(uid, task, singleContactInTask) {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${task}/contacts/${singleContactInTask}.json`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'

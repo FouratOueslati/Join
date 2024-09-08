@@ -124,11 +124,13 @@ function openSuccessfullDeleteInfo() {
  * @param {string} contactId 
  */
 async function deleteContact(contactId) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let contacts = userData.contacts;
     const keys = Object.keys(contacts);
     for (let i = 0; i < keys.length; i++) {
         let contact = keys[i]
         if (contact === contactId) {
-            userData.contacts.splice(contactId, 1);
+            delete userData.contacts[contactId];
             deleteContactInTask(contact);
         }
     }
@@ -140,24 +142,23 @@ async function deleteContact(contactId) {
 }
 
 
-/*async function deleteContactInTask(contact) {
-    debugger
-    let uid = localStorage.getItem('uid');
+async function deleteContactInTask(contact) {
     let userData = await loadSpecificUserDataFromLocalStorage()
+    let contacts = userData.contacts;
     let tasks = userData.tasks;
-    for (let j = 0; j < tasks.length; j++) {
-        const task = tasks[j];
-        const contactsInTask = task.contacts;
+    let taskKeys = Object.keys(tasks);
+    for (let j = 0; j < taskKeys.length; j++) {
+        const task = taskKeys[j];
+        const contactsInTask = tasks[task].contacts;
         for (let k = 0; k < contactsInTask.length; k++) {
             const singleContactInTask = contactsInTask[k];
-            console.log(singleContactInTask)
-            if (contact.name === singleContactInTask.name) {
-                task.contacts.splice(singleContactInTask, 1);
+            if (contacts[contact].name === singleContactInTask.name) {
+                delete userData.tasks[task].contacts[singleContactInTask];
             }
+            await deleteUserContactInTask(uid, task, singleContactInTask)
         }
     }
-    await deleteUserContactInTask(uid, task, singleContactInTask)
-}*/
+}
 
 /**
  * This function delete contacts in the mobile view

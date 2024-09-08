@@ -1,4 +1,87 @@
 /**
+ * This function post the task to the server, reset the form, updates the tasks and shows
+ * a confirmation for creating the task
+ * 
+ * @param {object} task 
+ * @param {object} assignedContactsContainer 
+ * @param {number} date 
+ * @param {string} subtasksContainer 
+ */
+async function handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer) {
+    await postTask('/users/' + uid + '/tasks', task);
+    resetForm(assignedContactsContainer, date, subtasksContainer);
+    if (window.location.pathname.includes('board.html')) {
+        displayOpenTasks();
+        closeAddTaskInBoard();
+    }
+    showConfirmationTask();
+}
+
+
+/**
+ * This function reset the form so the user can create a new task
+ * 
+ * @param {object} assignedContactsContainer 
+ * @param {number} date 
+ * @param {string} subtasksContainer 
+ */
+function resetForm(assignedContactsContainer, date, subtasksContainer) {
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('taskDescription').value = '';
+    assignedContactsContainer.innerHTML = '';
+    date.value = '';
+    subtasksContainer.innerHTML = '';
+    localStorage.removeItem('dragCategory');
+    localStorage.removeItem('subtasks');
+    localStorage.removeItem('lastClickedButton');
+}
+
+
+/**
+ * This function shows the user a confirmation that the task has been created
+ */
+function showConfirmationTask() {
+    let addedToBoard = document.getElementById('addedToBoard');
+    addedToBoard.classList.remove('d-none');
+    setTimeout(() => {
+        addedToBoard.classList.add('d-none');
+        window.location.href = 'board.html';
+    }, 1500);
+}
+
+
+/**
+ * This function changes the color of priority buttons
+ * 
+ * @param {object} clickedButton 
+ */
+
+function changeColor(clickedButton) {
+    const buttons = [
+        { element: document.getElementById('lowButton'), class: 'lowSelected' },
+        { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
+        { element: document.getElementById('urgentButton'), class: 'urgentSelected' }
+    ];
+    buttons.forEach(button => {
+        button.element.classList.toggle(button.class, button.element === clickedButton);
+        if (button.element !== clickedButton) {
+            button.element.classList.remove(button.class);
+        }
+    });
+}
+
+
+/**
+ * This function changes the color of the priority buttons and save the selected priority
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('lowButton').onclick = function () { changeColor(this); };
+    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
+    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
+});
+
+
+/**
  * This function add a click event listener to each option on dropdown menus
  * 
  * @param {element} options 
@@ -51,8 +134,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-// this function closes the drop down menu when you click on the body
+/**
+ * This function close the drop down menu when the user click at the body
+ * 
+ * @param {element} options 
+ * @param {element} select 
+ * @param {element} caret 
+ * @param {element} menu 
+ * @param {element} selected 
+ */
 function addOptionListeners(options, select, caret, menu, selected) {
     options.forEach(option => {
         option.addEventListener('click', () => {
@@ -139,7 +229,11 @@ subtaskInput.addEventListener('keydown', function(event) {
 });
 
 
- // Function to format the current date as YYYY-MM-DD
+/**
+ * This function generetas the current day
+ * 
+ * @returns {number} current day
+ */
  function getTodayDate() {
     const today = new Date();
     const year = today.getFullYear();
@@ -151,5 +245,3 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('date');
     dateInput.setAttribute('min', getTodayDate());
 });
-
-

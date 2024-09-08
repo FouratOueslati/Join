@@ -36,6 +36,11 @@ function changeColorEdit(clickedButton) {
 }
 
 
+/**
+ * This function allows adding a subtask to an existing task or editing the subtask
+ * 
+ * @param {number} i 
+ */
 function addSubtaskEdit(i) {
     let container = document.getElementById(`subtasksContainer${i}`);
     let subtaskText = document.getElementById('inputFieldSubtaskEdit').value.trim();
@@ -134,9 +139,6 @@ function getTaskContacts() {
 }
 
 
-
-
-
 /**
  * This function gets the assigned priority for saving
  * 
@@ -173,6 +175,11 @@ function getTaskSubtasks(i) {
 }
 
 
+/**
+ * This function updates the status of the checkbox based on saved contacts in local storage
+ * 
+ * @returns no return
+ */
 function showCheckedContacts() {
     let assignedContactsJson = localStorage.getItem('toBeEditedAssignedContacts');
     if (!assignedContactsJson) {
@@ -200,6 +207,11 @@ function showCheckedContacts() {
 }
 
 
+/**
+ * This function save a task after editing
+ * 
+ * @param {number} i 
+ */
 async function saveTask(i) {
     const { nameEdit, descriptionEdit, dateEdit } = getTaskDetails(i);
     const subtasks = getTaskSubtasks(i);
@@ -242,6 +254,9 @@ function getTaskDetails(i) {
 }
 
 
+/**
+ * This function checks wether all required fields are filled in to add a new task
+ */
 function validateAndAddTask() {
     const taskTitle = document.getElementById('taskTitle');
     const date = document.getElementById('date');

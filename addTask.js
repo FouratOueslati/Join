@@ -76,6 +76,44 @@ async function displayNamesOfContacts() {
 
 
 /**
+ * This function displays the contacts selected in the task
+ */
+function displayContactsForAssignment() {
+    let containerBubbleInitials = document.getElementById('contactsDisplayBubble');
+    containerBubbleInitials.innerHTML = '';
+    let checkboxes = document.querySelectorAll('.check-box-style');
+    for (let i = 0; i < checkboxes.length; i++) {
+        let checkbox = checkboxes[i];
+        if (checkbox.checked) {
+            let contactElement = checkbox.closest('.contact-boarder');
+            let initialsElement = contactElement.querySelector('.circle-initial .initial-style');
+            let circleElement = contactElement.querySelector('.circle-initial');
+            let initials = initialsElement.innerText;
+            let color = circleElement.style.backgroundColor;
+            containerBubbleInitials.innerHTML += generateBubbleInitialsHtml(i, initials, color);
+        }
+    }
+}
+
+
+function generateContactToChoseHtml(name, color, initials, i) {
+    return `
+    <label id="contactToChose${i}" class="contact-boarder">
+        <div class="name-initial">
+            <div class="circle-initial" style="background: ${color}">
+                <div class="initial-style">${initials}</div>
+            </div>
+            <li id="contact-${i}" data-name="${name}">${name}</li>
+        </div>
+        <div class="check-box-custom">
+            <input id="checkbox${i}" type="checkbox" class="assign-contact-checkbox" data-name="${name}" onchange="choseContactForAssignment(event, ${i})">
+        </div>
+    </label>
+    `;
+}
+
+
+/**
  * This function generates the initials of the contacts
  * 
  * @param {string} name 

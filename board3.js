@@ -114,7 +114,6 @@ function updateLoadBar(i) {
 }
 
 
-
 /**
  * This function filters searched tasks
  */
@@ -215,6 +214,12 @@ function removeTaskFromContainer(index) {
 }
 
 
+/**
+ * This function add a new task in the correct container
+ * 
+ * @param {number} index 
+ * @param {element} category 
+ */
 function addTaskToContainer(index, category) {
     const containerIdMap = {
         'todo': 'toDoTasks',
@@ -236,6 +241,7 @@ function addTaskToContainer(index, category) {
         updateLoadBar(index);
     }
 }
+
 
 /**
  * This function checks the drag and drop container and displays the tasks or information

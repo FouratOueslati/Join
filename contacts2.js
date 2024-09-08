@@ -102,6 +102,9 @@ function openSuccessfullInfo() {
 }
 
 
+/**
+ * This function show the information that the user has deleted a contact
+ */
 function openSuccessfullDeleteInfo() {
     let successDeleteBox = document.getElementById('successDeleteBox');
     let successDeleteMessage = document.getElementById('successDeleteMessage');
@@ -173,8 +176,6 @@ async function deleteContactMobileView() {
         document.getElementById('contactInfos').innerHTML = '';
     }
 }
-
-
 
 
 /**

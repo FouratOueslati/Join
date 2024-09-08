@@ -56,6 +56,7 @@ function displayContactsForAssignment() {
     }
 }
 
+
 function generateContactToChoseHtml(name, color, initials, i) {
     return `
     <label id="contactToChose${i}" class="contact-boarder">
@@ -71,7 +72,6 @@ function generateContactToChoseHtml(name, color, initials, i) {
     </label>
     `;
 }
-
 
 
 /**
@@ -255,6 +255,7 @@ function choseContactForAssignment(event, i) {
     localStorage.setItem('contacts', JSON.stringify(assignedContacts));
     displayContactsForAssignment();
 }
+
 
 /**
  * This function retrieves datas from local storage and creates an object with data

@@ -182,6 +182,9 @@ function getDayTime() {
 }
 
 
+/**
+ * This function displays the pending tasks with priority
+ */
 async function displayUpcomingDeadline() {
     let deadline = document.getElementById('deadline');
     let tasks = await loadAllTasksFromStorage();
@@ -204,7 +207,5 @@ async function displayUpcomingDeadline() {
         } else {
             deadline.innerHTML = 'No upcoming Deadlines';
         }
-    } else {
-        deadline.innerHTML = 'No upcoming Deadlines';
     }
 }

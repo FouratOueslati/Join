@@ -391,6 +391,10 @@ function setCategoryColor(i) {
     }
 }
 
+
+/**
+ * This function hides or shows icons when the user adds a subtask
+ */
 function onInputChangeEdit() {
     let subtaskImg = document.getElementById('plusImgEdit');
     let subtaskButtons = document.getElementById('closeOrAcceptEdit');

@@ -55,7 +55,6 @@ function showConfirmationTask() {
  * 
  * @param {object} clickedButton 
  */
-
 function changeColor(clickedButton) {
     const buttons = [
         { element: document.getElementById('lowButton'), class: 'lowSelected' },
@@ -134,8 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-// this function closes the drop down menu when you click on the body
+/**
+ * This function close the drop down menu when the user click at the body
+ * 
+ * @param {element} options 
+ * @param {element} select 
+ * @param {element} caret 
+ * @param {element} menu 
+ * @param {element} selected 
+ */
 function addOptionListeners(options, select, caret, menu, selected) {
     options.forEach(option => {
         option.addEventListener('click', () => {
@@ -159,7 +165,11 @@ subtaskInput.addEventListener('keydown', function(event) {
 });
 
 
- // Function to format the current date as YYYY-MM-DD
+/**
+ * This function generetas the current day
+ * 
+ * @returns {number} current day
+ */
  function getTodayDate() {
     const today = new Date();
     const year = today.getFullYear();

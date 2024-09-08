@@ -353,6 +353,7 @@ body {
     padding: 10px 8px 8px 10px;
     border-radius: 10px;
     border-width: 0px 0px 0px 0px;
+    outline: unset;
 }
 
 .input-field-svg {

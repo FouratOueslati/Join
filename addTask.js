@@ -75,27 +75,6 @@ async function displayNamesOfContacts() {
 }
 
 
-/**
- * This function displays the contacts selected in the task
- */
-function displayContactsForAssignment() {
-    let containerBubbleInitials = document.getElementById('contactsDisplayBubble');
-    containerBubbleInitials.innerHTML = '';
-    let checkboxes = document.querySelectorAll('.check-box-style');
-    for (let i = 0; i < checkboxes.length; i++) {
-        let checkbox = checkboxes[i];
-        if (checkbox.checked) {
-            let contactElement = checkbox.closest('.contact-boarder');
-            let initialsElement = contactElement.querySelector('.circle-initial .initial-style');
-            let circleElement = contactElement.querySelector('.circle-initial');
-            let initials = initialsElement.innerText;
-            let color = circleElement.style.backgroundColor;
-            containerBubbleInitials.innerHTML += generateBubbleInitialsHtml(i, initials, color);
-        }
-    }
-}
-
-
 function generateContactToChoseHtml(name, color, initials, i) {
     return `
     <label id="contactToChose${i}" class="contact-boarder">
@@ -366,6 +345,10 @@ async function addTask() {
     await handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer, dragCategory);
 }
 
+
+async function addContactsToTask() {
+    
+}
 
 /**
  * This function post the task to the server, reset the form, updates the tasks and shows

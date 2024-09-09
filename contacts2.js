@@ -143,29 +143,28 @@ async function deleteContact(contactId) {
 
 
 async function deleteContactInTask(contact) {
-    let userData = await loadSpecificUserDataFromLocalStorage()
-    let contacts = userData.contacts;
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let AllContactsInTask = userData.contacts;
     let tasks = userData.tasks;
     let taskKeys = Object.keys(tasks);
     for (let j = 0; j < taskKeys.length; j++) {
-        const task = taskKeys[j];
-        const contactsInTask = tasks[task].contacts;
-        for (let k = 0; k < contactsInTask.length; k++) {
-            const singleContactInTask = contactsInTask[k];
-            if (contacts[contact].name === singleContactInTask.name) {
-                delete userData.tasks[task].contacts[singleContactInTask];
-            }
-            await deleteUserContactInTask(uid, task, singleContactInTask)
-        }
+        const taskId = taskKeys[j];
+        let task = tasks[taskId];
+        const contactsInTaskObj = task.contacts;
+        let contactsInTask = Object.values(contactsInTaskObj);
+        const contacts = contactsInTask.filter(singleContactInTask =>
+            AllContactsInTask[contact].name !== singleContactInTask.name
+        );
+        task.contacts = contacts;
+        await updateUserTasks(uid, taskId, task);
     }
 }
+
 
 /**
  * This function delete contacts in the mobile view
  */
 async function deleteContactMobileView() {
-    let email = document.getElementById('emailOfContact').innerHTML;
-    let userData = await loadSpecificUserDataFromLocalStorage();
     let ToBeDeletedContactId = findContactIdByEmailToDelete(userData.contacts, email);
     if (ToBeDeletedContactId) {
         delete userData.contacts[ToBeDeletedContactId];

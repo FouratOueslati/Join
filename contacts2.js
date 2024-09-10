@@ -142,18 +142,50 @@ async function deleteContact(contactId) {
 }
 
 
+/**
+ * deletes the contact in all Tasks in desktop view
+ */
 async function deleteContactInTask(contact) {
     let userData = await loadSpecificUserDataFromLocalStorage();
-    let AllContactsInTask = userData.contacts;
+    deleteContactFromTasks(userData, contact)
+}
+
+
+/**
+ * This function delete contacts in  mobile view
+ */
+async function deleteContactMobileView() {
+    let email = document.getElementById('emailOfContact').innerHTML;
+    await deleteContactDataAndUpdateUI(email);
+}
+
+
+async function deleteContactDataAndUpdateUI(email) {
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    let ToBeDeletedContactId = findContactIdByEmailToDelete(userData.contacts, email);
+    if (ToBeDeletedContactId) {
+        await deleteContactFromTasks(userData, ToBeDeletedContactId);
+        await removeContactFromUserData(userData, ToBeDeletedContactId);
+        await loadDataAfterChanges();
+        closeDialog();
+        openSuccessfullDeleteInfo();
+        closeContactMobile();
+        document.getElementById('contactInfos').innerHTML = '';
+    }
+}
+
+
+async function deleteContactFromTasks(userData, ToBeDeletedContactId) {
     let tasks = userData.tasks;
     let taskKeys = Object.keys(tasks);
+    let AllContactsInTask = userData.contacts;
     for (let j = 0; j < taskKeys.length; j++) {
         const taskId = taskKeys[j];
         let task = tasks[taskId];
         const contactsInTaskObj = task.contacts;
         let contactsInTask = Object.values(contactsInTaskObj);
         const contacts = contactsInTask.filter(singleContactInTask =>
-            AllContactsInTask[contact].name !== singleContactInTask.name
+            AllContactsInTask[ToBeDeletedContactId].name !== singleContactInTask.name
         );
         task.contacts = contacts;
         await updateUserTasks(uid, taskId, task);
@@ -161,20 +193,9 @@ async function deleteContactInTask(contact) {
 }
 
 
-/**
- * This function delete contacts in the mobile view
- */
-async function deleteContactMobileView() {
-    let ToBeDeletedContactId = findContactIdByEmailToDelete(userData.contacts, email);
-    if (ToBeDeletedContactId) {
-        delete userData.contacts[ToBeDeletedContactId];
-        await deleteUserContact(uid, ToBeDeletedContactId);
-        await loadDataAfterChanges();
-        closeDialog();
-        openSuccessfullDeleteInfo();
-        closeContactMobile();
-        document.getElementById('contactInfos').innerHTML = '';
-    }
+async function removeContactFromUserData(userData, ToBeDeletedContactId) {
+    delete userData.contacts[ToBeDeletedContactId];
+    await deleteUserContact(uid, ToBeDeletedContactId);
 }
 
 

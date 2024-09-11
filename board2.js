@@ -124,6 +124,7 @@ function generateModalContent(task, i) {
             <div id="categoryOpened${i}" class="category-opened">${task['task']['category']}</div>
             <img onclick="closeModal(myModal${i})" src="./img/close.png">
         </div>
+        <div class="scroll-y">
         <div id="openedTitle${i}" class="title-opened">${task['task']['name']}</div>
         <div class="description-opened">${task['task']['description']}</div>
         <div class="details-container">
@@ -148,9 +149,10 @@ function generateModalContent(task, i) {
             <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
         </div>
         <div class="edit-delete-task-container">
-            <img onclick="deleteTask(${i})" src="./img/delete_contact.png">
+            <img onclick="deleteTask(${i})" class="pointer" src="./img/delete_contact.png">
             <div style="font-size: 12px;">|</div>
-            <img onclick="editTask(${i})" src="./img/edit_contacts.png">
+            <img onclick="editTask(${i})" class="pointer" src="./img/edit_contacts.png">
+        </div>
         </div>
     `;
 }
@@ -193,7 +195,7 @@ function generateEditModalContent(task, i) {
         </button>
         <button onclick="changeColorEdit(this);" id="mediumButtonEdit" type="button" class="button-prio">
             <div class="center">
-            <div class="button-txt-img">Medium <img src="./addTaskImg/medium.svg" class="prio-photos"></div>
+            <div class="button-txt-img">Medium <img src="./addTaskImg/mediu.svg" class="prio-photos"></div>
             </div>
         </button>
         <button onclick="changeColorEdit(this);" id="lowButtonEdit" type="button" class="button-prio">
@@ -226,6 +228,7 @@ function generateEditModalContent(task, i) {
         </div>
     `;
 }
+////////////////////EventListeners//////////////////////////////////////////
 
 /**
  * This function closes the larger view of an open task
@@ -364,7 +367,7 @@ async function generatePriorityImgUnopened(i, task) {
     let imgSrc = "./addTaskImg/low.svg";
     switch (priority) {
         case 'Medium':
-            imgSrc = "./addTaskImg/medium.svg";
+            imgSrc = "./addTaskImg/mediu.svg";
             break;
         case 'Urgent':
             imgSrc = "./addTaskImg/high.svg";
@@ -390,11 +393,7 @@ function setCategoryColor(i) {
     }
 }
 
-
-/**
- * This function hides or shows icons when the user adds a subtask
- */
-function onInputChangeEdit() {
+function onInputChangeEdit() {  
     let subtaskImg = document.getElementById('plusImgEdit');
     let subtaskButtons = document.getElementById('closeOrAcceptEdit');
     let inputField = document.getElementById('inputFieldSubtaskEdit');

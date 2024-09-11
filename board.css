@@ -507,6 +507,12 @@ h1 {
     display: none;
 }
 
+.drag-area-auto{
+    height: auto;
+    width: auto;
+    background-color: #0038FF;
+}
+
 .parent-Container-for-addTask-board {
     border-radius: 30px;
     background-color: white;
@@ -520,6 +526,18 @@ h1 {
 
 .drag-area-text {
     display: flex;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.number-initials {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    width: 90%;
+    margin-left: 24px;
 }
 
 /* Edit task New*/

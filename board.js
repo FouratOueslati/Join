@@ -117,12 +117,28 @@ function closeModal(modal) {
 async function getContactInitials(contacts, i) {
     let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
     contactInitialsContainer.innerHTML = '';
+
     if (contacts && contacts.length > 0) {
-        for (let j = 0; j < contacts.length; j++) {
+        const maxInitialsToShow = 3; // Show up to 3 initials
+        const extraContactsCount = contacts.length - maxInitialsToShow; // Calculate how many extra contacts there are
+
+        // Display up to the first 3 initials
+        for (let j = 0; j < Math.min(contacts.length, maxInitialsToShow); j++) {
             const contact = contacts[j];
             const initial = getInitials(contact.name);
             const color = contact.backgroundcolor;
-            contactInitialsContainer.innerHTML += `<div id="initials${i}-${j}" class="initials" style="background-color: ${color};">${initial}</div>`;
+            contactInitialsContainer.innerHTML += `
+                <div id="initials${i}-${j}" class="initials" style="background-color: ${color};">
+                    ${initial}
+                </div>`;
+        }
+
+        // If there are more than 3 contacts, add a '+n' element
+        if (extraContactsCount > 0) {
+            contactInitialsContainer.innerHTML += `
+                <div id="initials${i}-extra" class="number-initials" style="color: black;">
+                    +${extraContactsCount}
+                </div>`;
         }
     }
 }

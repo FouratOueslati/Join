@@ -91,6 +91,7 @@ async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
     }
 }
 
+
 /**
  * This function updates the loadbar
  * 

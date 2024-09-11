@@ -258,6 +258,13 @@ async function deleteUserContactInTask(uid, task, k) {
 }
 
 
+/**
+ * This function deletes the removed contacts in tasks
+ * 
+ * @param {string} uid 
+ * @param {object} task 
+ * @returns {object}
+ */
 async function deleteAllContactsInTask(uid, task) {
     const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${task}/contacts/.json`, {
         method: 'DELETE',

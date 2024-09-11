@@ -160,6 +160,11 @@ async function deleteContactMobileView() {
 }
 
 
+/**
+ * This function checks whether the contact exist and deletes it from the user data
+ * 
+ * @param {string} email 
+ */
 async function deleteContactDataAndUpdateUI(email) {
     let userData = await loadSpecificUserDataFromLocalStorage();
     let ToBeDeletedContactId = findContactIdByEmailToDelete(userData.contacts, email);
@@ -175,6 +180,12 @@ async function deleteContactDataAndUpdateUI(email) {
 }
 
 
+/**
+ * This function deletes the contact from the tasks
+ * 
+ * @param {object} userData 
+ * @param {number} ToBeDeletedContactId 
+ */
 async function deleteContactFromTasks(userData, ToBeDeletedContactId) {
     let tasks = userData.tasks;
     let taskKeys = Object.keys(tasks);
@@ -193,6 +204,12 @@ async function deleteContactFromTasks(userData, ToBeDeletedContactId) {
 }
 
 
+/**
+ * This function deletes the removed contact from the user data
+ * 
+ * @param {object} userData 
+ * @param {number} ToBeDeletedContactId 
+ */
 async function removeContactFromUserData(userData, ToBeDeletedContactId) {
     delete userData.contacts[ToBeDeletedContactId];
     await deleteUserContact(uid, ToBeDeletedContactId);

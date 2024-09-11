@@ -393,6 +393,11 @@ function setCategoryColor(i) {
     }
 }
 
+
+/**
+ * This function hides or shows icons depending on whether the user writes in the input field
+ * or not
+ */
 function onInputChangeEdit() {  
     let subtaskImg = document.getElementById('plusImgEdit');
     let subtaskButtons = document.getElementById('closeOrAcceptEdit');

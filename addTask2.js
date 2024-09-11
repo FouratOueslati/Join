@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
 /**
  * This function close the drop down menu when the user click at the body
  * 

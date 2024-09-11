@@ -378,6 +378,12 @@ async function displayNamesOfContactsEdit() {
 }
 
 
+/**
+ * This function allows you to select or deselect contacts für the tasks
+ * 
+ * @param {object} event 
+ * @param {number} i 
+ */
 function choseContactForAssignmentEditTask(event, i) {
     const checkbox = event.target;
     const contactToChose = document.getElementById(`contactToChoseInEditTask${i}`);

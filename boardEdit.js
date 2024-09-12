@@ -113,7 +113,7 @@ function clearSubtaskInputEdit() {
 
 
 /**
- * Thias function delete the subtask
+ * This function delete the subtask
  * 
  * @param {number} taskIndex 
  * @param {number} subtaskIndex 

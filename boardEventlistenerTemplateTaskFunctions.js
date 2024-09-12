@@ -109,13 +109,15 @@ function getToDoTaskHtml(task, i) {
             <div id="category${i}" class="category">${task['task']['category']}</div>
             <div class="moveTo-menu-container">
                 <img id="moveToMenuImg" onclick="toggleMoveToMenu(event, ${i})" src="./img/menu.png" class="moveTo-menu d-none">
-                <ul id="moveToMenu${i}" class="moveTo-menu-options d-none">
-                    <div class="move-to">Move to: </div>
-                    <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'todo', ${i})">To do</li>
-                    <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'inprogress', ${i})">In progress</li>
-                    <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'awaitfeedback', ${i})">Await Feedback</li>
-                    <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'done', ${i})">Done</li>
-                </ul>
+                <div id="moveToMenu${i}" class="moveTo-menu-options d-none">
+                     <ul >
+                        <div class="move-to">Move to: </div>
+                        <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'todo', ${i})">To do</li>
+                        <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'inprogress', ${i})">In progress</li>
+                        <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'awaitfeedback', ${i})">Await Feedback</li>
+                        <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'done', ${i})">Done</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div id="taskTitle${i}" class="task-title">${task['task']['name']}</div>

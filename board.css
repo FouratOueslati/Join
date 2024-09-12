@@ -590,19 +590,18 @@ h1 {
 
 .moveTo-menu-options {
     width: 80px;
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 400;
     color: white;
     display: flex;
     flex-direction: column;
     background-color: #2A3647;
-    padding: 16px;
-    border-radius: 20px;
+    border-radius: 20px 0 20px 20px;
     position: absolute;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    margin-top: 24px;
+    margin: 14px;
 }
 
 .category-to-moveTo:hover {
@@ -618,5 +617,7 @@ h1 {
 
 .move-to {
     font-size: 16px;
-    color: lightblue;
+    font-weight: 600;
+    color: #29ABE2;
+    margin: 8px 0 0 -16px;
 }

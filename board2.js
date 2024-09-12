@@ -4,6 +4,7 @@
  */
 document.addEventListener('DOMContentLoaded', (event) => {
     addDragCategoryEventListeners();
+    addDragCategoryEventListenersMobile();
     addPrioEventListenersEdit();
     addCategoryEventListenerEdit();
 });
@@ -24,6 +25,17 @@ function addDragCategoryEventListeners() {
     });
 }
 
+function addDragCategoryEventListenersMobile() {
+    document.getElementById('awaitFeedback').addEventListener('touchstart', () => {
+        localStorage.setItem('dragCategory', 'awaitfeedback');
+    });
+    document.getElementById('toDo').addEventListener('touchstart', () => {
+        localStorage.setItem('dragCategory', 'todo');
+    });
+    document.getElementById('inProgress').addEventListener('touchstart', () => {
+        localStorage.setItem('dragCategory', 'inprogress');
+    });
+}
 
 /**
  * This function adds a click event listener to select and save a priority

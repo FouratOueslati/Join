@@ -95,6 +95,16 @@ function getToDoTaskHtml(task, i) {
     <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
             <div id="category${i}" class="category">${task['task']['category']}</div>
+            <div class="moveTo-menu-container">
+                <img id="moveToMenuImg" onclick="toggleMoveToMenu(event, ${i})" src="./img/menu.png" class="moveTo-menu d-none">
+                <ul id="moveToMenu${i}" class="moveTo-menu-options d-none">
+                    <div class="move-to">Move to: </div>
+                    <li onclick="moveToFromMenu(event, 'todo', ${i})">To do</li>
+                    <li onclick="moveToFromMenu(event, 'inprogress', ${i})">In progress</li>
+                    <li onclick="moveToFromMenu(event, 'awaitfeedback', ${i})">Await Feedback</li>
+                    <li onclick="moveToFromMenu(event, 'done', ${i})">Done</li>
+                </ul>
+            </div>
         </div>
         <div id="taskTitle${i}" class="task-title">${task['task']['name']}</div>
         <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
@@ -398,7 +408,7 @@ function setCategoryColor(i) {
  * This function hides or shows icons depending on whether the user writes in the input field
  * or not
  */
-function onInputChangeEdit() {  
+function onInputChangeEdit() {
     let subtaskImg = document.getElementById('plusImgEdit');
     let subtaskButtons = document.getElementById('closeOrAcceptEdit');
     let inputField = document.getElementById('inputFieldSubtaskEdit');

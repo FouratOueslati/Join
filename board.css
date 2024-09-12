@@ -277,7 +277,8 @@ h1 {
 .task-category {
     box-sizing: border-box;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 12px;
 }
 
@@ -347,7 +348,7 @@ h1 {
     max-height: 600px;
 }
 
-.category-opened-container{
+.category-opened-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -507,7 +508,7 @@ h1 {
     display: none;
 }
 
-.drag-area-auto{
+.drag-area-auto {
     height: auto;
     width: auto;
     background-color: #0038FF;
@@ -549,7 +550,7 @@ h1 {
 .margin-span {
     margin-top: 4px;
     margin-bottom: 4px;
-} 
+}
 
 .button-dark {
     background-color: rgb(42, 54, 71);
@@ -576,4 +577,39 @@ h1 {
     overflow-y: auto;
     padding-left: 8px;
     padding-right: 8px;
+}
+
+.moveTo-menu {
+    width: 15px;
+    z-index: 99;
+}
+
+.moveTo-menu:hover{
+    width: 20px;
+}
+
+.moveTo-menu-options {
+    width: 80px;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    background-color: #2A3647;
+    padding: 16px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.moveTo-menu-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.move-to {
+    font-size: 16px;
+    color: lightblue;
 }

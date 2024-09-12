@@ -196,6 +196,15 @@ async function moveTo(category) {
     await displayOpenTasks()
 }
 
+async function moveToFromMenu(event, category, i) {
+    event.stopPropagation();
+    todos[i]['task']['dragCategory'] = category;
+    await updateDragCategoryInFirebase(category, todos[i].id);
+    removeTaskFromContainer(i);
+    addTaskToContainer(i, category);
+    await displayOpenTasks();
+}
+
 
 /**
  * This function allows tasks to be remove from a container
@@ -268,4 +277,10 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function allowDrop(ev) {
     ev.preventDefault();
+}
+
+
+function toggleMoveToMenu(event, i) {
+    event.stopPropagation();
+    document.getElementById(`moveToMenu${i}`).classList.toggle('d-none');
 }

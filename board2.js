@@ -99,10 +99,10 @@ function getToDoTaskHtml(task, i) {
                 <img id="moveToMenuImg" onclick="toggleMoveToMenu(event, ${i})" src="./img/menu.png" class="moveTo-menu d-none">
                 <ul id="moveToMenu${i}" class="moveTo-menu-options d-none">
                     <div class="move-to">Move to: </div>
-                    <li onclick="moveToFromMenu(event, 'todo', ${i})">To do</li>
-                    <li onclick="moveToFromMenu(event, 'inprogress', ${i})">In progress</li>
-                    <li onclick="moveToFromMenu(event, 'awaitfeedback', ${i})">Await Feedback</li>
-                    <li onclick="moveToFromMenu(event, 'done', ${i})">Done</li>
+                    <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'todo', ${i})">To do</li>
+                    <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'inprogress', ${i})">In progress</li>
+                    <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'awaitfeedback', ${i})">Await Feedback</li>
+                    <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'done', ${i})">Done</li>
                 </ul>
             </div>
         </div>

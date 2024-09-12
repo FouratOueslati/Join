@@ -584,7 +584,7 @@ h1 {
     z-index: 99;
 }
 
-.moveTo-menu:hover{
+.moveTo-menu:hover {
     width: 20px;
 }
 
@@ -597,12 +597,17 @@ h1 {
     flex-direction: column;
     background-color: #2A3647;
     padding: 16px;
+    gap: 10px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
-.moveTo-menu-container{
+.category-to-moveTo:hover {
+    opacity: 0.6;
+}
+
+.moveTo-menu-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;

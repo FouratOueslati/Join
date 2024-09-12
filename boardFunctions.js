@@ -184,9 +184,11 @@ function startDragging(id) {
 
 
 /**
- * This function allows tasks can be postponed
+ * Those function allows tasks can be postponed
  * 
  * @param {element} category 
+ * @param {number} i
+ * @param {event} event
  */
 async function moveTo(category) {
     todos[currentDraggedElement]['task']['dragCategory'] = category;

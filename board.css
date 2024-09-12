@@ -597,10 +597,12 @@ h1 {
     flex-direction: column;
     background-color: #2A3647;
     padding: 16px;
-    gap: 10px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 20px;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 24px;
 }
 
 .category-to-moveTo:hover {

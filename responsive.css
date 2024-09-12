@@ -26,8 +26,11 @@
 }
 
 @media (max-width: 900px) {
+    .moveTo-menu {
+        display: block;
+    }
+
     .add-new-contact {
-        
         transform: translateY(110%);
         transform: translateX(0);
     }

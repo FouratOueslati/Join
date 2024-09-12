@@ -184,9 +184,11 @@ function startDragging(id) {
 
 
 /**
- * This function allows tasks can be postponed
+ * Those function allows tasks can be postponed
  * 
  * @param {element} category 
+ * @param {number} i
+ * @param {event} event
  */
 async function moveTo(category) {
     todos[currentDraggedElement]['task']['dragCategory'] = category;
@@ -194,6 +196,15 @@ async function moveTo(category) {
     removeTaskFromContainer(currentDraggedElement);
     addTaskToContainer(currentDraggedElement, category);
     await displayOpenTasks()
+}
+
+async function moveToFromMenu(event, category, i) {
+    event.stopPropagation();
+    todos[i]['task']['dragCategory'] = category;
+    await updateDragCategoryInFirebase(category, todos[i].id);
+    removeTaskFromContainer(i);
+    addTaskToContainer(i, category);
+    await displayOpenTasks();
 }
 
 
@@ -268,4 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function allowDrop(ev) {
     ev.preventDefault();
+}
+
+
+function toggleMoveToMenu(event, i) {
+    event.stopPropagation();
+    document.getElementById(`moveToMenu${i}`).classList.toggle('d-none');
 }

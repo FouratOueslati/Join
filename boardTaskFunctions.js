@@ -119,10 +119,8 @@ async function getContactInitials(contacts, i) {
     contactInitialsContainer.innerHTML = '';
 
     if (contacts && contacts.length > 0) {
-        const maxInitialsToShow = 3; // Show up to 3 initials
-        const extraContactsCount = contacts.length - maxInitialsToShow; // Calculate how many extra contacts there are
-
-        // Display up to the first 3 initials
+        const maxInitialsToShow = 3; 
+        const extraContactsCount = contacts.length - maxInitialsToShow; 
         for (let j = 0; j < Math.min(contacts.length, maxInitialsToShow); j++) {
             const contact = contacts[j];
             const initial = getInitials(contact.name);
@@ -132,8 +130,6 @@ async function getContactInitials(contacts, i) {
                     ${initial}
                 </div>`;
         }
-
-        // If there are more than 3 contacts, add a '+n' element
         if (extraContactsCount > 0) {
             contactInitialsContainer.innerHTML += `
                 <div id="initials${i}-extra" class="number-initials" style="color: black;">

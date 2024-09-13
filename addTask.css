@@ -183,6 +183,10 @@ body {
 
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .prio-photos {
     width: 20px;
 }

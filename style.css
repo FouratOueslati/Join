@@ -370,3 +370,17 @@ body {
 .privacy-policy-extern:hover {
     color: #29ABE2;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.color-blue-button:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.color-white-button:hover {
+    border-color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+}

@@ -146,7 +146,7 @@ function generateModalContent(task, i) {
     return /*html*/`
         <div class="category-opened-container">
             <div id="categoryOpened${i}" class="category-opened">${task['task']['category']}</div>
-            <img onclick="closeModal(myModal${i})" src="./img/close.png">
+            <img onclick="closeModal(myModal${i})" src="./img/close.png" class="pointer">
         </div>
         <div class="scroll-y">
         <div id="openedTitle${i}" class="title-opened">${task['task']['name']}</div>
@@ -187,7 +187,7 @@ function generateEditModalContent(task, i) {
     return /*html*/`
         <div class="category-opened-container">
             <div class="category-opened">${task.category}</div>
-            <img id="closeImg${i}" src="./img/close.png"  onclick="closeModalEdit(document.getElementById('${modalId}'))">
+            <img id="closeImg${i}" src="./img/close.png" class="pointer"  onclick="closeModalEdit(document.getElementById('${modalId}'))">
         </div>
         <div class="scroll-y">
         <div class="modal-edit-content">
@@ -248,7 +248,7 @@ function generateEditModalContent(task, i) {
             ${generateSubtasksEditHtml(task.subtasks, i)}
         </div>
         <div class="align-center justify-center">
-            <button class="button-dark" id="createTaskBtn" type="submit" onclick="saveTask(${i})">OK <img src="./img/check.png"></button>
+            <button class="button-dark color-blue-button" id="createTaskBtn" type="submit" onclick="saveTask(${i})">OK <img src="./img/check.png"></button>
         </div>
     `;
 }

@@ -169,9 +169,9 @@
                         <input class="find-task-input" placeholder="Find Task" id="search" minlength="4"
                             onkeyup="filterTask()">
                         <div class="seperate-line"></div>
-                        <img src="./boardImg/search.svg" class="input-svg" onclick="filterTask()">
+                        <img src="./boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
                     </div>
-                    <button onclick="openAddTaskInBoard()" class="add-task-button">
+                    <button onclick="openAddTaskInBoard()" class="add-task-button color-blue-button">
                         <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
                                 class="svg-size" src="./boardImg/plus.svg">
                         </div>
@@ -195,7 +195,7 @@
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">To do <img id="toDo" onclick="openAddTaskInBoard()"
-                                class="txt-svg-centering" src="./boardImg/add.svg"></span>
+                                class="txt-svg-centering pointer" src="./boardImg/add.svg"></span>
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="toDoTasks" ondrop="moveTo('todo')"
                                 ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
@@ -207,7 +207,7 @@
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">In progress <img id="inProgress" onclick="openAddTaskInBoard()"
-                                class="txt-svg-centering" src="./boardImg/add.svg"></span>
+                                class="txt-svg-centering pointer" src="./boardImg/add.svg"></span>
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="inProgressTasks"
                                 ondrop="moveTo('inprogress')" ondragleave="removeHighlight('inprogress')"
@@ -219,7 +219,7 @@
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">Await feedback <img id="awaitFeedback"
-                                onclick="openAddTaskInBoard()" class="txt-svg-centering"
+                                onclick="openAddTaskInBoard()" class="txt-svg-centering pointer"
                                 src="./boardImg/add.svg"></span>
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="feedbackTasks"

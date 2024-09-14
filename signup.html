@@ -22,12 +22,12 @@
             <div class="signup-headline">Sign up</div>
             <div class="blue-seperator"></div>
             <div class="data-container">
-                <input id="name" placeholder="Name" type="text" required class="name-input">
-                <input id="email" placeholder="Email" type="email" required class="email-input">
+                <input id="name" placeholder="Name" type="text" required class="name-input" onkeyup="validateName()">
+                <input id="email" placeholder="Email" type="email" required class="email-input" onkeyup="validateEmail()">
                 
-                <input id="password" onclick="togglePassword('password')" placeholder="Password" type="password" required class="password-input">
+                <input id="password" onclick="togglePassword('password')" placeholder="Password" type="password" required class="password-input" onkeyup="validatePassword()">
                 <input id="confirmedPassword" onclick="togglePassword('confirmedPassword')" placeholder="Confirm Password" type="password" required
-                    class="password-input">
+                    class="password-input" onkeyup="validatePassword()">
             </div>
             <div class="accept-policy-container">
                 <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox" required>

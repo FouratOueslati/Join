@@ -127,3 +127,45 @@ function togglePassword(inputId) {
         passwordInput.setSelectionRange(length, length);
     }, 0);
 }
+
+
+
+///NEW///
+function validateName() {
+    const nameInput = document.getElementById('name');
+    const nameValue = nameInput.value.trim();
+    if (nameValue.split(' ').length >= 2) {
+        nameInput.style.borderColor = 'green'; 
+    } else {
+        nameInput.style.borderColor = 'red'; 
+    }
+}
+
+function validateEmail() {
+    const emailInput = document.getElementById('email');
+    const emailValue = emailInput.value.trim();
+    if (emailValue.includes('@')) {
+        emailInput.style.borderColor = 'green';
+    } else {
+        emailInput.style.borderColor = 'red';
+    }
+}
+
+function validatePassword() {
+    const passwordInput = document.getElementById('password');
+    const confirmedPasswordInput = document.getElementById('confirmedPassword');
+    const passwordValue = passwordInput.value.trim();
+    const confirmedPasswordValue = confirmedPasswordInput.value.trim();
+    if (passwordValue.length >= 3) {
+        passwordInput.style.borderColor = 'green'; 
+    } else {
+        passwordInput.style.borderColor = 'red'; 
+    }
+    if (confirmedPasswordValue === passwordValue && confirmedPasswordValue.length >= 3) {
+        confirmedPasswordInput.style.borderColor = 'green'; 
+    } else if (confirmedPasswordValue.length > 0) {
+        confirmedPasswordInput.style.borderColor = 'red'; 
+    } else {
+        confirmedPasswordInput.style.borderColor = ''; 
+    }
+}

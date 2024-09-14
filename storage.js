@@ -128,7 +128,6 @@ async function getLowTasks() {
         },
     });
     const lowTasks = await response.json();
-    console.log(lowTasks)
     return lowTasks;
 }
 
@@ -146,7 +145,6 @@ async function getMediumTasks() {
         },
     });
     const mediumTasks = await response.json();
-    console.log(mediumTasks)
     return mediumTasks;
 }
 
@@ -164,7 +162,6 @@ async function getUrgentTasks() {
         },
     });
     const urgentTasks = await response.json();
-    console.log(urgentTasks)
     return urgentTasks;
 }
 

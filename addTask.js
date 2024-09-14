@@ -14,6 +14,32 @@ async function onloadFunction() {
     showLoggedUserInitials();
 }
 
+function validateAndAddTask() {
+    const taskTitle = document.getElementById('taskTitle');
+    const date = document.getElementById('date');
+    const categoryContainer = document.getElementById('selectCategoryContainer');
+    const category = document.getElementById('selectCategory');
+    taskTitle.style.borderColor = '';
+    date.style.borderColor = '';
+    categoryContainer.style.borderColor = '';
+    let isValid = true;
+    if (taskTitle.value.trim().length < 4) {
+        taskTitle.style.borderColor = 'red';
+        isValid = false;
+    }
+    if (!date.value) {
+        date.style.borderColor = 'red';
+        isValid = false;
+    }
+    if (category.textContent === 'Select task category') {
+        categoryContainer.style.borderColor = 'red';
+        isValid = false;
+    }
+    if (isValid) {
+        addTask();
+    }
+}
+
 
 /**
  * This function executes the addPrioEventListeners and addCategoryEventListener functions
@@ -312,7 +338,6 @@ function displayContactsForAssignment() {
     let containerBubbleInitials = document.getElementById('contactsDisplayBubble');
     containerBubbleInitials.innerHTML = '';
     let checkboxes = document.querySelectorAll('.assign-contact-checkbox-edittask');
-    console.log(checkboxes)
     for (let i = 0; i < checkboxes.length; i++) {
         let checkbox = checkboxes[i];
         if (checkbox.checked) {
@@ -325,7 +350,6 @@ function displayContactsForAssignment() {
         }
     }
 }
-
 
 /**
  * This function retrieves datas from local storage and creates an object with data
@@ -410,3 +434,4 @@ function createSubtasksArray(subtasks) {
         status: "undone"
     }));
 }
+

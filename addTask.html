@@ -32,7 +32,7 @@
                         <div class="add-task-set-up-one">
                             <div class="inputs-flex">
                                 <span>Title<b style="color: orange;">*</b></span>
-                                <input id="taskTitle" required placeholder="Enter a title..." minlength="4"
+                                <input id="taskTitle" placeholder="Enter a title..." minlength="4"
                                     class="task-input-field">
                             </div>
                             <div class="inputs-flex">
@@ -62,7 +62,7 @@
                         <div class="add-task-set-up-two">
                             <div class="inputs-flex">
                                 <span>Due date<b style="color: orange;">*</b></span>
-                                <input id="date" required type="date" class="task-input-field date">
+                                <input id="date" type="date" class="task-input-field date">
                             </div>
                             <div class="inputs-flex">
                                 <span>Prio</span>
@@ -172,7 +172,7 @@
                             <div class="button-txt-img">Clear<img src="./addTaskImg/close.svg" class="close-svg">
                             </div>
                         </button>
-                        <button id="addTaskButton" class="color-blue-button">
+                        <button id="addTaskButton" class="color-blue-button" onclick="validateAndAddTask()" >
                             <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg" class="check-svg">
                             </div>
                         </button>

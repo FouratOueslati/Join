@@ -1,5 +1,6 @@
 /**
- * This function delete the entries of an user from the local storage, logged out the user and forward the user to the log in
+ * This function delete the entries of an user from the local storage, logged out the user 
+ * and forward the user to the log in
  */
 async function logOut() {
     let data = JSON.parse(localStorage.getItem('data'));

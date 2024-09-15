@@ -358,6 +358,7 @@ body {
     border-radius: 10px;
     border-width: 0px 0px 0px 0px;
     outline: unset;
+    font-family: 'Inter';
 }
 
 .input-field-svg {

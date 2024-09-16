@@ -117,7 +117,8 @@ body {
 }
 
 .button-end-process-container-small {
-    margin: 55px 65px 64px 74px;
+    margin: 0px 65px 0px 74px;
+    height: 70px;
 }
 
 .add-task-set-up-one-container {
@@ -428,7 +429,7 @@ body {
 }
 
 .subtask-container {
-    height: 80px;
+    height: 70px;
     overflow: auto;
 }
 

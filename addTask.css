@@ -113,7 +113,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 124px 65px 24px 74px;
+    margin: 70px 65px 24px 74px;
 }
 
 .button-end-process-container-small {
@@ -425,6 +425,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.subtask-container {
+    height: 80px;
+    overflow: auto;
 }
 
 .subtask-Txt {

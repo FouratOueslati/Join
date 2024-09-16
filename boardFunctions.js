@@ -302,3 +302,7 @@ function toggleMoveToMenu(event, i) {
     event.stopPropagation();
     document.getElementById(`moveToMenu${i}`).classList.toggle('d-none');
 }
+
+function changeBgColorDragAndDrop() {
+    
+}

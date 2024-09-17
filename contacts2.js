@@ -190,30 +190,21 @@ async function deleteContactFromTasks(userData, ToBeDeletedContactId) {
     let tasks = userData.tasks;
     let taskKeys = Object.keys(tasks);
     let AllContactsInTask = userData.contacts;
-
     for (let j = 0; j < taskKeys.length; j++) {
         const taskId = taskKeys[j];
         let task = tasks[taskId];
-        
-        // Ensure task.contacts is defined
         if (!task.contacts) {
-            continue; // Skip this task if no contacts are present
+            continue; 
         }
-
         const contactsInTaskObj = task.contacts;
         let contactsInTask = Object.values(contactsInTaskObj);
-
         const contacts = contactsInTask.filter(singleContactInTask =>
             AllContactsInTask[ToBeDeletedContactId] && AllContactsInTask[ToBeDeletedContactId].name !== singleContactInTask.name
         );
-
         task.contacts = contacts;
-
         await updateUserTasks(uid, taskId, task);
     }
 }
-
-
 
 /**
  * This function deletes the removed contact from the user data

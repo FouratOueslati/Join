@@ -255,7 +255,7 @@ function choseContactForAssignment(event, i) {
 function displayContactsForAssignment() {
     let containerBubbleInitials = document.getElementById('contactsDisplayBubble');
     containerBubbleInitials.innerHTML = '';
-    let checkboxes = document.querySelectorAll('.assign-contact-checkbox-edittask');
+    let checkboxes = document.querySelectorAll('.assign-contact-checkbox');
     for (let i = 0; i < checkboxes.length; i++) {
         let checkbox = checkboxes[i];
         if (checkbox.checked) {

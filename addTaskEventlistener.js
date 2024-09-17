@@ -204,7 +204,7 @@ function showConfirmationTask() {
  * @param {object} clickedButton 
  */
 
-function changeColor(clickedButton) {
+function changeColor(clickedButton) {    
     const buttons = [
         { element: document.getElementById('lowButton'), class: 'lowSelected' },
         { element: document.getElementById('mediumButton'), class: 'mediumSelected' },

@@ -340,7 +340,6 @@ async function editTask(i) {
             if (taskTitleInFirebase == title && taskDescriptionInFirebase == description) {
                 localStorage.setItem('toBeEditedTaskId', taskId);
             }
-
         }
     }
     modalContentEdit.innerHTML = generateEditModalContent(task, i);

@@ -51,27 +51,6 @@ function showConfirmationTask() {
 
 
 /**
- * This function changes the color of priority buttons
- * 
- * @param {object} clickedButton 
- */
-
-function changeColor(clickedButton) {
-    const buttons = [
-        { element: document.getElementById('lowButton'), class: 'lowSelected' },
-        { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
-        { element: document.getElementById('urgentButton'), class: 'urgentSelected' }
-    ];
-    buttons.forEach(button => {
-        button.element.classList.toggle(button.class, button.element === clickedButton);
-        if (button.element !== clickedButton) {
-            button.element.classList.remove(button.class);
-        }
-    });
-}
-
-
-/**
  * This function changes the color of the priority buttons and save the selected priority
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -157,16 +136,6 @@ function addOptionListeners(options, select, caret, menu, selected) {
 
 
 /**
- * This function changes the color of the priority buttons and save the selected priority
- */
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('lowButton').onclick = function () { changeColor(this); };
-    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
-    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
-});
-
-
-/**
  * This function reset the form so the user can create a new task
  * 
  * @param {object} assignedContactsContainer 
@@ -204,7 +173,9 @@ function showConfirmationTask() {
  * @param {object} clickedButton 
  */
 
-function changeColor(clickedButton) {    
+function changeColor(clickedButton) {
+    let mediumButton = document.getElementById('mediumButton');
+    mediumButton.classList.remove('orange-background');
     const buttons = [
         { element: document.getElementById('lowButton'), class: 'lowSelected' },
         { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
@@ -220,10 +191,20 @@ function changeColor(clickedButton) {
 
 
 /**
+ * This function changes the color of the priority buttons and save the selected priority
+ */
+/* document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('lowButton').onclick = function () { changeColor(this); };
+    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
+    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
+}); */
+
+
+/**
  * This function allows saving the input from the subtask using the enter key
  */
 const subtaskInput = document.getElementById('inputFieldSubtask');
-subtaskInput.addEventListener('keydown', function(event) {
+subtaskInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         addSubtask();
     }
@@ -235,7 +216,7 @@ subtaskInput.addEventListener('keydown', function(event) {
  * 
  * @returns {number} current day
  */
- function getTodayDate() {
+function getTodayDate() {
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -249,5 +230,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //New
 function removeAllInput() {
-    
+
 }

@@ -392,7 +392,8 @@ body {
     margin-bottom: 2px;
 }
 
-.contact-boarder, .contact-boarder-edittask {
+.contact-boarder,
+.contact-boarder-edittask {
     margin-bottom: 2px;
     display: flex;
     justify-content: space-between;
@@ -407,7 +408,8 @@ body {
     background-color: lightgrey;
 }
 
-.circle-initial, .circle-initial-edittask {
+.circle-initial,
+.circle-initial-edittask {
     width: 30px;
     height: 30px;
     border-radius: 16px;
@@ -474,19 +476,22 @@ body {
     opacity: 1;
 }
 
-.lowSelected {
+.lowSelected,
+.lowSelectedEdit {
     background-color: rgb(122, 226, 41);
     color: #FFFFFF;
 
 }
 
-.mediumSelected {
+.mediumSelected,
+.mediumSelectedEdit {
     background-color: rgb(255, 168, 0);
     color: #FFFFFF;
 
 }
 
-.urgentSelected {
+.urgentSelected,
+.urgentSelectedEdit {
     background-color: rgb(255, 61, 0);
     color: #FFFFFF;
 }
@@ -507,6 +512,11 @@ body {
 .button-prio.mediumSelected svg .mediumSelected,
 .button-prio.lowSelected svg .lowSelected {
     fill: #FFFFFF;
+}
+
+.orange-background {
+    background-color: rgb(255, 168, 0);
+    color: white;
 }
 
 @media(max-width: 350px) {

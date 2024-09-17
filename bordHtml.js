@@ -108,17 +108,17 @@ function generateEditModalContent(task, i) {
             <input id="dateEdit${i}" type="date" class="task-input-field date" value="${task.date}">
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
-        <button onclick="changeColorEdit(this);" id="urgentButtonEdit" type="button" class="button-prio">
+        <button onclick="addPrioEventListenersEdit(); changeColorEdit(this);" id="urgentButtonEdit" type="button" class="button-prio">
             <div class="center">
             <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
             </div>
         </button>
-        <button onclick="changeColorEdit(this);" id="mediumButtonEdit" type="button" class="button-prio">
+        <button onclick="addPrioEventListenersEdit(); changeColorEdit(this);" id="mediumButtonEdit" type="button" class="button-prio">
             <div class="center">
             <div class="button-txt-img">Medium <img src="./addTaskImg/medium.svg" class="prio-photos"></div>
             </div>
         </button>
-        <button onclick="changeColorEdit(this);" id="lowButtonEdit" type="button" class="button-prio">
+        <button onclick="addPrioEventListenersEdit(); changeColorEdit(this);" id="lowButtonEdit" type="button" class="button-prio">
             <div class="center">
             <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
             </div>

@@ -21,9 +21,9 @@ function removeHighlight() {
  */
 function changeColorEdit(clickedButton) {
     const buttons = [
-        { element: document.getElementById('lowButtonEdit'), class: 'lowSelected' },
-        { element: document.getElementById('mediumButtonEdit'), class: 'mediumSelected' },
-        { element: document.getElementById('urgentButtonEdit'), class: 'urgentSelected' }
+        { element: document.getElementById('lowButtonEdit'), class: 'lowSelectedEdit' },
+        { element: document.getElementById('mediumButtonEdit'), class: 'mediumSelectedEdit' },
+        { element: document.getElementById('urgentButtonEdit'), class: 'urgentSelectedEdit' }
     ];
     buttons.forEach(button => {
         if (button.element) {

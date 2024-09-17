@@ -184,12 +184,13 @@ function startDragging(id) {
 
 
 /**
- * Those function allows tasks can be postponed
+ * This function allows tasks to be postponed
  * 
  * @param {element} category 
  * @param {number} i
  * @param {event} event
  */
+
 async function moveTo(category) {
     todos[currentDraggedElement]['task']['dragCategory'] = category;
     await updateDragCategoryInFirebase(category, todos[currentDraggedElement].id);
@@ -197,6 +198,15 @@ async function moveTo(category) {
     addTaskToContainer(currentDraggedElement, category);
     await displayOpenTasks()
 }
+
+
+/**
+ * This function allows tasks to be postponed and update the datas on external storage
+ * 
+ * @param {element} event 
+ * @param {element} category 
+ * @param {number} i 
+ */
 
 async function moveToFromMenu(event, category, i) {
     event.stopPropagation();
@@ -282,7 +292,17 @@ function allowDrop(ev) {
 }
 
 
+/**
+ * This function shows or hides the menu
+ * 
+ * @param {object} event 
+ * @param {number} i 
+ */
 function toggleMoveToMenu(event, i) {
     event.stopPropagation();
     document.getElementById(`moveToMenu${i}`).classList.toggle('d-none');
+}
+
+function changeBgColorDragAndDrop() {
+    
 }

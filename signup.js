@@ -129,8 +129,9 @@ function togglePassword(inputId) {
 }
 
 
-
-///NEW///
+/**
+ * This function checks whether the first and last name have been entered
+ */
 function validateName() {
     const nameInput = document.getElementById('name');
     const nameValue = nameInput.value.trim();
@@ -141,6 +142,10 @@ function validateName() {
     }
 }
 
+
+/**
+ * This function checks whethter the email was entered correctly
+ */
 function validateEmail() {
     const emailInput = document.getElementById('email');
     const emailValue = emailInput.value.trim();
@@ -151,6 +156,10 @@ function validateEmail() {
     }
 }
 
+
+/**
+ * This function checks whethter the password was entered correctly
+ */
 function validatePassword() {
     const passwordInput = document.getElementById('password');
     const confirmedPasswordInput = document.getElementById('confirmedPassword');

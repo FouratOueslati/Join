@@ -113,11 +113,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 124px 65px 24px 74px;
+    margin: 70px 65px 24px 74px;
 }
 
 .button-end-process-container-small {
-    margin: 55px 65px 64px 74px;
+    margin: 0px 65px 0px 74px;
+    height: 70px;
 }
 
 .add-task-set-up-one-container {
@@ -358,6 +359,7 @@ body {
     border-radius: 10px;
     border-width: 0px 0px 0px 0px;
     outline: unset;
+    font-family: 'Inter';
 }
 
 .input-field-svg {
@@ -424,6 +426,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.subtask-container {
+    height: 70px;
+    overflow: auto;
 }
 
 .subtask-Txt {

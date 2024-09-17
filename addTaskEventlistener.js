@@ -204,7 +204,7 @@ function showConfirmationTask() {
  * @param {object} clickedButton 
  */
 
-function changeColor(clickedButton) {
+function changeColor(clickedButton) {    
     const buttons = [
         { element: document.getElementById('lowButton'), class: 'lowSelected' },
         { element: document.getElementById('mediumButton'), class: 'mediumSelected' },
@@ -238,7 +238,7 @@ subtaskInput.addEventListener('keydown', function(event) {
  function getTodayDate() {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }

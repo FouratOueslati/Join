@@ -100,4 +100,13 @@
         background-color: #2A3647;
         height: 100vh;
     }
+
+    .main-container-signup {
+        margin-top: 50px;
+    }
+
+    .join-icon-signup {
+        top: 20px;
+        left: 20px;
+    }
 }

@@ -31,7 +31,7 @@ async function logIn() {
  * This function load saved datas, logged the guest user in and forward to the summary
  */
 async function guestLogin() {
-    setLoggedInGuest('guest@email.com', '1110448388');
+    setLoggedInGuest('guest@email.com', '7961760844');
     let guest = JSON.parse(localStorage.getItem('loggedInGuest'));
     let email = document.getElementById('loginEmail');
     let password = document.getElementById('loginPassword');

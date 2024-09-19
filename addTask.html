@@ -21,7 +21,11 @@
                 <div>Task added to board</div>
                 <img src="./addTaskImg/board-white.png">
             </div>
+<<<<<<< HEAD
             <form class="main-container-task">
+=======
+            <form onsubmit="validateAndAddTask(); return false" class="main-container-task">
+>>>>>>> 012d8e794de9e3ade94a285630d8d364cd7e5e29
                 <div class="aot-task-container">
                     <div class="add-task-title">Add Task</div>
                 </div>
@@ -170,7 +174,7 @@
                             <div class="button-txt-img">Clear<img src="./addTaskImg/close.svg" class="close-svg">
                             </div>
                         </button>
-                        <button id="addTaskButton" class="color-blue-button" onclick="validateAndAddTask()" >
+                        <button id="addTaskButton" class="color-blue-button" type="submit">
                             <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg" class="check-svg">
                             </div>
                         </button>

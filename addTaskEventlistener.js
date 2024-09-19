@@ -228,7 +228,3 @@ document.addEventListener('DOMContentLoaded', () => {
     dateInput.setAttribute('min', getTodayDate());
 });
 
-//New
-function removeAllInput() {
-
-}

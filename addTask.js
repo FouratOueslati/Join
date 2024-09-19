@@ -353,3 +353,23 @@ function createSubtasksArray(subtasks) {
         status: "undone"
     }));
 }
+
+/**
+ * This function clears all inputs on AddTask
+ */
+function removeAllInput() {
+    document.getElementById("taskTitle").value = "";
+    document.getElementById("taskDescription").value = "";
+    document.getElementById("selectContact").textContent = "Search Contact";
+    document.getElementById("contactsDisplayBubble").innerHTML = "";
+    document.getElementById("date").value = "";
+    const priorityButtons = document.querySelectorAll(".button-prio");
+    priorityButtons.forEach(button => {
+        button.classList.add("mediumSelected", "mediumSelected");
+        button.classList.remove("lowSelected", "lowButton");
+        button.classList.remove("urgentSelected", "urgentButton");
+    });
+    document.getElementById("selectCategory").textContent = "Select task category";
+    document.getElementById("inputFieldSubtask").value = "";
+    document.getElementById("subtasksContainer").innerHTML = "";
+}

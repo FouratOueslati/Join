@@ -72,18 +72,71 @@ async function saveEditContact(contactId) {
  * @param {number} i 
  */
 async function createNewContact() {
-    let uid = localStorage.getItem('uid');
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let number = document.getElementById('number').value;
-    let color = getRandomColor();
-    let contact = { name: name, email: email, number: number, backgroundcolor: color };
-    await postContacts('/users/' + uid + '/contacts', contact)
-    await loadDataAfterChanges();
-    closeDialog();
-    openSuccessfullInfo();
-    document.getElementById('contactInfos').innerHTML = '';
+    let isNameValid = validateName();
+    let isEmailValid = validateEmail();
+    let isNumberValid = validateNumber();
+    if (isNameValid && isEmailValid && isNumberValid) {
+        let uid = localStorage.getItem('uid');
+        let name = document.getElementById('name').value.trim();
+        let email = document.getElementById('email').value.trim();
+        let number = document.getElementById('number').value.trim();
+        let color = getRandomColor();
+        let contact = { name: name, email: email, number: number, backgroundcolor: color };
+        await postContacts('/users/' + uid + '/contacts', contact);
+        await loadDataAfterChanges();
+        closeDialog();
+        openSuccessfullInfo();
+        document.getElementById('contactInfos').innerHTML = '';
+    }
 }
+
+/*
+* This function checks if in there are a minimum of two words like Name and Surname 
+*/ 
+function validateName() {
+    let nameField = document.getElementById('name');
+    let name = nameField.value.trim();
+    if (!/^\w+(\s+\w+){1,}$/.test(name)) {
+        nameField.style.borderColor = 'red';  
+        return false;
+    } else {
+        nameField.style.borderColor = 'green';  
+        return true;
+    }
+}
+
+/*
+* Cheks if the email has an @
+*/ 
+function validateEmail() {
+    let emailField = document.getElementById('email');
+    let email = emailField.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        emailField.style.borderColor = 'red'; 
+        return false;
+    } else {
+        emailField.style.borderColor = 'green';  
+        return true;
+    }
+}
+
+/*
+* Cheks if the phone number has 7 digits and no letters
+*/
+function validateNumber() {
+    let numberField = document.getElementById('number');
+    let number = numberField.value.trim();
+    if (!/^\d{7}$/.test(number)) {
+        numberField.style.borderColor = 'red';  
+        return false;
+    } else {
+        numberField.style.borderColor = 'green';  
+        return true;
+    }
+}
+
+
+
 
 
 /**

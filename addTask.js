@@ -127,20 +127,20 @@ function getInitials(name) {
 
 
 /**
- * This function adds subtasks to the tasks
+ * This function adds subtasks to the tasks 
  */
-function addSubtask() {
+function addSubtask(taskIndex) {
     let container = document.getElementById('subtasksContainer');
     let subtask = document.getElementById('inputFieldSubtask').value;
     if (subtask.trim() !== '') {
-        subtaskCounter++;
+        let subtaskIndex = subtasks.length; // Set the subtask index based on the array length
         subtasks.push(subtask);
         localStorage.setItem('subtasks', JSON.stringify(subtasks));
-        container.innerHTML += addSubtaskHtml(subtaskCounter, subtask);
+        container.innerHTML += addSubtaskHtml(taskIndex, subtaskIndex, subtask);
         document.getElementById('inputFieldSubtask').value = '';
-        clearSubtaskInput();
     }
 }
+
 
 
 /**
@@ -155,32 +155,28 @@ function loadSubtasksFromLocalStorage() {
     }
 }
 
-
-/**
- * This function displays the subtasks
- */
-function displaySubtasks() {
-    const container = document.getElementById('subtasksContainer');
-    container.innerHTML = '';
-    subtasks.forEach((subtask, index) => {
-        let subtaskHtml = displaySubtasksHtml(index, subtask);
-        container.innerHTML += subtaskHtml;
-    });
-}
-
-
 /**
  * This function edits the subtasks
  * 
  * @param {number} index 
  */
-function editSubtask(index) {
-    let subtaskDiv = document.getElementById(`subtask${index}`);
+function editSubtask(taskIndex, subtaskIndex) {
+    let subtaskDiv = document.getElementById(`subtask${taskIndex}-${subtaskIndex}`);
     let text = subtaskDiv.innerHTML;
+
+    // Populate the input field with the subtask text to allow editing
     document.getElementById('inputFieldSubtask').value = text;
-    deleteSubtask(index)
+
+    // Remove the subtask from the todos array for editing
+    subtasks.splice(subtaskIndex, 1);
+    localStorage.setItem('subtasks', JSON.stringify(subtasks));
+
+    // Optionally, update the display (or call your function to refresh)
+    document.getElementById('subtask-Txt-' + taskIndex + '-' + subtaskIndex).remove();
     onInputChange();
 }
+
+
 
 
 /**
@@ -198,11 +194,15 @@ function clearSubtaskInput() {
  * 
  * @param {number} index 
  */
-function deleteSubtask(index) {
-    subtasks.splice(index, 1);
+function deleteSubtask(taskIndex, subtaskIndex) {
+    subtasks.splice(subtaskIndex, 1);
     localStorage.setItem('subtasks', JSON.stringify(subtasks));
-    displaySubtasks();
+    let subtaskElement = document.getElementById(`subtask-Txt-${taskIndex}-${subtaskIndex}`);
+    if (subtaskElement) {
+        subtaskElement.remove();
+    }
 }
+
 
 
 /**

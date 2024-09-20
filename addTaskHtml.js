@@ -58,27 +58,18 @@ function generateBubbleInitialsHtml(i, initials, color) {
 }
 
 
-function addSubtaskHtml(subtaskCounter, subtask) {
+function addSubtaskHtml(taskIndex, subtaskIndex, subtask) {
     return `
-        <div class="subtask-Txt" id="subtask-Txt-${subtaskCounter}">
-            <div id="subtask${subtaskCounter}">${subtask}</div>
+        <div class="subtask-Txt" id="subtask-Txt-${taskIndex}-${subtaskIndex}">
+            <div id="subtask${taskIndex}-${subtaskIndex}">${subtask}</div>
             <div class="delete-edit">
-                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${subtaskCounter})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${subtaskCounter})">
+                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${taskIndex}, ${subtaskIndex})">
+                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${taskIndex}, ${subtaskIndex})">
             </div>
         </div>
     `;
 }
 
 
-function displaySubtasksHtml(index, subtask) {
-    return `
-        <div class="subtask-Txt" id="subtask-Txt-${index}">
-            <div id="subtask${index}">${subtask}</div>
-            <div class="delete-edit">
-                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${index})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${index})">
-            </div>
-        </div>
-    `;
-}
+
+

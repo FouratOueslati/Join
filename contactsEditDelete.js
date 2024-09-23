@@ -126,7 +126,7 @@ function validateEmail() {
 function validateNumber() {
     let numberField = document.getElementById('number');
     let number = numberField.value.trim();
-    if (!/^\d{7}$/.test(number)) {
+    if (!/^\d{7,15}$/.test(number)) {
         numberField.style.borderColor = 'red';  
         return false;
     } else {
@@ -134,6 +134,7 @@ function validateNumber() {
         return true;
     }
 }
+
 
 
 

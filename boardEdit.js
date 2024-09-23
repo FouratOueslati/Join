@@ -1,16 +1,17 @@
 /**
  * This function adds a highlight (background) to the drag and drop container
  */
-function highlight() {
-    document.querySelector('.drag-area').classList.add('drag-area-highlight');
+function highlight(event) {
+    event.preventDefault();  // This allows the drop event to occur
+    event.target.classList.add('drag-area-highlight');
 }
 
 
 /**
  * This function removes a highlight (background) from the drag and drop container
  */
-function removeHighlight() {
-    document.querySelector('.drag-area').classList.remove('drag-area-highlight');
+function removeHighlight(event) {
+    event.target.classList.remove('drag-area-highlight');
 }
 
 

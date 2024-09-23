@@ -162,16 +162,10 @@ function loadSubtasksFromLocalStorage() {
  */
 function editSubtask(taskIndex, subtaskIndex) {
     let subtaskDiv = document.getElementById(`subtask${taskIndex}-${subtaskIndex}`);
-    let text = subtaskDiv.innerHTML;
-
-    // Populate the input field with the subtask text to allow editing
+    let text = subtaskDiv.innerHTML; 
     document.getElementById('inputFieldSubtask').value = text;
-
-    // Remove the subtask from the todos array for editing
     subtasks.splice(subtaskIndex, 1);
     localStorage.setItem('subtasks', JSON.stringify(subtasks));
-
-    // Optionally, update the display (or call your function to refresh)
     document.getElementById('subtask-Txt-' + taskIndex + '-' + subtaskIndex).remove();
     onInputChange();
 }

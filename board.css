@@ -256,7 +256,7 @@ h1 {
 
 .drag-area-highlight {
     background-color: rgba(0, 0, 0, 0.2);
-    height: 200%;
+    box-shadow: 10px 10px;
 }
 
 .todo-class {

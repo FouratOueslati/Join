@@ -1,3 +1,4 @@
 function initLegal() {
     showLoggedUserInitials();
+    changeBgColorMenu();
 }

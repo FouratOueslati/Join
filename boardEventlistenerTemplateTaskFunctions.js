@@ -81,8 +81,9 @@ function addCategoryEventListenerEdit() {
  * This function adds drop down event listener to different elements
  */
 function addEventListenerDropDown() {
-    const dropDowns = document.querySelectorAll('.drop-down');
-    dropDowns.forEach(dropDown => {
+    const dropDowns = ['dropDownEdit']; // Add the IDs of each dropdown
+    dropDowns.forEach(dropDownId => {
+        const dropDown = document.getElementById(dropDownId);
         const select = dropDown.querySelector('.select');
         const caret = dropDown.querySelector('.caret');
         const menu = dropDown.querySelector('.menu');
@@ -105,6 +106,7 @@ function addEventListenerDropDown() {
         });
     });
 }
+
 
 
 /**

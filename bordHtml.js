@@ -93,8 +93,8 @@ function generateEditModalContent(task, i) {
             <textarea style="height: 80px;" id="taskDescriptionEdit${i}" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
             <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
             <div class="inputs-flex">
-                <div class="drop-down">
-                    <div onclick="showCheckedContacts()"  class="select">
+                <div id="dropDownEdit" class="drop-down">
+                    <div id="editSelect" onclick="showCheckedContacts()"  class="select">
                         <span class="selected" id="selectContact">Search Contact</span>
                         <div class="caret"></div>
                     </div>

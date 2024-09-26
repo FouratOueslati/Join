@@ -290,3 +290,11 @@ function findContactIdByEmailToEdit(contacts, email) {
         if (contacts[contactId].email === email) return contactId;
     }
 }
+
+function changeBgColorMenu() {
+    let contact = document.getElementById('contact');
+    if (window.location.pathname.includes('contacts.html')) {
+        contact.style.backgroundColor = 'red';
+        localStorage.setItem('menuColor', 'red');
+    }
+}

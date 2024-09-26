@@ -43,7 +43,7 @@
     display: flex;
     gap: 15px;
     align-items: center;
-    height: 50px;
+    height: 46px;
     text-decoration: none;
 }
 
@@ -52,11 +52,18 @@
 }
 
 
-.menu-tool:hover {
+.menu-tool:hover,
+.menu-tool-bottom:hover {
     background-color: #091931;
     cursor: pointer;
 }
 
+.menu-tool-bottom {
+    height: 35px;
+    padding-left: 56px;
+    display: flex;
+    align-items: center;
+}
 
 .menu-img {
     width: 25px;

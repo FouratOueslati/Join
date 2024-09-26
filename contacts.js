@@ -14,6 +14,7 @@ async function init() {
     displayInitialsFilter();
     await displayInitialsAndContacts();
     showLoggedUserInitials();
+    changeBgColorMenu();
 }
 
 

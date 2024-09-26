@@ -8,6 +8,7 @@ async function initBoard() {
     includeHTML();
     await displayOpenTasks();
     showLoggedUserInitials();
+    changeBgColorMenu();
 }
 
 /**

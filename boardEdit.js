@@ -1,18 +1,25 @@
 /**
- * This function adds a highlight (background) to the drag and drop container
+ * This function add a higlight when we mova a dropdown
+ * 
+ * @param {*} event 
  */
 function highlight(event) {
-    event.preventDefault();  // This allows the drop event to occur
-    event.target.classList.add('drag-area-highlight');
+    event.preventDefault();  
+    event.currentTarget.classList.add('drag-area-highlight');
 }
-
 
 /**
- * This function removes a highlight (background) from the drag and drop container
+ * This function removes a higlight when we mova a dropdown
+ * 
+ * @param {*} event 
  */
 function removeHighlight(event) {
-    event.target.classList.remove('drag-area-highlight');
+    event.currentTarget.classList.remove('drag-area-highlight');
 }
+
+
+
+
 
 
 /**

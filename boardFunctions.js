@@ -285,12 +285,12 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * This function makes it possible to drag and drop tasks into a container
  * 
- * @param {*} ev 
+ * @param {*} event 
  */
-function allowDrop(ev) {
-    ev.preventDefault();
+function allowDrop(event) {
+    event.preventDefault();
 }
-
+////////////////////////////////////////
 
 /**
  * This function shows or hides the menu

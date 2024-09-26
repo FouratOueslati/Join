@@ -227,6 +227,8 @@ h1 {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     border: 1px dashed black;
+    transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;  /* Smooth transition */
+
 }
 
 .position-relative {
@@ -256,8 +258,9 @@ h1 {
 
 .drag-area-highlight {
     background-color: rgba(0, 0, 0, 0.2);
-    box-shadow: 10px 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);  /* Adds a soft shadow */
 }
+
 
 .todo-class {
     margin-bottom: 12px;

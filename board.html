@@ -226,8 +226,11 @@
                         <span class="txt-svg-cetering">To do <img id="toDo" onclick="openAddTaskInBoard()"
                                 class="txt-svg-centering pointer" src="./boardImg/add.svg"></span>
                         <div class="position-relative">
-                            <div class="drag-area board-task-set-up no-task" id="toDoTasks" ondrop="moveTo('todo')";
-                                ondragleave="removeHighlight('todo')"ondragover="allowDrop(event); highlight('todo')">
+                            <div class="drag-area board-task-set-up no-task" id="toDoTasks"
+                                ondrop="moveTo('todo', event); removeHighlight(event);" 
+                                ondragend="removeHighlight(event);" 
+                                ondragleave="removeHighlight(event);" 
+                                ondragover="allowDrop(event); highlight(event)">
                             </div>
                         </div>
                     </div>
@@ -238,8 +241,10 @@
                                 class="txt-svg-centering pointer" src="./boardImg/add.svg"></span>
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="inProgressTasks"
-                                ondrop="moveTo('inprogress')" ondragleave="removeHighlight('inprogress')"
-                                ondragover="allowDrop(event); highlight('inprogress');">
+                                ondrop="moveTo('inprogress', event); removeHighlight(event);" 
+                                ondragend="removeHighlight(event);" 
+                                ondragleave="removeHighlight(event);" 
+                                ondragover="allowDrop(event); highlight(event)">
                             </div>
                         </div>
                     </div>
@@ -251,9 +256,11 @@
                                 src="./boardImg/add.svg"></span>
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="feedbackTasks"
-                                ondrop="moveTo('awaitfeedback')" ondragleave="removeHighlight('awaitfeedback')"
-                                ondragover="allowDrop(event); highlight('awaitfeedback')">
-                            </div>
+                                ondrop="moveTo('awaitfeedback', event); removeHighlight(event);" 
+                                ondragend="removeHighlight(event);" 
+                                ondragleave="removeHighlight(event);" 
+                                ondragover="allowDrop(event); highlight(event)">
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -261,8 +268,10 @@
                     <div>
                         <span class="txt-svg-cetering">Done</span>
                         <div class="position-relative">
-                            <div class="drag-area board-task-set-up no-task" id="done" ondrop="moveTo('done')"
-                                ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
+                            <div class="drag-area board-task-set-up no-task" id="done" ondrop="moveTo('done', event); removeHighlight(event);" 
+                            ondragend="removeHighlight(event);" 
+                            ondragleave="removeHighlight(event);" 
+                            ondragover="allowDrop(event); highlight(event)">
                             </div>
                         </div>
                     </div>
@@ -284,4 +293,5 @@
 <script src="addTaskHtml.js"></script>
 <script src="addTaskEventlistener.js"></script>
 <script src="./templates/topbar.js"></script>
+<script src="summary.js"></script>
 </html>

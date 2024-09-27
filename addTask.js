@@ -11,7 +11,7 @@ async function onloadFunction() {
     await loadSpecificUserDataFromLocalStorage();
     await displayNamesOfContacts();
     showLoggedUserInitials();
-    loadSubtasksFromLocalStorage();
+    changeBgColorMenu();
 }
 
 

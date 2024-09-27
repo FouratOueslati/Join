@@ -2,6 +2,7 @@ function initPolicy() {
     includeHTML();
     addClassScroll();     
     showLoggedUserInitials();
+    changeBgColorMenu();
 }
 
 /**

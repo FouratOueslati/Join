@@ -108,7 +108,6 @@ function addEventListenerDropDown() {
 }
 
 
-
 /**
  * This function closes the larger view of an open task
  * 

@@ -9,9 +9,9 @@ let uid = localStorage.getItem('uid');
 async function onloadFunction() {
     includeHTML();
     await loadSpecificUserDataFromLocalStorage();
-    loadSubtasksFromLocalStorage();
     await displayNamesOfContacts();
     showLoggedUserInitials();
+    loadSubtasksFromLocalStorage();
 }
 
 
@@ -151,7 +151,6 @@ function loadSubtasksFromLocalStorage() {
     if (savedSubtasks) {
         subtasks = JSON.parse(savedSubtasks);
         subtaskCounter = subtasks.length ? subtasks[subtasks.length - 1].id : 0;
-        displaySubtasks();
     }
 }
 

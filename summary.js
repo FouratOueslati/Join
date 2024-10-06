@@ -232,6 +232,3 @@ function changeBgColorMenu() {
     }
 }
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     changeBgColorMenu();
-// });

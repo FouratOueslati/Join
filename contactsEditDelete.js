@@ -72,9 +72,11 @@ async function saveEditContact(contactId) {
  * @param {number} i 
  */
 async function createNewContact() {
-    let isNameValid = validateName();
-    let isEmailValid = validateEmail();
-    let isNumberValid = validateNumber();
+    // Validating using static IDs for new contact creation and passing the message element IDs
+    let isNameValid = validateName('name', 'nameCorrectIncorect');
+    let isEmailValid = validateEmail('email', 'emailCorrectIncorect');
+    let isNumberValid = validateNumber('number', 'numberCorrectIncorect');
+
     if (isNameValid && isEmailValid && isNumberValid) {
         let uid = localStorage.getItem('uid');
         let name = document.getElementById('name').value.trim();
@@ -82,6 +84,7 @@ async function createNewContact() {
         let number = document.getElementById('number').value.trim();
         let color = getRandomColor();
         let contact = { name: name, email: email, number: number, backgroundcolor: color };
+
         await postContacts('/users/' + uid + '/contacts', contact);
         await loadDataAfterChanges();
         closeDialog();
@@ -90,50 +93,75 @@ async function createNewContact() {
     }
 }
 
-/*
-* This function checks if in there are a minimum of two words like Name and Surname 
-*/ 
-function validateName() {
-    let nameField = document.getElementById('name');
-    let name = nameField.value.trim();
-    if (!/^\w+(\s+\w+){1,}$/.test(name)) {
-        nameField.style.borderColor = 'red';  
+
+
+function validateName(id, messageId) {
+    let nameField = document.getElementById(id);
+    let nameMessage = document.getElementById(messageId);
+    let name = nameField ? nameField.value.trim() : '';
+
+    if (!nameField || !/^\w+(\s+\w+){1,}$/.test(name)) {
+        if (nameField) nameField.style.borderColor = 'red';  
+        if (nameMessage) {
+            nameMessage.textContent = '-Input Name surname';
+            nameMessage.style.color = 'red';
+        }
         return false;
     } else {
         nameField.style.borderColor = 'green';  
+        if (nameMessage) {
+            nameMessage.textContent = '';
+            nameMessage.style.color = 'green';
+        }
         return true;
     }
 }
 
-/*
-* Cheks if the email has an @
-*/ 
-function validateEmail() {
-    let emailField = document.getElementById('email');
-    let email = emailField.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        emailField.style.borderColor = 'red'; 
+function validateEmail(id, messageId) {
+    let emailField = document.getElementById(id);
+    let emailMessage = document.getElementById(messageId);
+    let email = emailField ? emailField.value.trim() : '';
+
+    if (!emailField || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (emailField) emailField.style.borderColor = 'red';  
+        if (emailMessage) {
+            emailMessage.textContent = 'Input email: exampel@mail.com';
+            emailMessage.style.color = 'red';
+        }
         return false;
     } else {
         emailField.style.borderColor = 'green';  
+        if (emailMessage) {
+            emailMessage.textContent = '';
+            emailMessage.style.color = 'green';
+        }
         return true;
     }
 }
 
-/*
-* Cheks if the phone number has 7 digits and no letters
-*/
-function validateNumber() {
-    let numberField = document.getElementById('number');
-    let number = numberField.value.trim();
-    if (!/^\d{7,15}$/.test(number)) {
-        numberField.style.borderColor = 'red';  
+function validateNumber(id, messageId) {
+    let numberField = document.getElementById(id);
+    let numberMessage = document.getElementById(messageId);
+    let number = numberField ? numberField.value.trim() : '';
+
+    if (!numberField || !/^\d{7,15}$/.test(number)) {
+        if (numberField) numberField.style.borderColor = 'red';  
+        if (numberMessage) {
+            numberMessage.textContent = 'Incorrect number. It should be 7-15 digits.';
+            numberMessage.style.color = 'red';
+        }
         return false;
     } else {
         numberField.style.borderColor = 'green';  
+        if (numberMessage) {
+            numberMessage.textContent = '';
+            numberMessage.style.color = 'green';
+        }
         return true;
     }
 }
+
+
 
 
 

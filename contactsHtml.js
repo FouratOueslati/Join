@@ -56,7 +56,7 @@ function getAddNewContactHtml() {
                 <div>
                     <img src="./img/Capa 3.png">
                     <div class="add-new-contact-headline">Add contact</div>
-                    <div class="text-contact">Tasks are better width a team!</div>
+                    <div class="text-contact">Tasks are better with a team!</div>
                     <div class="blue-seperator-contact"></div>
                 </div>
             </div>
@@ -68,24 +68,30 @@ function getAddNewContactHtml() {
                     <img src="./img/Group 13.png" class="contact-img">
                     <div class="data-box">
                         <form onsubmit="createNewContact(); return false;" class="add-contact-data">
-                                <input id="name" placeholder="Name" type="text" required class="name-input">
-                                <input id="email" placeholder="Email" type="email" required class="email-input email-input-edit">
-                                <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" required class="phone-input">
-                          <div class="close-create-button">
+                            <input id="name" placeholder="Name" type="text" required class="name-input" onkeyup="validateName('name', 'nameCorrectIncorect')">
+                            <div id="nameCorrectIncorect"></div>
+
+                            <input id="email" placeholder="Email" type="email" required class="email-input email-input-edit" onkeyup="validateEmail('email', 'emailCorrectIncorect')">
+                            <div id="emailCorrectIncorect"></div>
+
+                            <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" required class="phone-input" onkeyup="validateNumber('number', 'numberCorrectIncorect')">
+                            <div id="numberCorrectIncorect"></div>
+
+                            <div class="close-create-button">
                                 <button type="button" class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
-                                <div class="button-txt-img">
-                                Cancel
-                                <img src="./addTaskImg/close.svg" class="close-svg" alt="Close">
-                          </div>
-                            </button>
-                           <button type="submit" class="color-blue-button">
-                            <div class="button-txt-img">
-                             Create Contact
-                              <img src="./addTaskImg/check.svg" class="check-svg" alt="Check">
-                           </div>
-                             </button>
-                              </div>
-                          </form>
+                                    <div class="button-txt-img">
+                                        Cancel
+                                        <img src="./addTaskImg/close.svg" class="close-svg" alt="Close">
+                                    </div>
+                                </button>
+                                <button type="submit" class="color-blue-button">
+                                    <div class="button-txt-img">
+                                        Create Contact
+                                        <img src="./addTaskImg/check.svg" class="check-svg" alt="Check">
+                                    </div>
+                                </button>
+                            </div>
+                        </form>
                         <div id="newColor" class="shorts-name d-none"></div>
                     </div>
                 </div>
@@ -93,6 +99,7 @@ function getAddNewContactHtml() {
         </div>
     `;
 }
+
 
 
 function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, contactId) {
@@ -113,9 +120,12 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                     <div id="edit-contactsInitialsBig${contactId}" class="edit-img">${firstLetterOfName}${firstLetterOfLastName}</div>
                     <form onsubmit="saveEditContact('${contactId}'); return false" class="data-box">
                         <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-input-edit" value="${email}">
-                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" required class="phone-input" value="${number}">
+                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}" onkeyup="validateName('editName${contactId}', 'nameCorrectIncorect${contactId}')">
+                            <div id="nameCorrectIncorect${contactId}"></div>
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-input-edit" value="${email}" onkeyup="validateEmail('editEmail${contactId}', 'emailCorrectIncorect${contactId}')">
+                            <div id="emailCorrectIncorect${contactId}"></div>
+                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" required class="phone-input" value="${number}" onkeyup="validateNumber('editNumber${contactId}', 'numberCorrectIncorect${contactId}')">
+                            <div id="numberCorrectIncorect${contactId}"></div>
                         </div>
                         <div class="close-create-button">
                             <button type="button" onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
@@ -130,6 +140,8 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
             </div>
         </div>`;
 }
+
+
 
 
 function getEditContactHtmlMobileView(name, email, number, contactId) {

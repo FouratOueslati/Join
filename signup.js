@@ -134,13 +134,20 @@ function togglePassword(inputId) {
  */
 function validateName() {
     const nameInput = document.getElementById('name');
+    let corectIncorect = document.getElementById('nameCorectIncorect');
     const nameValue = nameInput.value.trim();
+
     if (nameValue.split(' ').length >= 2) {
         nameInput.style.borderColor = 'green'; 
+        corectIncorect.textContent = '';
+        corectIncorect.style.color = 'green';
     } else {
         nameInput.style.borderColor = 'red'; 
+        corectIncorect.textContent = '-Input Name Surname';
+        corectIncorect.style.color = 'red';
     }
 }
+
 
 
 /**
@@ -149,10 +156,14 @@ function validateName() {
 function validateEmail() {
     const emailInput = document.getElementById('email');
     const emailValue = emailInput.value.trim();
+    let corectIncorect = document.getElementById('emailCorectIncorect');
     if (emailValue.includes('@')) {
         emailInput.style.borderColor = 'green';
+        corectIncorect.textContent = '';
     } else {
         emailInput.style.borderColor = 'red';
+        corectIncorect.textContent = 'Input email: exampel@mail.com';
+        corectIncorect.style.color = 'red';
     }
 }
 
@@ -163,17 +174,25 @@ function validateEmail() {
 function validatePassword() {
     const passwordInput = document.getElementById('password');
     const confirmedPasswordInput = document.getElementById('confirmedPassword');
+    let corectIncorectOne = document.getElementById('passwordOneCorectIncorect');
+    let corectIncorectTwo = document.getElementById('passwordTwoCorectIncorect');
     const passwordValue = passwordInput.value.trim();
     const confirmedPasswordValue = confirmedPasswordInput.value.trim();
     if (passwordValue.length >= 3) {
         passwordInput.style.borderColor = 'green'; 
+        corectIncorectOne.textContent = '';
     } else {
         passwordInput.style.borderColor = 'red'; 
+        corectIncorectOne.textContent = 'Input a minumum of 3 signs';
+        corectIncorectOne.style.color = 'red';
     }
     if (confirmedPasswordValue === passwordValue && confirmedPasswordValue.length >= 3) {
         confirmedPasswordInput.style.borderColor = 'green'; 
+        corectIncorectTwo.textContent = "";
     } else if (confirmedPasswordValue.length > 0) {
         confirmedPasswordInput.style.borderColor = 'red'; 
+        corectIncorectTwo.textContent = "Password dosen't match";
+        corectIncorectTwo.style.color = 'red';
     } else {
         confirmedPasswordInput.style.borderColor = ''; 
     }

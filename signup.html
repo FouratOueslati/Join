@@ -22,19 +22,19 @@
             <div class="signup-headline">Sign up</div>
             <div class="blue-seperator"></div>
             <div class="data-container">
-                
                 <input id="name" placeholder="Name" type="text" required class="name-input" onkeyup="validateName()">
-                <div id="nameCorectIncorect" class="corect-incorect"></div>
-
-                <input id="email" placeholder="Email" type="email" required class="email-input" onkeyup="validateEmail()">
-                <div id="emailCorectIncorect" class="corect-incorect"></div>
+                <div id="nameCorectIncorectS" class="corect-incorect"></div>
+            
+                <input id="email" placeholder="Email" type="email" required class="email-input" onkeyup="validateEmailS()">
+                <div id="emailCorectIncorectS" class="corect-incorect"></div>
                 
                 <input id="password" onclick="togglePassword('password')" placeholder="Password" type="password" required class="password-input" onkeyup="validatePassword()">
                 <div id="passwordOneCorectIncorect" class="corect-incorect"></div>
-                <input id="confirmedPassword" onclick="togglePassword('confirmedPassword')" placeholder="Confirm Password" type="password" required
-                    class="password-input" onkeyup="validatePassword()">
-                    <div id="passwordTwoCorectIncorect" class="corect-incorect"></div>
+            
+                <input id="confirmedPassword" onclick="togglePassword('confirmedPassword')" placeholder="Confirm Password" type="password" required class="password-input" onkeyup="validatePassword()">
+                <div id="passwordTwoCorectIncorect" class="corect-incorect"></div>
             </div>
+            
             <div class="accept-policy-container">
                 <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox" required>
                 <div>
@@ -54,7 +54,6 @@
 </body>
 <script src="storage.js"></script>
 <script src="signup.js"></script>
-<script src="contacts2.js"></script>
 <script src="contacts.js"></script>
 
 </html>

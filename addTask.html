@@ -32,7 +32,9 @@
                                 <span>Title<b style="color: orange;">*</b></span>
                                 <input id="taskTitle" placeholder="Enter a title..." minlength="4"
                                     class="task-input-field">
+                                    <div id="corectTitle" class="corect-incorect"></div>
                             </div>
+
                             <div class="inputs-flex">
                                 <span>Description</span>
                                 <textarea style="height: 80px; resize: none;" id="taskDescription"
@@ -61,7 +63,9 @@
                             <div class="inputs-flex">
                                 <span>Due date<b style="color: orange;">*</b></span>
                                 <input id="date" type="date" class="task-input-field date">
+                                <div id="corectDate" class="corect-incorect"></div>
                             </div>
+                            
                             <div class="inputs-flex">
                                 <span>Prio</span>
                                 <div class="button-prio-width">
@@ -138,6 +142,7 @@
                                         <li>Design</li>
                                     </ul>
                                 </div>
+                                <div id="corectCategory" class="corect-incorect"></div>
                             </div>
                             <div class="inputs-flex">
                                 <span>Subtask</span>

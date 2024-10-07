@@ -23,27 +23,38 @@ function validateAndAddTask() {
     const date = document.getElementById('date');
     const categoryContainer = document.getElementById('selectCategoryContainer');
     const category = document.getElementById('selectCategory');
+    let titleChosen = document.getElementById('corectTitle');
+    let dateChosen = document.getElementById('corectDate');
+    let categoryChosen = document.getElementById('corectCategory');
     taskTitle.style.borderColor = '';
     date.style.borderColor = '';
     categoryContainer.style.borderColor = '';
+    titleChosen.textContent = '';   
+    dateChosen.textContent = '';    
+    categoryChosen.textContent = ''; 
     let isValid = true;
     if (taskTitle.value.trim().length < 4) {
         taskTitle.style.borderColor = 'red';
+        titleChosen.textContent = 'Title must be at least 4 characters.';
+        titleChosen.style.color = 'red';
         isValid = false;
     }
     if (!date.value) {
         date.style.borderColor = 'red';
+        dateChosen.textContent = 'Please select a valid date.';
+        dateChosen.style.color = 'red';
         isValid = false;
     }
     if (category.textContent === 'Select task category') {
         categoryContainer.style.borderColor = 'red';
+        categoryChosen.textContent = 'Please select a task category.';
+        categoryChosen.style.color = 'red';
         isValid = false;
     }
     if (isValid) {
         addTask();
     }
 }
-
 
 /**
  * This function executes the addPrioEventListeners and addCategoryEventListener functions
@@ -358,11 +369,13 @@ function removeAllInput() {
     document.getElementById("date").value = "";
     const priorityButtons = document.querySelectorAll(".button-prio");
     priorityButtons.forEach(button => {
-        button.classList.add("mediumSelected", "mediumSelected");
-        button.classList.remove("lowSelected", "lowButton");
-        button.classList.remove("urgentSelected", "urgentButton");
+        button.classList.remove("mediumSelected", "lowSelected", "urgentSelected");  
     });
+    const mediumButton = document.getElementById("mediumButton");
+    mediumButton.classList.add("mediumSelected");  
     document.getElementById("selectCategory").textContent = "Select task category";
     document.getElementById("inputFieldSubtask").value = "";
     document.getElementById("subtasksContainer").innerHTML = "";
 }
+
+

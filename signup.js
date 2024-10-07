@@ -134,9 +134,8 @@ function togglePassword(inputId) {
  */
 function validateName() {
     const nameInput = document.getElementById('name');
-    let corectIncorect = document.getElementById('nameCorectIncorect');
+    let corectIncorect = document.getElementById('nameCorectIncorectS');
     const nameValue = nameInput.value.trim();
-
     if (nameValue.split(' ').length >= 2) {
         nameInput.style.borderColor = 'green'; 
         corectIncorect.textContent = '';
@@ -153,16 +152,17 @@ function validateName() {
 /**
  * This function checks whethter the email was entered correctly
  */
-function validateEmail() {
+function validateEmailS() {
     const emailInput = document.getElementById('email');
     const emailValue = emailInput.value.trim();
-    let corectIncorect = document.getElementById('emailCorectIncorect');
-    if (emailValue.includes('@')) {
-        emailInput.style.borderColor = 'green';
-        corectIncorect.textContent = '';
+    const corectIncorect = document.getElementById('emailCorectIncorectS');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(emailValue)) {
+        emailInput.style.borderColor = 'green'; 
+        corectIncorect.textContent = '';  
     } else {
-        emailInput.style.borderColor = 'red';
-        corectIncorect.textContent = 'Input email: exampel@mail.com';
+        emailInput.style.borderColor = 'red'; 
+        corectIncorect.textContent = 'Invalid email format: example@mail.com';
         corectIncorect.style.color = 'red';
     }
 }

@@ -519,6 +519,10 @@ body {
     color: white;
 }
 
+.corect-incorect {
+    font-size: 12px;
+}
+
 @media(max-width: 350px) {
     .button-prio-width {
         flex-wrap: nowrap;

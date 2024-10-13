@@ -163,8 +163,8 @@ function generateSubtasksEditHtml(subtasks, i) {
         <div class="subtask-Txt">
             <div id="subtask${i}-${j}">${subtask.text}</div>
             <div class="delete-edit">
-                <img src="./addTaskImg/edit.svg" onclick="editSubtaskEdit(${i}, ${j})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtaskEdit(${i}, ${j})">
+                <img src="./img/addTaskImg/edit.svg" onclick="editSubtaskEdit(${i}, ${j})">
+                <img src="./img/addTaskImg/delete.svg" onclick="deleteSubtaskEdit(${i}, ${j})">
             </div>
         </div>
         `;
@@ -242,13 +242,13 @@ async function generatePriorityImgUnopened(i, task) {
     const img = document.getElementById(`priorityImgUnopened${i}`);
     if (!img) return;
     const priority = task?.task?.priority;
-    let imgSrc = "./addTaskImg/low.svg";
+    let imgSrc = "./img/addTaskImg/low.svg";
     switch (priority) {
         case 'Medium':
-            imgSrc = "./addTaskImg/medium.svg";
+            imgSrc = "./img/addTaskImg/medium.svg";
             break;
         case 'Urgent':
-            imgSrc = "./addTaskImg/high.svg";
+            imgSrc = "./img/addTaskImg/high.svg";
             break;
     }
     img.src = imgSrc;

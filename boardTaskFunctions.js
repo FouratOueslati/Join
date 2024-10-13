@@ -150,14 +150,14 @@ function generatePriorityImgOpened(i) {
     const priority = document.getElementById(`openedPriority${i}`);
     const img = document.getElementById(`priorityImg${i}`);
     if (!img) return;
-    let imgSrc = "./addTaskImg/low.svg";
+    let imgSrc = "./img/addTaskImg/low.svg";
     if (priority) {
         switch (priority.innerHTML) {
             case 'Medium':
-                imgSrc = "./addTaskImg/medium.svg";
+                imgSrc = "./img/addTaskImg/medium.svg";
                 break;
             case 'Urgent':
-                imgSrc = "./addTaskImg/high.svg";
+                imgSrc = "./img/addTaskImg/high.svg";
                 break;
         }
     }

@@ -63,8 +63,8 @@ function addSubtaskHtml(taskIndex, subtaskIndex, subtask) {
         <div class="subtask-Txt" id="subtask-Txt-${taskIndex}-${subtaskIndex}">
             <div id="subtask${taskIndex}-${subtaskIndex}">${subtask}</div>
             <div class="delete-edit">
-                <img src="./addTaskImg/edit.svg" onclick="editSubtask(${taskIndex}, ${subtaskIndex})">
-                <img src="./addTaskImg/delete.svg" onclick="deleteSubtask(${taskIndex}, ${subtaskIndex})">
+                <img src="./img/addTaskImg/edit.svg" onclick="editSubtask(${taskIndex}, ${subtaskIndex})">
+                <img src="./img/addTaskImg/delete.svg" onclick="deleteSubtask(${taskIndex}, ${subtaskIndex})">
             </div>
         </div>
     `;

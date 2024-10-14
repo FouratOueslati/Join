@@ -110,17 +110,17 @@ function generateEditModalContent(task, i) {
             <div class="button-prio-width">
         <button onclick="addPrioEventListenersEdit(); changeColorEdit(this);" id="urgentButtonEdit" type="button" class="button-prio">
             <div class="center">
-            <div class="button-txt-img">Urgent <img src="./addTaskImg/high.svg" class="prio-photos"></div>
+            <div class="button-txt-img">Urgent <img src="./img/addTaskImg/high.svg" class="prio-photos"></div>
             </div>
         </button>
         <button onclick="addPrioEventListenersEdit(); changeColorEdit(this);" id="mediumButtonEdit" type="button" class="button-prio">
             <div class="center">
-            <div class="button-txt-img">Medium <img src="./addTaskImg/medium.svg" class="prio-photos"></div>
+            <div class="button-txt-img">Medium <img src="./img/addTaskImg/medium.svg" class="prio-photos"></div>
             </div>
         </button>
         <button onclick="addPrioEventListenersEdit(); changeColorEdit(this);" id="lowButtonEdit" type="button" class="button-prio">
             <div class="center">
-            <div class="button-txt-img">Low <img src="./addTaskImg/low.svg" class="prio-photos"></div>
+            <div class="button-txt-img">Low <img src="./img/addTaskImg/low.svg" class="prio-photos"></div>
             </div>
         </button>
             </div>
@@ -129,14 +129,14 @@ function generateEditModalContent(task, i) {
         <div class="input-with-img">
             <div style="display: flex; align-items: center; width: 100%;">
                 <input required placeholder="Add new subtask" class="task-input-with-img" oninput="onInputChangeEdit()" id="inputFieldSubtaskEdit">
-                <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImgEdit">
+                <img src="./img/addTaskImg/plus.svg" class="input-field-svg" id="plusImgEdit">
             </div>
             <div class="check-cross-position" id="closeOrAcceptEdit">
                 <button class="button-transparacy">
-                    <img onclick="clearSubtaskInputEdit()" src="./addTaskImg/close.svg" class="subtaskButtons" alt="close">
+                    <img onclick="clearSubtaskInputEdit()" src="./img/addTaskImg/close.svg" class="subtaskButtons" alt="close">
                 </button>
                 <button class="button-transparacy">
-                    <img onclick="addSubtaskEdit(${i})" src="./addTaskImg/checkBlack.svg" class="subtaskButtons" alt="check">
+                    <img onclick="addSubtaskEdit(${i})" src="./img/addTaskImg/checkBlack.svg" class="subtaskButtons" alt="check">
                 </button>
             </div>
         </div>

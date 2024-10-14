@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="contacts.css">
-    <link rel="stylesheet" href="summary.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="font.css">
-    <link rel="stylesheet" href="responsive.css">
-    <link rel="stylesheet" href="./templates/bluebar.css">
-    <link rel="stylesheet" href="./templates/topbar.css">
-    <link rel="stylesheet" href="legalPrivacy.css">
+    <link rel="stylesheet" href="/CSS/contacts.css">
+    <link rel="stylesheet" href="/CSS/summary.css">
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="stylesheet" href="/CSS/font.css">
+    <link rel="stylesheet" href="/CSS/responsive.css">
+    <link rel="stylesheet" href="./CSS/bluebar.css">
+    <link rel="stylesheet" href="./CSS/topbar.css">
+    <link rel="stylesheet" href="/CSS/legalPrivacy.css">
     <title>Contacts</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
@@ -27,14 +27,14 @@
                     </div>
                     <button onclick="openEditSmallMenu(), showEditDeleteMenuBox()" id="btnEditContacts"
                         class="button-edit-contacts d-none">
-                        <img src="./contactsImg/dot_menu.svg">
+                        <img src="./img/contactsImg/dot_menu.svg">
                     </button>
                     <div id="editDeleteMenuBox" class="edit-delete-menu-box d-none"></div>
                     <div id="contactsContainer" class="contacts-container">
                         <div class="add-contact-box">
                             <button onclick="openAddNewContact()" class="button-add-contacts">
                                 <div class="button-txt">Add New Contact</div>
-                                <img class="img-contact-add" src="./contactsImg/person_add.svg">
+                                <img class="img-contact-add" src="./img/contactsImg/person_add.svg">
                             </button>
                         </div>
                         <div class="scroll">
@@ -64,12 +64,12 @@
         <div class="success-delete-message" id="successDeleteMessage">Contact succesfully deleted</div>
     </div>
 </body>
-<script src="include.js"></script>
-<script src="./templates/topbar.js"></script>
-<script src="storage.js"></script>
-<script src="contactsEditDelete.js"></script>
-<script src="contactsHtml.js"></script>
-<script src="contacts.js"></script>
-<script src="logout.js"></script>
-<script src="summary.js"></script>
+<script src="./JS/include.js"></script>
+<script src="./JS/topbar.js"></script>
+<script src="./JS/storage.js"></script>
+<script src="./JS/contactsEditDelete.js"></script>
+<script src="./JS/contactsHtml.js"></script>
+<script src="./JS/contacts.js"></script>
+<script src="./JS/logout.js"></script>
+<script src="./JS/summary.js"></script>
 </html>

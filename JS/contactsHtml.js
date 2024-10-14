@@ -81,13 +81,13 @@ function getAddNewContactHtml() {
                                 <button type="button" class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
                                     <div class="button-txt-img">
                                         Cancel
-                                        <img src="./addTaskImg/close.svg" class="close-svg" alt="Close">
+                                        <img src="./img/addTaskImg/close.svg" class="close-svg" alt="Close">
                                     </div>
                                 </button>
                                 <button type="submit" class="color-blue-button">
                                     <div class="button-txt-img">
                                         Create Contact
-                                        <img src="./addTaskImg/check.svg" class="check-svg" alt="Check">
+                                        <img src="./img/addTaskImg/check.svg" class="check-svg" alt="Check">
                                     </div>
                                 </button>
                             </div>
@@ -132,7 +132,7 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                                 <div class="button-txt-img">Delete</div>
                             </button>
                             <button type="submit" class="color-blue-button">
-                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
+                                <div class="button-txt-img">Save<img src="./img/addTaskImg/check.svg" class="check-svg"></div>
                             </button>
                         </div>
                     </form>
@@ -171,7 +171,7 @@ function getEditContactHtmlMobileView(name, email, number, contactId) {
                                 <div class="button-txt-img">Delete</div>
                             </button>
                             <button onclick="saveEditContact('${contactId}')" class="color-blue-button">
-                                <div class="button-txt-img">Save<img src="./addTaskImg/check.svg" class="check-svg"></div>
+                                <div class="button-txt-img">Save<img src="./img/addTaskImg/check.svg" class="check-svg"></div>
                             </button>
                         </div>
                     </div>

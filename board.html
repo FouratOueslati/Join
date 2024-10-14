@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
-    <link rel="stylesheet" href="board.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="font.css">
-    <link rel="stylesheet" href="./responsive.css">
-    <link rel="stylesheet" href="./templates/bluebar.css">
-    <link rel="stylesheet" href="./templates/topbar.css">
-    <link rel="stylesheet" href="responsive.css">
-    <link rel="stylesheet" href="responsiveAddTask.css">
-    <link rel="stylesheet" href="responsiveBoard.css">
-    <link rel="stylesheet" href="legalPrivacy.css">
-    <link rel="stylesheet" href="addTask.css">
+    <link rel="stylesheet" href="/CSS/board.css">
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="stylesheet" href="/CSS/font.css">
+    <link rel="stylesheet" href="./CSS/bluebar.css">
+    <link rel="stylesheet" href="./CSS/topbar.css">
+    <link rel="stylesheet" href="/CSS/responsive.css">
+    <link rel="stylesheet" href="/CSS/responsiveAddTask.css">
+    <link rel="stylesheet" href="/CSS/responsiveBoard.css">
+    <link rel="stylesheet" href="/CSS/legalPrivacy.css">
+    <link rel="stylesheet" href="/CSS/addTask.css">
 </head>
 <body  onload="initBoard(); onloadFunction()">
     <div onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
@@ -150,18 +149,18 @@
                                                 <input required placeholder="Add new subtask"
                                                     class="task-input-with-img" oninput="onInputChange()"
                                                     id="inputFieldSubtask">
-                                                <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+                                                <img src="./img/addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
                                             </div>
                                             <div class="check-cross-position" id="closeOrAccept">
                                                 <div>
                                                     <button class="button-transparacy">
-                                                        <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg"
+                                                        <img onclick="clearSubtaskInput()" src="./img/addTaskImg/close.svg"
                                                             class="subtaskButtons" alt="close">
                                                     </button>
                                                 </div>
                                                 <div>
                                                     <button class="button-transparacy">
-                                                        <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg"
+                                                        <img onclick="addSubtask()" src="./img/addTaskImg/checkBlack.svg"
                                                             class="subtaskButtons" alt="accept">
                                                     </button>
                                                 </div>
@@ -178,12 +177,12 @@
                         <div class="creat-and-close-buttons">
                             <button onclick="closeAddTaskInBoard()" type="button" class="color-white-button"
                                 onclick="removeAllInput()">
-                                <div class="button-txt-img">Cancel<img src="./addTaskImg/close.svg" class="close-svg">
+                                <div class="button-txt-img">Cancel<img src="./img/addTaskImg/close.svg" class="close-svg">
                                 </div>
                             </button>
                             <button onclick="validateAndAddTask()" id="addTaskButton" type="button"
                                 class="color-blue-button">
-                                <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg"
+                                <div class="button-txt-img">Create Task <img src="./img/addTaskImg/check.svg"
                                         class="check-svg">
                                 </div>
                             </button>
@@ -204,11 +203,11 @@
                         <input class="find-task-input" placeholder="Find Task" id="search" minlength="4"
                             onkeyup="filterTask()">
                         <div class="seperate-line"></div>
-                        <img src="./boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
+                        <img src="./img/boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
                     </div>
                     <button onclick="openAddTaskInBoard()" class="add-task-button color-blue-button">
                         <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
-                                class="svg-size" src="./boardImg/plus.svg">
+                                class="svg-size" src="./img/boardImg/plus.svg">
                         </div>
                     </button>
                 </div>
@@ -216,7 +215,7 @@
             <div class="input-with-img-smal-scren">
                 <input class="find-task-input" placeholder="Find Task">
                 <div class="seperate-line"></div>
-                <img src="./boardImg/search.svg" class="input-svg">
+                <img src="./img/boardImg/search.svg" class="input-svg">
             </div>            <div id="clickHere" class="click-here-box display-none-a">
                 <div>
                     <b id="taskCount">0</b> Task(s) found
@@ -227,7 +226,7 @@
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">To do <img id="toDo" onclick="openAddTaskInBoard()"
-                                class="txt-svg-centering pointer" src="./boardImg/add.svg"></span>
+                                class="txt-svg-centering pointer" src="./img/boardImg/add.svg"></span>
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="toDoTasks"
                                 ondrop="moveTo('todo', event); removeHighlight(event);" 
@@ -241,7 +240,7 @@
                 <div class="task-width">
                     <div>
                         <span class="txt-svg-cetering">In progress <img id="inProgress" onclick="openAddTaskInBoard()"
-                                class="txt-svg-centering pointer" src="./boardImg/add.svg"></span>
+                                class="txt-svg-centering pointer" src="./img/boardImg/add.svg"></span>
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="inProgressTasks"
                                 ondrop="moveTo('inprogress', event); removeHighlight(event);" 
@@ -256,7 +255,7 @@
                     <div>
                         <span class="txt-svg-cetering">Await feedback <img id="awaitFeedback"
                                 onclick="openAddTaskInBoard()" class="txt-svg-centering pointer"
-                                src="./boardImg/add.svg"></span>
+                                src="./img/boardImg/add.svg"></span>
                         <div class="position-relative">
                             <div class="drag-area board-task-set-up no-task" id="feedbackTasks"
                                 ondrop="moveTo('awaitfeedback', event); removeHighlight(event);" 
@@ -284,17 +283,17 @@
     </div>
     </div>
 </body>
-<script src="include.js"></script>
-<script src="storage.js"></script>
-<script src="logout.js"></script>
-<script src="boardEdit.js"></script>
-<script src="boardFunctions.js"></script>
-<script src="boardEventlistenerTemplateTaskFunctions.js"></script>
-<script src="boardTaskFunctions.js"></script>
-<script src="bordHtml.js"></script>
-<script src="addTask.js"></script>
-<script src="addTaskHtml.js"></script>
-<script src="addTaskEventlistener.js"></script>
-<script src="./templates/topbar.js"></script>
-<script src="summary.js"></script>
+<script src="./JS/include.js"></script>
+<script src="./JS/storage.js"></script>
+<script src="./JS/logout.js"></script>
+<script src="./JS/boardEdit.js"></script>
+<script src="./JS/boardFunctions.js"></script>
+<script src="./JS/boardEventlistenerTemplateTaskFunctions.js"></script>
+<script src="./JS/boardTaskFunctions.js"></script>
+<script src="./JS/bordHtml.js"></script>
+<script src="./JS/addTask.js"></script>
+<script src="./JS/addTaskHtml.js"></script>
+<script src="./JS/addTaskEventlistener.js"></script>
+<script src="./JS/topbar.js"></script>
+<script src="./JS/summary.js"></script>
 </html>

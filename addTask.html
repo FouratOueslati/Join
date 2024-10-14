@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Task</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
-    <link rel="stylesheet" href="addTask.css">
-    <link rel="stylesheet" href="responsiveAddTask.css">
-    <link rel="stylesheet" href="font.css">
-    <link rel="stylesheet" href="./templates/bluebar.css">
-    <link rel="stylesheet" href="./templates/topbar.css">
-    <link rel="stylesheet" href="legalPrivacy.css">
+    <link rel="stylesheet" href="/CSS/addTask.css">
+    <link rel="stylesheet" href="/CSS/responsiveAddTask.css">
+    <link rel="stylesheet" href="/CSS/font.css">
+    <link rel="stylesheet" href="./CSS/bluebar.css">
+    <link rel="stylesheet" href="./CSS/topbar.css">
+    <link rel="stylesheet" href="/CSS/legalPrivacy.css">
 </head>
 <body onload="onloadFunction()">
     <div class="tools-container" w3-include-html="./templates/bluebar.html"></div>
@@ -19,7 +19,7 @@
         <div class="parent-container">
             <div id="addedToBoard" class="added-to-board d-none">
                 <div>Task added to board</div>
-                <img src="./addTaskImg/board-white.png">
+                <img src="./img/addTaskImg/board-white.png">
             </div>
             <form onsubmit="validateAndAddTask(); return false" class="main-container-task">
                 <div class="aot-task-container">
@@ -150,15 +150,15 @@
                                     <div style="display: flex; align-items: center; width: 100%;">
                                         <input placeholder="Add new subtask" class="task-input-with-img"
                                             oninput="onInputChange()" id="inputFieldSubtask">
-                                        <img src="./addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
+                                        <img src="./img/addTaskImg/plus.svg" class="input-field-svg" id="plusImg">
                                     </div>
                                     <div class="check-cross-position" id="closeOrAccept">
                                         <button type="button" class="button-transparacy">
-                                            <img onclick="clearSubtaskInput()" src="./addTaskImg/close.svg"
+                                            <img onclick="clearSubtaskInput()" src="./img/addTaskImg/close.svg"
                                                 class="subtaskButtons" alt="close">
                                         </button>
                                         <button type="button" class="button-transparacy">
-                                            <img onclick="addSubtask()" src="./addTaskImg/checkBlack.svg"
+                                            <img onclick="addSubtask()" src="./img/addTaskImg/checkBlack.svg"
                                                 class="subtaskButtons" alt="accept">
                                         </button>
                                     </div>
@@ -172,11 +172,11 @@
                     <span><b style="color: orange;">*</b>This field is required</span>
                     <div class="creat-and-close-buttons">
                         <button type="button" class="color-white-button clear-button" onclick="removeAllInput()">
-                            <div class="button-txt-img">Clear<img src="./addTaskImg/close.svg" class="close-svg">
+                            <div class="button-txt-img">Clear<img src="./img/addTaskImg/close.svg" class="close-svg">
                             </div>
                         </button>
                         <button id="addTaskButton" class="color-blue-button" type="submit">
-                            <div class="button-txt-img">Create Task <img src="./addTaskImg/check.svg" class="check-svg">
+                            <div class="button-txt-img">Create Task <img src="./img/addTaskImg/check.svg" class="check-svg">
                             </div>
                         </button>
                     </div>
@@ -185,12 +185,12 @@
         </div>
     </div>
 </body>
-<script src="storage.js"></script>
-<script src="include.js"></script>
-<script src="logout.js"></script>
-<script src="./templates/topbar.js"></script>
-<script src="addTask.js"></script>
-<script src="addTaskHtml.js"></script>
-<script src="addTaskEventlistener.js"></script>
-<script src="summary.js"></script>
+<script src="./JS/storage.js"></script>
+<script src="./JS/include.js"></script>
+<script src="./JS/logout.js"></script>
+<script src="./JS/topbar.js"></script>
+<script src="./JS/addTask.js"></script>
+<script src="./JS/addTaskHtml.js"></script>
+<script src="./JS/addTaskEventlistener.js"></script>
+<script src="./JS/summary.js"></script>
 </html>

@@ -1,7 +1,6 @@
 function initPolicy() {
-    includeHTML();
-    addClassScroll();     
     showLoggedUserInitials();
+    addClassScroll();     
     changeBgColorMenu();
 }
 

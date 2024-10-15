@@ -1,3 +1,9 @@
+@media (max-width: 1500px) {
+    .moveTo-menu {
+        display: block;
+    }
+}
+
 @media (max-width: 1150px) {
     .greeting-container {
         width: 25%;
@@ -26,10 +32,6 @@
 }
 
 @media (max-width: 900px) {
-    .moveTo-menu {
-        display: block;
-    }
-
     .add-new-contact {
         transform: translateY(110%);
         transform: translateX(0);

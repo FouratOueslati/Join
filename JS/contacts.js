@@ -265,16 +265,27 @@ async function editOpenedContactInMobileView() {
     const email = document.getElementById('emailOfContact').innerHTML;
     let userData = await loadSpecificUserDataFromLocalStorage();
     let ToBeEditedContactId = findContactIdByEmailToEdit(userData.contacts, email);
+    
     if (ToBeEditedContactId) {
         dialogEditContact.innerHTML = getEditContactHtmlMobileView(
-            document.getElementById('nameOfContact').innerHTML, email,
-            document.getElementById('numberOfContact').innerHTML, ToBeEditedContactId
+            document.getElementById('nameOfContact').innerHTML, 
+            email,
+            document.getElementById('numberOfContact').innerHTML, 
+            ToBeEditedContactId
         );
         dialogEditContact.classList.remove('d-none');
-        setTimeout(() => editContact.style.transform = "translateY(0%)", 50);
+
+        // Define `editContact` by selecting the correct element
+        let editContact = document.getElementById('dialogNewEditContact'); // or the correct element you want to target
+
+        setTimeout(() => {
+            editContact.style.transform = "translateY(0%)";
+        }, 50);
+
         await loadDataAfterChanges();
     }
 }
+
 
 
 /**

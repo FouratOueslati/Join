@@ -115,18 +115,19 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function togglePassword(inputId) {
     let passwordInput = document.getElementById(inputId);
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        passwordInput.style.background = 'url(./img/visibility.png)';
-    } else {
+    if (passwordInput.type === "text") {
         passwordInput.type = "password";
-        passwordInput.style.background = 'url(./img/visibility_off.png)';
+        passwordInput.style.backgroundImage = 'url(./img/visibility_off.png)';
+    } else {
+        passwordInput.type = "text";
+        passwordInput.style.backgroundImage = 'url(./img/visibility.png)';
     }
     setTimeout(() => {
         const length = passwordInput.value.length;
         passwordInput.setSelectionRange(length, length);
     }, 0);
 }
+
 
 
 /**

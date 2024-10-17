@@ -200,6 +200,7 @@ body {
     padding-bottom: 12px;
     padding-left: 21px;
     padding-right: 21px;
+    background-image: url('/img/person.png'); 
     background-repeat: no-repeat;
     background-position: 93%;
     font-weight: 400;
@@ -215,6 +216,7 @@ body {
     padding-bottom: 12px;
     padding-left: 21px;
     padding-right: 21px;
+    background-image: url('/img/mail.png');
     background-repeat: no-repeat;
     background-position: 93%;
     font-weight: 400;
@@ -245,6 +247,7 @@ body {
     padding-bottom: 12px;
     padding-left: 21px;
     padding-right: 21px;
+    background-image: url('/img/call.png');
     background-repeat: no-repeat;
     background-position: 93%;
     font-weight: 400;

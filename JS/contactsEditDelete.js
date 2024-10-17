@@ -50,20 +50,28 @@ function openEditSmallMenu() {
  * @param {string} contactId 
  */
 async function saveEditContact(contactId) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    const editedName = document.getElementById(`editName${contactId}`).value;
-    const editedEmail = document.getElementById(`editEmail${contactId}`).value;
-    const editedPhone = document.getElementById(`editNumber${contactId}`).value;
-    const background = userData.contacts[contactId]['backgroundcolor']
-    userData.contacts[contactId] = {
-        name: editedName, email: editedEmail, number: editedPhone, backgroundcolor: background
-    };
-    await updateUserData(uid, userData);
-    await loadDataAfterChanges();
-    document.getElementById('dialogNewEditContact').classList.add('d-none');
-    closeDialog();
-    location.reload();
+    const isNameValid = validateName(`editName${contactId}`, `nameMessage${contactId}`);
+    const isEmailValid = validateEmail(`editEmail${contactId}`, `emailMessage${contactId}`);
+    const isNumberValid = validateNumber(`editNumber${contactId}`, `numberMessage${contactId}`);
+    if (isNameValid && isEmailValid && isNumberValid) {
+        let userData = await loadSpecificUserDataFromLocalStorage();
+        const editedName = document.getElementById(`editName${contactId}`).value;
+        const editedEmail = document.getElementById(`editEmail${contactId}`).value;
+        const editedPhone = document.getElementById(`editNumber${contactId}`).value;
+        const background = userData.contacts[contactId]['backgroundcolor'];
+        userData.contacts[contactId] = {
+            name: editedName, email: editedEmail, number: editedPhone, backgroundcolor: background
+        };
+        await updateUserData(uid, userData);
+        await loadDataAfterChanges();
+        document.getElementById('dialogNewEditContact').classList.add('d-none');
+        closeDialog();
+        location.reload();
+    } else {
+        console.log("Validation failed. Please correct the inputs.");
+    }
 }
+
 
 
 /**

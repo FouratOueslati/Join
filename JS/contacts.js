@@ -274,14 +274,10 @@ async function editOpenedContactInMobileView() {
             ToBeEditedContactId
         );
         dialogEditContact.classList.remove('d-none');
-
-        // Define `editContact` by selecting the correct element
-        let editContact = document.getElementById('dialogNewEditContact'); // or the correct element you want to target
-
+        let editContact = document.getElementById('dialogNewEditContact'); 
         setTimeout(() => {
             editContact.style.transform = "translateY(0%)";
         }, 50);
-
         await loadDataAfterChanges();
     }
 }

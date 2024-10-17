@@ -364,18 +364,27 @@ function createSubtasksArray(subtasks) {
 function removeAllInput() {
     document.getElementById("taskTitle").value = "";
     document.getElementById("taskDescription").value = "";
-    document.getElementById("selectContact").textContent = "Search Contact";
-    document.getElementById("contactsDisplayBubble").innerHTML = "";
+    document.getElementById("selectContact").textContent = "Search Contact"; 
+    document.getElementById("contactsDisplayBubble").innerHTML = ""; 
     document.getElementById("date").value = "";
     const priorityButtons = document.querySelectorAll(".button-prio");
     priorityButtons.forEach(button => {
         button.classList.remove("mediumSelected", "lowSelected", "urgentSelected");  
-    });
+    }); 
     const mediumButton = document.getElementById("mediumButton");
-    mediumButton.classList.add("mediumSelected");  
+    mediumButton.classList.add("mediumSelected");     
     document.getElementById("selectCategory").textContent = "Select task category";
     document.getElementById("inputFieldSubtask").value = "";
     document.getElementById("subtasksContainer").innerHTML = "";
+    const checkboxes = document.querySelectorAll('.assign-contact-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false; 
+    });
+    const contacts = document.querySelectorAll("[id^='contactToChose']");
+    contacts.forEach(contact => {
+        contact.style.backgroundColor = ""; 
+        contact.style.color = ""; 
+    });
 }
 
 

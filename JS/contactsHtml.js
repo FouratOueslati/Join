@@ -162,9 +162,12 @@ function getEditContactHtmlMobileView(name, email, number, contactId) {
                     <div id="edit-contactsInitialsBig'${contactId}'" class="edit-img"></div>
                     <div class="data-box">
                         <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}">
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-input-edit" value="${email}">
-                            <input id="editNumber${contactId}" placeholder="Phone" type="text" required class="phone-input" value="${number}">
+                            <input id="editName${contactId}" placeholder="Name" type="text" required class="name-input" value="${name}" onkeyup="validateName('editName${contactId}', 'nameCorrectIncorect${contactId}')">
+                            <div id="nameCorrectIncorect${contactId}" class="corect-incorect"></div>
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" required class="email-input email-input-edit" value="${email}" onkeyup="validateEmail('editEmail${contactId}', 'emailCorrectIncorect${contactId}')">
+                            <div id="emailCorrectIncorect${contactId}" class="corect-incorect"></div>
+                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" required class="phone-input" value="${number}" onkeyup="validateNumber('editNumber${contactId}', 'numberCorrectIncorect${contactId}')">
+                            <div id="numberCorrectIncorect${contactId}" class="corect-incorect"></div>
                         </div>
                         <div class="close-create-button">
                             <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">

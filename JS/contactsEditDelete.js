@@ -376,5 +376,5 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
  */
 function showEditDeleteMenuBox(contactId) {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
-    editDeleteMenuBox.innerHTML += getEditDeleteMenuBoxHtml(contactId);
+    editDeleteMenuBox.innerHTML = getEditDeleteMenuBoxHtml(contactId); 
 }

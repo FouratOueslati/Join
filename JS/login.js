@@ -103,7 +103,7 @@ function toggleMenu() {
 /**
  * This fuction displays or hide the entered password and places the curser where it was entered
  */
-function togglePassword(inputId) {
+ function togglePassword(inputId) {
     let passwordInput = document.getElementById(inputId);
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
@@ -116,4 +116,4 @@ function togglePassword(inputId) {
         const length = passwordInput.value.length;
         passwordInput.setSelectionRange(length, length);
     }, 0);
-}
+} 

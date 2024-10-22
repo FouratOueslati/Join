@@ -25,15 +25,20 @@
             <div class="blue-seperator"></div>
             <div class="data-container">
                 <input id="loginEmail" placeholder="Email" required class="email-input" type="email">
+
+                <div class="password-container">
+                    <input id="loginPassword" placeholder="Password" required class="password-input" type="password">
+                    <div class="toggle-password" onclick="togglePassword('loginPassword')"></div>
+                </div>
                 
-                <input id="loginPassword" onclick="togglePassword('loginPassword')" placeholder="Password" required class="password-input" type="password">
                 <div class="remember-container">
                     <input type="checkbox" id="rememberMeCheckbox" class="remember-me-checkbox">
                     <label for="rememberMeCheckbox" class="remember-text">Remember me</label>
                 </div>
                 <div class="login-buttons-container">
                     <button class="login-button pointer color-blue-button">Log in</button>
-                    <button type="button" onclick="guestLogin()" class="guest-button pointer color-white-button">Guest log in</button>
+                    <button type="button" onclick="guestLogin()" class="guest-button pointer color-white-button">Guest
+                        log in</button>
                 </div>
             </div>
         </form>

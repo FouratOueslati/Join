@@ -24,21 +24,33 @@
             <div class="data-container">
                 <input id="name" placeholder="Name" type="text" required class="name-input" onkeyup="validateName()">
                 <div id="nameCorectIncorectS" class="corect-incorect"></div>
-            
-                <input id="email" placeholder="Email" type="email" required class="email-input" onkeyup="validateEmailS()">
+
+                <input id="email" placeholder="Email" type="email" required class="email-input"
+                    onkeyup="validateEmailS()">
                 <div id="emailCorectIncorectS" class="corect-incorect"></div>
-                
-                <input id="password" onclick="togglePassword('password')" placeholder="Password" type="text" required class="password-input" onkeyup="validatePassword()" />
+
+                <div class="password-container">
+                    <input id="password" placeholder="Password" type="password"
+                        required class="password-input" onkeyup="validatePassword()" />
+                        <div class="toggle-password" onclick="togglePassword('password')"></div>
+                </div>
                 <div id="passwordOneCorectIncorect" class="corect-incorect"></div>
-                
-                <input id="confirmedPassword" onclick="togglePassword('confirmedPassword')" placeholder="Confirm Password" type="text" required class="password-input" onkeyup="validatePassword()" />
+
+                <div class="password-container">
+                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required
+                        class="password-input" onkeyup="validatePassword()" />
+                    <div class="toggle-password" onclick="togglePassword('confirmedPassword')"></div>
+                </div>
+
                 <div id="passwordTwoCorectIncorect" class="corect-incorect"></div>
+
             </div>
-            
+
             <div class="accept-policy-container">
                 <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox" required>
                 <div>
-                    <div class="accept-text">I accept the <a href="privacyPolicyExtern.html" class="policy-link">Privacy policy</a></div>
+                    <div class="accept-text">I accept the <a href="privacyPolicyExtern.html" class="policy-link">Privacy
+                            policy</a></div>
                 </div>
             </div>
             <button class="sign-up-button pointer color-blue-button" type="submit" disabled>Sign up</button>

@@ -35,6 +35,7 @@
         padding-right: 12px;
         background-color: #F6F7F8;
         margin: unset;
+        flex-direction: column;
     }
 
     .add-task-set-up-one-container,
@@ -54,10 +55,6 @@
     }
 
     .seperate-container {
-        display: none;
-    }
-
-    .clear-button {
         display: none;
     }
 }

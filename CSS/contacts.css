@@ -308,7 +308,6 @@
 .close-create-button {
     display: flex;
     gap: 24px;
-    padding-top: 48px;
 }
 
 .button-add-contacts:hover,
@@ -472,6 +471,10 @@
     font-size: 12px;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 @media (max-width: 1300px) {
     .close-add-contact img:hover {
         background-color: #D1D1D1;
@@ -496,6 +499,9 @@
     .parent-container {
         width: 100vw;
         height: 80% !important;
+    }
+    .contact-box {
+        overflow-y: auto;
     }
 }
 

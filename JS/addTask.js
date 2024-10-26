@@ -18,40 +18,95 @@ async function onloadFunction() {
 /**
  * This function checks whether the entries have been entered correctly before adding a new task
  */
-function validateAndAddTask() {
-    const taskTitle = document.getElementById('taskTitle');
-    const date = document.getElementById('date');
-    const categoryContainer = document.getElementById('selectCategoryContainer');
+function selectCategory(categoryName) {
     const category = document.getElementById('selectCategory');
-    let titleChosen = document.getElementById('corectTitle');
-    let dateChosen = document.getElementById('corectDate');
-    let categoryChosen = document.getElementById('corectCategory');
-    taskTitle.style.borderColor = '';
-    date.style.borderColor = '';
+    const categoryContainer = document.getElementById('selectCategoryContainer');
+    const categoryChosen = document.getElementById('corectCategory');
+    category.textContent = categoryName;
     categoryContainer.style.borderColor = '';
-    titleChosen.textContent = '';   
-    dateChosen.textContent = '';    
-    categoryChosen.textContent = ''; 
-    let isValid = true;
+    categoryChosen.textContent = '';
+}
+
+function clearTitleError() {
+    const taskTitle = document.getElementById('taskTitle');
+    const titleChosen = document.getElementById('corectTitle');
+    taskTitle.style.borderColor = '';
+    titleChosen.textContent = '';
+}
+
+function clearDateError() {
+    const date = document.getElementById('date');
+    const dateChosen = document.getElementById('corectDate');
+    date.style.borderColor = '';
+    dateChosen.textContent = '';
+}
+
+function clearTitleError() {
+    const taskTitle = document.getElementById('taskTitle');
+    const titleChosen = document.getElementById('corectTitle');
+    taskTitle.style.borderColor = '';
+    titleChosen.textContent = '';
+}
+
+function validateTitle() {
+    const taskTitle = document.getElementById('taskTitle');
+    const titleChosen = document.getElementById('corectTitle'); 
     if (taskTitle.value.trim().length < 4) {
         taskTitle.style.borderColor = 'red';
         titleChosen.textContent = 'Title must be at least 4 characters.';
         titleChosen.style.color = 'red';
-        isValid = false;
+        return false;
     }
+    clearTitleError();
+    return true;
+}
+
+function clearDateError() {
+    const date = document.getElementById('date');
+    const dateChosen = document.getElementById('corectDate');
+    date.style.borderColor = '';
+    dateChosen.textContent = '';
+}
+
+function validateDate() {
+    const date = document.getElementById('date');
+    const dateChosen = document.getElementById('corectDate');   
     if (!date.value) {
         date.style.borderColor = 'red';
         dateChosen.textContent = 'Please select a valid date.';
         dateChosen.style.color = 'red';
-        isValid = false;
+        return false;
     }
+    clearDateError();
+    return true;
+}
+
+function clearCategoryError() {
+    const categoryContainer = document.getElementById('selectCategoryContainer');
+    const categoryChosen = document.getElementById('corectCategory');
+    categoryContainer.style.borderColor = '';
+    categoryChosen.textContent = '';
+}
+
+function validateCategory() {
+    const categoryContainer = document.getElementById('selectCategoryContainer');
+    const category = document.getElementById('selectCategory');
+    const categoryChosen = document.getElementById('corectCategory');  
     if (category.textContent === 'Select task category') {
         categoryContainer.style.borderColor = 'red';
         categoryChosen.textContent = 'Please select a task category.';
         categoryChosen.style.color = 'red';
-        isValid = false;
+        return false;
     }
-    if (isValid) {
+    clearCategoryError();
+    return true;
+}
+
+function validateAndAddTask() {
+    const isTitleValid = validateTitle();
+    const isDateValid = validateDate();
+    const isCategoryValid = validateCategory();
+    if (isTitleValid && isDateValid && isCategoryValid) {
         addTask();
     }
 }

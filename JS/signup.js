@@ -198,3 +198,22 @@ function validatePassword() {
         confirmedPasswordInput.style.borderColor = ''; 
     }
 }
+
+function validatePolicyAcceptance(event) {
+    const checkbox = document.getElementById('acceptPolicy');
+    const errorMsg = document.getElementById('policyErrorMsg');
+    const label = document.getElementById('acceptText');
+    
+    if (checkbox.checked) {
+        label.style.color = 'green';
+        errorMsg.textContent = ''; // Clear any previous error
+    } else {
+        event.preventDefault(); // Prevent form submission
+        label.style.color = 'red';
+        errorMsg.textContent = '- Please accept the privacy policy';
+        errorMsg.style.color = 'red';
+    }
+}
+
+
+

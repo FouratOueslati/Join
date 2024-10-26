@@ -47,13 +47,16 @@
             </div>
 
             <div class="accept-policy-container">
-                <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox" required>
+                <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox">
                 <div>
-                    <div class="accept-text">I accept the <a href="privacyPolicyExtern.html" class="policy-link">Privacy
-                            policy</a></div>
+                    <div id="acceptText" class="accept-text">
+                        I accept the <a href="privacyPolicyExtern.html" class="policy-link">Privacy policy</a>
+                    </div>
+                    <div id="policyErrorMsg" class="error-message" style="color: red;"></div>
                 </div>
             </div>
-            <button class="sign-up-button pointer color-blue-button" type="submit" disabled>Sign up</button>
+            <button class="sign-up-button pointer color-blue-button" type="submit" onclick="validatePolicyAcceptance(event)">Sign up</button>
+            
         </form>
         <div class="legal-privacy-container">
             <a href="privacyPolicyExtern.html" class="privacy-policy-extern">Privacy policy</a>

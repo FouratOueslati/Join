@@ -31,8 +31,8 @@
                             <div class="inputs-flex">
                                 <span>Title<b style="color: orange;">*</b></span>
                                 <input id="taskTitle" placeholder="Enter a title..." minlength="4"
-                                    class="task-input-field">
-                                    <div id="corectTitle" class="corect-incorect"></div>
+                                       class="task-input-field" onkeyup="clearTitleError()">
+                                <div id="corectTitle" class="corect-incorect"></div>
                             </div>
 
                             <div class="inputs-flex">
@@ -62,7 +62,7 @@
                         <div class="add-task-set-up-two">
                             <div class="inputs-flex">
                                 <span>Due date<b style="color: orange;">*</b></span>
-                                <input id="date" type="date" class="task-input-field date">
+                                <input id="date" type="date" class="task-input-field date" onchange="clearDateError()">
                                 <div id="corectDate" class="corect-incorect"></div>
                             </div>
                             
@@ -136,14 +136,15 @@
                                         <span class="selected" id="selectCategory">Select task category</span>
                                         <div class="caret"></div>
                                     </div>
-                                    <ul onclick="addCategoryEventListener()" class="menu" id="categoryMenu">
-                                        <li>Technical Task</li>
-                                        <li>User Story</li>
-                                        <li>Design</li>
+                                    <ul class="menu" id="categoryMenu">
+                                        <li onclick="selectCategory('Technical Task')">Technical Task</li>
+                                        <li onclick="selectCategory('User Story')">User Story</li>
+                                        <li onclick="selectCategory('Design')">Design</li>
                                     </ul>
                                 </div>
                                 <div id="corectCategory" class="corect-incorect"></div>
                             </div>
+                            
                             <div class="inputs-flex">
                                 <span>Subtask</span>
                                 <div class="input-with-img">

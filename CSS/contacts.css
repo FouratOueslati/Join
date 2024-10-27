@@ -498,7 +498,7 @@
 @media(max-width: 1024px) {
     .parent-container {
         width: 100vw;
-        height: 80% !important;
+        height: 100% !important;
     }
     .contact-box {
         overflow-y: auto;

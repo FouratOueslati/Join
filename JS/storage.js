@@ -345,3 +345,22 @@ async function loadAllTasksFromStorage() {
     let tasks = userData.tasks;
     return tasks;
 }
+
+
+/**
+ * Loads tasks for a user based on the specified drag category (e.g., 'todo', 'inprogress', 'awaitfeedback', 'done').
+ * 
+ * @param {string} dragCategory - The category to filter tasks by.
+ * @returns {Array} - An array of tasks within the specified drag category.
+ */
+async function getTasksByDragCategory(dragCategory) {
+    const response = await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks.json`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    const tasks = await response.json();
+    if (!tasks) return [];
+    return Object.values(tasks).filter(task => task.dragCategory === dragCategory);
+}

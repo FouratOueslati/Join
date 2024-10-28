@@ -1,4 +1,17 @@
 function getToDoTaskHtml(task, i) {
+    const currentCategory = task['dragCategory'];
+    const categories = [
+        { name: 'todo', label: 'To do' },
+        { name: 'inprogress', label: 'In progress' },
+        { name: 'awaitfeedback', label: 'Await Feedback' },
+        { name: 'done', label: 'Done' }
+    ];
+    let moveToMenuHtml = '';
+    categories.forEach(cat => {
+        if (cat.name !== currentCategory) {
+            moveToMenuHtml += `<li class="category-to-moveTo" onclick="moveToFromMenu(event, '${cat.name}', ${i})">${cat.label}</li>`;
+        }
+    });
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
@@ -6,12 +19,9 @@ function getToDoTaskHtml(task, i) {
             <div class="moveTo-menu-container">
                 <img id="moveToMenuImg" onclick="toggleMoveToMenu(event, ${i})" src="./img/menu.png" class="moveTo-menu d-none">
                 <div id="moveToMenu${i}" class="moveTo-menu-options d-none">
-                     <ul >
+                    <ul>
                         <div class="move-to">Move to: </div>
-                        <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'todo', ${i})">To do</li>
-                        <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'inprogress', ${i})">In progress</li>
-                        <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'awaitfeedback', ${i})">Await Feedback</li>
-                        <li class="category-to-moveTo" onclick="moveToFromMenu(event, 'done', ${i})">Done</li>
+                        ${moveToMenuHtml} 
                     </ul>
                 </div>
             </div>
@@ -19,23 +29,23 @@ function getToDoTaskHtml(task, i) {
         <div id="taskTitle${i}" class="task-title">${task['task']['name']}</div>
         <div id="desciption${i}" class="task-description">${task['task']['description']}</div>
         <div class="subtasks-number-container">
-            <div id="loadBarContainer${i}"  class="progress">
-            <div id="loadBar${i}" class="progress-bar"></div>
+            <div id="loadBarContainer${i}" class="progress">
+                <div id="loadBar${i}" class="progress-bar"></div>
             </div>
-            <div id="subtasksNumber${i}" class="subtasks">
-            </div>
+            <div id="subtasksNumber${i}" class="subtasks"></div>
         </div>
         <div class="initials-and-priority-container">
-          <div class="initials-container" id="initialsContainer${i}"></div>
-          <img id="priorityImgUnopened${i}">
+            <div class="initials-container" id="initialsContainer${i}"></div>
+            <img id="priorityImgUnopened${i}">
         </div>
         <div id="myModal${i}" class="modal">
             <div id="modal${i}" class="modal-content">
-              ${generateModalContent(task, i)}
+                ${generateModalContent(task, i)}
             </div>
         </div>
     </div>`;
 }
+
 
 
 function generateModalContent(task, i) {

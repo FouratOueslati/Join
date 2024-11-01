@@ -81,9 +81,9 @@ async function saveEditContact(contactId) {
  */
 async function createNewContact() {
     // Validating using static IDs for new contact creation and passing the message element IDs
-    let isNameValid = validateName('name', 'nameCorrectIncorect');
-    let isEmailValid = validateEmail('email', 'emailCorrectIncorect');
-    let isNumberValid = validateNumber('number', 'numberCorrectIncorect');
+    let isNameValid = validateName('name', 'nameCorrectIncorrect');
+    let isEmailValid = validateEmail('email', 'emailCorrectIncorrect');
+    let isNumberValid = validateNumber('number', 'numberCorrectIncorrect');
 
     if (isNameValid && isEmailValid && isNumberValid) {
         let uid = localStorage.getItem('uid');

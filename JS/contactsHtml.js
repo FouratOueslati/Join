@@ -67,16 +67,16 @@ function getAddNewContactHtml() {
                 <div class="contact-box-right">
                     <img src="./img/Group 13.png" class="contact-img">
                     <div class="data-box">
-                        <form onsubmit="createNewContact(); return false;" class="add-contact-data">
+                        <div class="add-contact-data">
 
-                            <input id="name" placeholder="Name" type="text" class="name-input" onkeyup="validateName('name', 'nameCorrectIncorect')">
-                            <div id="nameCorrectIncorect" class="corect-incorect"></div>
+                            <input id="name" placeholder="Name" type="text" class="name-input" onkeyup="validateName('name', 'nameCorrectIncorrect')">
+                            <div id="nameCorrectIncorrect" class="correct-incorrect"></div>
 
-                            <input id="email" placeholder="Email" type="email" class="email-input email-input-edit" onkeyup="validateEmail('email', 'emailCorrectIncorect')">
-                            <div id="emailCorrectIncorect" class="corect-incorect"></div>
+                            <input id="email" placeholder="Email" type="email" class="email-input email-input-edit" onkeyup="validateEmail('email', 'emailCorrectIncorrect')">
+                            <div id="emailCorrectIncorrect" class="correct-incorrect"></div>
 
-                            <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" onkeyup="validateNumber('number', 'numberCorrectIncorect')">
-                            <div id="numberCorrectIncorect" class="corect-incorect"></div>
+                            <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" onkeyup="validateNumber('number', 'numberCorrectIncorrect')">
+                            <div id="numberCorrectIncorrect" class="correct-incorrect"></div>
 
                             <div class="close-create-button">
                                 <button type="button" class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
@@ -85,14 +85,14 @@ function getAddNewContactHtml() {
                                         <img src="./img/addTaskImg/close.svg" class="close-svg" alt="Close">
                                     </div>
                                 </button>
-                                <button type="submit" class="color-blue-button">
+                                <button class="color-blue-button" onclick="createNewContact()";>
                                     <div class="button-txt-img">
                                         Create Contact
                                         <img src="./img/addTaskImg/check.svg" class="check-svg" alt="Check">
                                     </div>
                                 </button>
                             </div>
-                        </form>
+                        </div>
                         <div id="newColor" class="shorts-name d-none"></div>
                     </div>
                 </div>
@@ -119,24 +119,24 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                 </div>
                 <div class="contact-box-right">
                     <div id="edit-contactsInitialsBig${contactId}" class="edit-img">${firstLetterOfName}${firstLetterOfLastName}</div>
-                    <form onsubmit="saveEditContact('${contactId}'); return false" class="data-box">
+                    <div class="data-box">
                         <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeyup="validateName('editName${contactId}', 'nameCorrectIncorect${contactId}')">
-                            <div id="nameCorrectIncorect${contactId}" class="corect-incorect"></div>
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onkeyup="validateEmail('editEmail${contactId}', 'emailCorrectIncorect${contactId}')">
-                            <div id="emailCorrectIncorect${contactId}" class="corect-incorect"></div>
-                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onkeyup="validateNumber('editNumber${contactId}', 'numberCorrectIncorect${contactId}')">
-                            <div id="numberCorrectIncorect${contactId}" class="corect-incorect"></div>
+                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeyup="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
+                            <div id="nameCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onkeyup="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
+                            <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onkeyup="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
+                            <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
                         </div>
                         <div class="close-create-button">
                             <button type="button" onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
                                 <div class="button-txt-img">Delete</div>
                             </button>
-                            <button type="submit" class="color-blue-button">
+                            <button class="color-blue-button" onclick="saveEditContact('${contactId}')";>
                                 <div class="button-txt-img">Save<img src="./img/addTaskImg/check.svg" class="check-svg"></div>
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>`;
@@ -163,12 +163,12 @@ function getEditContactHtmlMobileView(name, email, number, contactId) {
                     <div id="edit-contactsInitialsBig'${contactId}'" class="edit-img"></div>
                     <div class="data-box">
                         <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeyup="validateName('editName${contactId}', 'nameCorrectIncorect${contactId}')">
-                            <div id="nameCorrectIncorect${contactId}" class="corect-incorect"></div>
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onkeyup="validateEmail('editEmail${contactId}', 'emailCorrectIncorect${contactId}')">
-                            <div id="emailCorrectIncorect${contactId}" class="corect-incorect"></div>
-                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onkeyup="validateNumber('editNumber${contactId}', 'numberCorrectIncorect${contactId}')">
-                            <div id="numberCorrectIncorect${contactId}" class="corect-incorect"></div>
+                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeyup="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
+                            <div id="nameCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onkeyup="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
+                            <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onkeyup="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
+                            <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
                         </div>
                         <div class="close-create-button">
                             <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">

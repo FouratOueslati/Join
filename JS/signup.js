@@ -135,16 +135,16 @@ function togglePassword(inputId) {
  */
 function validateName() {
     const nameInput = document.getElementById('name');
-    let corectIncorect = document.getElementById('nameCorectIncorectS');
+    let correctIncorrect = document.getElementById('nameCorrectIncorrectS');
     const nameValue = nameInput.value.trim();
     if (nameValue.split(' ').length >= 2) {
         nameInput.style.borderColor = 'green'; 
-        corectIncorect.textContent = '';
-        corectIncorect.style.color = 'green';
+        correctIncorrect.textContent = '';
+        correctIncorrect.style.color = 'green';
     } else {
         nameInput.style.borderColor = 'red'; 
-        corectIncorect.textContent = '-Input Name Surname';
-        corectIncorect.style.color = 'red';
+        correctIncorrect.textContent = '-Input Name Surname';
+        correctIncorrect.style.color = 'red';
     }
 }
 
@@ -156,15 +156,15 @@ function validateName() {
 function validateEmailS() {
     const emailInput = document.getElementById('email');
     const emailValue = emailInput.value.trim();
-    const corectIncorect = document.getElementById('emailCorectIncorectS');
+    const correctIncorrect = document.getElementById('emailCorrectIncorrectS');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(emailValue)) {
         emailInput.style.borderColor = 'green'; 
-        corectIncorect.textContent = '';  
+        correctIncorrect.textContent = '';  
     } else {
         emailInput.style.borderColor = 'red'; 
-        corectIncorect.textContent = 'Invalid email format: example@mail.com';
-        corectIncorect.style.color = 'red';
+        correctIncorrect.textContent = 'Invalid email format: example@mail.com';
+        correctIncorrect.style.color = 'red';
     }
 }
 
@@ -175,25 +175,25 @@ function validateEmailS() {
 function validatePassword() {
     const passwordInput = document.getElementById('password');
     const confirmedPasswordInput = document.getElementById('confirmedPassword');
-    let corectIncorectOne = document.getElementById('passwordOneCorectIncorect');
-    let corectIncorectTwo = document.getElementById('passwordTwoCorectIncorect');
+    let correctIncorrectOne = document.getElementById('passwordOneCorrectIncorrect');
+    let correctIncorrectTwo = document.getElementById('passwordTwoCorrectIncorrect');
     const passwordValue = passwordInput.value.trim();
     const confirmedPasswordValue = confirmedPasswordInput.value.trim();
     if (passwordValue.length >= 3) {
         passwordInput.style.borderColor = 'green'; 
-        corectIncorectOne.textContent = '';
+        correctIncorrectOne.textContent = '';
     } else {
         passwordInput.style.borderColor = 'red'; 
-        corectIncorectOne.textContent = 'Input a minumum of 3 signs';
-        corectIncorectOne.style.color = 'red';
+        correctIncorrectOne.textContent = 'Input a minumum of 3 signs';
+        correctIncorrectOne.style.color = 'red';
     }
     if (confirmedPasswordValue === passwordValue && confirmedPasswordValue.length >= 3) {
         confirmedPasswordInput.style.borderColor = 'green'; 
-        corectIncorectTwo.textContent = "";
+        correctIncorrectTwo.textContent = "";
     } else if (confirmedPasswordValue.length > 0) {
         confirmedPasswordInput.style.borderColor = 'red'; 
-        corectIncorectTwo.textContent = "Password dosen't match";
-        corectIncorectTwo.style.color = 'red';
+        correctIncorrectTwo.textContent = "Password dosen't match";
+        correctIncorrectTwo.style.color = 'red';
     } else {
         confirmedPasswordInput.style.borderColor = ''; 
     }

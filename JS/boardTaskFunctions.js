@@ -185,6 +185,9 @@ function closeAddTaskInBoard() {
     let addTaskWindow = document.getElementById('addTaskPopUp');
     addTaskWindow.classList.remove('bring-out-addTask-window');
     localStorage.removeItem('dragCategory');
+    clearTitleError();
+    clearDateError();
+    clearCategoryError();
 }
 
 

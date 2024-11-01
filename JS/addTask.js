@@ -21,7 +21,7 @@ async function onloadFunction() {
 function selectCategory(categoryName) {
     const category = document.getElementById('selectCategory');
     const categoryContainer = document.getElementById('selectCategoryContainer');
-    const categoryChosen = document.getElementById('corectCategory');
+    const categoryChosen = document.getElementById('correctCategory');
     category.textContent = categoryName;
     categoryContainer.style.borderColor = '';
     categoryChosen.textContent = '';
@@ -29,28 +29,28 @@ function selectCategory(categoryName) {
 
 function clearTitleError() {
     const taskTitle = document.getElementById('taskTitle');
-    const titleChosen = document.getElementById('corectTitle');
+    const titleChosen = document.getElementById('correctTitle');
     taskTitle.style.borderColor = '';
     titleChosen.textContent = '';
 }
 
 function clearDateError() {
     const date = document.getElementById('date');
-    const dateChosen = document.getElementById('corectDate');
+    const dateChosen = document.getElementById('correctDate');
     date.style.borderColor = '';
     dateChosen.textContent = '';
 }
 
 function clearTitleError() {
     const taskTitle = document.getElementById('taskTitle');
-    const titleChosen = document.getElementById('corectTitle');
+    const titleChosen = document.getElementById('correctTitle');
     taskTitle.style.borderColor = '';
     titleChosen.textContent = '';
 }
 
 function validateTitle() {
     const taskTitle = document.getElementById('taskTitle');
-    const titleChosen = document.getElementById('corectTitle'); 
+    const titleChosen = document.getElementById('correctTitle'); 
     if (taskTitle.value.trim().length < 4) {
         taskTitle.style.borderColor = 'red';
         titleChosen.textContent = 'Title must be at least 4 characters.';
@@ -63,14 +63,14 @@ function validateTitle() {
 
 function clearDateError() {
     const date = document.getElementById('date');
-    const dateChosen = document.getElementById('corectDate');
+    const dateChosen = document.getElementById('correctDate');
     date.style.borderColor = '';
     dateChosen.textContent = '';
 }
 
 function validateDate() {
     const date = document.getElementById('date');
-    const dateChosen = document.getElementById('corectDate');   
+    const dateChosen = document.getElementById('correctDate');   
     if (!date.value) {
         date.style.borderColor = 'red';
         dateChosen.textContent = 'Please select a valid date.';
@@ -83,7 +83,7 @@ function validateDate() {
 
 function clearCategoryError() {
     const categoryContainer = document.getElementById('selectCategoryContainer');
-    const categoryChosen = document.getElementById('corectCategory');
+    const categoryChosen = document.getElementById('correctCategory');
     categoryContainer.style.borderColor = '';
     categoryChosen.textContent = '';
 }
@@ -91,7 +91,7 @@ function clearCategoryError() {
 function validateCategory() {
     const categoryContainer = document.getElementById('selectCategoryContainer');
     const category = document.getElementById('selectCategory');
-    const categoryChosen = document.getElementById('corectCategory');  
+    const categoryChosen = document.getElementById('correctCategory');  
     if (category.textContent === 'Select task category') {
         categoryContainer.style.borderColor = 'red';
         categoryChosen.textContent = 'Please select a task category.';
@@ -440,6 +440,9 @@ function removeAllInput() {
         contact.style.backgroundColor = ""; 
         contact.style.color = ""; 
     });
+    clearTitleError();
+    clearDateError();
+    clearCategoryError();
 }
 
 

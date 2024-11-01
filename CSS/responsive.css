@@ -4,6 +4,12 @@
     }
 }
 
+@media (max-width: 1300px) {
+    .contact-headline {
+        margin: 15px 0 32px 55px;
+    }
+}
+
 @media (max-width: 1150px) {
     .greeting-container {
         width: 25%;

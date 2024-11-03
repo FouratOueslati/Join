@@ -200,9 +200,9 @@ body {
     padding-bottom: 12px;
     padding-left: 21px;
     padding-right: 21px;
-    background-image: url('/img/person.png'); 
+    background-image: url('../img/person.png'); 
     background-repeat: no-repeat;
-    background-position: 93%;
+    background-position: 95%;
     font-weight: 400;
     font-size: 20px;
 }
@@ -216,9 +216,9 @@ body {
     padding-bottom: 12px;
     padding-left: 21px;
     padding-right: 21px;
-    background-image: url('/img/mail.png');
+    background-image: url('../img/mail.png');
     background-repeat: no-repeat;
-    background-position: 93%;
+    background-position: 95%;
     font-weight: 400;
     font-size: 20px;
 }
@@ -257,7 +257,7 @@ body {
     background-position: 95%;
     font-weight: 400;
     font-size: 20px;
-    background-image: url('/img/lock.png');
+    background-image: url('../img/lock.png');
 }
 
 .toggle-password {
@@ -283,9 +283,9 @@ body {
     padding-bottom: 12px;
     padding-left: 21px;
     padding-right: 21px;
-    background-image: url('/img/call.png');
+    background-image: url('../img/call.png');
     background-repeat: no-repeat;
-    background-position: 93%;
+    background-position: 95%;
     font-weight: 400;
     font-size: 20px;
 }
